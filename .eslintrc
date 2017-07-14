@@ -14,5 +14,13 @@
     "plugin:react/recommended"
   ],
   "rules": {
+    "eol-last": [
+      "error",
+      "never"
+    ],
+    "semi": [
+      "error",
+      "never"
+    ]
   }
 }
