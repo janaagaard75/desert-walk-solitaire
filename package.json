@@ -23,7 +23,6 @@
     "eslint": "4.2.0",
     "eslint-plugin-flowtype": "2.35.0",
     "eslint-plugin-react": "7.1.0",
-    "flow-bin": "^0.47.0",
     "jest-expo-ts": "18.0.1",
     "react-native-typescript-transformer": "1.1.2",
     "typescript": "2.4.1"
