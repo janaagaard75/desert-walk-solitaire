@@ -7,10 +7,12 @@
     }
   },
   "plugins": [
+    "flowtype",
     "react"
   ],
   "extends": [
     "eslint:recommended",
+    "plugin:flowtype/recommended",
     "plugin:react/recommended"
   ],
   "rules": {
