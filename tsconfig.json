@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    //"allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    //"inlineSourceMap": true,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitHelpers": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "build/dist",
+    "sourceMap": true,
+    //"sourceRoot": "src",
+    "strict": true,
+    "target": "es5"
+    //"watch": true
+  },
+  "exclude": [
+    "acceptance-tests",
+    "build",
+    "jest",
+    "node_modules"
+  ],
+  "types": [
+    "typePatches"
+  ]
+}
