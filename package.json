@@ -15,6 +15,6 @@
     "eslint": "4.2.0",
     "eslint-plugin-flowtype": "2.35.0",
     "eslint-plugin-react": "7.1.0",
-    "flow-bin": "^0.50.0"
+    "flow-bin": "^0.47.0"
   }
 }
