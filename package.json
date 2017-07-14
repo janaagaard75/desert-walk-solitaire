@@ -1,8 +1,8 @@
 {
-  "name": "TestExpo",
+  "name": "test-expo",
   "version": "0.0.0",
   "description": "Hello Expo!",
-  "author": null,
+  "author": "Jan Aagaard <jan@aagaard.net>",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
