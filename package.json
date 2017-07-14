@@ -25,6 +25,9 @@
     "eslint-plugin-react": "7.1.0",
     "jest-expo-ts": "18.0.1",
     "react-native-typescript-transformer": "1.1.2",
+    "tslint": "5.5.0",
+    "tslint-eslint-rules": "4.1.1",
+    "tslint-react": "3.0.0",
     "typescript": "2.4.1"
   }
 }
