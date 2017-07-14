@@ -1,9 +1,12 @@
 // @flow
 
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Component } from 'react'
+import { StyleSheet } from 'react-native'
+import { Text } from 'react-native'
+import { View } from 'react-native'
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
