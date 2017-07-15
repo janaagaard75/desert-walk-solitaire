@@ -27,7 +27,7 @@ export default class App extends Component<{}, void> {
           size={40}
         />
         <Draggable
-          position={
+          startPosition={
             {
               left: 50,
               top: 80
