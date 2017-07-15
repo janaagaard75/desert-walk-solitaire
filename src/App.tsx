@@ -24,9 +24,7 @@ export default class App extends Component<{}, void> {
         <Text>2 + 2 = {this.sum(2, 2)}</Text>
         <Circle
           color={'#ffb'}
-          left={10}
           size={40}
-          top={20}
         />
         <Draggable
           position={
@@ -36,7 +34,10 @@ export default class App extends Component<{}, void> {
             }
           }
         >
-          <Text>Draggable</Text>
+          <Circle
+            color={'#f88'}
+            size={30}
+          />
         </Draggable>
       </View>
     )

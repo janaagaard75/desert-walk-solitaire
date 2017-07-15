@@ -5,9 +5,7 @@ import { ViewStyle } from 'react-native'
 
 interface Props {
   color: string
-  left: number
   size: number
-  top: number
 }
 
 export class Circle extends Component<Props, {}> {
@@ -16,7 +14,6 @@ export class Circle extends Component<Props, {}> {
       backgroundColor: this.props.color,
       borderRadius: this.props.size / 2,
       height: this.props.size,
-      left: this.props.left,
       opacity: 1,
       position: 'absolute',
       shadowColor: 'blue',
@@ -26,7 +23,6 @@ export class Circle extends Component<Props, {}> {
       },
       shadowOpacity: 0.3,
       shadowRadius: 3,
-      top: this.props.top,
       width: this.props.size
     }
 
