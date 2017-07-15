@@ -5,6 +5,7 @@ import { Text } from 'react-native'
 import { View } from 'react-native'
 
 import { Circle } from './Circle'
+import { Draggable } from './Draggable'
 
 export default class App extends Component<{}, void> {
   private styles = StyleSheet.create({
@@ -27,6 +28,16 @@ export default class App extends Component<{}, void> {
           size={40}
           top={20}
         />
+        <Draggable
+          position={
+            {
+              left: 50,
+              top: 80
+            }
+          }
+        >
+          <Text>Draggable</Text>
+        </Draggable>
       </View>
     )
   }
