@@ -14,7 +14,7 @@ interface Props {
 }
 
 interface State {
-  _value: any
+  offset: any
   opacity: number
   pan: Animated.ValueXY
   position: Animated.ValueXY
@@ -25,7 +25,7 @@ export class Draggable extends Component<Props, State> {
     super(props, context)
 
     this.state = {
-      _value: { x: 0, y: 0 },
+      offset: { x: 0, y: 0 },
       opacity: Draggable.normalOpacity,
       pan: new Animated.ValueXY(),
       position: new Animated.ValueXY()
@@ -33,11 +33,7 @@ export class Draggable extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderGrant: (e, gestureState) => {
-        this.state.pan.setOffset(this.state._value)
-        this.state.pan.setValue({
-          x: 0,
-          y: 0
-        })
+        this.state.pan.setOffset(this.state.offset)
       },
       onPanResponderMove: Animated.event([
         // tslint:disable-next-line:no-null-keyword
@@ -53,9 +49,9 @@ export class Draggable extends Component<Props, State> {
       onStartShouldSetPanResponder: (e, g) => true
     })
 
-    this.state.pan.addListener(value => {
+    this.state.pan.addListener(offset => {
       this.setState({
-        _value: value
+        offset: offset
       })
     })
   }
