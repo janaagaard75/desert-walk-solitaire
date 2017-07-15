@@ -4,8 +4,10 @@ import { StyleSheet } from 'react-native'
 import { Text } from 'react-native'
 import { View } from 'react-native'
 
+import { Card } from './Card'
 import { Circle } from './Circle'
 import { Draggable } from './Draggable'
+import { Suit } from './Suit'
 
 export default class App extends Component<{}, void> {
   private styles = StyleSheet.create({
@@ -34,9 +36,9 @@ export default class App extends Component<{}, void> {
             }
           }
         >
-          <Circle
-            color={'#f88'}
-            size={30}
+          <Card
+            suit={Suit.Spades}
+            value={10}
           />
         </Draggable>
       </View>

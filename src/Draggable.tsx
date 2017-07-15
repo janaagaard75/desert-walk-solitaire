@@ -15,7 +15,6 @@ interface Props {
 
 interface State {
   offset: any
-  opacity: number
   pan: Animated.ValueXY
   position: Animated.ValueXY
 }
@@ -25,8 +24,10 @@ export class Draggable extends Component<Props, State> {
     super(props, context)
 
     this.state = {
-      offset: { x: 0, y: 0 },
-      opacity: Draggable.normalOpacity,
+      offset: {
+        x: 0,
+        y: 0
+      },
       pan: new Animated.ValueXY(),
       position: new Animated.ValueXY()
     }
@@ -55,9 +56,6 @@ export class Draggable extends Component<Props, State> {
       })
     })
   }
-
-  private static readonly normalOpacity = 1
-  // private static readonly draggingOpacity = 0.6
 
   private panResponder: PanResponderInstance
 
