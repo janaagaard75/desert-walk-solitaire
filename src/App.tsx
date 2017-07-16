@@ -1,33 +1,44 @@
 import * as React from 'react'
 import { Component } from 'react'
-import { StyleSheet } from 'react-native'
 import { Text } from 'react-native'
 import { View } from 'react-native'
+import { ViewStyle } from 'react-native'
 
 import { Card } from './Card'
 import { Draggable } from './Draggable'
 import { Suit } from './Suit'
 
 export default class App extends Component<{}, void> {
-  private styles = StyleSheet.create({
-    container: {
-      alignItems: 'center',
-      backgroundColor: '#3b3',
-      flex: 1,
-      justifyContent: 'center'
-    }
-  })
+  constructor(props: {}, context?: any) {
+    super(props, context)
+  }
+
+  private gridStyles: ViewStyle = {
+    flex: 1,
+    flexDirection: 'row'
+  }
+
+  private mainViewStyles: ViewStyle = {
+    backgroundColor: '#3b3',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  }
 
   public render() {
     return (
-      <View style={this.styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Draggable>
-          <Card
-            suit={Suit.Spades}
-            value={10}
-          />
-        </Draggable>
+      <View style={this.mainViewStyles}>
+        <Text>Desert Walk</Text>
+        <View style={this.gridStyles}>
+          {Array.from(Array(13).keys()).map((_, index) =>
+            <Draggable>
+              <Card
+                suit={Suit.Spades}
+                value={index + 1}
+              />
+            </Draggable>
+          )}
+        </View>
       </View>
     )
   }
