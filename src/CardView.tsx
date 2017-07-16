@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Component } from 'react'
 import { Text } from 'react-native'
+import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
@@ -13,7 +14,7 @@ interface Props {
 
 export class CardView extends Component<Props, {}> {
   public render() {
-    const style: ViewStyle = {
+    const cardStyle: ViewStyle = {
       backgroundColor: '#fee',
       borderColor: 'black',
       borderRadius: 5,
@@ -31,11 +32,15 @@ export class CardView extends Component<Props, {}> {
       width: 40
     }
 
+    const textStyle: TextStyle = {
+      color: Suit.isBlack(this.props.suit) ? 'black' : 'red'
+    }
+
     return (
-      <View
-        style={style}
-      >
-        <Text>{this.getSuitUnicode(this.props.suit)} {this.props.value}</Text>
+      <View style={cardStyle}>
+        <Text style={textStyle}>
+          {this.getSuitUnicode(this.props.suit)} {this.props.value}
+        </Text>
       </View>
     )
   }
