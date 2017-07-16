@@ -35,19 +35,20 @@ export default class App extends Component<{}, void> {
 
   private rowStyle: ViewStyle = {
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    justifyContent: 'space-around'
   }
 
   private columnStyle: ViewStyle = {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   }
 
   private mainViewStyle: ViewStyle = {
     backgroundColor: '#3b3',
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-around'
+    flexDirection: 'column'
   }
 
   public render() {
