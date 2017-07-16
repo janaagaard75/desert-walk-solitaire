@@ -11,7 +11,7 @@ interface Props {
   suit: Suit
 }
 
-export class Card extends Component<Props, {}> {
+export class CardView extends Component<Props, {}> {
   public render() {
     const style: ViewStyle = {
       backgroundColor: '#fee',

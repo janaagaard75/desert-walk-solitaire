@@ -4,7 +4,7 @@ import { Text } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { Card } from './Card'
+import { CardView } from './Card'
 import { Draggable } from './Draggable'
 import { Suit } from './Suit'
 
@@ -32,7 +32,7 @@ export default class App extends Component<{}, void> {
         <View style={this.gridStyles}>
           {Array.from(Array(13).keys()).map((_, index) =>
             <Draggable>
-              <Card
+              <CardView
                 suit={Suit.Spades}
                 value={index + 1}
               />
