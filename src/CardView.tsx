@@ -43,16 +43,16 @@ export class CardView extends Component<Props, {}> {
   private getSuitUnicode(suit: Suit): string {
     switch (suit) {
       case Suit.Clubs:
-        return '\u2663'
+        return '\u2667'
 
       case Suit.Diamonds:
-        return '\u2666'
+        return '\u2662'
 
       case Suit.Hearts:
-        return '\u2665'
+        return '\u2661'
 
       case Suit.Spades:
-        return '\u2660'
+        return '\u2664'
     }
   }
 }
