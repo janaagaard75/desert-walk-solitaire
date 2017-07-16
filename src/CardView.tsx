@@ -8,6 +8,7 @@ import { ViewStyle } from 'react-native'
 import { Suit } from './Suit'
 
 interface Props {
+  dragging: boolean
   value: number
   suit: Suit
 }
@@ -21,16 +22,20 @@ export class CardView extends Component<Props, {}> {
       borderRadius: 5,
       borderWidth: 1,
       height: 60,
-      opacity: 1,
       padding: 2,
-      shadowColor: 'black',
-      shadowOffset: {
-        height: 2,
-        width: 1
-      },
-      shadowOpacity: 0.3,
-      shadowRadius: 3,
       width: 40
+    }
+
+    if (this.props.dragging) {
+      Object.assign(cardStyle, {
+        shadowColor: 'black',
+        shadowOffset: {
+          height: 2,
+          width: 1
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 3
+      })
     }
 
     const textStyle: TextStyle = {

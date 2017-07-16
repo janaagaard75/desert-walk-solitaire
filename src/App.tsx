@@ -5,8 +5,7 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { Card } from './Card'
-import { CardView } from './CardView'
-import { Draggable } from './Draggable'
+import { DraggableCard } from './DraggableCard'
 import { Suit } from './Suit'
 
 export default class App extends Component<{}, void> {
@@ -59,12 +58,11 @@ export default class App extends Component<{}, void> {
           {this.grid.map((rows, index) =>
             <View style={this.columnStyle} key={index}>
               {rows.map(cell =>
-                <Draggable key={cell.key}>
-                  <CardView
-                    suit={cell.suit}
-                    value={cell.value}
-                  />
-                </Draggable>
+                <DraggableCard
+                  key={cell.key}
+                  suit={cell.suit}
+                  value={cell.value}
+                />
               )}
             </View>
           )}
