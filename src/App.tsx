@@ -32,13 +32,7 @@ export default class App extends Component<{}, void> {
   private deck: Array<Card> = []
   private grid: Array<Array<Card>> = []
 
-  private rowStyle: ViewStyle = {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-around'
-  }
-
-  private columnStyle: ViewStyle = {
+  private cellStyle: ViewStyle = {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around'
@@ -50,13 +44,19 @@ export default class App extends Component<{}, void> {
     flexDirection: 'column'
   }
 
+  private rowStyle: ViewStyle = {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  }
+
   public render() {
     return (
       <View style={this.mainViewStyle}>
         <Text>Desert Walk</Text>
         <View style={this.rowStyle}>
           {this.grid.map((rows, index) =>
-            <View style={this.columnStyle} key={index}>
+            <View style={this.cellStyle} key={index}>
               {rows.map(cell =>
                 <DraggableCard2
                   key={cell.key}
