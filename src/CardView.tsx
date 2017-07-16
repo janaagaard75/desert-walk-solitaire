@@ -15,6 +15,7 @@ interface Props {
 export class CardView extends Component<Props, {}> {
   public render() {
     const cardStyle: ViewStyle = {
+      alignItems: 'center',
       backgroundColor: '#fee',
       borderColor: 'black',
       borderRadius: 5,
