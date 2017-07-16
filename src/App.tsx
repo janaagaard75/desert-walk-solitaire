@@ -5,7 +5,6 @@ import { Text } from 'react-native'
 import { View } from 'react-native'
 
 import { Card } from './Card'
-import { Circle } from './Circle'
 import { Draggable } from './Draggable'
 import { Suit } from './Suit'
 
@@ -23,11 +22,6 @@ export default class App extends Component<{}, void> {
     return (
       <View style={this.styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
-        <Text>2 + 2 = {this.sum(2, 2)}</Text>
-        <Circle
-          color={'#ffb'}
-          size={40}
-        />
         <Draggable
           startPosition={
             {
@@ -43,9 +37,5 @@ export default class App extends Component<{}, void> {
         </Draggable>
       </View>
     )
-  }
-
-  private sum(a: number, b: number) {
-    return a + b
   }
 }
