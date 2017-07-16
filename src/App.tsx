@@ -4,7 +4,7 @@ import { Text } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { CardView } from './Card'
+import { CardView } from './CardView'
 import { Draggable } from './Draggable'
 import { Suit } from './Suit'
 
