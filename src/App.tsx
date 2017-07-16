@@ -4,6 +4,7 @@ import { Text } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
+import { Card } from './Card'
 import { CardView } from './CardView'
 import { Draggable } from './Draggable'
 import { Suit } from './Suit'
@@ -11,7 +12,18 @@ import { Suit } from './Suit'
 export default class App extends Component<{}, void> {
   constructor(props: {}, context?: any) {
     super(props, context)
+
+    for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
+      if (Suit.hasOwnProperty(suit)) {
+        for (let i = 1; i <= 13; i++) {
+          const card = new Card(suit, i)
+          this.deck.push(card)
+        }
+      }
+    }
   }
+
+  private deck: Array<Card> = []
 
   private gridStyles: ViewStyle = {
     flex: 1,
@@ -30,11 +42,11 @@ export default class App extends Component<{}, void> {
       <View style={this.mainViewStyles}>
         <Text>Desert Walk</Text>
         <View style={this.gridStyles}>
-          {Array.from(Array(13).keys()).map((_, index) =>
-            <Draggable>
+          {this.deck.map(card =>
+            <Draggable key={card.key}>
               <CardView
-                suit={Suit.Spades}
-                value={index + 1}
+                suit={card.suit}
+                value={card.value}
               />
             </Draggable>
           )}
