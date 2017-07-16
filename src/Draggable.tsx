@@ -4,14 +4,8 @@ import { Component } from 'react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
-interface Position {
-  left: number
-  top: number
-}
-
-interface Props {
-  startPosition: Position
-}
+// tslint:disable-next-line:no-empty-interface
+interface Props { }
 
 interface State {
   offset: any

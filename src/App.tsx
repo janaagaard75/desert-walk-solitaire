@@ -22,14 +22,7 @@ export default class App extends Component<{}, void> {
     return (
       <View style={this.styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
-        <Draggable
-          startPosition={
-            {
-              left: 50,
-              top: 80
-            }
-          }
-        >
+        <Draggable>
           <Card
             suit={Suit.Spades}
             value={10}
