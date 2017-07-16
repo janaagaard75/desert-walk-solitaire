@@ -21,16 +21,29 @@ export default class App extends Component<{}, void> {
         }
       }
     }
+
+    for (let i = 0; i < 4; i++) {
+      this.grid[i] = []
+      for (let j = 0; j < 13; j++) {
+        this.grid[i][j] = this.deck[13 * i + j]
+      }
+    }
   }
 
   private deck: Array<Card> = []
+  private grid: Array<Array<Card>> = []
 
-  private gridStyles: ViewStyle = {
+  private rowStyle: ViewStyle = {
+    flex: 1,
+    flexDirection: 'column'
+  }
+
+  private columnStyle: ViewStyle = {
     flex: 1,
     flexDirection: 'row'
   }
 
-  private mainViewStyles: ViewStyle = {
+  private mainViewStyle: ViewStyle = {
     backgroundColor: '#3b3',
     flex: 1,
     flexDirection: 'column',
@@ -39,16 +52,20 @@ export default class App extends Component<{}, void> {
 
   public render() {
     return (
-      <View style={this.mainViewStyles}>
+      <View style={this.mainViewStyle}>
         <Text>Desert Walk</Text>
-        <View style={this.gridStyles}>
-          {this.deck.map(card =>
-            <Draggable key={card.key}>
-              <CardView
-                suit={card.suit}
-                value={card.value}
-              />
-            </Draggable>
+        <View style={this.rowStyle}>
+          {this.grid.map((rows, index) =>
+            <View style={this.columnStyle} key={index}>
+              {rows.map(cell =>
+                <Draggable key={cell.key}>
+                  <CardView
+                    suit={cell.suit}
+                    value={cell.value}
+                  />
+                </Draggable>
+              )}
+            </View>
           )}
         </View>
       </View>
