@@ -21,50 +21,47 @@ export default class App extends Component<{}, void> {
       }
     }
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < this.rows; i++) {
       this.grid[i] = []
-      for (let j = 0; j < 13; j++) {
-        this.grid[i][j] = this.deck[13 * i + j]
+      for (let j = 0; j < this.columns; j++) {
+        this.grid[i][j] = this.deck[this.columns * i + j]
       }
     }
   }
 
+  private columns = 13
   private deck: Array<Card> = []
   private grid: Array<Array<Card>> = []
-
-  private cellStyle: ViewStyle = {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around'
-  }
-
-  private mainViewStyle: ViewStyle = {
-    backgroundColor: '#3b3',
-    flex: 1,
-    flexDirection: 'column'
-  }
-
-  private rowStyle: ViewStyle = {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-around'
-  }
+  private rows = 4
 
   public render() {
+    const mainViewStyle: ViewStyle = {
+      backgroundColor: '#3b3',
+      flex: 1,
+      flexDirection: 'column'
+    }
+
+    const gridStyle: ViewStyle = {
+      flex: 1,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      // height: this.rows * 60 + ((40 - 1) / (this.columns - 1) * (this.rows - 1)),
+      justifyContent: 'space-between',
+      width: this.columns * 40 + (40 - 1)
+    }
+
     return (
-      <View style={this.mainViewStyle}>
+      <View style={mainViewStyle}>
         <Text>Desert Walk</Text>
-        <View style={this.rowStyle}>
-          {this.grid.map((rows, index) =>
-            <View style={this.cellStyle} key={index}>
-              {rows.map(cell =>
-                <DraggableCard2
-                  key={cell.key}
-                  suit={cell.suit}
-                  value={cell.value}
-                />
-              )}
-            </View>
+        <View style={gridStyle}>
+          {this.grid.map(row =>
+            row.map(cell =>
+              <DraggableCard2
+                key={cell.key}
+                suit={cell.suit}
+                value={cell.value}
+              />
+            )
           )}
         </View>
       </View>
