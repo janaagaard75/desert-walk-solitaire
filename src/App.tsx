@@ -8,7 +8,7 @@ import { Card } from './Card'
 import { DraggableCard2 } from './DraggableCard2'
 import { Suit } from './Suit'
 
-export default class App extends Component<{}, void> {
+export default class App extends Component<{}, {}> {
   constructor(props: {}, context?: any) {
     super(props, context)
 
