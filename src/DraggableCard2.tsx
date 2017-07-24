@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { Component } from 'react'
-import { GestureResponderEvent } from 'react-native'
 import { PanResponder } from 'react-native'
-import { PanResponderGestureState } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
@@ -40,7 +38,11 @@ export class DraggableCard2 extends Component<Props, State> {
         })
       },
       onPanResponderGrant: (e, gestureState) => {
-        this.handleGrant(e, gestureState)
+        this.startPositionX = this.state.positionX
+        this.startPositionY = this.state.positionY
+        this.setState({
+          dragging: true
+        })
       },
       onPanResponderMove: (e, gestureState) => {
         this.setState({
@@ -52,20 +54,6 @@ export class DraggableCard2 extends Component<Props, State> {
     })
   }
 
-  private handleGrant(e: GestureResponderEvent, gestureState: PanResponderGestureState) {
-    this.startPositionX = this.state.positionX
-    this.startPositionY = this.state.positionY
-    this.setState({
-      dragging: true
-    })
-    // tslint:disable-next-line:no-null-keyword
-    if (this.wrapperView !== null) {
-      // tslint:disable-next-line:no-empty
-      (this.wrapperView as any).measure((x: number, y: number, width: number, height: number, pageX: number, pageY: number) => {
-      })
-    }
-  }
-
   private panResponder: PanResponderInstance
   private startPositionX: number
   private startPositionY: number
@@ -74,6 +62,7 @@ export class DraggableCard2 extends Component<Props, State> {
   public render() {
     const style: ViewStyle = {
       left: this.state.positionX,
+      position: this.state.dragging ? 'absolute' : 'relative',
       top: this.state.positionY
     }
 
