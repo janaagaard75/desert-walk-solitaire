@@ -5,7 +5,7 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { Card } from './Card'
-import { DraggableCard } from './DraggableCard2'
+import { DraggableCard } from './DraggableCard'
 import { Suit } from './Suit'
 
 export default class App extends Component<{}, {}> {
