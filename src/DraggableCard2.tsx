@@ -11,6 +11,8 @@ import { CardView } from './CardView'
 import { Suit } from './Suit'
 
 interface Props {
+  startPositionX: number
+  startPositionY: number
   suit: Suit
   value: number
 }
@@ -27,8 +29,8 @@ export class DraggableCard2 extends Component<Props, State> {
 
     this.state = {
       dragging: false,
-      positionX: 0,
-      positionY: 0
+      positionX: this.props.startPositionX,
+      positionY: this.props.startPositionY
     }
 
     this.panResponder = PanResponder.create({
@@ -62,8 +64,9 @@ export class DraggableCard2 extends Component<Props, State> {
   public render() {
     const style: ViewStyle = {
       left: this.state.positionX,
-      position: this.state.dragging ? 'absolute' : 'relative',
-      top: this.state.positionY
+      position: 'absolute',
+      top: this.state.positionY,
+      zIndex: this.state.dragging ? 2 : 1
     }
 
     return (

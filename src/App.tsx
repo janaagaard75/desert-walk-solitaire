@@ -41,29 +41,20 @@ export default class App extends Component<{}, {}> {
       flexDirection: 'column'
     }
 
-    const gridStyle: ViewStyle = {
-      flex: 1,
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      // height: this.rows * 60 + ((40 - 1) / (this.columns - 1) * (this.rows - 1)),
-      justifyContent: 'space-between',
-      width: this.columns * 40 + (40 - 1)
-    }
-
     return (
       <View style={mainViewStyle}>
         <Text>Desert Walk</Text>
-        <View style={gridStyle}>
-          {this.grid.map(row =>
-            row.map(cell =>
-              <DraggableCard2
-                key={cell.key}
-                suit={cell.suit}
-                value={cell.value}
-              />
-            )
-          )}
-        </View>
+        {this.grid.map((row, rowIndex) =>
+          row.map((cell, columnIndex) =>
+            <DraggableCard2
+              key={cell.key}
+              startPositionX={10 + columnIndex * (40 + 5)}
+              startPositionY={30 + rowIndex * (60 + 5)}
+              suit={cell.suit}
+              value={cell.value}
+            />
+          )
+        )}
       </View>
     )
   }
