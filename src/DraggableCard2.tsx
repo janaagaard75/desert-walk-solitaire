@@ -23,7 +23,7 @@ interface State {
   positionY: number
 }
 
-export class DraggableCard2 extends Component<Props, State> {
+export class DraggableCard extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props, context)
 
