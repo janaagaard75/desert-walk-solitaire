@@ -41,20 +41,26 @@ export default class App extends Component<{}, {}> {
       flexDirection: 'column'
     }
 
+    const gridViewStyle: ViewStyle = {
+      position: 'relative'
+    }
+
     return (
       <View style={mainViewStyle}>
         <Text>Desert Walk</Text>
-        {this.grid.map((row, rowIndex) =>
-          row.map((cell, columnIndex) =>
-            <DraggableCard2
-              key={cell.key}
-              startPositionX={10 + columnIndex * (40 + 5)}
-              startPositionY={30 + rowIndex * (60 + 5)}
-              suit={cell.suit}
-              value={cell.value}
-            />
-          )
-        )}
+        <View style={gridViewStyle}>
+          {this.grid.map((row, rowIndex) =>
+            row.map((cell, columnIndex) =>
+              <DraggableCard2
+                key={cell.key}
+                startPositionX={10 + columnIndex * (40 + 5)}
+                startPositionY={10 + rowIndex * (60 + 5)}
+                suit={cell.suit}
+                value={cell.value}
+              />
+            )
+          )}
+        </View>
       </View>
     )
   }
