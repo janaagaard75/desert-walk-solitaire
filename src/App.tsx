@@ -52,11 +52,13 @@ export default class App extends Component<{}, {}> {
           {this.grid.map((row, rowIndex) =>
             row.map((cell, columnIndex) =>
               <DraggableCard
+                height={60}
                 key={cell.key}
                 startPositionX={10 + columnIndex * (40 + 5)}
                 startPositionY={10 + rowIndex * (60 + 5)}
                 suit={cell.suit}
                 value={cell.value}
+                width={40}
               />
             )
           )}

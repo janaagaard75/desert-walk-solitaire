@@ -9,8 +9,10 @@ import { Suit } from './Suit'
 
 interface Props {
   dragging: boolean
+  height: number
   value: number
   suit: Suit
+  width: number
 }
 
 export class CardView extends Component<Props, {}> {
@@ -21,9 +23,9 @@ export class CardView extends Component<Props, {}> {
       borderColor: 'black',
       borderRadius: 5,
       borderWidth: 1,
-      height: 60,
+      height: this.props.height,
       padding: 2,
-      width: 40
+      width: this.props.width
     }
 
     if (this.props.dragging) {
