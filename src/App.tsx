@@ -77,8 +77,10 @@ export default class App extends Component<{}, {}> {
                 <DraggableCard
                   height={this.cardHeight}
                   key={cell.key}
-                  startPositionX={10 + columnIndex * (this.cardWidth + 5)}
-                  startPositionY={10 + rowIndex * (this.cardHeight + 5)}
+                  startPosition={{
+                    left: 10 + columnIndex * (this.cardWidth + 5),
+                    top: 10 + rowIndex * (this.cardHeight + 5)
+                  }}
                   suit={cell.suit}
                   value={cell.value}
                   width={this.cardWidth}

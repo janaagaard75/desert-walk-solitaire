@@ -6,21 +6,20 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { CardView } from './CardView'
+import { Position } from './Position'
 import { Suit } from './Suit'
 
 interface Props {
   height: number
-  startPositionX: number
-  startPositionY: number
+  startPosition: Position
   suit: Suit
   value: number
   width: number
 }
 
 interface State {
+  currentPosition: Position
   dragging: boolean
-  positionX: number
-  positionY: number
 }
 
 export class DraggableCard extends Component<Props, State> {
@@ -28,9 +27,8 @@ export class DraggableCard extends Component<Props, State> {
     super(props, context)
 
     this.state = {
-      dragging: false,
-      positionX: this.props.startPositionX,
-      positionY: this.props.startPositionY
+      currentPosition: this.props.startPosition,
+      dragging: false
     }
 
     this.panResponder = PanResponder.create({
@@ -40,31 +38,34 @@ export class DraggableCard extends Component<Props, State> {
         })
       },
       onPanResponderGrant: (e, gestureState) => {
-        this.startPositionX = this.state.positionX
-        this.startPositionY = this.state.positionY
+        this.dragStartPosition = {
+          left: this.state.currentPosition.left,
+          top: this.state.currentPosition.top
+        }
         this.setState({
           dragging: true
         })
       },
       onPanResponderMove: (e, gestureState) => {
         this.setState({
-          positionX: this.startPositionX + gestureState.dx,
-          positionY: this.startPositionY + gestureState.dy
+          currentPosition: {
+            left: this.dragStartPosition.left + gestureState.dx,
+            top: this.dragStartPosition.top + gestureState.dy
+          }
         })
       },
       onStartShouldSetPanResponder: (e, gestureState) => true
     })
   }
 
+  private dragStartPosition: Position
   private panResponder: PanResponderInstance
-  private startPositionX: number
-  private startPositionY: number
 
   public render() {
     const style: ViewStyle = {
-      left: this.state.positionX,
+      left: this.state.currentPosition.left,
       position: 'absolute',
-      top: this.state.positionY,
+      top: this.state.currentPosition.top,
       zIndex: this.state.dragging ? 2 : 1
     }
 
