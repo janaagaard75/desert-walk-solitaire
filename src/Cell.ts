@@ -24,7 +24,7 @@ export class Cell {
       return CellStatus.EmptyAndDropPossible
     }
     else {
-      return CellStatus.OccupiedByCardInWrongPlace
+      return CellStatus.OccupiedByDraggableCardInWrongPlace
     }
   }
 }

@@ -105,7 +105,7 @@ export default class App extends Component<{}, {}> {
           />
         )
 
-      case CellStatus.OccupiedByCardInWrongPlace:
+      case CellStatus.OccupiedByDraggableCardInWrongPlace:
         return (
           <DraggableCard
             card={cell.card as CardModel}

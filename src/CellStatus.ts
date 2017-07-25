@@ -5,5 +5,5 @@ export enum CellStatus {
   EmptyButBlockedByKing,
   EmptyButEmptyCardToTheLeft,
   OccupiedByCardInCorrectPlace,
-  OccupiedByCardInWrongPlace
+  OccupiedByDraggableCardInWrongPlace
 }
