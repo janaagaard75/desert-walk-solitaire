@@ -7,6 +7,7 @@ import { ViewStyle } from 'react-native'
 
 import { CardModel } from './CardModel'
 import { DraggableCard } from './DraggableCard'
+import { EmptyCell } from './EmptyCell'
 import { Suit } from './Suit'
 
 export default class App extends Component<{}, {}> {
@@ -25,10 +26,9 @@ export default class App extends Component<{}, {}> {
     for (let i = 0; i < this.rows; i++) {
       this.grid[i] = []
       for (let j = 0; j < this.columns; j++) {
-        if (j === 0) {
-          continue
-        }
-        this.grid[i][j] = this.deck[(this.columns - 1) * i + (j - 1)]
+        this.grid[i][j] = (j === 0)
+          ? undefined
+          : this.grid[i][j] = this.deck[(this.columns - 1) * i + (j - 1)]
       }
     }
   }
@@ -64,7 +64,13 @@ export default class App extends Component<{}, {}> {
           {this.grid.map((row, rowIndex) =>
             row.map((cell, columnIndex) =>
               cell === undefined ? (
-                <View/>
+                <EmptyCell
+                  height={this.cardHeight}
+                  key={columnIndex}
+                  positionX={10 + columnIndex * (this.cardWidth + 5)}
+                  positionY={10 + rowIndex * (this.cardHeight + 5)}
+                  width={this.cardWidth}
+                />
               ) : (
                 <DraggableCard
                   height={this.cardHeight}
