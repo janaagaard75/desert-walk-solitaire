@@ -5,9 +5,4 @@ export class CardModel {
     public suit: Suit,
     public value: number
   ) { }
-
-  public get key(): string {
-    const key = Suit[this.suit] + this.value
-    return key
-  }
 }

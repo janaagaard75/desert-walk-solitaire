@@ -7,6 +7,8 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { CardModel } from './CardModel'
+import { Cell } from './Cell'
+import { CellStatus } from './CellStatus'
 import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
 import { Size } from './Size'
@@ -25,12 +27,16 @@ export default class App extends Component<{}, {}> {
       }
     }
 
-    for (let i = 0; i < this.rows; i++) {
-      this.grid[i] = []
-      for (let j = 0; j < this.columns; j++) {
-        this.grid[i][j] = (j === 0)
-          ? undefined
-          : this.grid[i][j] = this.deck[(this.columns - 1) * i + (j - 1)]
+    for (let r = 0; r < this.rows; r++) {
+      this.grid[r] = []
+      for (let c = 0; c < this.columns; c++) {
+        if (c === 0) {
+          this.grid[r][c] = new Cell(r, c, undefined)
+        }
+        else {
+          this.grid[r][c] = new Cell(r, c, this.grid[r][c - 1])
+          this.grid[r][c].card = this.deck[(this.columns - 1) * r + (c - 1)]
+        }
       }
     }
   }
@@ -41,7 +47,7 @@ export default class App extends Component<{}, {}> {
   }
   private columns = 14
   private deck: Array<CardModel> = []
-  private grid: Array<Array<CardModel | undefined>> = []
+  private grid: Array<Array<Cell>> = []
   private gridHeight: number
   private gridWidth: number
   private rows = 4
@@ -73,33 +79,45 @@ export default class App extends Component<{}, {}> {
           onLayout={layoutChangeEvent => this.handleLayout(layoutChangeEvent)}
           style={gridViewStyle}
         >
-          {this.grid.map((row, rowIndex) =>
-            row.map((cell, columnIndex) =>
-              cell === undefined ? (
-                <EmptyCell
-                  key={columnIndex}
-                  position={{
-                    left: 10 + columnIndex * (this.cardSize.width + 5),
-                    top: 10 + rowIndex * (this.cardSize.height + 5)
-                  }}
-                  size={this.cardSize}
-                />
-              ) : (
-                <DraggableCard
-                  card={cell}
-                  key={cell.key}
-                  startPosition={{
-                    left: 10 + columnIndex * (this.cardSize.width + 5),
-                    top: 10 + rowIndex * (this.cardSize.height + 5)
-                  }}
-                  size={this.cardSize}
-                />
-              )
+          {this.grid.map(row =>
+            row.map(cell =>
+              this.renderCell(cell)
             )
           )}
         </View>
       </View>
     )
+  }
+
+  private renderCell(cell: Cell) {
+    const position = {
+      left: 10 + cell.columnIndex * (this.cardSize.width + 5),
+      top: 10 + cell.rowIndex * (this.cardSize.height + 5)
+    }
+
+    switch (cell.status) {
+      case CellStatus.EmptyAndDropPossible:
+        return (
+          <EmptyCell
+            key={cell.key}
+            position={position}
+            size={this.cardSize}
+          />
+        )
+
+      case CellStatus.OccupiedByCardInWrongPlace:
+        return (
+          <DraggableCard
+            card={cell.card as CardModel}
+            key={cell.key}
+            startPosition={position}
+            size={this.cardSize}
+          />
+        )
+
+      default:
+        throw new Error(`cell.status '${cell.status}' is not supported.`)
+    }
   }
 
   private handleLayout(layoutChangeEvent: LayoutChangeEvent) {
