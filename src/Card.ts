@@ -1,6 +1,6 @@
 import { Suit } from './Suit'
 
-export class Card {
+export class CardModel {
   constructor(
     public suit: Suit,
     public value: number

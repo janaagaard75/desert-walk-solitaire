@@ -5,7 +5,7 @@ import { Text } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { Card } from './Card'
+import { CardModel } from './Card'
 import { DraggableCard } from './DraggableCard'
 import { Suit } from './Suit'
 
@@ -16,7 +16,7 @@ export default class App extends Component<{}, {}> {
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
       if (Suit.hasOwnProperty(suit)) {
         for (let i = 1; i <= 13; i++) {
-          const card = new Card(suit, i)
+          const card = new CardModel(suit, i)
           this.deck.push(card)
         }
       }
@@ -36,8 +36,8 @@ export default class App extends Component<{}, {}> {
   private cardHeight = 60
   private cardWidth = 40
   private columns = 14
-  private deck: Array<Card> = []
-  private grid: Array<Array<Card | undefined>> = []
+  private deck: Array<CardModel> = []
+  private grid: Array<Array<CardModel | undefined>> = []
   private gridHeight: number
   private gridWidth: number
   private rows = 4
