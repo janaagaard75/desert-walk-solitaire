@@ -95,28 +95,24 @@ export default class App extends Component<{}, {}> {
       top: 10 + cell.rowIndex * (this.cardSize.height + 5)
     }
 
-    switch (cell.status) {
-      case CellStatus.EmptyAndDropPossible:
-        return (
-          <EmptyCell
-            key={cell.key}
-            position={position}
-            size={this.cardSize}
-          />
-        )
-
-      case CellStatus.OccupiedByDraggableCardInWrongPlace:
-        return (
-          <DraggableCard
-            card={cell.card as CardModel}
-            key={cell.key}
-            startPosition={position}
-            size={this.cardSize}
-          />
-        )
-
-      default:
-        throw new Error(`cell.status '${cell.status}' is not supported.`)
+    if (cell.card === undefined) {
+      return (
+        <EmptyCell
+          key={cell.key}
+          position={position}
+          size={this.cardSize}
+        />
+      )
+    }
+    else {
+      return (
+        <DraggableCard
+          card={cell.card}
+          key={cell.key}
+          startPosition={position}
+          size={this.cardSize}
+        />
+      )
     }
   }
 
