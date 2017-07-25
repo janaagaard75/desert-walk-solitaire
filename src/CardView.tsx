@@ -47,7 +47,7 @@ export class CardView extends Component<Props, {}> {
     return (
       <View style={cardStyle}>
         <Text style={textStyle}>
-          {this.getSuitUnicode(this.props.card.suit)} {this.props.card.value}
+          {this.getSuitUnicode(this.props.card.suit)} {this.getCardValue(this.props.card.value)}
         </Text>
       </View>
     )
@@ -66,6 +66,25 @@ export class CardView extends Component<Props, {}> {
 
       case Suit.Spades:
         return '\u2664'
+    }
+  }
+
+  private getCardValue(value: number) {
+    switch (value) {
+      case 1:
+        return 'A'
+
+      case 11:
+        return 'J'
+
+      case 12:
+        return 'Q'
+
+      case 13:
+        return 'K'
+
+      default:
+        return value
     }
   }
 }
