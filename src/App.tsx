@@ -25,16 +25,19 @@ export default class App extends Component<{}, {}> {
     for (let i = 0; i < this.rows; i++) {
       this.grid[i] = []
       for (let j = 0; j < this.columns; j++) {
-        this.grid[i][j] = this.deck[this.columns * i + j]
+        if (j === 0) {
+          continue
+        }
+        this.grid[i][j] = this.deck[(this.columns - 1) * i + (j - 1)]
       }
     }
   }
 
   private cardHeight = 60
   private cardWidth = 40
-  private columns = 13
+  private columns = 14
   private deck: Array<Card> = []
-  private grid: Array<Array<Card>> = []
+  private grid: Array<Array<Card | undefined>> = []
   private gridHeight: number
   private gridWidth: number
   private rows = 4
@@ -60,15 +63,19 @@ export default class App extends Component<{}, {}> {
         >
           {this.grid.map((row, rowIndex) =>
             row.map((cell, columnIndex) =>
-              <DraggableCard
-                height={this.cardHeight}
-                key={cell.key}
-                startPositionX={10 + columnIndex * (this.cardWidth + 5)}
-                startPositionY={10 + rowIndex * (this.cardHeight + 5)}
-                suit={cell.suit}
-                value={cell.value}
-                width={this.cardWidth}
-              />
+              cell === undefined ? (
+                <View/>
+              ) : (
+                <DraggableCard
+                  height={this.cardHeight}
+                  key={cell.key}
+                  startPositionX={10 + columnIndex * (this.cardWidth + 5)}
+                  startPositionY={10 + rowIndex * (this.cardHeight + 5)}
+                  suit={cell.suit}
+                  value={cell.value}
+                  width={this.cardWidth}
+                />
+              )
             )
           )}
         </View>
