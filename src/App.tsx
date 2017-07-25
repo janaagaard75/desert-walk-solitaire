@@ -5,7 +5,7 @@ import { Text } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { CardModel } from './Card'
+import { CardModel } from './CardModel'
 import { DraggableCard } from './DraggableCard'
 import { Suit } from './Suit'
 
