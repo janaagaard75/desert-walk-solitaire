@@ -67,8 +67,10 @@ export default class App extends Component<{}, {}> {
                 <EmptyCell
                   height={this.cardHeight}
                   key={columnIndex}
-                  positionX={10 + columnIndex * (this.cardWidth + 5)}
-                  positionY={10 + rowIndex * (this.cardHeight + 5)}
+                  position={{
+                    left: 10 + columnIndex * (this.cardWidth + 5),
+                    top: 10 + rowIndex * (this.cardHeight + 5)
+                  }}
                   width={this.cardWidth}
                 />
               ) : (
