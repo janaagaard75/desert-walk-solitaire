@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Component } from 'react'
 import { LayoutChangeEvent } from 'react-native'
 import { Text } from 'react-native'
+import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
@@ -52,6 +53,10 @@ export default class App extends Component<{}, {}> {
       flexDirection: 'column'
     }
 
+    const headerStyle: TextStyle = {
+      paddingTop: 25
+    }
+
     const gridViewStyle: ViewStyle = {
       flex: 1,
       position: 'relative'
@@ -59,7 +64,11 @@ export default class App extends Component<{}, {}> {
 
     return (
       <View style={mainViewStyle}>
-        <Text>Desert Walk</Text>
+        <Text
+          style={headerStyle}
+        >
+          Desert Walk
+        </Text>
         <View
           onLayout={layoutChangeEvent => this.handleLayout(layoutChangeEvent)}
           style={gridViewStyle}
