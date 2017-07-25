@@ -4,8 +4,6 @@ import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
-import { ComponentState } from 'react'
-import { ViewProperties } from 'react-native'
 
 import { CardView } from './CardView'
 import { Suit } from './Suit'
@@ -61,7 +59,6 @@ export class DraggableCard extends Component<Props, State> {
   private panResponder: PanResponderInstance
   private startPositionX: number
   private startPositionY: number
-  private wrapperView: Component<ViewProperties, ComponentState> | null
 
   public render() {
     const style: ViewStyle = {
@@ -75,7 +72,6 @@ export class DraggableCard extends Component<Props, State> {
       <View
         style={style}
         {...this.panResponder.panHandlers}
-        ref={(view) => this.wrapperView = view}
       >
         <CardView
           dragging={this.state.dragging}
