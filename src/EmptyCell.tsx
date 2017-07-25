@@ -16,6 +16,7 @@ export class EmptyCell extends Component<Props, {}> {
     const emptyCellStyle: ViewStyle = {
       borderColor: 'black',
       borderRadius: 5,
+      borderStyle: 'dashed',
       borderWidth: 1,
       height: this.props.size.height,
       left: this.props.position.left,

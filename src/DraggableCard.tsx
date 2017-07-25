@@ -12,6 +12,7 @@ import { Size } from './Size'
 
 interface Props {
   card: CardModel
+  isDraggable: boolean
   startPosition: Position
   size: Size
 }
@@ -76,6 +77,7 @@ export class DraggableCard extends Component<Props, State> {
         <CardView
           card={this.props.card}
           dragging={this.state.dragging}
+          isDraggable={this.props.isDraggable}
           size={this.props.size}
         />
       </View>

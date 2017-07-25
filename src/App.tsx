@@ -8,7 +8,6 @@ import { ViewStyle } from 'react-native'
 
 import { CardModel } from './CardModel'
 import { Cell } from './Cell'
-import { CellStatus } from './CellStatus'
 import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
 import { Size } from './Size'
@@ -108,6 +107,7 @@ export default class App extends Component<{}, {}> {
       return (
         <DraggableCard
           card={cell.card}
+          isDraggable={cell.cardIsDraggable}
           key={cell.key}
           startPosition={position}
           size={this.cardSize}

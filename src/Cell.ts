@@ -8,11 +8,25 @@ export class Cell {
     public readonly cellToTheLeft: Cell | undefined
   ) {
     this.card = undefined
-    this.droppableCards = []
   }
 
   public card: CardModel | undefined
-  public readonly droppableCards: Array<CardModel>
+
+  public get cardIsDraggable(): boolean {
+    if (this.card === undefined) {
+      return false
+    }
+
+    if (this.columnIndex === 0) {
+      return true
+    }
+
+    if (this.card.value === 1) {
+      return true
+    }
+
+    return false
+  }
 
   public get key(): string {
     const key = this.rowIndex + '.' + this.columnIndex

@@ -10,8 +10,9 @@ import { Size } from './Size'
 import { Suit } from './Suit'
 
 interface Props {
-  dragging: boolean
   card: CardModel
+  dragging: boolean
+  isDraggable: boolean
   size: Size
 }
 
@@ -19,7 +20,7 @@ export class CardView extends Component<Props, {}> {
   public render() {
     const cardStyle: ViewStyle = {
       alignItems: 'center',
-      backgroundColor: '#fee',
+      backgroundColor: this.props.isDraggable ? '#fee' : '#dcc',
       borderColor: 'black',
       borderRadius: 5,
       borderWidth: 1,
