@@ -8,6 +8,7 @@ import { ViewStyle } from 'react-native'
 import { CardModel } from './CardModel'
 import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
+import { Size } from './Size'
 import { Suit } from './Suit'
 
 export default class App extends Component<{}, {}> {
@@ -33,8 +34,10 @@ export default class App extends Component<{}, {}> {
     }
   }
 
-  private cardHeight = 60
-  private cardWidth = 40
+  private cardSize: Size = {
+    height: 60,
+    width: 40
+  }
   private columns = 14
   private deck: Array<CardModel> = []
   private grid: Array<Array<CardModel | undefined>> = []
@@ -65,25 +68,23 @@ export default class App extends Component<{}, {}> {
             row.map((cell, columnIndex) =>
               cell === undefined ? (
                 <EmptyCell
-                  height={this.cardHeight}
                   key={columnIndex}
                   position={{
-                    left: 10 + columnIndex * (this.cardWidth + 5),
-                    top: 10 + rowIndex * (this.cardHeight + 5)
+                    left: 10 + columnIndex * (this.cardSize.width + 5),
+                    top: 10 + rowIndex * (this.cardSize.height + 5)
                   }}
-                  width={this.cardWidth}
+                  size={this.cardSize}
                 />
               ) : (
                 <DraggableCard
-                  height={this.cardHeight}
                   key={cell.key}
                   startPosition={{
-                    left: 10 + columnIndex * (this.cardWidth + 5),
-                    top: 10 + rowIndex * (this.cardHeight + 5)
+                    left: 10 + columnIndex * (this.cardSize.width + 5),
+                    top: 10 + rowIndex * (this.cardSize.height + 5)
                   }}
+                  size={this.cardSize}
                   suit={cell.suit}
                   value={cell.value}
-                  width={this.cardWidth}
                 />
               )
             )

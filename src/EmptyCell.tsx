@@ -4,11 +4,11 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { Position } from './Position'
+import { Size } from './Size'
 
 interface Props {
-  height: number
   position: Position
-  width: number
+  size: Size
 }
 
 export class EmptyCell extends Component<Props, {}> {
@@ -17,11 +17,11 @@ export class EmptyCell extends Component<Props, {}> {
       borderColor: 'black',
       borderRadius: 5,
       borderWidth: 1,
-      height: this.props.height,
+      height: this.props.size.height,
       left: this.props.position.left,
       position: 'absolute',
       top: this.props.position.top,
-      width: this.props.width
+      width: this.props.size.width
     }
 
     return (

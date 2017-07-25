@@ -5,14 +5,14 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
+import { Size } from './Size'
 import { Suit } from './Suit'
 
 interface Props {
   dragging: boolean
-  height: number
   value: number
+  size: Size
   suit: Suit
-  width: number
 }
 
 export class CardView extends Component<Props, {}> {
@@ -23,9 +23,9 @@ export class CardView extends Component<Props, {}> {
       borderColor: 'black',
       borderRadius: 5,
       borderWidth: 1,
-      height: this.props.height,
+      height: this.props.size.height,
       padding: 2,
-      width: this.props.width
+      width: this.props.size.width
     }
 
     if (this.props.dragging) {

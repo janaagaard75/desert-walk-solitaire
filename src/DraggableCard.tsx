@@ -7,14 +7,14 @@ import { ViewStyle } from 'react-native'
 
 import { CardView } from './CardView'
 import { Position } from './Position'
+import { Size } from './Size'
 import { Suit } from './Suit'
 
 interface Props {
-  height: number
   startPosition: Position
+  size: Size
   suit: Suit
   value: number
-  width: number
 }
 
 interface State {
@@ -76,10 +76,9 @@ export class DraggableCard extends Component<Props, State> {
       >
         <CardView
           dragging={this.state.dragging}
-          height={this.props.height}
+          size={this.props.size}
           suit={this.props.suit}
           value={this.props.value}
-          width={this.props.width}
         />
       </View>
     )
