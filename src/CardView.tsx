@@ -5,14 +5,14 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
+import { CardModel } from './CardModel'
 import { Size } from './Size'
 import { Suit } from './Suit'
 
 interface Props {
   dragging: boolean
-  value: number
+  card: CardModel
   size: Size
-  suit: Suit
 }
 
 export class CardView extends Component<Props, {}> {
@@ -41,13 +41,13 @@ export class CardView extends Component<Props, {}> {
     }
 
     const textStyle: TextStyle = {
-      color: Suit.isBlack(this.props.suit) ? 'black' : 'red'
+      color: Suit.isBlack(this.props.card.suit) ? 'black' : 'red'
     }
 
     return (
       <View style={cardStyle}>
         <Text style={textStyle}>
-          {this.getSuitUnicode(this.props.suit)} {this.props.value}
+          {this.getSuitUnicode(this.props.card.suit)} {this.props.card.value}
         </Text>
       </View>
     )

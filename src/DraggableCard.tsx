@@ -5,16 +5,15 @@ import { PanResponderInstance } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
+import { CardModel } from './CardModel'
 import { CardView } from './CardView'
 import { Position } from './Position'
 import { Size } from './Size'
-import { Suit } from './Suit'
 
 interface Props {
+  card: CardModel
   startPosition: Position
   size: Size
-  suit: Suit
-  value: number
 }
 
 interface State {
@@ -75,10 +74,9 @@ export class DraggableCard extends Component<Props, State> {
         {...this.panResponder.panHandlers}
       >
         <CardView
+          card={this.props.card}
           dragging={this.state.dragging}
           size={this.props.size}
-          suit={this.props.suit}
-          value={this.props.value}
         />
       </View>
     )
