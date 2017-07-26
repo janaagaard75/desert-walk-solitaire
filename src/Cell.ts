@@ -1,16 +1,29 @@
 import { CardModel } from './CardModel'
 import { CellStatus } from './CellStatus'
+import { Position } from './Position'
+import { Size } from './Size'
 
 export class Cell {
   constructor(
     public readonly rowIndex: number,
     public readonly columnIndex: number,
+    public readonly position: Position,
+    public readonly size: Size,
     public readonly cellToTheLeft: Cell | undefined
   ) {
     this.card = undefined
   }
 
   public card: CardModel | undefined
+
+  public get boundaries() {
+    const x1 = this.position.left
+    const x2 = this.position.left + this.size.width
+    const y1 = this.position.top
+    const y2 = this.position.top + this.size.height
+
+    return { x1, x2, y1, y2 }
+  }
 
   public get cardIsDraggable(): boolean {
     if (this.card === undefined) {

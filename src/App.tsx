@@ -30,11 +30,16 @@ export default class App extends Component<{}, {}> {
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.columns; c++) {
         let cell: Cell
+        const position = {
+          left: 10 + c * (this.cardSize.width + 5),
+          top: 10 + r * (this.cardSize.height + 5)
+        }
+
         if (c === 0) {
-          cell = new Cell(r, c, undefined)
+          cell = new Cell(r, c, position, this.cardSize, undefined)
         }
         else {
-          cell = new Cell(r, c, this.cells[this.cells.length])
+          cell = new Cell(r, c, position, this.cardSize, this.cells[this.cells.length])
           cell.card = this.deck[(this.columns - 1) * r + (c - 1)]
         }
         this.cells.push(cell)
@@ -89,17 +94,12 @@ export default class App extends Component<{}, {}> {
   }
 
   private renderCell(cell: Cell) {
-    const position = {
-      left: 10 + cell.columnIndex * (this.cardSize.width + 5),
-      top: 10 + cell.rowIndex * (this.cardSize.height + 5)
-    }
-
     if (cell.card === undefined) {
       return (
         <EmptyCell
           isHovered={false}
           key={cell.key}
-          position={position}
+          position={cell.position}
           size={this.cardSize}
         />
       )
@@ -111,7 +111,7 @@ export default class App extends Component<{}, {}> {
           isDraggable={cell.cardIsDraggable}
           key={cell.key}
           onCardDropped={center => this.handleCardDropped(center)}
-          startPosition={position}
+          startPosition={cell.position}
           size={this.cardSize}
         />
       )
@@ -119,7 +119,11 @@ export default class App extends Component<{}, {}> {
   }
 
   private handleCardDropped(center: Position) {
-    throw new Error('Not yet implemented.')
+    this.cells.forEach(cell => {
+      if (cell.card !== undefined) {
+        return
+      }
+    })
   }
 
   private handleLayout(layoutChangeEvent: LayoutChangeEvent) {
