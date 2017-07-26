@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "TestExpo",
-    "description": "An empty new project",
-    "slug": "TestExpo",
+    "name": "Desert Walk",
+    "description": "A game of solitaire.",
+    "slug": "DesertWalk",
     "privacy": "public",
     "sdkVersion": "18.0.0",
     "version": "1.0.0",
