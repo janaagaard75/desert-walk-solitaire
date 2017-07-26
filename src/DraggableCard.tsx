@@ -13,6 +13,7 @@ import { Size } from './Size'
 interface Props {
   card: CardModel
   isDraggable: boolean
+  onCardDropped: (center: Position) => any
   startPosition: Position
   size: Size
 }
@@ -34,9 +35,15 @@ export class DraggableCard extends Component<Props, State> {
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
         this.setState({
-          currentPosition: this.props.startPosition,
           dragging: false
         })
+
+        const center: Position = {
+          left: this.state.currentPosition.left + this.props.size.width / 2,
+          top: this.state.currentPosition.top + this.props.size.height / 2
+        }
+
+        this.props.onCardDropped(center)
       },
       onPanResponderGrant: (e, gestureState) => {
         this.dragStartPosition = this.state.currentPosition,

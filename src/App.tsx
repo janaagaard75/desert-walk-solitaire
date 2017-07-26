@@ -10,6 +10,7 @@ import { CardModel } from './CardModel'
 import { Cell } from './Cell'
 import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
+import { Position } from './Position'
 import { Size } from './Size'
 import { Suit } from './Suit'
 
@@ -110,11 +111,16 @@ export default class App extends Component<{}, {}> {
           card={cell.card}
           isDraggable={cell.cardIsDraggable}
           key={cell.key}
+          onCardDropped={center => this.handleCardDropped(center)}
           startPosition={position}
           size={this.cardSize}
         />
       )
     }
+  }
+
+  private handleCardDropped(center: Position) {
+    throw new Error('Not yet implemented.')
   }
 
   private handleLayout(layoutChangeEvent: LayoutChangeEvent) {
