@@ -28,15 +28,16 @@ export default class App extends Component<{}, {}> {
     }
 
     for (let r = 0; r < this.rows; r++) {
-      this.grid[r] = []
       for (let c = 0; c < this.columns; c++) {
+        let cell: Cell
         if (c === 0) {
-          this.grid[r][c] = new Cell(r, c, undefined)
+          cell = new Cell(r, c, undefined)
         }
         else {
-          this.grid[r][c] = new Cell(r, c, this.grid[r][c - 1])
-          this.grid[r][c].card = this.deck[(this.columns - 1) * r + (c - 1)]
+          cell = new Cell(r, c, this.cells[this.cells.length])
+          cell.card = this.deck[(this.columns - 1) * r + (c - 1)]
         }
+        this.cells.push(cell)
       }
     }
   }
@@ -47,7 +48,7 @@ export default class App extends Component<{}, {}> {
   }
   private columns = 14
   private deck: Array<CardModel> = []
-  private grid: Array<Array<Cell>> = []
+  private cells: Array<Cell> = []
   private gridHeight: number
   private gridWidth: number
   private rows = 4
@@ -79,10 +80,8 @@ export default class App extends Component<{}, {}> {
           onLayout={layoutChangeEvent => this.handleLayout(layoutChangeEvent)}
           style={gridViewStyle}
         >
-          {this.grid.map(row =>
-            row.map(cell =>
-              this.renderCell(cell)
-            )
+          {this.cells.map(cell =>
+            this.renderCell(cell)
           )}
         </View>
       </View>
