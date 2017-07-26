@@ -6,6 +6,7 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
+import { Boundary } from './Boundary'
 import { CardModel } from './CardModel'
 import { Cell } from './Cell'
 import { DraggableCard } from './DraggableCard'
@@ -123,7 +124,22 @@ export default class App extends Component<{}, {}> {
       if (cell.card !== undefined) {
         return
       }
+
+      if (this.pointIsWithinBoundary(center, cell.boundary)) {
+        // tslint:disable-next-line:no-console
+        console.info(`Card dropped on empty cell #${cell.key}.`)
+      }
     })
+  }
+
+  private pointIsWithinBoundary(point: Position, boundary: Boundary): boolean {
+    const within
+      = point.left >= boundary.topLeft.left
+        && point.left <= boundary.bottomRight.left
+        && point.top >= boundary.topLeft.top
+        && point.top <= boundary.bottomRight.top
+
+    return within
   }
 
   private handleLayout(layoutChangeEvent: LayoutChangeEvent) {

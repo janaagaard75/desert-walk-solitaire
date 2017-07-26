@@ -1,3 +1,4 @@
+import { Boundary } from './Boundary'
 import { CardModel } from './CardModel'
 import { CellStatus } from './CellStatus'
 import { Position } from './Position'
@@ -16,13 +17,19 @@ export class Cell {
 
   public card: CardModel | undefined
 
-  public get boundaries() {
-    const x1 = this.position.left
-    const x2 = this.position.left + this.size.width
-    const y1 = this.position.top
-    const y2 = this.position.top + this.size.height
+  public get boundary(): Boundary {
+    const boundaries: Boundary = {
+      bottomRight: {
+        left: this.position.left + this.size.width,
+        top: this.position.top + this.size.height
+      },
+      topLeft: {
+        left: this.position.left,
+        top: this.position.top
+      }
+    }
 
-    return { x1, x2, y1, y2 }
+    return boundaries
   }
 
   public get cardIsDraggable(): boolean {
