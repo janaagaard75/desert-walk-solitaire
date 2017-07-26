@@ -97,6 +97,7 @@ export default class App extends Component<{}, {}> {
     if (cell.card === undefined) {
       return (
         <EmptyCell
+          isHovered={false}
           key={cell.key}
           position={position}
           size={this.cardSize}

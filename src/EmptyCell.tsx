@@ -7,6 +7,7 @@ import { Position } from './Position'
 import { Size } from './Size'
 
 interface Props {
+  isHovered: boolean
   position: Position
   size: Size
 }
@@ -16,7 +17,7 @@ export class EmptyCell extends Component<Props, {}> {
     const emptyCellStyle: ViewStyle = {
       borderColor: 'black',
       borderRadius: 5,
-      borderStyle: 'dashed',
+      borderStyle: this.props.isHovered ? 'solid' : 'dashed',
       borderWidth: 1,
       height: this.props.size.height,
       left: this.props.position.left,
