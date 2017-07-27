@@ -6,10 +6,8 @@ import { Cell } from './Cell'
 import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
 import { Position } from './Position'
-import { Size } from './Size'
 
 interface Props {
-  cardSize: Size
   cell: Cell
   handleCardDropped: (cell: Cell, center: Position) => any
 }
@@ -24,7 +22,7 @@ export class CellView extends Component<Props, {}> {
           isHovered={false}
           key={this.props.cell.key}
           position={this.props.cell.position}
-          size={this.props.cardSize}
+          size={this.props.cell.size}
         />
       ) : (
         <DraggableCard
@@ -33,7 +31,7 @@ export class CellView extends Component<Props, {}> {
           key={this.props.cell.key}
           onCardDropped={center => this.props.handleCardDropped(this.props.cell, center)}
           startPosition={this.props.cell.position}
-          size={this.props.cardSize}
+          size={this.props.cell.size}
         />
       )
     )

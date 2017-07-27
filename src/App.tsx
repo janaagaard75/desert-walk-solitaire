@@ -40,7 +40,6 @@ export default class App extends Component<{}, {}> {
         >
           {this.grid.cells.map(cell =>
             <CellView
-              cardSize={this.grid.cardSize}
               cell={cell}
               handleCardDropped={(fromCell, center) => this.handleCardDropped(fromCell, center)}
               key={cell.key}

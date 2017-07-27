@@ -22,8 +22,8 @@ export class Grid {
       for (let c = 0; c < this.columns; c++) {
         let cell: Cell
         const position = {
-          left: 10 + c * (this.cardSize.width + 5),
-          top: 10 + r * (this.cardSize.height + 5)
+          left: this.spaceBetweenCells + c * (this.cardSize.width + this.spaceBetweenCells),
+          top: this.spaceBetweenCells + r * (this.cardSize.height + this.spaceBetweenCells)
         }
 
         if (c === 0) {
@@ -43,6 +43,7 @@ export class Grid {
     height: 60,
     width: 40
   }
+  private spaceBetweenCells = 5
   @observable public readonly cells: Array<Cell> = []
   @observable public availableHeight: number | undefined = undefined
   @observable public availableWidth: number | undefined = undefined
