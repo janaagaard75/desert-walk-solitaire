@@ -48,13 +48,18 @@ export class Cell {
     return false
   }
 
+  public get isEmpty(): boolean {
+    const isEmpty = this.card === undefined
+    return isEmpty
+  }
+
   public get key(): string {
     const key = this.rowIndex + '.' + this.columnIndex
     return key
   }
 
   public get status(): CellStatus {
-    if (this.card === undefined) {
+    if (this.isEmpty) {
       return CellStatus.EmptyAndDropPossible
     }
     else {

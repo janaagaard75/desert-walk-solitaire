@@ -7,57 +7,16 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { Boundary } from './Boundary'
-import { CardModel } from './CardModel'
 import { Cell } from './Cell'
 import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
 import { Position } from './Position'
-import { Size } from './Size'
-import { Suit } from './Suit'
+import { Grid } from './Grid'
 
 export default class App extends Component<{}, {}> {
-  constructor(props: {}, context?: any) {
-    super(props, context)
-
-    for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
-      if (Suit.hasOwnProperty(suit)) {
-        for (let i = 1; i <= 13; i++) {
-          const card = new CardModel(suit, i)
-          this.deck.push(card)
-        }
-      }
-    }
-
-    for (let r = 0; r < this.rows; r++) {
-      for (let c = 0; c < this.columns; c++) {
-        let cell: Cell
-        const position = {
-          left: 10 + c * (this.cardSize.width + 5),
-          top: 10 + r * (this.cardSize.height + 5)
-        }
-
-        if (c === 0) {
-          cell = new Cell(r, c, position, this.cardSize, undefined)
-        }
-        else {
-          cell = new Cell(r, c, position, this.cardSize, this.cells[this.cells.length])
-          cell.card = this.deck[(this.columns - 1) * r + (c - 1)]
-        }
-        this.cells.push(cell)
-      }
-    }
-  }
-
-  private cardSize: Size = {
-    height: 60,
-    width: 40
-  }
-  private columns = 14
-  private deck: Array<CardModel> = []
-  private cells: Array<Cell> = []
+  private grid = new Grid()
   private gridHeight: number
   private gridWidth: number
-  private rows = 4
 
   public render() {
     const mainViewStyle: ViewStyle = {
@@ -86,7 +45,7 @@ export default class App extends Component<{}, {}> {
           onLayout={layoutChangeEvent => this.handleLayout(layoutChangeEvent)}
           style={gridViewStyle}
         >
-          {this.cells.map(cell =>
+          {this.grid.cells.map(cell =>
             this.renderCell(cell)
           )}
         </View>
@@ -95,13 +54,14 @@ export default class App extends Component<{}, {}> {
   }
 
   private renderCell(cell: Cell) {
+    // Using === undefined instead of isEmpty to avoid compiler error.
     if (cell.card === undefined) {
       return (
         <EmptyCell
           isHovered={false}
           key={cell.key}
           position={cell.position}
-          size={this.cardSize}
+          size={this.grid.cardSize}
         />
       )
     }
@@ -113,18 +73,14 @@ export default class App extends Component<{}, {}> {
           key={cell.key}
           onCardDropped={center => this.handleCardDropped(center)}
           startPosition={cell.position}
-          size={this.cardSize}
+          size={this.grid.cardSize}
         />
       )
     }
   }
 
   private handleCardDropped(center: Position) {
-    this.cells.forEach(cell => {
-      if (cell.card !== undefined) {
-        return
-      }
-
+    this.grid.emptyCells.forEach(cell => {
       if (this.pointIsWithinBoundary(center, cell.boundary)) {
         // tslint:disable-next-line:no-console
         console.info(`Card dropped on empty cell #${cell.key}.`)
