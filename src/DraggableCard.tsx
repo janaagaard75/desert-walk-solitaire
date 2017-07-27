@@ -35,6 +35,7 @@ export class DraggableCard extends Component<Props, State> {
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
         this.setState({
+          currentPosition: this.props.startPosition,
           dragging: false
         })
 
