@@ -22,16 +22,16 @@ export class Grid {
       for (let c = 0; c < this.columns; c++) {
         let cell: Cell
         const position = {
-          left: this.spaceBetweenCells + c * (this.cardSize.width + this.spaceBetweenCells),
-          top: this.spaceBetweenCells + r * (this.cardSize.height + this.spaceBetweenCells)
+          left: this.spaceBetweenCells + c * (this.cellSize.width + this.spaceBetweenCells),
+          top: this.spaceBetweenCells + r * (this.cellSize.height + this.spaceBetweenCells)
         }
 
         if (c === 0) {
-          cell = new Cell(r, c, position, this.cardSize, undefined)
+          cell = new Cell(r, c, position, this.cellSize, undefined)
         }
         else {
           const cellToTheLeft = this.cells[this.cells.length - 1]
-          cell = new Cell(r, c, position, this.cardSize, cellToTheLeft)
+          cell = new Cell(r, c, position, this.cellSize, cellToTheLeft)
           cell.card = this.deck[(this.columns - 1) * r + (c - 1)]
         }
         this.cells.push(cell)
@@ -39,10 +39,6 @@ export class Grid {
     }
   }
 
-  public readonly cardSize: Size = {
-    height: 60,
-    width: 40
-  }
   private spaceBetweenCells = 5
   @observable public readonly cells: Array<Cell> = []
   @observable public availableHeight: number | undefined = undefined
@@ -51,6 +47,13 @@ export class Grid {
   private readonly columns = 14
   private readonly deck: Array<CardModel> = []
   private readonly rows = 4
+
+  @computed public get cellSize(): Size {
+    return {
+      height: 60,
+      width: 40
+    }
+  }
 
   @computed
   public get emptyCells(): Array<Cell> {
@@ -65,8 +68,8 @@ export class Grid {
         top: cell.position.top
       },
       {
-        left: cell.position.left + this.cardSize.width,
-        top: cell.position.top + this.cardSize.height
+        left: cell.position.left + this.cellSize.width,
+        top: cell.position.top + this.cellSize.height
       }
     )
 
