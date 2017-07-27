@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Component } from 'react'
+import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
@@ -12,6 +13,7 @@ interface Props {
   size: Size
 }
 
+@observer
 export class EmptyCell extends Component<Props, {}> {
   public render() {
     const emptyCellStyle: ViewStyle = {

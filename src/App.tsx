@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Component } from 'react'
 import { LayoutChangeEvent } from 'react-native'
+import { observer } from 'mobx-react'
 import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
 import { View } from 'react-native'
@@ -13,6 +14,7 @@ import { EmptyCell } from './EmptyCell'
 import { Position } from './Position'
 import { Grid } from './Grid'
 
+@observer
 export default class App extends Component<{}, {}> {
   private grid = new Grid()
   private gridHeight: number

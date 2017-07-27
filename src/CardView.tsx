@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Component } from 'react'
+import { observer } from 'mobx-react'
 import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
 import { View } from 'react-native'
@@ -16,6 +17,7 @@ interface Props {
   size: Size
 }
 
+@observer
 export class CardView extends Component<Props, {}> {
   public render() {
     const cardStyle: ViewStyle = {

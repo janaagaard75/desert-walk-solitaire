@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Component } from 'react'
+import { observer } from 'mobx-react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 import { View } from 'react-native'
@@ -23,6 +24,7 @@ interface State {
   dragging: boolean
 }
 
+@observer
 export class DraggableCard extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props, context)
