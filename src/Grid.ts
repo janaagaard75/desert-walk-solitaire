@@ -1,3 +1,6 @@
+import { computed } from 'mobx'
+import { observable } from 'mobx'
+
 import { CardModel } from './CardModel'
 import { Cell } from './Cell'
 import { Size } from './Size'
@@ -26,7 +29,8 @@ export class Grid {
           cell = new Cell(r, c, position, this.cardSize, undefined)
         }
         else {
-          cell = new Cell(r, c, position, this.cardSize, this.cells[this.cells.length])
+          const cellToTheLeft = this.cells[this.cells.length - 1]
+          cell = new Cell(r, c, position, this.cardSize, cellToTheLeft)
           cell.card = this.deck[(this.columns - 1) * r + (c - 1)]
         }
         this.cells.push(cell)
@@ -34,6 +38,7 @@ export class Grid {
     }
   }
 
+  @observable
   public readonly cells: Array<Cell> = []
   public readonly cardSize: Size = {
     height: 60,
@@ -44,6 +49,7 @@ export class Grid {
   private readonly columns = 14
   private readonly rows = 4
 
+  @computed
   public get emptyCells(): Array<Cell> {
     const emptyCells = this.cells.filter(cell => cell.isEmpty)
     return emptyCells

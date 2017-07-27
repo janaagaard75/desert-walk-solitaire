@@ -1,3 +1,6 @@
+import { computed } from 'mobx'
+import { observable } from 'mobx'
+
 import { Boundary } from './Boundary'
 import { CardModel } from './CardModel'
 import { CellStatus } from './CellStatus'
@@ -12,10 +15,12 @@ export class Cell {
     public readonly size: Size,
     public readonly cellToTheLeft: Cell | undefined
   ) {
-    this.card = undefined
+    this.key = this.rowIndex + '.' + this.columnIndex
   }
 
-  public card: CardModel | undefined
+  @observable
+  public card: CardModel | undefined = undefined
+  public key: string
 
   public get boundary(): Boundary {
     const boundaries: Boundary = {
@@ -32,6 +37,7 @@ export class Cell {
     return boundaries
   }
 
+  @computed
   public get cardIsDraggable(): boolean {
     if (this.card === undefined) {
       return false
@@ -48,16 +54,13 @@ export class Cell {
     return false
   }
 
+  @computed
   public get isEmpty(): boolean {
     const isEmpty = this.card === undefined
     return isEmpty
   }
 
-  public get key(): string {
-    const key = this.rowIndex + '.' + this.columnIndex
-    return key
-  }
-
+  @computed
   public get status(): CellStatus {
     if (this.isEmpty) {
       return CellStatus.EmptyAndDropPossible
