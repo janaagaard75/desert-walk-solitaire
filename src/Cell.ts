@@ -1,10 +1,10 @@
 import { computed } from 'mobx'
 import { observable } from 'mobx'
 
-import { Rectangle } from './Boundary'
 import { CardModel } from './CardModel'
 import { CellStatus } from './CellStatus'
 import { Position } from './Position'
+import { Rectangle } from './Rectangle'
 import { Size } from './Size'
 
 export class Cell {
