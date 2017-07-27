@@ -71,7 +71,7 @@ export default class App extends Component<{}, {}> {
           card={cell.card}
           isDraggable={cell.cardIsDraggable}
           key={cell.key}
-          onCardDropped={center => this.handleCardDropped(center)}
+          onCardDropped={center => this.handleCardDropped(cell, center)}
           startPosition={cell.position}
           size={this.grid.cardSize}
         />
@@ -79,11 +79,13 @@ export default class App extends Component<{}, {}> {
     }
   }
 
-  private handleCardDropped(center: Position) {
+  private handleCardDropped(fromCell: Cell, center: Position) {
     this.grid.emptyCells.forEach(cell => {
       if (this.pointIsWithinBoundary(center, cell.boundary)) {
         // tslint:disable-next-line:no-console
         console.info(`Card dropped on empty cell #${cell.key}.`)
+        this.grid.moveCard(fromCell, cell)
+        this.forceUpdate()
       }
     })
   }

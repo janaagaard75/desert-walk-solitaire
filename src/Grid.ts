@@ -48,4 +48,9 @@ export class Grid {
     const emptyCells = this.cells.filter(cell => cell.isEmpty)
     return emptyCells
   }
+
+  public moveCard(from: Cell, to: Cell) {
+    to.card = from.card
+    from.card = undefined
+  }
 }
