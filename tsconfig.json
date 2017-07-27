@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    //"allowJs": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -21,7 +20,6 @@
     //"sourceRoot": "src",
     "strict": true,
     "target": "es5"
-    //"watch": true
   },
   "exclude": [
     "acceptance-tests",
