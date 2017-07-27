@@ -7,7 +7,7 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { Boundary } from './Boundary'
+import { Rectangle } from './Boundary'
 import { Cell } from './Cell'
 import { CellView } from './CellView'
 import { Position } from './Position'

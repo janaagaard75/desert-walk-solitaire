@@ -1,6 +1,6 @@
 import { Position } from './Position'
 
-export class Boundary {
+export class Rectangle {
   constructor(
     public readonly topLeft: Position,
     public readonly bottomRight: Position

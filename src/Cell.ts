@@ -1,7 +1,7 @@
 import { computed } from 'mobx'
 import { observable } from 'mobx'
 
-import { Boundary } from './Boundary'
+import { Rectangle } from './Boundary'
 import { CardModel } from './CardModel'
 import { CellStatus } from './CellStatus'
 import { Position } from './Position'
@@ -22,8 +22,8 @@ export class Cell {
   public card: CardModel | undefined = undefined
   public key: string
 
-  public get boundary(): Boundary {
-    const boundary = new Boundary(
+  public get boundary(): Rectangle {
+    const boundary = new Rectangle(
       {
         left: this.position.left,
         top: this.position.top
