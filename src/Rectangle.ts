@@ -1,5 +1,6 @@
 import { Position } from './Position'
 
+// TODO: Consider swapping out left and top with x and y, across the application.
 export class Rectangle {
   constructor(
     public readonly topLeft: Position,
