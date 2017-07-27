@@ -3,6 +3,7 @@ import { observable } from 'mobx'
 
 import { CardModel } from './CardModel'
 import { Cell } from './Cell'
+import { Rectangle } from './Rectangle'
 import { Size } from './Size'
 import { Suit } from './Suit'
 
@@ -42,8 +43,9 @@ export class Grid {
     height: 60,
     width: 40
   }
-  @observable
-  public readonly cells: Array<Cell> = []
+  @observable public readonly cells: Array<Cell> = []
+  @observable public availableHeight: number | undefined = undefined
+  @observable public availableWidth: number | undefined = undefined
 
   private readonly columns = 14
   private readonly deck: Array<CardModel> = []
@@ -53,6 +55,21 @@ export class Grid {
   public get emptyCells(): Array<Cell> {
     const emptyCells = this.cells.filter(cell => cell.isEmpty)
     return emptyCells
+  }
+
+  public getCellBundary(cell: Cell): Rectangle {
+    const boundary = new Rectangle(
+      {
+        left: cell.position.left,
+        top: cell.position.top
+      },
+      {
+        left: cell.position.left + this.cardSize.width,
+        top: cell.position.top + this.cardSize.height
+      }
+    )
+
+    return boundary
   }
 
   public moveCard(from: Cell, to: Cell) {

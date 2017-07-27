@@ -4,7 +4,6 @@ import { LayoutChangeEvent } from 'react-native'
 import { observer } from 'mobx-react'
 import { StatusBar } from 'react-native'
 import { Text } from 'react-native'
-import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
@@ -16,8 +15,6 @@ import { Position } from './Position'
 @observer
 export default class App extends Component<{}, {}> {
   private grid = new Grid()
-  private gridHeight: number
-  private gridWidth: number
 
   public render() {
     const mainViewStyle: ViewStyle = {
@@ -56,14 +53,14 @@ export default class App extends Component<{}, {}> {
 
   private handleCardDropped(fromCell: Cell, center: Position) {
     this.grid.emptyCells.forEach(cell => {
-      if (cell.boundary.pointIsWithinBoundary(center)) {
+      if (this.grid.getCellBundary(cell).pointIsWithinBoundary(center)) {
         this.grid.moveCard(fromCell, cell)
       }
     })
   }
 
   private handleLayout(layoutChangeEvent: LayoutChangeEvent) {
-    this.gridHeight = layoutChangeEvent.nativeEvent.layout.height
-    this.gridWidth = layoutChangeEvent.nativeEvent.layout.width
+    this.grid.availableHeight = layoutChangeEvent.nativeEvent.layout.height
+    this.grid.availableWidth = layoutChangeEvent.nativeEvent.layout.width
   }
 }

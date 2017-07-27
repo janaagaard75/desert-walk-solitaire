@@ -4,7 +4,6 @@ import { observable } from 'mobx'
 import { CardModel } from './CardModel'
 import { CellStatus } from './CellStatus'
 import { Position } from './Position'
-import { Rectangle } from './Rectangle'
 import { Size } from './Size'
 
 export class Cell {
@@ -21,21 +20,6 @@ export class Cell {
   @observable
   public card: CardModel | undefined = undefined
   public key: string
-
-  public get boundary(): Rectangle {
-    const boundary = new Rectangle(
-      {
-        left: this.position.left,
-        top: this.position.top
-      },
-      {
-        left: this.position.left + this.size.width,
-        top: this.position.top + this.size.height
-      }
-    )
-
-    return boundary
-  }
 
   @computed
   public get cardIsDraggable(): boolean {
