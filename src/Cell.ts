@@ -23,18 +23,18 @@ export class Cell {
   public key: string
 
   public get boundary(): Boundary {
-    const boundaries: Boundary = {
-      bottomRight: {
-        left: this.position.left + this.size.width,
-        top: this.position.top + this.size.height
-      },
-      topLeft: {
+    const boundary = new Boundary(
+      {
         left: this.position.left,
         top: this.position.top
+      },
+      {
+        left: this.position.left + this.size.width,
+        top: this.position.top + this.size.height
       }
-    }
+    )
 
-    return boundaries
+    return boundary
   }
 
   @computed

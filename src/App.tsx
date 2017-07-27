@@ -61,22 +61,12 @@ export default class App extends Component<{}, {}> {
 
   private handleCardDropped(fromCell: Cell, center: Position) {
     this.grid.emptyCells.forEach(cell => {
-      if (this.pointIsWithinBoundary(center, cell.boundary)) {
+      if (cell.boundary.pointIsWithinBoundary(center)) {
         // tslint:disable-next-line:no-console
         console.info(`Card dropped on empty cell #${cell.key}.`)
         this.grid.moveCard(fromCell, cell)
       }
     })
-  }
-
-  private pointIsWithinBoundary(point: Position, boundary: Boundary): boolean {
-    const within
-      = point.left >= boundary.topLeft.left
-        && point.left <= boundary.bottomRight.left
-        && point.top >= boundary.topLeft.top
-        && point.top <= boundary.bottomRight.top
-
-    return within
   }
 
   private handleLayout(layoutChangeEvent: LayoutChangeEvent) {
