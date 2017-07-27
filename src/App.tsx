@@ -57,8 +57,6 @@ export default class App extends Component<{}, {}> {
   private handleCardDropped(fromCell: Cell, center: Position) {
     this.grid.emptyCells.forEach(cell => {
       if (cell.boundary.pointIsWithinBoundary(center)) {
-        // tslint:disable-next-line:no-console
-        console.info(`Card dropped on empty cell #${cell.key}.`)
         this.grid.moveCard(fromCell, cell)
       }
     })
