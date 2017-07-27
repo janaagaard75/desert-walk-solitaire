@@ -38,15 +38,15 @@ export class Grid {
     }
   }
 
-  @observable
-  public readonly cells: Array<Cell> = []
   public readonly cardSize: Size = {
     height: 60,
     width: 40
   }
+  @observable
+  public readonly cells: Array<Cell> = []
 
-  private readonly deck: Array<CardModel> = []
   private readonly columns = 14
+  private readonly deck: Array<CardModel> = []
   private readonly rows = 4
 
   @computed
