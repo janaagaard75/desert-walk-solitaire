@@ -9,8 +9,7 @@ import { ViewStyle } from 'react-native'
 
 import { Boundary } from './Boundary'
 import { Cell } from './Cell'
-import { DraggableCard } from './DraggableCard'
-import { EmptyCell } from './EmptyCell'
+import { CellView } from './CellView'
 import { Position } from './Position'
 import { Grid } from './Grid'
 
@@ -48,37 +47,16 @@ export default class App extends Component<{}, {}> {
           style={gridViewStyle}
         >
           {this.grid.cells.map(cell =>
-            this.renderCell(cell)
+            <CellView
+              cardSize={this.grid.cardSize}
+              cell={cell}
+              handleCardDropped={(fromCell, center) => this.handleCardDropped(fromCell, center)}
+              key={cell.key}
+            />
           )}
         </View>
       </View>
     )
-  }
-
-  private renderCell(cell: Cell) {
-    // Using === undefined instead of isEmpty to avoid compiler error.
-    if (cell.card === undefined) {
-      return (
-        <EmptyCell
-          isHovered={false}
-          key={cell.key}
-          position={cell.position}
-          size={this.grid.cardSize}
-        />
-      )
-    }
-    else {
-      return (
-        <DraggableCard
-          card={cell.card}
-          isDraggable={cell.cardIsDraggable}
-          key={cell.key}
-          onCardDropped={center => this.handleCardDropped(cell, center)}
-          startPosition={cell.position}
-          size={this.grid.cardSize}
-        />
-      )
-    }
   }
 
   private handleCardDropped(fromCell: Cell, center: Position) {
