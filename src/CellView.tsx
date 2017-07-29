@@ -6,10 +6,13 @@ import { Cell } from './Cell'
 import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
 import { Position } from './Position'
+import { Size } from './Size'
 
 interface Props {
   cell: Cell
-  handleCardDropped: (cell: Cell, center: Position) => any
+  handleCardDropped: (cell: Cell, center: Position) => void
+  position: Position
+  size: Size
 }
 
 @observer
@@ -21,8 +24,8 @@ export class CellView extends Component<Props, {}> {
         <EmptyCell
           isHovered={false}
           key={this.props.cell.key}
-          position={this.props.cell.position}
-          size={this.props.cell.size}
+          position={this.props.position}
+          size={this.props.size}
         />
       ) : (
         <DraggableCard
@@ -30,8 +33,8 @@ export class CellView extends Component<Props, {}> {
           isDraggable={this.props.cell.cardIsDraggable}
           key={this.props.cell.key}
           onCardDropped={center => this.props.handleCardDropped(this.props.cell, center)}
-          startPosition={this.props.cell.position}
-          size={this.props.cell.size}
+          startPosition={this.props.position}
+          size={this.props.size}
         />
       )
     )

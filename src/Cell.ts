@@ -1,24 +1,20 @@
 import { computed } from 'mobx'
 import { observable } from 'mobx'
 
-import { CardModel } from './CardModel'
+import { Card } from './Card'
 import { CellStatus } from './CellStatus'
-import { Position } from './Position'
-import { Size } from './Size'
 
 export class Cell {
   constructor(
     public readonly rowIndex: number,
     public readonly columnIndex: number,
-    public readonly position: Position,
-    public readonly size: Size,
     public readonly cellToTheLeft: Cell | undefined
   ) {
     this.key = this.rowIndex + '.' + this.columnIndex
   }
 
   @observable
-  public card: CardModel | undefined = undefined
+  public card: Card | undefined = undefined
   public key: string
 
   @computed

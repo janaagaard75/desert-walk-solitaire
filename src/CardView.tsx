@@ -6,12 +6,12 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { CardModel } from './CardModel'
+import { Card } from './Card'
 import { Size } from './Size'
 import { Suit } from './Suit'
 
 interface Props {
-  card: CardModel
+  card: Card
   dragging: boolean
   isDraggable: boolean
   size: Size

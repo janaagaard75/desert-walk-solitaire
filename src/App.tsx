@@ -1,19 +1,20 @@
 import * as React from 'react'
 import { Component } from 'react'
 import { LayoutChangeEvent } from 'react-native'
+import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { StatusBar } from 'react-native'
 import { Text } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { Cell } from './Cell'
-import { CellView } from './CellView'
 import { Grid } from './Grid'
-import { Position } from './Position'
+import { GridView } from './GridView'
+import { Size } from './Size'
 
 @observer
 export default class App extends Component<{}, {}> {
+  @observable private availableSize: Size | undefined = undefined
   private grid = new Grid()
 
   public render() {
@@ -23,9 +24,8 @@ export default class App extends Component<{}, {}> {
       flexDirection: 'column'
     }
 
-    const gridViewStyle: ViewStyle = {
-      flex: 1,
-      position: 'relative'
+    const gridWrapperViewStyle: ViewStyle = {
+      flex: 1
     }
 
     return (
@@ -36,30 +36,31 @@ export default class App extends Component<{}, {}> {
         </Text>
         <View
           onLayout={layoutChangeEvent => this.handleLayout(layoutChangeEvent)}
-          style={gridViewStyle}
+          style={gridWrapperViewStyle}
         >
-          {this.grid.cells.map(cell =>
-            <CellView
-              cell={cell}
-              handleCardDropped={(fromCell, center) => this.handleCardDropped(fromCell, center)}
-              key={cell.key}
-            />
-          )}
+          {this.renderGrid()}
         </View>
       </View>
     )
   }
 
-  private handleCardDropped(fromCell: Cell, center: Position) {
-    this.grid.emptyCells.forEach(cell => {
-      if (this.grid.getCellBundary(cell).pointIsWithinBoundary(center)) {
-        this.grid.moveCard(fromCell, cell)
-      }
-    })
+  private renderGrid() {
+    if (this.availableSize === undefined) {
+      return undefined
+    }
+
+    return (
+      <GridView
+        availableSize={this.availableSize}
+        grid={this.grid}
+      />
+    )
   }
 
   private handleLayout(layoutChangeEvent: LayoutChangeEvent) {
-    this.grid.availableHeight = layoutChangeEvent.nativeEvent.layout.height
-    this.grid.availableWidth = layoutChangeEvent.nativeEvent.layout.width
+    this.availableSize = {
+      height: layoutChangeEvent.nativeEvent.layout.height,
+      width: layoutChangeEvent.nativeEvent.layout.width
+    }
   }
 }

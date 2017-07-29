@@ -6,13 +6,13 @@ import { PanResponderInstance } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { CardModel } from './CardModel'
+import { Card } from './Card'
 import { CardView } from './CardView'
 import { Position } from './Position'
 import { Size } from './Size'
 
 interface Props {
-  card: CardModel
+  card: Card
   isDraggable: boolean
   onCardDropped: (center: Position) => any
   startPosition: Position
