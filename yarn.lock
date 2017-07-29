@@ -8,19 +8,15 @@
   dependencies:
     react-native-vector-icons "4.1.1"
 
-"@types/react-native@0.46.7":
-  version "0.46.7"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.46.7.tgz#ef6df25498d40cabd93f9f38b072f673c5ead781"
+"@types/react-native@0.46.9":
+  version "0.46.9"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.46.9.tgz#35951b1e51665ec9084433070100c8c8dfef990e"
   dependencies:
     "@types/react" "*"
 
-"@types/react@*":
+"@types/react@*", "@types/react@15.6.0":
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-15.6.0.tgz#3b3e92a60b65045e4df48fda324de84d83addbc4"
-
-"@types/react@15.0.39":
-  version "15.0.39"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.39.tgz#5a820c75cabf4cbfa177a3ab5a9a0634c46b14d1"
 
 absolute-path@^0.0.0:
   version "0.0.0"
@@ -2406,9 +2402,9 @@ mobx-react@4.2.2:
   dependencies:
     hoist-non-react-statics "^1.2.0"
 
-mobx@3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.2.1.tgz#6aeade0120cc3f78baa57195031630a0ae8f13cf"
+mobx@3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.2.2.tgz#aa671459bededfd9880c948889a3f62bce09279c"
 
 morgan@~1.6.1:
   version "1.6.1"
@@ -3428,9 +3424,11 @@ tslint-eslint-rules@4.1.1:
     tslib "^1.0.0"
     tsutils "^1.4.0"
 
-tslint-react@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/tslint-react/-/tslint-react-3.0.0.tgz#00c48ab7f22e91533b62bdef2c162b49447af00a"
+tslint-react@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/tslint-react/-/tslint-react-3.1.0.tgz#a4de1a22fef41b663fa44daae27cbf04dc8a59d6"
+  dependencies:
+    tsutils "^1.7.0"
 
 tslint@5.5.0:
   version "5.5.0"
@@ -3451,7 +3449,7 @@ tsscmp@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/tsscmp/-/tsscmp-1.0.5.tgz#7dc4a33af71581ab4337da91d85ca5427ebd9a97"
 
-tsutils@^1.4.0:
+tsutils@^1.4.0, tsutils@^1.7.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-1.9.1.tgz#b9f9ab44e55af9681831d5f28d0aeeaf5c750cb0"
 
