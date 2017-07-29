@@ -42,12 +42,12 @@ export class DraggableCard extends Component<Props, State> {
           dragging: false
         })
 
-        const center: Position = {
+        const cardCenter: Position = {
           left: this.state.currentPosition.left + this.props.size.width / 2,
           top: this.state.currentPosition.top + this.props.size.height / 2
         }
 
-        this.props.onCardDropped(center)
+        this.props.onCardDropped(cardCenter)
       },
       onPanResponderGrant: (e, gestureState) => {
         this.dragStartPosition = this.state.currentPosition,
