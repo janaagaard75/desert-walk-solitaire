@@ -9,11 +9,11 @@
     "preset": "jest-expo-ts"
   },
   "dependencies": {
-    "expo": "18.0.4",
+    "expo": "19.0.1",
     "mobx": "3.2.1",
     "mobx-react": "4.2.2",
     "react": "16.0.0-alpha.12",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-18.0.1.tar.gz",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-19.0.0.tar.gz",
     "tslib": "1.7.1"
   },
   "devDependencies": {

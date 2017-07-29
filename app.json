@@ -4,22 +4,25 @@
     "description": "A game of solitaire.",
     "slug": "DesertWalk",
     "privacy": "public",
-    "sdkVersion": "18.0.0",
+    "sdkVersion": "19.0.0",
     "version": "1.0.0",
     "orientation": "landscape",
     "primaryColor": "#cccccc",
-    "icon": "./assets/icons/app.png",
+    "icon": "./assets/icons/app-icon.png",
     "loading": {
-      "icon": "./assets/icons/loading.png",
+      "icon": "./assets/icons/loading-icon.png",
       "hideExponentText": false
     },
     "packagerOpts": {
-      "assetExts": ["ttf", "mp4"],
+      "assetExts": [
+        "mp4",
+        "ttf"
+      ],
       "sourceExts": [
         "ts",
         "tsx"
       ],
-      "transformer": "node_modules/react-native-typescript-transformer"
+      "transformer": "node_modules/react-native-typescript-transformer/index.js"
     },
     "ios": {
       "supportsTablet": true
