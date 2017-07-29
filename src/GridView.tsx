@@ -43,8 +43,8 @@ export class GridView extends Component<Props, {}> {
         {this.props.grid.cells.map(cell =>
           <CellView
             cell={cell}
-            handleCardDropped={(fromCell, center) => this.handleCardDropped(fromCell, center)}
             key={cell.key}
+            onCardDropped={(fromCell, center) => this.handleCardDropped(fromCell, center)}
             position={this.getCellPosition(cell.columnIndex, cell.rowIndex)}
             size={this.cellSize}
           />

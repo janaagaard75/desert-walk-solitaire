@@ -10,7 +10,7 @@ import { Size } from './Size'
 
 interface Props {
   cell: Cell
-  handleCardDropped: (cell: Cell, center: Position) => void
+  onCardDropped: (cell: Cell, center: Position) => void
   position: Position
   size: Size
 }
