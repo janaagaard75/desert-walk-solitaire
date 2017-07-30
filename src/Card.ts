@@ -5,4 +5,6 @@ export class Card {
     public readonly suit: Suit,
     public readonly value: number
   ) { }
+
+  public next: Card | undefined
 }

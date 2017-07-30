@@ -10,6 +10,7 @@ import { Position } from './Position'
 import { Size } from './Size'
 
 interface Props {
+  isDraggable: boolean
   cell: Cell
   onCardDropped: (fromCell: Cell, cardCenter: Position) => void
   onCardMoved: (card: Card, cardCenter: Position) => void
@@ -37,7 +38,7 @@ export class CellView extends Component<Props, {}> {
       return (
         <DraggableCard
           card={definedCard}
-          isDraggable={this.props.cell.cardIsDraggable}
+          isDraggable={this.props.isDraggable}
           key={this.props.cell.key}
           onCardDropped={cardCenter => this.props.onCardDropped(this.props.cell, cardCenter)}
           onCardMoved={cardCenter => this.props.onCardMoved(definedCard, cardCenter)}

@@ -11,6 +11,11 @@ export class Grid {
       if (Suit.hasOwnProperty(suit)) {
         for (let i = 1; i <= 13; i++) {
           const card = new Card(suit, i)
+
+          if (i !== 1) {
+            this.deck[this.deck.length - 1].next = card
+          }
+
           this.deck.push(card)
         }
       }
@@ -38,6 +43,24 @@ export class Grid {
 
   private readonly deck: Array<Card> = []
   private readonly rows = 4
+
+  @computed
+  public get draggableCards(): Array<Card> {
+    let draggableCards = this.emptyCells
+      .map(cell => cell.cellToTheLeft)
+      .filter(cellToTheLeft => cellToTheLeft !== undefined && cellToTheLeft.card !== undefined)
+      // TODO: Is it possible to avoid the casts?
+      .map(cell => (cell as Cell).card as Card)
+
+    const emptyCellsInFirstColumn = this.cells.filter(cell => cell.columnIndex === 0).some(cell => cell.card === undefined)
+    if (emptyCellsInFirstColumn) {
+      const aces = this.cells.filter(cell => cell.card !== undefined && cell.card.value === 1).map(cell => cell.card as Card)
+
+      draggableCards = draggableCards.concat(aces)
+    }
+
+    return draggableCards
+  }
 
   @computed
   public get emptyCells(): Array<Cell> {
