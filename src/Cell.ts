@@ -22,7 +22,7 @@ export class Cell {
       return false
     }
 
-    // Allow rearrange of aces in the first column.
+    // Allow rearranging the aces in the first column.
     if (this.columnIndex === 0) {
       return true
     }
