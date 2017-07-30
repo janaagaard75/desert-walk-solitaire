@@ -4,6 +4,7 @@ import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
+import { Card } from './Card'
 import { Cell } from './Cell'
 import { CellView } from './CellView'
 import { Grid } from './Grid'
@@ -44,7 +45,8 @@ export class GridView extends Component<Props, {}> {
           <CellView
             cell={cell}
             key={cell.key}
-            onCardDropped={(fromCell, center) => this.handleCardDropped(fromCell, center)}
+            onCardDropped={(fromCell, cardCenter) => this.handleCardDropped(fromCell, cardCenter)}
+            onCardMoved={(card, cardCenter) => this.handleCardMoved(card, cardCenter)}
             position={this.getCellPosition(cell.columnIndex, cell.rowIndex)}
             size={this.cellSize}
           />
@@ -102,11 +104,19 @@ export class GridView extends Component<Props, {}> {
     return spaceBetweenCells
   }
 
-  private handleCardDropped(fromCell: Cell, center: Position) {
+  private handleCardDropped(fromCell: Cell, cardCenter: Position) {
     this.props.grid.emptyCells.forEach(cell => {
-      if (this.getCellBundary(cell).pointIsWithinBoundary(center)) {
+      if (this.getCellBundary(cell).pointIsWithinBoundary(cardCenter)) {
         this.props.grid.moveCard(fromCell, cell)
       }
+    })
+  }
+
+  private handleCardMoved(card: Card, cardCenter: Position) {
+    this.props.grid.emptyCells.forEach(cell => {
+      cell.hoveredByCard = this.getCellBundary(cell).pointIsWithinBoundary(cardCenter)
+        ? cell.hoveredByCard = card
+        : cell.hoveredByCard = undefined
     })
   }
 }

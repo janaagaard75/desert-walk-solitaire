@@ -13,8 +13,8 @@ export class Cell {
     this.key = this.rowIndex + '.' + this.columnIndex
   }
 
-  @observable
-  public card: Card | undefined = undefined
+  @observable public card: Card | undefined = undefined
+  @observable public hoveredByCard: Card | undefined = undefined
   public key: string
 
   @computed
@@ -43,6 +43,10 @@ export class Cell {
   @computed
   public get status(): CellStatus {
     if (this.isEmpty) {
+      if (this.hoveredByCard === undefined) {
+        return CellStatus.EmptyAndDraggedCardIsDroppable
+      }
+
       return CellStatus.EmptyAndDropPossible
     }
     else {

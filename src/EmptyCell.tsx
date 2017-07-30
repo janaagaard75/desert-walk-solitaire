@@ -4,11 +4,12 @@ import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
+import { Card } from './Card'
 import { Position } from './Position'
 import { Size } from './Size'
 
 interface Props {
-  isHovered: boolean
+  hoveredByCard: Card | undefined
   position: Position
   size: Size
 }
@@ -19,7 +20,7 @@ export class EmptyCell extends Component<Props, {}> {
     const emptyCellStyle: ViewStyle = {
       borderColor: 'black',
       borderRadius: 5,
-      borderStyle: this.props.isHovered ? 'solid' : 'dashed',
+      borderStyle: this.props.hoveredByCard === undefined ? 'dashed' : 'solid',
       borderWidth: 1,
       height: this.props.size.height,
       left: this.props.position.left,

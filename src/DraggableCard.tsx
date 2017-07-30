@@ -14,7 +14,8 @@ import { Size } from './Size'
 interface Props {
   card: Card
   isDraggable: boolean
-  onCardDropped: (center: Position) => any
+  onCardDropped: (cardCenter: Position) => void
+  onCardMoved: (cardCenter: Position) => void
   startPosition: Position
   size: Size
 }
@@ -37,17 +38,11 @@ export class DraggableCard extends Component<Props, State> {
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
         this.setState({
-          // Move the card back to the original position. This might be overwritten if the card was dropped in an appropriate place.
+          // Move the card back to the original position. This reposition is disregarded if the card is moved to a new cell because of the drop.
           currentPosition: this.props.startPosition,
           dragging: false
         })
-
-        const cardCenter: Position = {
-          left: this.state.currentPosition.left + this.props.size.width / 2,
-          top: this.state.currentPosition.top + this.props.size.height / 2
-        }
-
-        this.props.onCardDropped(cardCenter)
+        this.props.onCardDropped(this.getCardCenter())
       },
       onPanResponderGrant: (e, gestureState) => {
         this.dragStartPosition = this.state.currentPosition,
@@ -62,6 +57,7 @@ export class DraggableCard extends Component<Props, State> {
             top: this.dragStartPosition.top + gestureState.dy
           }
         })
+        this.props.onCardMoved(this.getCardCenter())
       },
       onStartShouldSetPanResponder: (e, gestureState) => true
     })
@@ -91,5 +87,14 @@ export class DraggableCard extends Component<Props, State> {
         />
       </View>
     )
+  }
+
+  private getCardCenter(): Position {
+    const cardCenter: Position = {
+      left: this.state.currentPosition.left + this.props.size.width / 2,
+      top: this.state.currentPosition.top + this.props.size.height / 2
+    }
+
+    return cardCenter
   }
 }

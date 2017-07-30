@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Component } from 'react'
 import { observer } from 'mobx-react'
 
+import { Card } from './Card'
 import { Cell } from './Cell'
 import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
@@ -10,7 +11,8 @@ import { Size } from './Size'
 
 interface Props {
   cell: Cell
-  onCardDropped: (cell: Cell, center: Position) => void
+  onCardDropped: (fromCell: Cell, cardCenter: Position) => void
+  onCardMoved: (card: Card, cardCenter: Position) => void
   position: Position
   size: Size
 }
@@ -18,25 +20,31 @@ interface Props {
 @observer
 export class CellView extends Component<Props, {}> {
   public render() {
-    return (
-      // Using === undefined instead of isEmpty to avoid compiler error.
-      this.props.cell.card === undefined ? (
+    // Using === undefined instead of isEmpty to be able to create definedCard below.
+    if (this.props.cell.card === undefined) {
+      return (
         <EmptyCell
-          isHovered={false}
+          hoveredByCard={this.props.cell.hoveredByCard}
           key={this.props.cell.key}
           position={this.props.position}
           size={this.props.size}
         />
-      ) : (
+      )
+    }
+    else {
+      // Necessary to satisfy the TypeScript compiler in the onCardMoved line below.
+      const definedCard = this.props.cell.card
+      return (
         <DraggableCard
-          card={this.props.cell.card}
+          card={definedCard}
           isDraggable={this.props.cell.cardIsDraggable}
           key={this.props.cell.key}
-          onCardDropped={center => this.props.handleCardDropped(this.props.cell, center)}
+          onCardDropped={cardCenter => this.props.onCardDropped(this.props.cell, cardCenter)}
+          onCardMoved={cardCenter => this.props.onCardMoved(definedCard, cardCenter)}
           startPosition={this.props.position}
           size={this.props.size}
         />
       )
-    )
+    }
   }
 }

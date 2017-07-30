@@ -48,5 +48,8 @@ export class Grid {
   public moveCard(from: Cell, to: Cell) {
     to.card = from.card
     from.card = undefined
+
+    // TODO: Is there a cleaner way to reset the hovered state?
+    to.hoveredByCard = undefined
   }
 }
