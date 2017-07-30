@@ -2,7 +2,6 @@ import { computed } from 'mobx'
 import { observable } from 'mobx'
 
 import { Card } from './Card'
-import { CellStatus } from './CellStatus'
 
 export class Cell {
   constructor(
@@ -23,10 +22,12 @@ export class Cell {
       return false
     }
 
+    // Allow rearrange of aces in the first column.
     if (this.columnIndex === 0) {
       return true
     }
 
+    // TODO: Currenly setting aces to draggable and every else to not draggable. Implement the correct algorith.
     if (this.card.value === 1) {
       return true
     }
@@ -38,19 +39,5 @@ export class Cell {
   public get isEmpty(): boolean {
     const isEmpty = this.card === undefined
     return isEmpty
-  }
-
-  @computed
-  public get status(): CellStatus {
-    if (this.isEmpty) {
-      if (this.hoveredByCard === undefined) {
-        return CellStatus.EmptyAndDraggedCardIsDroppable
-      }
-
-      return CellStatus.EmptyAndDropPossible
-    }
-    else {
-      return CellStatus.OccupiedByDraggableCardInWrongPlace
-    }
   }
 }
