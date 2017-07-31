@@ -49,7 +49,6 @@ export class Grid {
     let draggableCards = this.emptyCells
       .map(cell => cell.cellToTheLeft)
       .filter(cellToTheLeft => cellToTheLeft !== undefined && cellToTheLeft.card !== undefined)
-      // TODO: Is it possible to avoid the casts?
       .map(cell => ((cell as Cell).card as Card).next)
       .filter(nextCard => nextCard !== undefined) as Array<Card>
 
