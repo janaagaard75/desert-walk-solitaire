@@ -50,7 +50,8 @@ export class Grid {
       .map(cell => cell.cellToTheLeft)
       .filter(cellToTheLeft => cellToTheLeft !== undefined && cellToTheLeft.card !== undefined)
       // TODO: Is it possible to avoid the casts?
-      .map(cell => (cell as Cell).card as Card)
+      .map(cell => ((cell as Cell).card as Card).next)
+      .filter(nextCard => nextCard !== undefined) as Array<Card>
 
     const emptyCellsInFirstColumn = this.cells.filter(cell => cell.columnIndex === 0).some(cell => cell.card === undefined)
     if (emptyCellsInFirstColumn) {
