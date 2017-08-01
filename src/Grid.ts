@@ -52,9 +52,14 @@ export class Grid {
       .map(cell => ((cell as Cell).card as Card).next)
       .filter(nextCard => nextCard !== undefined) as Array<Card>
 
-    const emptyCellsInFirstColumn = this.cells.filter(cell => cell.columnIndex === 0).some(cell => cell.card === undefined)
+    const emptyCellsInFirstColumn = this.cells
+      .filter(cell => cell.columnIndex === 0)
+      .some(cell => cell.card === undefined)
+
     if (emptyCellsInFirstColumn) {
-      const aces = this.cells.filter(cell => cell.card !== undefined && cell.card.value === 1).map(cell => cell.card as Card)
+      const aces = this.cells
+        .filter(cell => cell.card !== undefined && cell.card.value === 1)
+        .map(cell => cell.card as Card)
 
       draggableCards = draggableCards.concat(aces)
     }
