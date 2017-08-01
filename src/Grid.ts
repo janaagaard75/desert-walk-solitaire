@@ -48,6 +48,23 @@ export class Grid {
     return emptyCells
   }
 
+  public cardIsDroppable(card: Card, cell: Cell): boolean {
+    if (cell.cellToTheLeft === undefined) {
+      const isAce = card.value === 1
+      return isAce
+    }
+
+    if (cell.cellToTheLeft.card === undefined) {
+      return false
+    }
+
+    const isNextCard
+      = card.suit === cell.cellToTheLeft.card.suit
+      && card.value === cell.cellToTheLeft.card.value + 1
+
+    return isNextCard
+  }
+
   public moveCard(from: Cell, to: Cell) {
     to.card = from.card
     from.card = undefined
