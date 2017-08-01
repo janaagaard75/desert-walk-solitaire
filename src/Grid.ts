@@ -7,19 +7,7 @@ import { Suit } from './Suit'
 
 export class Grid {
   constructor() {
-    for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
-      if (Suit.hasOwnProperty(suit)) {
-        for (let i = 1; i <= 13; i++) {
-          const card = new Card(suit, i)
-
-          if (i !== 1) {
-            this.deck[this.deck.length - 1].next = card
-          }
-
-          this.deck.push(card)
-        }
-      }
-    }
+    this.initializeDeck()
 
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.columns; c++) {
@@ -79,5 +67,21 @@ export class Grid {
 
     // TODO: Is there a cleaner way to reset the hovered state?
     to.hoveredByCard = undefined
+  }
+
+  private initializeDeck() {
+    for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
+      if (Suit.hasOwnProperty(suit)) {
+        for (let i = 1; i <= 13; i++) {
+          const card = new Card(suit, i)
+
+          if (i !== 1) {
+            this.deck[this.deck.length - 1].next = card
+          }
+
+          this.deck.push(card)
+        }
+      }
+    }
   }
 }
