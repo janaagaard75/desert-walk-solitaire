@@ -10,22 +10,7 @@ export class Grid {
   constructor() {
     this.initializeDeck()
     this.shuffleDeck()
-
-    for (let r = 0; r < this.rows; r++) {
-      for (let c = 0; c < this.columns; c++) {
-        let cell: Cell
-        if (c === 0) {
-          cell = new Cell(r, c, undefined)
-        }
-        else {
-          const cellToTheLeft = this.cells[this.cells.length - 1]
-          cell = new Cell(r, c, cellToTheLeft)
-          cell.card = this.deck[(this.columns - 1) * r + (c - 1)]
-        }
-
-        this.cells.push(cell)
-      }
-    }
+    this.initializeCells()
   }
 
   @observable public readonly cells: Array<Cell> = []
@@ -69,6 +54,24 @@ export class Grid {
 
     // TODO: Is there a cleaner way to reset the hovered state?
     to.hoveredByCard = undefined
+  }
+
+  private initializeCells() {
+    for (let r = 0; r < this.rows; r++) {
+      for (let c = 0; c < this.columns; c++) {
+        let cell: Cell
+        if (c === 0) {
+          cell = new Cell(r, c, undefined)
+        }
+        else {
+          const cellToTheLeft = this.cells[this.cells.length - 1]
+          cell = new Cell(r, c, cellToTheLeft)
+          cell.card = this.deck[(this.columns - 1) * r + (c - 1)]
+        }
+
+        this.cells.push(cell)
+      }
+    }
   }
 
   private initializeDeck() {
