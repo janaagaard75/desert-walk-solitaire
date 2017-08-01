@@ -1,6 +1,7 @@
 import { computed } from 'mobx'
 import { observable } from 'mobx'
 
+import { ArrayUtilities } from './ArrayUtilities'
 import { Card } from './Card'
 import { Cell } from './Cell'
 import { Suit } from './Suit'
@@ -8,6 +9,7 @@ import { Suit } from './Suit'
 export class Grid {
   constructor() {
     this.initializeDeck()
+    this.shuffleDeck()
 
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.columns; c++) {
@@ -83,5 +85,9 @@ export class Grid {
         }
       }
     }
+  }
+
+  private shuffleDeck() {
+    ArrayUtilities.shuffleArray(this.deck)
   }
 }
