@@ -14,6 +14,7 @@ interface Props {
   card: Card
   dragging: boolean
   isDraggable: boolean
+  isInCorrectPlace: boolean
   size: Size
 }
 
@@ -22,10 +23,11 @@ export class CardView extends Component<Props, {}> {
   public render() {
     const cardStyle: ViewStyle = {
       alignItems: 'center',
-      backgroundColor: this.props.isDraggable ? '#fee' : '#dcc',
+      backgroundColor: this.props.isInCorrectPlace ? '#efe' : '#fee',
       borderColor: 'black',
       borderRadius: 5,
-      borderWidth: 1,
+      borderStyle: 'solid',
+      borderWidth: this.props.isDraggable ? 3 : 1,
       height: this.props.size.height,
       padding: 2,
       width: this.props.size.width

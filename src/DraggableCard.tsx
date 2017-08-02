@@ -14,6 +14,7 @@ import { Size } from './Size'
 interface Props {
   card: Card
   isDraggable: boolean
+  isInCorrectPlace: boolean
   onCardDropped: (cardCenter: Position) => void
   onCardMoved: (cardCenter: Position) => void
   startPosition: Position
@@ -83,6 +84,7 @@ export class DraggableCard extends Component<Props, State> {
           card={this.props.card}
           dragging={this.state.dragging}
           isDraggable={this.props.isDraggable}
+          isInCorrectPlace={this.props.isInCorrectPlace}
           size={this.props.size}
         />
       </View>

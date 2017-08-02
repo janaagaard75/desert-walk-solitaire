@@ -39,6 +39,7 @@ export class CellView extends Component<Props, {}> {
         <DraggableCard
           card={definedCard}
           isDraggable={this.props.isDraggable}
+          isInCorrectPlace={this.props.cell.cardIsInRightPlace}
           key={this.props.cell.key}
           onCardDropped={cardCenter => this.props.onCardDropped(this.props.cell, cardCenter)}
           onCardMoved={cardCenter => this.props.onCardMoved(definedCard, cardCenter)}

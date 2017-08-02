@@ -17,6 +17,23 @@ export class Cell {
   public key: string
 
   @computed
+  public get cardIsInRightPlace(): boolean {
+    if (this.card === undefined) {
+      return false
+    }
+
+    if (this.cellToTheLeft === undefined) {
+      const aceInFirstColumn = this.card.value === 1
+      return aceInFirstColumn
+    }
+
+    const followsCardToTheLeft = this.cellToTheLeft.cardIsInRightPlace
+      && (this.cellToTheLeft.card as Card).next === this.card
+
+    return followsCardToTheLeft
+  }
+
+  @computed
   public get isEmpty(): boolean {
     const isEmpty = this.card === undefined
     return isEmpty
