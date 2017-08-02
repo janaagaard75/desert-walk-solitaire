@@ -1,6 +1,6 @@
 export class ArrayUtilities {
   /** Shuffle the elements in an array in place. Based on http://stackoverflow.com/a/962890/37147. */
-  public static shuffleArray<T>(array: Array<T>): Array<T> {
+  public static shuffleArray<T>(array: Array<T>): void {
     let temporaryElement: T
     let current: number
     let top = array.length
@@ -13,7 +13,5 @@ export class ArrayUtilities {
         array[top] = temporaryElement
       }
     }
-
-    return array
   }
 }
