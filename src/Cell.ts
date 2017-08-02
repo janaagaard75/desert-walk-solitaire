@@ -17,25 +17,6 @@ export class Cell {
   public key: string
 
   @computed
-  public get cardIsDraggable(): boolean {
-    if (this.card === undefined) {
-      return false
-    }
-
-    // Allow rearranging the aces in the first column.
-    if (this.columnIndex === 0) {
-      return true
-    }
-
-    // TODO: Currenly setting aces to draggable and every else to not draggable. Implement the correct algorith.
-    if (this.card.value === 1) {
-      return true
-    }
-
-    return false
-  }
-
-  @computed
   public get isEmpty(): boolean {
     const isEmpty = this.card === undefined
     return isEmpty
