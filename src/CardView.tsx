@@ -23,11 +23,11 @@ export class CardView extends Component<Props, {}> {
   public render() {
     const cardStyle: ViewStyle = {
       alignItems: 'center',
-      backgroundColor: 'white',
+      backgroundColor: this.props.isDraggable ? 'white' : '#eee5dd',
       borderColor: 'black',
       borderRadius: 5,
       borderStyle: 'solid',
-      borderWidth: this.props.isDraggable ? 3 : 1,
+      borderWidth: 1,
       height: this.props.size.height,
       padding: 2,
       width: this.props.size.width
