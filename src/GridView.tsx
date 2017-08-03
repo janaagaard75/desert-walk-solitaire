@@ -24,12 +24,15 @@ export class GridView extends Component<Props, {}> {
 
     this.cellSize = this.getCellSize()
     this.gutter = this.getGutter()
+    this.extraSpace = this.getExtraSpace()
   }
 
   private readonly cardSizeRatio = 3 / 2
   private readonly cardWidthToGutterRatio = 7 / 1
   private readonly cellSize: Size
   private readonly gutter: number
+  private readonly extraSpace: number
+  private readonly extraSpaceToGutterRatio = 2
 
   public render() {
     const gridViewStyle: ViewStyle = {
@@ -85,9 +88,9 @@ export class GridView extends Component<Props, {}> {
   private getCellSize(): Size {
     const cellWidth = Math.floor(
       (
-        this.cardWidthToGutterRatio * this.props.availableSize.width
+        this.props.availableSize.width * this.cardWidthToGutterRatio
       ) / (
-        this.props.grid.columns * (this.cardWidthToGutterRatio + 1) + 1
+        this.props.grid.columns * (this.cardWidthToGutterRatio + 1) + this.extraSpaceToGutterRatio
       )
     )
 
@@ -102,9 +105,20 @@ export class GridView extends Component<Props, {}> {
   }
 
   public getGutter(): number {
-    const availableWidthForGutters = this.props.availableSize.width - this.props.grid.columns * this.cellSize.width
-    const gutter = Math.floor(availableWidthForGutters / (this.props.grid.columns + 1))
+    const gutter = Math.floor(
+      (
+        this.props.availableSize.width - this.props.grid.columns * this.cellSize.width
+      ) / (
+        this.props.grid.columns + this.extraSpaceToGutterRatio
+      )
+    )
+
     return gutter
+  }
+
+  public getExtraSpace(): number {
+    const extraSpace = Math.floor(this.extraSpaceToGutterRatio * this.gutter)
+    return extraSpace
   }
 
   private handleCardDropped(fromCell: Cell, cardCenter: Position) {
