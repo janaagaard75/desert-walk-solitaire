@@ -93,6 +93,8 @@ export class GridView extends Component<Props, {}> {
 
     const cellHeight = Math.floor(this.cardSizeRatio * cellWidth)
 
+    // TODO: Verify that there is enough available height.
+
     return {
       height: cellHeight,
       width: cellWidth
