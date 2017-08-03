@@ -23,7 +23,7 @@ export class CardView extends Component<Props, {}> {
   public render() {
     const cardStyle: ViewStyle = {
       alignItems: 'center',
-      backgroundColor: this.props.isInCorrectPlace ? '#efe' : '#fee',
+      backgroundColor: 'white',
       borderColor: 'black',
       borderRadius: 5,
       borderStyle: 'solid',
