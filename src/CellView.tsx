@@ -22,8 +22,8 @@ interface Props {
 @observer
 export class CellView extends Component<Props, {}> {
   public render() {
-    const wrongPlacePosition: Position = {
-      left: this.props.position.left + this.props.offset,
+    const correctPlacePosition: Position = {
+      left: this.props.position.left - this.props.offset,
       top: this.props.position.top
     }
 
@@ -33,7 +33,7 @@ export class CellView extends Component<Props, {}> {
         <EmptyCell
           hoveredByCard={this.props.cell.hoveredByCard}
           key={this.props.cell.key}
-          position={wrongPlacePosition}
+          position={this.props.position}
           size={this.props.size}
         />
       )
@@ -50,7 +50,7 @@ export class CellView extends Component<Props, {}> {
           key={this.props.cell.key}
           onCardDropped={cardCenter => this.props.onCardDropped(this.props.cell, cardCenter)}
           onCardMoved={cardCenter => this.props.onCardMoved(definedCard, cardCenter)}
-          startPosition={this.props.cell.cardIsInRightPlace ? this.props.position : wrongPlacePosition}
+          startPosition={this.props.cell.cardIsInRightPlace ? correctPlacePosition : this.props.position}
           size={this.props.size}
         />
       )

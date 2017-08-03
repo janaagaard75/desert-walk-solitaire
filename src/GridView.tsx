@@ -79,7 +79,7 @@ export class GridView extends Component<Props, {}> {
 
   private getCellPosition(columnIndex: number, rowIndex: number): Position {
     const position = {
-      left: this.gutter + columnIndex * (this.cellSize.width + this.gutter),
+      left: this.gutter + columnIndex * (this.cellSize.width + this.gutter) + this.offset,
       top: this.gutter + rowIndex * (this.cellSize.height + this.gutter)
     }
 
