@@ -12,7 +12,7 @@ import { Size } from './Size'
 interface Props {
   isDraggable: boolean
   cell: Cell
-  extraSpace: number
+  offset: number
   onCardDropped: (fromCell: Cell, cardCenter: Position) => void
   onCardMoved: (card: Card, cardCenter: Position) => void
   position: Position
@@ -23,7 +23,7 @@ interface Props {
 export class CellView extends Component<Props, {}> {
   public render() {
     const wrongPlacePosition: Position = {
-      left: this.props.position.left + this.props.extraSpace,
+      left: this.props.position.left + this.props.offset,
       top: this.props.position.top
     }
 

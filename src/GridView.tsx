@@ -24,15 +24,15 @@ export class GridView extends Component<Props, {}> {
 
     this.cellSize = this.getCellSize()
     this.gutter = this.getGutter()
-    this.extraSpace = this.getExtraSpace()
+    this.offset = this.getExtraSpace()
   }
 
   private readonly cardSizeRatio = 3 / 2
   private readonly cardWidthToGutterRatio = 7 / 1
   private readonly cellSize: Size
   private readonly gutter: number
-  private readonly extraSpace: number
-  private readonly extraSpaceToGutterRatio = 2
+  private readonly offset: number
+  private readonly offsetToGutterRatio = 2
 
   public render() {
     const gridViewStyle: ViewStyle = {
@@ -47,7 +47,7 @@ export class GridView extends Component<Props, {}> {
         {this.props.grid.cells.map(cell =>
           <CellView
             cell={cell}
-            extraSpace={this.extraSpace}
+            offset={this.offset}
             isDraggable={this.props.grid.draggableCards.some(card => cell.card === card)}
             key={cell.key}
             onCardDropped={(fromCell, cardCenter) => this.handleCardDropped(fromCell, cardCenter)}
@@ -91,7 +91,7 @@ export class GridView extends Component<Props, {}> {
       (
         this.props.availableSize.width * this.cardWidthToGutterRatio
       ) / (
-        this.props.grid.columns * (this.cardWidthToGutterRatio + 1) + this.extraSpaceToGutterRatio
+        this.props.grid.columns * (this.cardWidthToGutterRatio + 1) + this.offsetToGutterRatio
       )
     )
 
@@ -110,7 +110,7 @@ export class GridView extends Component<Props, {}> {
       (
         this.props.availableSize.width - this.props.grid.columns * this.cellSize.width
       ) / (
-        this.props.grid.columns + this.extraSpaceToGutterRatio
+        this.props.grid.columns + this.offsetToGutterRatio
       )
     )
 
@@ -118,7 +118,7 @@ export class GridView extends Component<Props, {}> {
   }
 
   public getExtraSpace(): number {
-    const extraSpace = Math.floor(this.extraSpaceToGutterRatio * this.gutter)
+    const extraSpace = Math.floor(this.offsetToGutterRatio * this.gutter)
     return extraSpace
   }
 
