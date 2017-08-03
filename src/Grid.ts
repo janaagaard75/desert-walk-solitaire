@@ -74,15 +74,17 @@ export class Grid {
   }
 
   private initializeCells() {
+    const theFourAces = this.deck.filter(card => card.value === 1)
+
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.columns; c++) {
         let cell: Cell
         if (c === 0) {
-          cell = new Cell(r, c, undefined)
+          cell = new Cell(r, c, undefined, theFourAces)
         }
         else {
           const cellToTheLeft = this.cells[this.cells.length - 1]
-          cell = new Cell(r, c, cellToTheLeft)
+          cell = new Cell(r, c, cellToTheLeft, theFourAces)
           cell.card = this.deck[(this.columns - 1) * r + (c - 1)]
         }
 

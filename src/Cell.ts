@@ -7,7 +7,8 @@ export class Cell {
   constructor(
     public readonly rowIndex: number,
     public readonly columnIndex: number,
-    public readonly cellToTheLeft: Cell | undefined
+    public readonly cellToTheLeft: Cell | undefined,
+    private readonly theFourAces: Array<Card>
   ) {
     this.key = this.rowIndex + '.' + this.columnIndex
   }
@@ -16,7 +17,8 @@ export class Cell {
   @observable public hoveredByCard: Card | undefined = undefined
   public key: string
 
-  @computed get blocked(): boolean {
+  @computed
+  get blocked(): boolean {
     if (this.cellToTheLeft === undefined) {
       return false
     }
@@ -47,6 +49,33 @@ export class Cell {
       && (this.cellToTheLeft.card as Card).next === this.card
 
     return followsCardToTheLeft
+  }
+
+  @computed
+  public get droppableCards(): Array<Card> {
+    if (this.cellToTheLeft === undefined) {
+      return this.theFourAces
+    }
+
+    if (this.cellToTheLeft.card === undefined) {
+      return []
+    }
+
+    if (this.cellToTheLeft.card.next === undefined) {
+      return []
+    }
+
+    return [this.cellToTheLeft.card.next]
+  }
+
+  @computed
+  public get hoveredByDroppableCard(): boolean {
+    if (this.hoveredByCard === undefined) {
+      return false
+    }
+
+    const hoveredByDroppableCard = this.droppableCards.includes(this.hoveredByCard)
+    return hoveredByDroppableCard
   }
 
   @computed
