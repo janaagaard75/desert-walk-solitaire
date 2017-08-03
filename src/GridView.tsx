@@ -27,7 +27,7 @@ export class GridView extends Component<Props, {}> {
   }
 
   private readonly cardSizeRatio = 3 / 2
-  private readonly cardWidthToGutterRatio = 10 / 1
+  private readonly cardWidthToGutterRatio = 7 / 1
   private readonly cellSize: Size
   private readonly gutter: number
 
