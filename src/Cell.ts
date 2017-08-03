@@ -16,6 +16,22 @@ export class Cell {
   @observable public hoveredByCard: Card | undefined = undefined
   public key: string
 
+  @computed get blocked(): boolean {
+    if (this.cellToTheLeft === undefined) {
+      return false
+    }
+
+    if (this.cellToTheLeft.card === undefined) {
+      return true
+    }
+
+    if (this.cellToTheLeft.card.value === 13) {
+      return true
+    }
+
+    return false
+  }
+
   @computed
   public get cardIsInRightPlace(): boolean {
     if (this.card === undefined) {
