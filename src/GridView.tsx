@@ -23,13 +23,13 @@ export class GridView extends Component<Props, {}> {
     super(props, context)
 
     this.cellSize = this.getCellSize()
-    this.spaceBetweenCells = this.getSpaceBetweenCells()
+    this.gutter = this.getSpaceBetweenCells()
   }
 
-  private readonly cardSizeToSpaceRatio = 10 / 1
+  private readonly cardSizeRatio = 3 / 2
+  private readonly cardWidthToGutterRatio = 10 / 1
   private readonly cellSize: Size
-  private readonly heightToWidthRatio = 3 / 2
-  private readonly spaceBetweenCells: number
+  private readonly gutter: number
 
   public render() {
     const gridViewStyle: ViewStyle = {
@@ -75,8 +75,8 @@ export class GridView extends Component<Props, {}> {
 
   private getCellPosition(columnIndex: number, rowIndex: number): Position {
     const position = {
-      left: this.spaceBetweenCells + columnIndex * (this.cellSize.width + this.spaceBetweenCells),
-      top: this.spaceBetweenCells + rowIndex * (this.cellSize.height + this.spaceBetweenCells)
+      left: this.gutter + columnIndex * (this.cellSize.width + this.gutter),
+      top: this.gutter + rowIndex * (this.cellSize.height + this.gutter)
     }
 
     return position
@@ -85,13 +85,13 @@ export class GridView extends Component<Props, {}> {
   private getCellSize(): Size {
     const cellWidth = Math.floor(
       (
-        this.cardSizeToSpaceRatio * this.props.availableSize.width
+        this.cardWidthToGutterRatio * this.props.availableSize.width
       ) / (
-        this.props.grid.columns * (this.cardSizeToSpaceRatio + 1) + 1
+        this.props.grid.columns * (this.cardWidthToGutterRatio + 1) + 1
       )
     )
 
-    const cellHeight = Math.floor(this.heightToWidthRatio * cellWidth)
+    const cellHeight = Math.floor(this.cardSizeRatio * cellWidth)
 
     return {
       height: cellHeight,
