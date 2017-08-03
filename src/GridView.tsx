@@ -23,7 +23,7 @@ export class GridView extends Component<Props, {}> {
     super(props, context)
 
     this.cellSize = this.getCellSize()
-    this.gutter = this.getSpaceBetweenCells()
+    this.gutter = this.getGutter()
   }
 
   private readonly cardSizeRatio = 3 / 2
@@ -99,10 +99,10 @@ export class GridView extends Component<Props, {}> {
     }
   }
 
-  public getSpaceBetweenCells(): number {
-    const availableWidthForSpaces = this.props.availableSize.width - this.props.grid.columns * this.cellSize.width
-    const spaceBetweenCells = Math.floor(availableWidthForSpaces / (this.props.grid.columns + 1))
-    return spaceBetweenCells
+  public getGutter(): number {
+    const availableWidthForGutters = this.props.availableSize.width - this.props.grid.columns * this.cellSize.width
+    const gutter = Math.floor(availableWidthForGutters / (this.props.grid.columns + 1))
+    return gutter
   }
 
   private handleCardDropped(fromCell: Cell, cardCenter: Position) {
