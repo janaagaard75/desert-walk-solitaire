@@ -5,6 +5,7 @@ import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { StatusBar } from 'react-native'
 import { Text } from 'react-native'
+import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
@@ -18,6 +19,11 @@ export default class App extends Component<{}, {}> {
   private grid = new Grid()
 
   public render() {
+    const headerStyle: TextStyle = {
+      marginTop: 4,
+      textAlign: 'center'
+    }
+
     const mainViewStyle: ViewStyle = {
       backgroundColor: '#ccc',
       flex: 1,
@@ -31,7 +37,7 @@ export default class App extends Component<{}, {}> {
     return (
       <View style={mainViewStyle}>
         <StatusBar hidden={true}/>
-        <Text>
+        <Text style={headerStyle}>
           Desert Walk
         </Text>
         <View
