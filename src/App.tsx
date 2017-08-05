@@ -19,7 +19,7 @@ export default class App extends Component<{}, {}> {
 
   public render() {
     const mainViewStyle: ViewStyle = {
-      backgroundColor: '#3b3',
+      backgroundColor: '#ccc',
       flex: 1,
       flexDirection: 'column'
     }
