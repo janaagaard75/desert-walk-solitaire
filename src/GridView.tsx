@@ -24,15 +24,12 @@ export class GridView extends Component<Props, {}> {
 
     this.cellSize = this.getCellSize()
     this.gutter = this.getGutter()
-    this.offset = this.getExtraSpace()
   }
 
   private readonly cardSizeRatio = 3 / 2
   private readonly cardWidthToGutterRatio = 7 / 1
   private readonly cellSize: Size
   private readonly gutter: number
-  private readonly offset: number
-  private readonly offsetToGutterRatio = 2
 
   public render() {
     const gridViewStyle: ViewStyle = {
@@ -47,7 +44,6 @@ export class GridView extends Component<Props, {}> {
         {this.props.grid.cells.map(cell =>
           <CellView
             cell={cell}
-            offset={this.offset}
             isDraggable={this.props.grid.draggableCards.some(card => cell.card === card)}
             key={cell.key}
             onCardDropped={(fromCell, cardCenter) => this.handleCardDropped(fromCell, cardCenter)}
@@ -79,7 +75,7 @@ export class GridView extends Component<Props, {}> {
 
   private getCellPosition(columnIndex: number, rowIndex: number): Position {
     const position = {
-      left: this.gutter + columnIndex * (this.cellSize.width + this.gutter) + this.offset,
+      left: this.gutter + columnIndex * (this.cellSize.width + this.gutter),
       top: this.gutter + rowIndex * (this.cellSize.height + this.gutter)
     }
 
@@ -91,7 +87,7 @@ export class GridView extends Component<Props, {}> {
       (
         this.props.availableSize.width * this.cardWidthToGutterRatio
       ) / (
-        this.props.grid.columns * (this.cardWidthToGutterRatio + 1) + this.offsetToGutterRatio
+        this.props.grid.columns * (this.cardWidthToGutterRatio + 1) + 1
       )
     )
 
@@ -109,17 +105,10 @@ export class GridView extends Component<Props, {}> {
     const gutter = Math.floor(
       (
         this.props.availableSize.width - this.props.grid.columns * this.cellSize.width
-      ) / (
-        this.props.grid.columns + this.offsetToGutterRatio
-      )
+      ) / this.props.grid.columns
     )
 
     return gutter
-  }
-
-  public getExtraSpace(): number {
-    const extraSpace = Math.floor(this.offsetToGutterRatio * this.gutter)
-    return extraSpace
   }
 
   private handleCardDropped(fromCell: Cell, cardCenter: Position) {
