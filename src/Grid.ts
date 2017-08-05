@@ -20,6 +20,12 @@ export class Grid {
   private readonly rows = 4
 
   @computed
+  public get cardsInCorrectPlace(): number {
+    const cardsInCorrectPlace = this.cells.filter(cell => cell.cardIsInRightPlace).length
+    return cardsInCorrectPlace
+  }
+
+  @computed
   public get draggableCards(): Array<Card> {
     let draggableCards = this.emptyCells
       .map(cell => cell.cellToTheLeft)

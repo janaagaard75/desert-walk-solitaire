@@ -8,6 +8,7 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 
 interface Props {
+  cardsInCorrectPlace: number
   gameOver: boolean
   shuffleDeckAndDealCards: () => void
 }
@@ -35,6 +36,13 @@ export class Footer extends Component<Props, State> {
 
     return (
       <View>
+        <Text
+          style={{
+            marginLeft: 10
+          }}
+        >
+          {this.props.cardsInCorrectPlace} cards in correct spot.
+        </Text>
         <View>
           <Button
             onPress={() => this.confirmUnlessGameOver()}
