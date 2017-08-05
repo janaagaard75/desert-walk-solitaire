@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Button } from 'react-native'
 import { Component } from 'react'
 import { LayoutChangeEvent } from 'react-native'
+import { Modal } from 'react-native'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { StatusBar } from 'react-native'
@@ -14,8 +15,20 @@ import { Grid } from './Grid'
 import { GridView } from './GridView'
 import { Size } from './Size'
 
+interface State {
+  confirmModalVisible: boolean
+}
+
 @observer
-export default class App extends Component<{}, {}> {
+export default class App extends Component<{}, State> {
+  constructor(props: {}, context?: any) {
+    super(props, context)
+
+    this.state = {
+      confirmModalVisible: false
+    }
+  }
+
   @observable private availableSize: Size | undefined = undefined
   private grid = new Grid()
 
@@ -42,23 +55,60 @@ export default class App extends Component<{}, {}> {
           Desert Walk
         </Text>
         <View
-          onLayout={layoutChangeEvent => this.handleLayout(layoutChangeEvent)}
+          onLayout={layoutChangeEvent => this.layoutChanged(layoutChangeEvent)}
           style={gridWrapperViewStyle}
         >
           {this.renderGrid()}
         </View>
         <View>
           <Button
-            onPress={() => this.handleResetPress()}
+            onPress={() => this.confirmUnlessBlocked()}
             title="Start Over"
           />
         </View>
+        <Modal
+          animationType="slide"
+          onRequestClose={() => { alert('Modal has been closed.') }}
+          supportedOrientations={['landscape']}
+          transparent={false}
+          visible={this.state.confirmModalVisible}
+        >
+          <View style={{ marginTop: 22 }}>
+              <Text>Are you sure you want to start over?</Text>
+              <Button
+                onPress={() => {}}
+                title="Yes, start over"
+              />
+              <Button
+                onPress={() => this.hideConfirmModal()}
+                title="No, let me continue the game"
+              />
+          </View>
+        </Modal>
       </View>
     )
   }
 
-  private handleResetPress() {
-    this.grid.shuffleDeckAndDealCards()
+  private confirmUnlessBlocked() {
+    if (this.grid.draggableCards.length >= 1) {
+      this.showConfirmModal()
+    }
+    else {
+      this.grid.shuffleDeckAndDealCards()
+    }
+  }
+
+  private layoutChanged(layoutChangeEvent: LayoutChangeEvent) {
+    this.availableSize = {
+      height: layoutChangeEvent.nativeEvent.layout.height,
+      width: layoutChangeEvent.nativeEvent.layout.width
+    }
+  }
+
+  private hideConfirmModal() {
+    this.setState({
+      confirmModalVisible: false
+    })
   }
 
   private renderGrid() {
@@ -74,10 +124,9 @@ export default class App extends Component<{}, {}> {
     )
   }
 
-  private handleLayout(layoutChangeEvent: LayoutChangeEvent) {
-    this.availableSize = {
-      height: layoutChangeEvent.nativeEvent.layout.height,
-      width: layoutChangeEvent.nativeEvent.layout.width
-    }
+  private showConfirmModal() {
+    this.setState({
+      confirmModalVisible: true
+    })
   }
 }
