@@ -21,7 +21,7 @@ export class EmptyCell extends Component<Props, {}> {
       borderColor: 'black',
       borderRadius: 5,
       borderStyle: this.props.hoveredByCardDropableCard ? 'solid' : 'dashed',
-      borderWidth: this.props.blocked ? 0 : 1,
+      borderWidth: this.props.blocked ? 0 : 2,
       height: this.props.size.height,
       left: this.props.position.left,
       position: 'absolute',
