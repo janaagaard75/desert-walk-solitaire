@@ -26,7 +26,7 @@ export default class App extends Component<{}, {}> {
     }
 
     const mainViewStyle: ViewStyle = {
-      backgroundColor: '#ccc',
+      backgroundColor: '#bbb',
       flex: 1,
       flexDirection: 'column'
     }
