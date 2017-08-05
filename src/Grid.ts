@@ -9,8 +9,8 @@ import { Suit } from './Suit'
 export class Grid {
   constructor() {
     this.initializeDeck()
-    this.shuffleDeck()
     this.initializeCells()
+    this.shuffleDeckAndDealCards()
   }
 
   @observable public readonly cells: Array<Cell> = []
@@ -85,7 +85,6 @@ export class Grid {
         else {
           const cellToTheLeft = this.cells[this.cells.length - 1]
           cell = new Cell(r, c, cellToTheLeft, theFourAces)
-          cell.card = this.deck[(this.columns - 1) * r + (c - 1)]
         }
 
         this.cells.push(cell)
@@ -109,7 +108,16 @@ export class Grid {
     }
   }
 
-  private shuffleDeck() {
+  public shuffleDeckAndDealCards() {
     ArrayUtilities.shuffleArray(this.deck)
+
+    for (let r = 0; r < this.rows; r++) {
+      for (let c = 0; c < this.columns; c++) {
+        this.cells[r * this.columns + c].card
+          = c === 0
+            ? undefined
+            : this.deck[r * (this.columns - 1) + (c - 1)]
+      }
+    }
   }
 }

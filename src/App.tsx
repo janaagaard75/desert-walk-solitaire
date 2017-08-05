@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Button } from 'react-native'
 import { Component } from 'react'
 import { LayoutChangeEvent } from 'react-native'
 import { observable } from 'mobx'
@@ -46,8 +47,18 @@ export default class App extends Component<{}, {}> {
         >
           {this.renderGrid()}
         </View>
+        <View>
+          <Button
+            onPress={() => this.handleResetPress()}
+            title="Start Over"
+          />
+        </View>
       </View>
     )
+  }
+
+  private handleResetPress() {
+    this.grid.shuffleDeckAndDealCards()
   }
 
   private renderGrid() {
