@@ -76,15 +76,15 @@ export class Grid {
   private initializeCells() {
     const theFourAces = this.deck.filter(card => card.value === 1)
 
-    for (let r = 0; r < this.rows; r++) {
-      for (let c = 0; c < this.columns; c++) {
+    for (let rowIndex = 0; rowIndex < this.rows; rowIndex++) {
+      for (let columnIndex = 0; columnIndex < this.columns; columnIndex++) {
         let cell: Cell
-        if (c === 0) {
-          cell = new Cell(r, c, undefined, theFourAces)
+        if (columnIndex === 0) {
+          cell = new Cell(rowIndex, columnIndex, undefined, theFourAces)
         }
         else {
           const cellToTheLeft = this.cells[this.cells.length - 1]
-          cell = new Cell(r, c, cellToTheLeft, theFourAces)
+          cell = new Cell(rowIndex, columnIndex, cellToTheLeft, theFourAces)
         }
 
         this.cells.push(cell)
@@ -95,10 +95,10 @@ export class Grid {
   private initializeDeck() {
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
       if (Suit.hasOwnProperty(suit)) {
-        for (let i = 1; i <= 13; i++) {
-          const card = new Card(suit, i)
+        for (let value = 1; value <= 13; value++) {
+          const card = new Card(suit, value)
 
-          if (i !== 1) {
+          if (value !== 1) {
             this.deck[this.deck.length - 1].next = card
           }
 
@@ -111,12 +111,12 @@ export class Grid {
   public shuffleDeckAndDealCards() {
     ArrayUtilities.shuffleArray(this.deck)
 
-    for (let r = 0; r < this.rows; r++) {
-      for (let c = 0; c < this.columns; c++) {
-        this.cells[r * this.columns + c].card
-          = c === 0
+    for (let rowIndex = 0; rowIndex < this.rows; rowIndex++) {
+      for (let columnIndex = 0; columnIndex < this.columns; columnIndex++) {
+        this.cells[rowIndex * this.columns + columnIndex].card
+          = columnIndex === 0
             ? undefined
-            : this.deck[r * (this.columns - 1) + (c - 1)]
+            : this.deck[rowIndex * (this.columns - 1) + (columnIndex - 1)]
       }
     }
   }
