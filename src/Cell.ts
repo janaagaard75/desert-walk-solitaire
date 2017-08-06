@@ -60,10 +60,4 @@ export class Cell {
     const hoveredByDroppableCard = this.droppableCards.includes(this.hoveredByCard)
     return hoveredByDroppableCard
   }
-
-  @computed
-  public get isEmpty(): boolean {
-    const isEmpty = this.card === undefined
-    return isEmpty
-  }
 }

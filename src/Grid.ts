@@ -50,7 +50,7 @@ export class Grid {
 
   @computed
   public get emptyCells(): Array<Cell> {
-    const emptyCells = this.cells.filter(cell => cell.isEmpty)
+    const emptyCells = this.cells.filter(cell => cell.card === undefined)
     return emptyCells
   }
 

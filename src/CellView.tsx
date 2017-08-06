@@ -23,7 +23,6 @@ interface Props {
 @observer
 export class CellView extends Component<Props, {}> {
   public render() {
-    // Using === undefined instead of isEmpty to be able to create definedCard below.
     if (this.props.cell.card === undefined) {
       return (
         <EmptyCell
