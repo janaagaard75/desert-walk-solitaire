@@ -17,6 +17,7 @@ interface Props {
   isInCorrectPlace: boolean
   onCardDropped: (cardCenter: Position) => void
   onCardMoved: (cardCenter: Position) => void
+  onDragStarted: (card: Card) => void
   startPosition: Position
   size: Size
 }
@@ -50,6 +51,7 @@ export class DraggableCard extends Component<Props, State> {
         this.setState({
           dragging: true
         })
+        this.props.onDragStarted(this.props.card)
       },
       onPanResponderMove: (e, gestureState) => {
         this.setState({

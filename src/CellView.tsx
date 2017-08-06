@@ -12,8 +12,10 @@ import { Size } from './Size'
 interface Props {
   isDraggable: boolean
   cell: Cell
+  draggedCard: Card | undefined
   onCardDropped: (fromCell: Cell, cardCenter: Position) => void
   onCardMoved: (card: Card, cardCenter: Position) => void
+  onDragStarted: (card: Card) => void
   position: Position
   size: Size
 }
@@ -25,7 +27,7 @@ export class CellView extends Component<Props, {}> {
     if (this.props.cell.card === undefined) {
       return (
         <EmptyCell
-          blocked={this.props.cell.droppableCards.length === 0}
+          blocked={this.isBlocked()}
           hoveredByCardDropableCard={this.props.cell.hoveredByDroppableCard}
           key={this.props.cell.key}
           position={this.props.position}
@@ -45,10 +47,23 @@ export class CellView extends Component<Props, {}> {
           key={this.props.cell.key}
           onCardDropped={cardCenter => this.props.onCardDropped(this.props.cell, cardCenter)}
           onCardMoved={cardCenter => this.props.onCardMoved(definedCard, cardCenter)}
+          onDragStarted={card => this.props.onDragStarted(card)}
           startPosition={this.props.position}
           size={this.props.size}
         />
       )
     }
+  }
+
+  private isBlocked(): boolean {
+    if (this.props.cell.droppableCards.length === 0) {
+      return true
+    }
+
+    if (this.props.draggedCard !== undefined && !this.props.cell.droppableCards.some(card => card === this.props.draggedCard)) {
+      return true
+    }
+
+    return false
   }
 }

@@ -17,10 +17,18 @@ interface Props {
   grid: Grid
 }
 
+interface State {
+  draggedCard: Card | undefined
+}
+
 @observer
-export class GridView extends Component<Props, {}> {
+export class GridView extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props, context)
+
+    this.state = {
+      draggedCard: undefined
+    }
 
     this.cellSize = this.getCellSize()
     this.gutter = this.getGutter()
@@ -44,10 +52,12 @@ export class GridView extends Component<Props, {}> {
         {this.props.grid.cells.map(cell =>
           <CellView
             cell={cell}
+            draggedCard={this.state.draggedCard}
             isDraggable={this.props.grid.draggableCards.some(card => cell.card === card)}
             key={cell.key}
             onCardDropped={(fromCell, cardCenter) => this.handleCardDropped(fromCell, cardCenter)}
             onCardMoved={(card, cardCenter) => this.handleCardMoved(card, cardCenter)}
+            onDragStarted={card => this.handleDragStarted(card)}
             position={this.getCellPosition(cell.columnIndex, cell.rowIndex)}
             size={this.cellSize}
           />
@@ -119,6 +129,10 @@ export class GridView extends Component<Props, {}> {
         this.props.grid.moveCard(fromCell, cell)
       }
     })
+
+    this.setState({
+      draggedCard: undefined
+    })
   }
 
   private handleCardMoved(card: Card, cardCenter: Position) {
@@ -126,6 +140,12 @@ export class GridView extends Component<Props, {}> {
       cell.hoveredByCard = this.getCellBundary(cell).pointIsWithinBoundary(cardCenter)
         ? cell.hoveredByCard = card
         : cell.hoveredByCard = undefined
+    })
+  }
+
+  private handleDragStarted(card: Card) {
+    this.setState({
+      draggedCard: card
     })
   }
 }
