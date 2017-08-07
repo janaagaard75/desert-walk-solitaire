@@ -10,6 +10,7 @@ import { View } from 'react-native'
 interface Props {
   cardsInCorrectPlace: number
   gameOver: boolean
+  moves: number
   shuffleDeckAndDealCards: () => void
 }
 
@@ -36,13 +37,29 @@ export class Footer extends Component<Props, State> {
 
     return (
       <View>
-        <Text
+        <View
           style={{
-            marginLeft: 10
+            flexDirection: 'row',
+            marginLeft: 10,
+            marginRight: 10
           }}
         >
-          {this.props.cardsInCorrectPlace} cards in correct spot.
-        </Text>
+          <Text
+            style={{
+              flex: 1
+            }}
+          >
+            Moves: {this.props.moves}
+          </Text>
+          <Text
+            style={{
+              flex: 1,
+              textAlign: 'right'
+            }}
+          >
+            Cards in correct place: {this.props.cardsInCorrectPlace}
+          </Text>
+        </View>
         <View>
           <Button
             onPress={() => this.confirmUnlessGameOver()}

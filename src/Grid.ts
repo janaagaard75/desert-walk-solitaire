@@ -15,6 +15,7 @@ export class Grid {
 
   @observable public readonly cells: Array<Cell> = []
   public readonly columns = 14
+  @observable public moves = 0
 
   private readonly deck: Array<Card> = []
   private readonly rows = 4
@@ -74,6 +75,8 @@ export class Grid {
   public moveCard(from: Cell, to: Cell) {
     to.card = from.card
     from.card = undefined
+
+    this.moves = this.moves + 1
 
     // TODO: Is there a cleaner way to reset the hovered state?
     to.hoveredByCard = undefined
