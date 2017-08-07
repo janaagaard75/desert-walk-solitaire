@@ -57,7 +57,7 @@ export class Footer extends Component<Props, State> {
               textAlign: 'right'
             }}
           >
-            Cards in correct place: {this.props.cardsInCorrectPlace}
+            Cards in correct spot: {this.props.cardsInCorrectPlace}
           </Text>
         </View>
         <View>
