@@ -65,7 +65,7 @@ export class Footer extends Component<Props, State> {
               />
               <Button
                 onPress={() => this.hideConfirmModal()}
-                title="No, let me continue the game"
+                title="No, let me continue this game"
               />
           </View>
         </Modal>
