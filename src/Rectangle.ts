@@ -9,10 +9,10 @@ export class Rectangle {
 
   public pointIsWithinBoundary(point: Position): boolean {
     const within
-      = point.left >= this.topLeft.left
-        && point.left <= this.bottomRight.left
-        && point.top >= this.topLeft.top
-        && point.top <= this.bottomRight.top
+      = point.x >= this.topLeft.x
+        && point.x <= this.bottomRight.x
+        && point.y >= this.topLeft.y
+        && point.y <= this.bottomRight.y
 
     return within
   }

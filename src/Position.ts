@@ -1,4 +1,4 @@
 export interface Position {
-  left: number
-  top: number
+  x: number
+  y: number
 }

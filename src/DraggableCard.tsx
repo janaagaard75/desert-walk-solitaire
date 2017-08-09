@@ -41,8 +41,8 @@ export class DraggableCard extends Component<Props, State> {
     }
 
     this.state.translatedPosition.setOffset({
-      x: this.props.startPosition.left,
-      y: this.props.startPosition.top
+      x: this.props.startPosition.x,
+      y: this.props.startPosition.y
     })
 
     this.panResponder = PanResponder.create({
@@ -52,8 +52,8 @@ export class DraggableCard extends Component<Props, State> {
         })
 
         const cardCenter = this.getCardCenter({
-          left: this.props.startPosition.left + gestureState.dx,
-          top: this.props.startPosition.top + gestureState.dy
+          x: this.props.startPosition.x + gestureState.dx,
+          y: this.props.startPosition.y + gestureState.dy
         })
         this.props.onCardDropped(cardCenter)
 
@@ -85,8 +85,8 @@ export class DraggableCard extends Component<Props, State> {
 
     this.state.translatedPosition.addListener(position => {
       const cardCenter = this.getCardCenter({
-        left: position.x,
-        top: position.y
+        x: position.x,
+        y: position.y
       })
 
       this.props.onCardMoved(cardCenter)
@@ -120,8 +120,8 @@ export class DraggableCard extends Component<Props, State> {
 
   private getCardCenter(position: Position): Position {
     const cardCenter: Position = {
-      left: position.left + this.props.size.width / 2,
-      top: position.top + this.props.size.height / 2
+      x: position.x + this.props.size.width / 2,
+      y: position.y + this.props.size.height / 2
     }
 
     return cardCenter
