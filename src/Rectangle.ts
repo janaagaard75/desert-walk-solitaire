@@ -1,4 +1,4 @@
-import { Position } from './Position'
+import { Point } from './Position'
 
 // TODO: Consider swapping out left and top with x and y, across the application.
 export class Rectangle {
@@ -9,7 +9,7 @@ export class Rectangle {
     public readonly y2: number
   ) { }
 
-  public pointIsWithinRectangle(point: Position): boolean {
+  public pointIsWithinRectangle(point: Point): boolean {
     const within
       = point.x >= this.x1
         && point.x <= this.x2

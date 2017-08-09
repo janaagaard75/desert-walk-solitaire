@@ -6,17 +6,17 @@ import { Card } from './Card'
 import { Cell } from './Cell'
 import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
-import { Position } from './Position'
+import { Point } from './Position'
 import { Size } from './Size'
 
 interface Props {
   isDraggable: boolean
   cell: Cell
   draggedCard: Card | undefined
-  onCardDropped: (fromCell: Cell, cardCenter: Position) => void
-  onCardMoved: (card: Card, cardCenter: Position) => void
+  onCardDropped: (fromCell: Cell, cardCenter: Point) => void
+  onCardMoved: (card: Card, cardCenter: Point) => void
   onDragStarted: (card: Card) => void
-  position: Position
+  position: Point
   size: Size
 }
 

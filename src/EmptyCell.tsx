@@ -4,13 +4,13 @@ import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { Position } from './Position'
+import { Point } from './Position'
 import { Size } from './Size'
 
 interface Props {
   blocked: boolean
   hoveredByCardDropableCard: boolean
-  position: Position
+  position: Point
   size: Size
 }
 

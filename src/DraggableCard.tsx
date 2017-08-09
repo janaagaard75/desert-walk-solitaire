@@ -7,17 +7,17 @@ import { PanResponderInstance } from 'react-native'
 
 import { Card } from './Card'
 import { CardView } from './CardView'
-import { Position } from './Position'
+import { Point } from './Position'
 import { Size } from './Size'
 
 interface Props {
   card: Card
   isDraggable: boolean
   isInCorrectPlace: boolean
-  onCardDropped: (cardCenter: Position) => void
-  onCardMoved: (cardCenter: Position) => void
+  onCardDropped: (cardCenter: Point) => void
+  onCardMoved: (cardCenter: Point) => void
   onDragStarted: (card: Card) => void
-  startPosition: Position
+  startPosition: Point
   size: Size
 }
 
@@ -118,8 +118,8 @@ export class DraggableCard extends Component<Props, State> {
     )
   }
 
-  private getCardCenter(position: Position): Position {
-    const cardCenter: Position = {
+  private getCardCenter(position: Point): Point {
+    const cardCenter: Point = {
       x: position.x + this.props.size.width / 2,
       y: position.y + this.props.size.height / 2
     }

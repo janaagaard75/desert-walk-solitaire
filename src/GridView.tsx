@@ -8,7 +8,7 @@ import { Card } from './Card'
 import { Cell } from './Cell'
 import { CellView } from './CellView'
 import { Grid } from './Grid'
-import { Position } from './Position'
+import { Point } from './Position'
 import { Rectangle } from './Rectangle'
 import { Size } from './Size'
 
@@ -79,7 +79,7 @@ export class GridView extends Component<Props, State> {
     return boundary
   }
 
-  private getCellPosition(columnIndex: number, rowIndex: number): Position {
+  private getCellPosition(columnIndex: number, rowIndex: number): Point {
     const position = {
       x: this.gutter + columnIndex * (this.cellSize.width + this.gutter),
       y: this.gutter + rowIndex * (this.cellSize.height + this.gutter)
@@ -117,7 +117,7 @@ export class GridView extends Component<Props, State> {
     return gutter
   }
 
-  private handleCardDropped(fromCell: Cell, cardCenter: Position) {
+  private handleCardDropped(fromCell: Cell, cardCenter: Point) {
     this.props.grid.emptyCells.forEach(cell => {
       if (this.getCellBundary(cell).pointIsWithinRectangle(cardCenter)
         && this.props.grid.cardIsDroppable(fromCell.card as Card, cell)
@@ -131,7 +131,7 @@ export class GridView extends Component<Props, State> {
     })
   }
 
-  private handleCardMoved(card: Card, cardCenter: Position) {
+  private handleCardMoved(card: Card, cardCenter: Point) {
     this.props.grid.emptyCells.forEach(cell => {
       cell.hoveredByCard = this.getCellBundary(cell).pointIsWithinRectangle(cardCenter)
         ? cell.hoveredByCard = card
