@@ -3,16 +3,18 @@ import { Position } from './Position'
 // TODO: Consider swapping out left and top with x and y, across the application.
 export class Rectangle {
   constructor(
-    public readonly topLeft: Position,
-    public readonly bottomRight: Position
+    public readonly x1: number,
+    public readonly x2: number,
+    public readonly y1: number,
+    public readonly y2: number
   ) { }
 
   public pointIsWithinBoundary(point: Position): boolean {
     const within
-      = point.x >= this.topLeft.x
-        && point.x <= this.bottomRight.x
-        && point.y >= this.topLeft.y
-        && point.y <= this.bottomRight.y
+      = point.x >= this.x1
+        && point.x <= this.x2
+        && point.y >= this.y1
+        && point.y <= this.y2
 
     return within
   }

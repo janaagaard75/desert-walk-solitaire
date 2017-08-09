@@ -70,14 +70,10 @@ export class GridView extends Component<Props, State> {
     const cellPosition = this.getCellPosition(cell.columnIndex, cell.rowIndex)
 
     const boundary = new Rectangle(
-      {
-        x: cellPosition.x,
-        y: cellPosition.y
-      },
-      {
-        x: cellPosition.x + this.cellSize.width,
-        y: cellPosition.y + this.cellSize.height
-      }
+      cellPosition.x,
+      cellPosition.x + this.cellSize.width,
+      cellPosition.y,
+      cellPosition.y + this.cellSize.height
     )
 
     return boundary
