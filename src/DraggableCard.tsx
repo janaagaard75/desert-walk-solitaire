@@ -1,10 +1,9 @@
 import * as React from 'react'
+import { Animated } from 'react-native'
 import { Component } from 'react'
 import { observer } from 'mobx-react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
-import { View } from 'react-native'
-import { ViewStyle } from 'react-native'
 
 import { Card } from './Card'
 import { CardView } from './CardView'
@@ -23,8 +22,9 @@ interface Props {
 }
 
 interface State {
-  currentPosition: Position
   dragging: boolean
+  // TODO: Should this be a private member instead?
+  translatedPosition: Animated.ValueXY
 }
 
 @observer
@@ -33,52 +33,77 @@ export class DraggableCard extends Component<Props, State> {
     super(props, context)
 
     this.state = {
-      currentPosition: this.props.startPosition,
-      dragging: false
+      dragging: false,
+      translatedPosition: new Animated.ValueXY({
+        x: 0,
+        y: 0
+      })
     }
+
+    this.state.translatedPosition.setOffset({
+      x: this.props.startPosition.left,
+      y: this.props.startPosition.top
+    })
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
         this.setState({
-          // Move the card back to the original position. This reposition is disregarded if the card is moved to a new cell because of the drop.
-          currentPosition: this.props.startPosition,
           dragging: false
         })
-        this.props.onCardDropped(this.getCardCenter())
+
+        const cardCenter = this.getCardCenter({
+          left: this.props.startPosition.left + gestureState.dx,
+          top: this.props.startPosition.top + gestureState.dy
+        })
+        this.props.onCardDropped(cardCenter)
+
+        // Move the card back to the original position. This reposition is disregarded if the card is moved to a new cell because of the drop.
+        this.state.translatedPosition.setValue({
+          x: 0,
+          y: 0
+        })
+
       },
       onPanResponderGrant: (e, gestureState) => {
-        this.dragStartPosition = this.state.currentPosition,
         this.setState({
           dragging: true
         })
         this.props.onDragStarted(this.props.card)
       },
-      onPanResponderMove: (e, gestureState) => {
-        this.setState({
-          currentPosition: {
-            left: this.dragStartPosition.left + gestureState.dx,
-            top: this.dragStartPosition.top + gestureState.dy
+      onPanResponderMove:
+        Animated.event([
+          // tslint:disable-next-line:no-null-keyword
+          null as any,
+          {
+            dx: this.state.translatedPosition.x,
+            dy: this.state.translatedPosition.y
           }
-        })
-        this.props.onCardMoved(this.getCardCenter())
-      },
+        ])
+      ,
       onStartShouldSetPanResponder: (e, gestureState) => true
+    })
+
+    this.state.translatedPosition.addListener(position => {
+      const cardCenter = this.getCardCenter({
+        left: position.x,
+        top: position.y
+      })
+
+      this.props.onCardMoved(cardCenter)
     })
   }
 
-  private dragStartPosition: Position
   private panResponder: PanResponderInstance
 
   public render() {
-    const style: ViewStyle = {
-      left: this.state.currentPosition.left,
+    const style = {
       position: 'absolute',
-      top: this.state.currentPosition.top,
+      transform: this.state.translatedPosition.getTranslateTransform(),
       zIndex: this.state.dragging ? 2 : 1
     }
 
     return (
-      <View
+      <Animated.View
         style={style}
         {...this.panResponder.panHandlers}
       >
@@ -89,14 +114,14 @@ export class DraggableCard extends Component<Props, State> {
           isInCorrectPlace={this.props.isInCorrectPlace}
           size={this.props.size}
         />
-      </View>
+      </Animated.View>
     )
   }
 
-  private getCardCenter(): Position {
+  private getCardCenter(position: Position): Position {
     const cardCenter: Position = {
-      left: this.state.currentPosition.left + this.props.size.width / 2,
-      top: this.state.currentPosition.top + this.props.size.height / 2
+      left: position.left + this.props.size.width / 2,
+      top: position.top + this.props.size.height / 2
     }
 
     return cardCenter
