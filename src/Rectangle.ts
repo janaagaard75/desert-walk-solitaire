@@ -9,7 +9,7 @@ export class Rectangle {
     public readonly y2: number
   ) { }
 
-  public pointIsWithinBoundary(point: Position): boolean {
+  public pointIsWithinRectangle(point: Position): boolean {
     const within
       = point.x >= this.x1
         && point.x <= this.x2

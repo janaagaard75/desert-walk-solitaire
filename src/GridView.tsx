@@ -119,7 +119,7 @@ export class GridView extends Component<Props, State> {
 
   private handleCardDropped(fromCell: Cell, cardCenter: Position) {
     this.props.grid.emptyCells.forEach(cell => {
-      if (this.getCellBundary(cell).pointIsWithinBoundary(cardCenter)
+      if (this.getCellBundary(cell).pointIsWithinRectangle(cardCenter)
         && this.props.grid.cardIsDroppable(fromCell.card as Card, cell)
       ) {
         this.props.grid.moveCard(fromCell, cell)
@@ -133,7 +133,7 @@ export class GridView extends Component<Props, State> {
 
   private handleCardMoved(card: Card, cardCenter: Position) {
     this.props.grid.emptyCells.forEach(cell => {
-      cell.hoveredByCard = this.getCellBundary(cell).pointIsWithinBoundary(cardCenter)
+      cell.hoveredByCard = this.getCellBundary(cell).pointIsWithinRectangle(cardCenter)
         ? cell.hoveredByCard = card
         : cell.hoveredByCard = undefined
     })
