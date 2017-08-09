@@ -1,4 +1,4 @@
-import { Point } from './Position'
+import { Point } from './Point'
 
 // TODO: Consider swapping out left and top with x and y, across the application.
 export class Rectangle {

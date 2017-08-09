@@ -6,7 +6,7 @@ import { Card } from './Card'
 import { Cell } from './Cell'
 import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
-import { Point } from './Position'
+import { Point } from './Point'
 import { Size } from './Size'
 
 interface Props {

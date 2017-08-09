@@ -8,7 +8,7 @@ import { Card } from './Card'
 import { Cell } from './Cell'
 import { CellView } from './CellView'
 import { Grid } from './Grid'
-import { Point } from './Position'
+import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Size } from './Size'
 

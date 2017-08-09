@@ -7,7 +7,7 @@ import { PanResponderInstance } from 'react-native'
 
 import { Card } from './Card'
 import { CardView } from './CardView'
-import { Point } from './Position'
+import { Point } from './Point'
 import { Size } from './Size'
 
 interface Props {

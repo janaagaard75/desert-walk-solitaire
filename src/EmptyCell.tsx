@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { Point } from './Position'
+import { Point } from './Point'
 import { Size } from './Size'
 
 interface Props {
