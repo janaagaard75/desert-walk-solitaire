@@ -55,26 +55,22 @@ export class CellView extends Component<Props, {}> {
   }
 
   private getEmptyCellStatus(): EmptyCellStatus {
-    if (this.isBlocked()) {
-      return EmptyCellStatus.Blocked
+    if (this.props.draggedCard === undefined) {
+      if (this.props.cell.droppableCards.length === 0) {
+        return EmptyCellStatus.Blocked
+      }
+
+      return EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged
     }
 
     if (this.props.cell.hoveredByDroppableCard) {
       return EmptyCellStatus.HoveredByDropableCard
     }
 
-    return EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged
-  }
-
-  private isBlocked(): boolean {
-    if (this.props.cell.droppableCards.length === 0) {
-      return true
+    if (this.props.cell.droppableCards.some(card => card === this.props.draggedCard)) {
+      return EmptyCellStatus.CurrentlyDraggedCardDroppable
     }
 
-    if (this.props.draggedCard !== undefined && !this.props.cell.droppableCards.some(card => card === this.props.draggedCard)) {
-      return true
-    }
-
-    return false
+    return EmptyCellStatus.DropAllowedButNotCurrentlyDraggedCard
   }
 }
