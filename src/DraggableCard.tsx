@@ -47,10 +47,6 @@ export class DraggableCard extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
-        this.setState({
-          dragging: false
-        })
-
         // const cardCenter = this.getCardCenter({
         //   x: this.props.startPosition.x + gestureState.dx,
         //   y: this.props.startPosition.y + gestureState.dy
@@ -64,14 +60,18 @@ export class DraggableCard extends Component<Props, State> {
         // })
 
         Animated.spring(
-           this.state.translatedPosition,
-           {
-             toValue: {
-               x: 0,
-               y: 0
+          this.state.translatedPosition,
+          {
+            toValue: {
+              x: 0,
+              y: 0
             }
           }
-         ).start()
+        ).start(() => {
+          this.setState({
+            dragging: false
+          })
+        })
       },
       onPanResponderGrant: (e, gestureState) => {
         this.setState({
