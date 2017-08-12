@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Animated } from 'react-native'
 import { Component } from 'react'
+import { Easing } from 'react-native'
 import { observer } from 'mobx-react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
@@ -59,19 +60,15 @@ export class DraggableCard extends Component<Props, State> {
         // })
         // this.props.onCardDropped(cardCenter)
 
-        // Move the card back to the original position. This reposition is disregarded if the card is moved to a new cell because of the drop.
-        // this.state.translatedPosition.setValue({
-        //   x: 0,
-        //   y: 0
-        // })
-
         this.setState({
           visualState: VisualState.Animating
         })
 
-        Animated.spring(
+        Animated.timing(
           this.state.translatedPosition,
           {
+            duration: 200,
+            easing: Easing.elastic(1),
             toValue: {
               x: 0,
               y: 0
