@@ -12,9 +12,9 @@ import { Suit } from './Suit'
 
 interface Props {
   card: Card
-  dragging: boolean
   isDraggable: boolean
   isInCorrectPlace: boolean
+  shadow: boolean
   size: Size
 }
 
@@ -33,7 +33,7 @@ export class CardView extends Component<Props, {}> {
       width: this.props.size.width
     }
 
-    if (this.props.dragging) {
+    if (this.props.shadow) {
       Object.assign(cardStyle, {
         shadowColor: 'black',
         shadowOffset: {

@@ -21,10 +21,16 @@ interface Props {
   size: Size
 }
 
+enum VisualState {
+  Animating,
+  Dragging,
+  Idle
+}
+
 interface State {
-  dragging: boolean
-  // TODO: Should this be a private member instead?
-  translatedPosition: Animated.ValueXY
+  // TODO: Is it necessary to have this in the state instead of a private property?
+  translatedPosition: Animated.ValueXY,
+  visualState: VisualState
 }
 
 @observer
@@ -33,11 +39,11 @@ export class DraggableCard extends Component<Props, State> {
     super(props, context)
 
     this.state = {
-      dragging: false,
       translatedPosition: new Animated.ValueXY({
         x: 0,
         y: 0
-      })
+      }),
+      visualState: VisualState.Idle
     }
 
     this.state.translatedPosition.setOffset({
@@ -59,6 +65,10 @@ export class DraggableCard extends Component<Props, State> {
         //   y: 0
         // })
 
+        this.setState({
+          visualState: VisualState.Animating
+        })
+
         Animated.spring(
           this.state.translatedPosition,
           {
@@ -68,9 +78,11 @@ export class DraggableCard extends Component<Props, State> {
             }
           }
         ).start(() => {
-          this.setState({
-            dragging: false
-          })
+          if (this.state.visualState === VisualState.Animating) {
+            this.setState({
+              visualState: VisualState.Idle
+            })
+          }
         })
       },
       onPanResponderGrant: (e, gestureState) => {
@@ -87,7 +99,7 @@ export class DraggableCard extends Component<Props, State> {
         ]),
       onPanResponderStart: (e, gestureState) => {
         this.setState({
-          dragging: true
+          visualState: VisualState.Dragging
         })
       },
       onStartShouldSetPanResponder: (e, gestureState) => true
@@ -109,7 +121,7 @@ export class DraggableCard extends Component<Props, State> {
     const style = {
       position: 'absolute',
       transform: this.state.translatedPosition.getTranslateTransform(),
-      zIndex: this.state.dragging ? 2 : 1
+      zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
     }
 
     return (
@@ -119,9 +131,9 @@ export class DraggableCard extends Component<Props, State> {
       >
         <CardView
           card={this.props.card}
-          dragging={this.state.dragging}
           isDraggable={this.props.isDraggable}
           isInCorrectPlace={this.props.isInCorrectPlace}
+          shadow={this.state.visualState !== VisualState.Idle}
           size={this.props.size}
         />
       </Animated.View>
