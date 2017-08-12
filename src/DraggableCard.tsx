@@ -74,7 +74,7 @@ export class DraggableCard extends Component<Props, State> {
             }
           }
         ).start(() => {
-          if (this.state.visualState === VisualState.Animating) {
+          if (this.state.visualState !== VisualState.Dragging) {
             this.setState({
               visualState: VisualState.Idle
             })
