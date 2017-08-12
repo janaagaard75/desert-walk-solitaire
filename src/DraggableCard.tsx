@@ -29,8 +29,6 @@ enum VisualState {
 }
 
 interface State {
-  // TODO: Is it necessary to have this in the state instead of a private property?
-  translatedPosition: Animated.ValueXY,
   visualState: VisualState
 }
 
@@ -40,14 +38,15 @@ export class DraggableCard extends Component<Props, State> {
     super(props, context)
 
     this.state = {
-      translatedPosition: new Animated.ValueXY({
-        x: 0,
-        y: 0
-      }),
       visualState: VisualState.Idle
     }
 
-    this.state.translatedPosition.setOffset({
+    this.translatedPosition = new Animated.ValueXY({
+      x: 0,
+      y: 0
+    })
+
+    this.translatedPosition.setOffset({
       x: this.props.startPosition.x,
       y: this.props.startPosition.y
     })
@@ -65,7 +64,7 @@ export class DraggableCard extends Component<Props, State> {
         })
 
         Animated.timing(
-          this.state.translatedPosition,
+          this.translatedPosition,
           {
             duration: 200,
             easing: Easing.elastic(1),
@@ -90,8 +89,8 @@ export class DraggableCard extends Component<Props, State> {
           // tslint:disable-next-line:no-null-keyword
           null as any,
           {
-            dx: this.state.translatedPosition.x,
-            dy: this.state.translatedPosition.y
+            dx: this.translatedPosition.x,
+            dy: this.translatedPosition.y
           }
         ]),
       onPanResponderStart: (e, gestureState) => {
@@ -102,7 +101,7 @@ export class DraggableCard extends Component<Props, State> {
       onStartShouldSetPanResponder: (e, gestureState) => true
     })
 
-    this.state.translatedPosition.addListener(position => {
+    this.translatedPosition.addListener(position => {
       const cardCenter = this.getCardCenter({
         x: position.x,
         y: position.y
@@ -113,11 +112,12 @@ export class DraggableCard extends Component<Props, State> {
   }
 
   private panResponder: PanResponderInstance
+  private translatedPosition: Animated.ValueXY
 
   public render() {
     const style = {
       position: 'absolute',
-      transform: this.state.translatedPosition.getTranslateTransform(),
+      transform: this.translatedPosition.getTranslateTransform(),
       zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
     }
 
