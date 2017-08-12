@@ -4,24 +4,26 @@ import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
+import { EmptyCellStatus } from './EmptyCellStatus'
 import { Point } from './Point'
 import { Size } from './Size'
 
 interface Props {
-  blocked: boolean
-  hoveredByDroppableCard: boolean
   position: Point
   size: Size
+  status: EmptyCellStatus
 }
 
 @observer
 export class EmptyCell extends Component<Props, {}> {
   public render() {
+    const [color, style, width] = this.getBorderColorStyleAndWidth()
+
     const emptyCellStyle: ViewStyle = {
-      borderColor: 'black',
+      borderColor: color,
       borderRadius: 5,
-      borderStyle: this.props.hoveredByDroppableCard ? 'solid' : 'dashed',
-      borderWidth: this.props.blocked ? 0 : 2,
+      borderStyle: style,
+      borderWidth: width,
       height: this.props.size.height,
       left: this.props.position.x,
       position: 'absolute',
@@ -34,5 +36,22 @@ export class EmptyCell extends Component<Props, {}> {
         style={emptyCellStyle}
       />
     )
+  }
+
+  private getBorderColorStyleAndWidth(): [string | undefined, 'solid' | 'dotted' | 'dashed' | undefined, number] {
+    switch (this.props.status) {
+      case EmptyCellStatus.Blocked:
+        return [undefined, undefined, 0]
+
+      case EmptyCellStatus.CurrentlyDraggedCardDroppable:
+        return ['white', 'dashed', 2]
+
+      case EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged:
+      case EmptyCellStatus.DropAllowedButNotCurrentlyDraggedCard:
+        return ['black', 'dashed', 2]
+
+      case EmptyCellStatus.HoveredByDropableCard:
+        return ['white', 'solid', 2]
+    }
   }
 }

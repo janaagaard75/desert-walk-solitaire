@@ -6,6 +6,7 @@ import { Card } from './Card'
 import { Cell } from './Cell'
 import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
+import { EmptyCellStatus } from './EmptyCellStatus'
 import { Point } from './Point'
 import { Size } from './Size'
 
@@ -26,11 +27,10 @@ export class CellView extends Component<Props, {}> {
     if (this.props.cell.card === undefined) {
       return (
         <EmptyCell
-          blocked={this.isBlocked()}
-          hoveredByDroppableCard={this.props.cell.hoveredByDroppableCard}
           key={this.props.cell.key}
           position={this.props.position}
           size={this.props.size}
+          status={this.getEmptyCellStatus()}
         />
       )
     }
@@ -52,6 +52,18 @@ export class CellView extends Component<Props, {}> {
         />
       )
     }
+  }
+
+  private getEmptyCellStatus(): EmptyCellStatus {
+    if (this.isBlocked()) {
+      return EmptyCellStatus.Blocked
+    }
+
+    if (this.props.cell.hoveredByDroppableCard) {
+      return EmptyCellStatus.HoveredByDropableCard
+    }
+
+    return EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged
   }
 
   private isBlocked(): boolean {
