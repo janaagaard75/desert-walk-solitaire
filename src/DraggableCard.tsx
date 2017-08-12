@@ -74,9 +74,6 @@ export class DraggableCard extends Component<Props, State> {
         })
       },
       onPanResponderGrant: (e, gestureState) => {
-        this.setState({
-          dragging: true
-        })
         this.props.onDragStarted(this.props.card)
       },
       onPanResponderMove:
@@ -87,8 +84,12 @@ export class DraggableCard extends Component<Props, State> {
             dx: this.state.translatedPosition.x,
             dy: this.state.translatedPosition.y
           }
-        ])
-      ,
+        ]),
+      onPanResponderStart: (e, gestureState) => {
+        this.setState({
+          dragging: true
+        })
+      },
       onStartShouldSetPanResponder: (e, gestureState) => true
     })
 
