@@ -121,10 +121,15 @@ export class DraggableCard extends Component<Props, State> {
       zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
     }
 
+    // TODO: Only initialize panResponder if the card is draggable.
+    const panHandlers = this.props.isDraggable
+      ? this.panResponder.panHandlers
+      : undefined
+
     return (
       <Animated.View
         style={style}
-        {...this.panResponder.panHandlers}
+        {...panHandlers}
       >
         <CardView
           card={this.props.card}
