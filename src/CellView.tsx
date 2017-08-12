@@ -27,7 +27,7 @@ export class CellView extends Component<Props, {}> {
       return (
         <EmptyCell
           blocked={this.isBlocked()}
-          hoveredByCardDropableCard={this.props.cell.hoveredByDroppableCard}
+          hoveredByDroppableCard={this.props.cell.hoveredByDroppableCard}
           key={this.props.cell.key}
           position={this.props.position}
           size={this.props.size}

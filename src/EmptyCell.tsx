@@ -9,7 +9,7 @@ import { Size } from './Size'
 
 interface Props {
   blocked: boolean
-  hoveredByCardDropableCard: boolean
+  hoveredByDroppableCard: boolean
   position: Point
   size: Size
 }
@@ -20,7 +20,7 @@ export class EmptyCell extends Component<Props, {}> {
     const emptyCellStyle: ViewStyle = {
       borderColor: 'black',
       borderRadius: 5,
-      borderStyle: this.props.hoveredByCardDropableCard ? 'solid' : 'dashed',
+      borderStyle: this.props.hoveredByDroppableCard ? 'solid' : 'dashed',
       borderWidth: this.props.blocked ? 0 : 2,
       height: this.props.size.height,
       left: this.props.position.x,
