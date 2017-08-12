@@ -51,18 +51,27 @@ export class DraggableCard extends Component<Props, State> {
           dragging: false
         })
 
-        const cardCenter = this.getCardCenter({
-          x: this.props.startPosition.x + gestureState.dx,
-          y: this.props.startPosition.y + gestureState.dy
-        })
-        this.props.onCardDropped(cardCenter)
+        // const cardCenter = this.getCardCenter({
+        //   x: this.props.startPosition.x + gestureState.dx,
+        //   y: this.props.startPosition.y + gestureState.dy
+        // })
+        // this.props.onCardDropped(cardCenter)
 
         // Move the card back to the original position. This reposition is disregarded if the card is moved to a new cell because of the drop.
-        this.state.translatedPosition.setValue({
-          x: 0,
-          y: 0
-        })
+        // this.state.translatedPosition.setValue({
+        //   x: 0,
+        //   y: 0
+        // })
 
+        Animated.spring(
+           this.state.translatedPosition,
+           {
+             toValue: {
+               x: 0,
+               y: 0
+            }
+          }
+         ).start()
       },
       onPanResponderGrant: (e, gestureState) => {
         this.setState({
