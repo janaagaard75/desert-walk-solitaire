@@ -8,14 +8,15 @@ import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
 import { EmptyCellStatus } from './EmptyCellStatus'
 import { Point } from './Point'
+import { Rectangle } from './Rectangle'
 import { Size } from './Size'
 
 interface Props {
   isDraggable: boolean
   cell: Cell
   draggedCard: Card | undefined
-  onCardDropped: (fromCell: Cell, cardCenter: Point) => void
-  onCardMoved: (card: Card, cardCenter: Point) => void
+  onCardDropped: (fromCell: Cell, cardRectangle: Rectangle) => void
+  onCardMoved: (card: Card, cardRectangle: Rectangle) => void
   onDragStarted: (card: Card) => void
   position: Point
   size: Size
@@ -44,8 +45,8 @@ export class CellView extends Component<Props, {}> {
           isDraggable={this.props.isDraggable}
           isInCorrectPlace={this.props.cell.cardIsInRightPlace}
           key={this.props.cell.key}
-          onCardDropped={cardCenter => this.props.onCardDropped(this.props.cell, cardCenter)}
-          onCardMoved={cardCenter => this.props.onCardMoved(definedCard, cardCenter)}
+          onCardDropped={cardRectangle => this.props.onCardDropped(this.props.cell, cardRectangle)}
+          onCardMoved={cardRectangle => this.props.onCardMoved(definedCard, cardRectangle)}
           onDragStarted={card => this.props.onDragStarted(card)}
           startPosition={this.props.position}
           size={this.props.size}

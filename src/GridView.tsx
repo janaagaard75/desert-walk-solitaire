@@ -55,8 +55,8 @@ export class GridView extends Component<Props, State> {
             draggedCard={this.state.draggedCard}
             isDraggable={this.props.grid.draggableCards.some(card => cell.card === card)}
             key={cell.key}
-            onCardDropped={(fromCell, cardCenter) => this.handleCardDropped(fromCell, cardCenter)}
-            onCardMoved={(card, cardCenter) => this.handleCardMoved(card, cardCenter)}
+            onCardDropped={(fromCell, cardRectangle) => this.handleCardDropped(fromCell, cardRectangle)}
+            onCardMoved={(card, cardRectangle) => this.handleCardMoved(card, cardRectangle)}
             onDragStarted={card => this.handleDragStarted(card)}
             position={this.getCellPosition(cell.columnIndex, cell.rowIndex)}
             size={this.cellSize}
@@ -117,25 +117,47 @@ export class GridView extends Component<Props, State> {
     return gutter
   }
 
-  private handleCardDropped(fromCell: Cell, cardCenter: Point) {
-    this.props.grid.emptyCells.forEach(cell => {
-      if (this.getCellBundary(cell).pointIsWithinRectangle(cardCenter)
-        && this.props.grid.cardIsDroppable(fromCell.card as Card, cell)
-      ) {
-        this.props.grid.moveCard(fromCell, cell)
-      }
-    })
+  private handleCardDropped(fromCell: Cell, cardRectangle: Rectangle) {
+    const overlappingEmptyCells = this.props.grid.emptyCells
+      .map(cell => {
+        return {
+          cell: cell,
+          overlappingPixels: this.getCellBundary(cell).overlappingPixels(cardRectangle)
+        }
+      })
+      .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
+      .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
+
+    if (overlappingEmptyCells.length > 0) {
+      const toCell = overlappingEmptyCells[0].cell
+      this.props.grid.moveCard(fromCell, toCell)
+    }
 
     this.setState({
       draggedCard: undefined
     })
   }
 
-  private handleCardMoved(card: Card, cardCenter: Point) {
+  private handleCardMoved(card: Card, cardRectangle: Rectangle) {
+    const overlappingEmptyCells = this.props.grid.emptyCells
+    .map(cell => {
+      return {
+        cell: cell,
+        overlappingPixels: this.getCellBundary(cell).overlappingPixels(cardRectangle)
+      }
+    })
+    .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
+    .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
+
     this.props.grid.emptyCells.forEach(cell => {
-      cell.hoveredByCard = this.getCellBundary(cell).pointIsWithinRectangle(cardCenter)
-        ? cell.hoveredByCard = card
-        : cell.hoveredByCard = undefined
+      if (overlappingEmptyCells.length === 0) {
+        cell.hoveredByCard = undefined
+      }
+      else {
+        cell === overlappingEmptyCells[0].cell
+          ? cell.hoveredByCard = card
+          : cell.hoveredByCard = undefined
+      }
     })
   }
 

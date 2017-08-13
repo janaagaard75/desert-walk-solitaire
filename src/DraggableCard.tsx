@@ -9,14 +9,15 @@ import { PanResponderInstance } from 'react-native'
 import { Card } from './Card'
 import { CardView } from './CardView'
 import { Point } from './Point'
+import { Rectangle } from './Rectangle'
 import { Size } from './Size'
 
 interface Props {
   card: Card
   isDraggable: boolean
   isInCorrectPlace: boolean
-  onCardDropped: (cardCenter: Point) => void
-  onCardMoved: (cardCenter: Point) => void
+  onCardDropped: (cardRectangle: Rectangle) => void
+  onCardMoved: (cardRectangle: Rectangle) => void
   onDragStarted: (card: Card) => void
   startPosition: Point
   size: Size
@@ -53,11 +54,11 @@ export class DraggableCard extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
-        const cardCenter = this.getCardCenter({
+        const cardRectangle = this.getCardRectangle({
           x: this.props.startPosition.x + gestureState.dx,
           y: this.props.startPosition.y + gestureState.dy
         })
-        this.props.onCardDropped(cardCenter)
+        this.props.onCardDropped(cardRectangle)
 
         this.setState({
           visualState: VisualState.Animating
@@ -102,12 +103,12 @@ export class DraggableCard extends Component<Props, State> {
     })
 
     this.translatedPosition.addListener(position => {
-      const cardCenter = this.getCardCenter({
+      const cardRectangle = this.getCardRectangle({
         x: position.x,
         y: position.y
       })
 
-      this.props.onCardMoved(cardCenter)
+      this.props.onCardMoved(cardRectangle)
     })
   }
 
@@ -142,12 +143,13 @@ export class DraggableCard extends Component<Props, State> {
     )
   }
 
-  private getCardCenter(position: Point): Point {
-    const cardCenter: Point = {
-      x: position.x + this.props.size.width / 2,
-      y: position.y + this.props.size.height / 2
-    }
+  private getCardRectangle(position: Point): Rectangle {
+    const cardRectangle = new Rectangle(
+      position.x,
+      position.x + this.props.size.width,
+      position.y,
+      position.y + this.props.size.height)
 
-    return cardCenter
+    return cardRectangle
   }
 }
