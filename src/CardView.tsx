@@ -24,7 +24,7 @@ export class CardView extends Component<Props, {}> {
     const cardStyle: ViewStyle = {
       alignItems: 'center',
       backgroundColor: this.props.isInCorrectPlace ? '#dde5ee' : this.props.isDraggable ? 'white' : '#eee5dd',
-      borderColor: this.props.isInCorrectPlace ? 'green' : this.props.isDraggable ? 'black' : '#888',
+      borderColor: this.props.isInCorrectPlace ? '#4a4' : this.props.isDraggable ? 'black' : '#b88',
       borderRadius: 5,
       borderStyle: 'solid',
       borderWidth: 2,
