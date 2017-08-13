@@ -6,8 +6,8 @@ A game of solitare implemented in React Native and written in TypeScript.
 
 * Larger drop zones: Use the rectangle of the card when dragging and dropping instead of the center. This makes it more difficult to get the algorithms correct since an ace can now hover over two available spaces.
 * Game over screen.
-* Spash screen.
 * Prettier cards.
+* Spash screen.
 * Make it possible to adjust the difficulty, that is the number of cards in each suit. It might be neat to start out with the easiest level. This means the app gets an intro screen.
 * Test on different devices.
 
