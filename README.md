@@ -4,7 +4,6 @@ A game of solitare implemented in React Native and written in TypeScript.
 
 ## To Do
 
-* Small animation when a card is snapped back to the original position.
 * Larger drop zones: Use the rectangle of the card when dragging and dropping instead of the center. This makes it more difficult to get the algorithms correct since an ace can now hover over two available spaces.
 * Game over screen.
 * Spash screen.
