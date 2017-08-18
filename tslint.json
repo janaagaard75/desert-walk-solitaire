@@ -27,6 +27,7 @@
       false
     ],
     "no-bitwise": false,
+    "no-duplicate-imports": false,
     "no-null-keyword": true,
     "object-literal-shorthand": false,
     "one-line": [
