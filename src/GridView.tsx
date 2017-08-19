@@ -118,7 +118,12 @@ export class GridView extends Component<Props, State> {
   }
 
   private handleCardDropped(fromCell: Cell, cardRectangle: Rectangle) {
+    if (this.state.draggedCard === undefined) {
+      throw new Error('draggedCard should be defined when handling a drop.')
+    }
+
     const overlappingEmptyCells = this.props.grid.emptyCells
+      .filter(cell => this.props.grid.cardIsDroppable(this.state.draggedCard as Card, cell))
       .map(cell => {
         return {
           cell: cell,
@@ -128,7 +133,6 @@ export class GridView extends Component<Props, State> {
       .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
       .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
 
-    // TODO: Should only move if the cell allows dropping this card - it's not enough that it's empty.
     if (overlappingEmptyCells.length > 0) {
       const toCell = overlappingEmptyCells[0].cell
       this.props.grid.moveCard(fromCell, toCell)
@@ -140,7 +144,7 @@ export class GridView extends Component<Props, State> {
   }
 
   private handleCardMoved(card: Card, cardRectangle: Rectangle) {
-    // TODO: Share the lines with the ones above.
+    // TODO: Share the lines with the ones above?
     const overlappingEmptyCells = this.props.grid.emptyCells
     .map(cell => {
       return {
