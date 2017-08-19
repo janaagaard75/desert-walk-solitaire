@@ -36,6 +36,7 @@
     "ordered-imports": [
       false
     ],
+    "prefer-conditional-expression": false,
     "quotemark": [
       true,
       "single",

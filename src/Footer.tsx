@@ -11,6 +11,7 @@ interface Props {
   cardsInCorrectPlace: number
   gameOver: boolean
   moves: number
+  shuffleCardsInWrongPlace: () => void
   shuffleDeckAndDealCards: () => void
 }
 
@@ -60,11 +61,31 @@ export class Footer extends Component<Props, State> {
             Cards in correct spot: {this.props.cardsInCorrectPlace}
           </Text>
         </View>
-        <View>
-          <Button
-            onPress={() => this.confirmUnlessGameOver()}
-            title="Start Over"
-          />
+        <View
+          style={{
+            flexDirection: 'row'
+          }}
+        >
+          <View
+            style={{
+              flex: 1
+            }}
+          >
+            <Button
+              onPress={() => this.shuffleCardsInWrongPlace()}
+              title="Shuffle"
+            />
+          </View>
+          <View
+            style={{
+              flex: 1
+            }}
+          >
+            <Button
+              onPress={() => this.confirmUnlessGameOver()}
+              title="Start Over"
+            />
+          </View>
         </View>
         <Modal
           animationType="slide"
@@ -109,6 +130,10 @@ export class Footer extends Component<Props, State> {
     this.setState({
       confirmModalVisible: true
     })
+  }
+
+  private shuffleCardsInWrongPlace() {
+    this.props.shuffleCardsInWrongPlace()
   }
 
   private startOver() {

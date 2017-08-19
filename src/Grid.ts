@@ -26,6 +26,12 @@ export class Grid {
     return cardsInCorrectPlace
   }
 
+  /** Cells that are empty or have a card in the wrong place. */
+  @computed get cellsWithCardsNotInCorrectPlace(): Array<Cell> {
+    const cellsWithCardsInWrongPlace = this.cells.filter(cell => !cell.cardIsInRightPlace)
+    return cellsWithCardsInWrongPlace
+  }
+
   @computed
   public get draggableCards(): Array<Card> {
     let draggableCards = this.emptyCells
@@ -115,6 +121,23 @@ export class Grid {
         }
       }
     }
+  }
+
+  public shuffleCardsInWrongPlace() {
+    const cardsInWrongPlace = this.cellsWithCardsNotInCorrectPlace
+      .map(cell => cell.card)
+      .filter(card => card !== undefined) as Array<Card>
+
+    ArrayUtilities.shuffleArray(cardsInWrongPlace)
+
+    this.cellsWithCardsNotInCorrectPlace.forEach(cell => {
+      if (cell.columnIndex === this.columns - 1) {
+        cell.card = undefined
+      }
+      else {
+        cell.card = cardsInWrongPlace.shift()
+      }
+    })
   }
 
   public shuffleDeckAndDealCards() {
