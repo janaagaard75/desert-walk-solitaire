@@ -73,17 +73,17 @@ export class Footer extends Component<Props, State> {
           visible={this.state.confirmModalVisible}
         >
           <View style={{ marginTop: 22 }}>
-              <Text style={questionStyle}>
-                Are you sure you want to start over?
-              </Text>
-              <Button
-                onPress={() => this.startOver()}
-                title="Yes, start over"
-              />
-              <Button
-                onPress={() => this.hideConfirmModal()}
-                title="No, let me continue this game"
-              />
+            <Text style={questionStyle}>
+              Are you sure you want to start over?
+            </Text>
+            <Button
+              onPress={() => this.startOver()}
+              title="Yes, start over"
+            />
+            <Button
+              onPress={() => this.hideConfirmModal()}
+              title="No, let me continue this game"
+            />
           </View>
         </Modal>
       </View>
