@@ -128,6 +128,7 @@ export class GridView extends Component<Props, State> {
       .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
       .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
 
+    // TODO: Should only move if the cell allows dropping this card - it's not enough that it's empty.
     if (overlappingEmptyCells.length > 0) {
       const toCell = overlappingEmptyCells[0].cell
       this.props.grid.moveCard(fromCell, toCell)
