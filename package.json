@@ -9,7 +9,7 @@
     "preset": "jest-expo-ts"
   },
   "dependencies": {
-    "expo": "20.0.0",
+    "expo": "20.0.1",
     "mobx": "3.2.2",
     "mobx-react": "4.2.2",
     "react": "16.0.0-alpha.12",
