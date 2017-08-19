@@ -140,6 +140,7 @@ export class GridView extends Component<Props, State> {
   }
 
   private handleCardMoved(card: Card, cardRectangle: Rectangle) {
+    // TODO: Share the lines with the ones above.
     const overlappingEmptyCells = this.props.grid.emptyCells
     .map(cell => {
       return {
