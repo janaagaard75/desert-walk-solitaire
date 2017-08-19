@@ -53,6 +53,7 @@ export default class App extends Component<{}, {}> {
           moves={this.grid.moves}
           shuffleCardsInWrongPlace={() => this.grid.shuffleCardsInWrongPlace()}
           shuffleDeckAndDealCards={() => this.grid.shuffleDeckAndDealCards()}
+          shuffles={this.grid.shuffles}
         />
       </View>
     )

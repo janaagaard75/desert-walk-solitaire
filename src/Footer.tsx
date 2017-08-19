@@ -13,6 +13,7 @@ interface Props {
   moves: number
   shuffleCardsInWrongPlace: () => void
   shuffleDeckAndDealCards: () => void
+  shuffles: number
 }
 
 interface State {
@@ -51,6 +52,13 @@ export class Footer extends Component<Props, State> {
             }}
           >
             Moves: {this.props.moves}
+          </Text>
+          <Text
+            style={{
+              flex: 1
+            }}
+          >
+            Shuffles: {this.props.shuffles}
           </Text>
           <Text
             style={{
