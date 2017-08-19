@@ -52,7 +52,7 @@ export default class App extends Component<{}, {}> {
           gameOver={this.grid.draggableCards.length === 0}
           moves={this.grid.moves}
           shuffleCardsInWrongPlace={() => this.grid.shuffleCardsInWrongPlace()}
-          shuffleDeckAndDealCards={() => this.grid.shuffleDeckAndDealCards()}
+          startOver={() => this.grid.startOver()}
           shuffles={this.grid.shuffles}
         />
       </View>

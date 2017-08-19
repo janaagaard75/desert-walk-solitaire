@@ -12,7 +12,7 @@ interface Props {
   gameOver: boolean
   moves: number
   shuffleCardsInWrongPlace: () => void
-  shuffleDeckAndDealCards: () => void
+  startOver: () => void
   shuffles: number
 }
 
@@ -121,7 +121,7 @@ export class Footer extends Component<Props, State> {
 
   private confirmUnlessGameOver() {
     if (this.props.gameOver) {
-      this.props.shuffleDeckAndDealCards()
+      this.props.startOver()
     }
     else {
       this.showConfirmModal()
@@ -146,6 +146,6 @@ export class Footer extends Component<Props, State> {
 
   private startOver() {
     this.hideConfirmModal()
-    this.props.shuffleDeckAndDealCards()
+    this.props.startOver()
   }
 }

@@ -143,7 +143,7 @@ export class Grid {
     this.shuffles++
   }
 
-  public shuffleDeckAndDealCards() {
+  private shuffleDeckAndDealCards() {
     ArrayUtilities.shuffleArray(this.deck)
 
     for (let rowIndex = 0; rowIndex < this.rows; rowIndex++) {
@@ -154,5 +154,11 @@ export class Grid {
             : this.deck[rowIndex * (this.columns - 1) + (columnIndex - 1)]
       }
     }
+  }
+
+  public startOver() {
+    this.shuffleDeckAndDealCards()
+    this.moves = 0
+    this.shuffles = 0
   }
 }
