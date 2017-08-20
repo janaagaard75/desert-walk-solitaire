@@ -128,7 +128,7 @@ export class Footer extends Component<Props, State> {
         this.props.startOver()
 
       case GameStatus.MovePossible:
-      case GameStatus.ShuffleCards:
+      case GameStatus.Stuck:
         this.showConfirmModal()
 
       default:
@@ -150,7 +150,7 @@ export class Footer extends Component<Props, State> {
 
   private shuffleCardsInWrongPlace() {
     // TODO: Should disable the button instead.
-    if (this.props.gameStatus === GameStatus.ShuffleCards) {
+    if (this.props.gameStatus === GameStatus.Stuck) {
       this.props.shuffleCardsInWrongPlace()
     }
   }

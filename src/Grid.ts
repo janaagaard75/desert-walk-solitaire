@@ -76,7 +76,7 @@ export class Grid {
 
     // TODO: Avoid magic number.
     if (this.shuffles <= 100) {
-      return GameStatus.ShuffleCards
+      return GameStatus.Stuck
     }
 
     return GameStatus.GameLost
