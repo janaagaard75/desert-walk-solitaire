@@ -140,7 +140,7 @@ export class Footer extends Component<Props, State> {
     })
   }
 
-  // TODO: Only allow clicking the button if the game is stuck.
+  // TODO: Only allow clicking the button if the game is stuck. Don't allow clicking on it, if the game is done.
   private shuffleCardsInWrongPlace() {
     this.props.shuffleCardsInWrongPlace()
   }
