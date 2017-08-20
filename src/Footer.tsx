@@ -7,9 +7,11 @@ import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 
+import { GameStatus } from './GameStatus'
+
 interface Props {
   cardsInCorrectPlace: number
-  gameOver: boolean
+  gameStatus: GameStatus
   moves: number
   shuffleCardsInWrongPlace: () => void
   startOver: () => void
@@ -120,11 +122,17 @@ export class Footer extends Component<Props, State> {
   }
 
   private confirmUnlessGameOver() {
-    if (this.props.gameOver) {
-      this.props.startOver()
-    }
-    else {
-      this.showConfirmModal()
+    switch (this.props.gameStatus) {
+      case GameStatus.GameLost:
+      case GameStatus.GameWon:
+        this.props.startOver()
+
+      case GameStatus.MovePossible:
+      case GameStatus.ShuffleCards:
+        this.showConfirmModal()
+
+      default:
+        throw new Error(`GameStatus ${this.props.gameStatus} is not supported.`)
     }
   }
 
