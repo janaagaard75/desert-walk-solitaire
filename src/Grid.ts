@@ -4,6 +4,7 @@ import { observable } from 'mobx'
 import { ArrayUtilities } from './ArrayUtilities'
 import { Card } from './Card'
 import { Cell } from './Cell'
+import { GameStatus } from './GameStatus'
 import { Suit } from './Suit'
 
 export class Grid {
@@ -60,6 +61,25 @@ export class Grid {
   public get emptyCells(): Array<Cell> {
     const emptyCells = this.cells.filter(cell => cell.card === undefined)
     return emptyCells
+  }
+
+  @computed
+  public get gameStatus(): GameStatus {
+    if (this.draggableCards.length >= 1) {
+      return GameStatus.MovePossible
+    }
+
+    // TODO: Avoid magic number.
+    if (this.cardsInCorrectPlace === 52) {
+      return GameStatus.GameWon
+    }
+
+    // TODO: Avoid magic number.
+    if (this.shuffles <= 100) {
+      return GameStatus.ShuffleCards
+    }
+
+    return GameStatus.GameLost
   }
 
   public cardIsDroppable(card: Card, cell: Cell): boolean {
