@@ -29,6 +29,7 @@ export class CardView extends Component<Props, {}> {
       borderStyle: 'solid',
       borderWidth: Math.floor(this.props.size.width / 20),
       height: this.props.size.height,
+      overflow: 'hidden',
       padding: Math.floor(this.props.size.width / 20),
       width: this.props.size.width
     }
@@ -45,14 +46,34 @@ export class CardView extends Component<Props, {}> {
       })
     }
 
-    const textStyle: TextStyle = {
-      color: Suit.isBlack(this.props.card.suit) ? 'black' : 'red'
+    const valueStyle: TextStyle = {
+      color: Suit.isBlack(this.props.card.suit) ? 'black' : 'red',
+      fontSize: 38,
+      fontWeight: '700',
+      left: -5,
+      letterSpacing: -3,
+      position: 'absolute',
+      top: -7,
+      width: 50 // Make space for the two digits in '10'.
+    }
+
+    const suitStyle: TextStyle = {
+      backgroundColor: 'transparent',
+      bottom: -5,
+      color: Suit.isBlack(this.props.card.suit) ? 'black' : 'red',
+      fontSize: 40,
+      fontWeight: '900',
+      position: 'absolute',
+      right: -5
     }
 
     return (
       <View style={cardStyle}>
-        <Text style={textStyle}>
-          {this.getSuitUnicode(this.props.card.suit)} {this.getCardValue(this.props.card.value)}
+        <Text style={valueStyle}>
+          {this.getCardValue(this.props.card.value)}
+        </Text>
+        <Text style={suitStyle}>
+          {this.getSuitUnicode(this.props.card.suit)}
         </Text>
       </View>
     )
