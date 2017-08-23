@@ -73,26 +73,10 @@ export class CardView extends Component<Props, {}> {
           {this.getCardValue(this.props.card.value)}
         </Text>
         <Text style={suitStyle}>
-          {this.getSuitUnicode(this.props.card.suit)}
+          {Suit.unicode(this.props.card.suit)}
         </Text>
       </View>
     )
-  }
-
-  private getSuitUnicode(suit: Suit): string {
-    switch (suit) {
-      case Suit.Clubs:
-        return '\u2667'
-
-      case Suit.Diamonds:
-        return '\u2662'
-
-      case Suit.Hearts:
-        return '\u2661'
-
-      case Suit.Spades:
-        return '\u2664'
-    }
   }
 
   private getCardValue(value: number) {

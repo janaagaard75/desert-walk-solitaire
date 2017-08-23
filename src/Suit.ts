@@ -15,4 +15,20 @@ export namespace Suit {
       return 'red'
     }
   }
+
+  export const unicode = (suit: Suit): string => {
+    switch (suit) {
+      case Suit.Clubs:
+        return '\u2667'
+
+      case Suit.Diamonds:
+        return '\u2662'
+
+      case Suit.Hearts:
+        return '\u2661'
+
+      case Suit.Spades:
+        return '\u2664'
+    }
+  }
 }
