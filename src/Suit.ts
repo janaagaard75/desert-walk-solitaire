@@ -7,7 +7,12 @@ export enum Suit {
 
 // tslint:disable-next-line:no-namespace
 export namespace Suit {
-  export function isBlack(suit: Suit): boolean {
-    return suit === Suit.Clubs || suit === Suit.Spades
+  export const color = (suit: Suit): string => {
+    if (suit === Suit.Clubs || suit === Suit.Spades) {
+      return 'black'
+    }
+    else {
+      return 'red'
+    }
   }
 }

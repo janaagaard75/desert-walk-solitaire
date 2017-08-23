@@ -47,7 +47,7 @@ export class CardView extends Component<Props, {}> {
     }
 
     const valueStyle: TextStyle = {
-      color: Suit.isBlack(this.props.card.suit) ? 'black' : 'red',
+      color: Suit.color(this.props.card.suit),
       fontSize: Math.floor(this.props.size.width / 41 * 38),
       fontWeight: '700',
       left: -Math.floor(this.props.size.width / 41 * 5),
@@ -60,7 +60,7 @@ export class CardView extends Component<Props, {}> {
     const suitStyle: TextStyle = {
       backgroundColor: 'transparent',
       bottom: -Math.floor(this.props.size.width / 41 * 5),
-      color: Suit.isBlack(this.props.card.suit) ? 'black' : 'red',
+      color: Suit.color(this.props.card.suit),
       fontSize: Math.floor(this.props.size.width / 41 * 40),
       fontWeight: '900',
       position: 'absolute',
