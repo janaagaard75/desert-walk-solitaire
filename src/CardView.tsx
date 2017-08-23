@@ -25,11 +25,11 @@ export class CardView extends Component<Props, {}> {
       alignItems: 'center',
       backgroundColor: this.props.isInCorrectPlace ? '#dde5ee' : this.props.isDraggable ? 'white' : '#eee5dd',
       borderColor: this.props.isInCorrectPlace ? '#4a4' : this.props.isDraggable ? 'black' : '#b88',
-      borderRadius: 5,
+      borderRadius: Math.floor(this.props.size.width / 6),
       borderStyle: 'solid',
-      borderWidth: 2,
+      borderWidth: Math.floor(this.props.size.width / 20),
       height: this.props.size.height,
-      padding: 2,
+      padding: Math.floor(this.props.size.width / 20),
       width: this.props.size.width
     }
 
