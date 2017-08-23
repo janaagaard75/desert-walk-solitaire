@@ -21,7 +21,7 @@ export class EmptyCell extends Component<Props, {}> {
 
     const emptyCellStyle: ViewStyle = {
       borderColor: color,
-      borderRadius: 5,
+      borderRadius: Math.floor(this.props.size.width / 41 * 5),
       borderStyle: style,
       borderWidth: width,
       height: this.props.size.height,
@@ -44,14 +44,14 @@ export class EmptyCell extends Component<Props, {}> {
         return [undefined, undefined, 0]
 
       case EmptyCellStatus.CurrentlyDraggedCardDroppable:
-        return ['white', 'dashed', 2]
+        return ['white', 'dashed', Math.floor(this.props.size.width / 41 * 3)]
 
       case EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged:
       case EmptyCellStatus.DropAllowedButNotCurrentlyDraggedCard:
-        return ['black', 'dashed', 2]
+        return ['black', 'dashed', Math.floor(this.props.size.width / 41 * 3)]
 
       case EmptyCellStatus.HoveredByDropableCard:
-        return ['white', 'solid', 2]
+        return ['white', 'solid', Math.floor(this.props.size.width / 41 * 3)]
     }
   }
 }
