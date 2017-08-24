@@ -70,31 +70,12 @@ export class CardView extends Component<Props, {}> {
     return (
       <View style={cardStyle}>
         <Text style={valueStyle}>
-          {this.getCardValue(this.props.card.value)}
+          {this.props.card.displayValue}
         </Text>
         <Text style={suitStyle}>
           {Suit.unicode(this.props.card.suit)}
         </Text>
       </View>
     )
-  }
-
-  private getCardValue(value: number) {
-    switch (value) {
-      case 1:
-        return 'A'
-
-      case 11:
-        return 'J'
-
-      case 12:
-        return 'Q'
-
-      case 13:
-        return 'K'
-
-      default:
-        return value
-    }
   }
 }
