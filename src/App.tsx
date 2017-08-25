@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Component } from 'react'
+import { Image } from 'react-native'
 import { LayoutChangeEvent } from 'react-native'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
@@ -38,6 +39,13 @@ export default class App extends Component<{}, {}> {
     return (
       <View style={mainViewStyle}>
         <StatusBar hidden={true}/>
+        <Image
+          source={require('./50713.png')}
+          style={{
+            resizeMode: 'repeat',
+            width: this.availableSize ? this.availableSize.width : undefined
+          }}
+        />
         <Text style={headerStyle}>
           Desert Walk
         </Text>
