@@ -42,6 +42,8 @@ export default class App extends Component<{}, {}> {
         <Image
           source={require('./50713.png')}
           style={{
+            height: this.availableSize ? this.availableSize.height : undefined,
+            position: 'absolute',
             resizeMode: 'repeat',
             width: this.availableSize ? this.availableSize.width : undefined
           }}
