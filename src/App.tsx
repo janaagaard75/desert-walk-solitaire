@@ -40,7 +40,7 @@ export default class App extends Component<{}, {}> {
       <View style={mainViewStyle}>
         <StatusBar hidden={true}/>
         <Image
-          source={require('./50713.png')}
+          source={require('./111699.png')}
           style={{
             height: this.availableSize ? this.availableSize.height : undefined,
             position: 'absolute',
