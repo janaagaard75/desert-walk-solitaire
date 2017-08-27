@@ -81,6 +81,7 @@ export class Footer extends Component<Props, State> {
           >
             <Button
               onPress={() => this.shuffleCardsInWrongPlace()}
+              disabled={this.shuffleButtonDisabled()}
               title="Shuffle"
             />
           </View>
@@ -147,11 +148,13 @@ export class Footer extends Component<Props, State> {
     })
   }
 
+  private shuffleButtonDisabled() {
+    const enabled = this.props.gameStatus === GameStatus.Stuck
+    return !enabled
+  }
+
   private shuffleCardsInWrongPlace() {
-    // TODO: Should disable the button instead.
-    if (this.props.gameStatus === GameStatus.Stuck) {
-      this.props.shuffleCardsInWrongPlace()
-    }
+    this.props.shuffleCardsInWrongPlace()
   }
 
   private startOver() {
