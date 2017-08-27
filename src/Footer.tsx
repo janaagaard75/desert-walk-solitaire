@@ -50,6 +50,7 @@ export class Footer extends Component<Props, State> {
         >
           <Text
             style={{
+              backgroundColor: 'transparent',
               flex: 1
             }}
           >
@@ -57,6 +58,7 @@ export class Footer extends Component<Props, State> {
           </Text>
           <Text
             style={{
+              backgroundColor: 'transparent',
               flex: 1
             }}
           >
@@ -64,6 +66,7 @@ export class Footer extends Component<Props, State> {
           </Text>
           <Text
             style={{
+              backgroundColor: 'transparent',
               flex: 1,
               textAlign: 'right'
             }}

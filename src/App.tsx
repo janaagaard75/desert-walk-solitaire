@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Component } from 'react'
+import { Dimensions } from 'react-native'
 import { Image } from 'react-native'
 import { LayoutChangeEvent } from 'react-native'
 import { observable } from 'mobx'
@@ -21,7 +22,11 @@ export default class App extends Component<{}, {}> {
   private grid = new Grid()
 
   public render() {
+    const windowSize = Dimensions.get('window')
+
     const headerStyle: TextStyle = {
+      backgroundColor: 'transparent',
+      fontWeight: '600',
       marginTop: 4,
       textAlign: 'center'
     }
@@ -42,10 +47,10 @@ export default class App extends Component<{}, {}> {
         <Image
           source={require('./111699.png')}
           style={{
-            height: this.availableSize ? this.availableSize.height : undefined,
+            height: windowSize.height,
             position: 'absolute',
             resizeMode: 'repeat',
-            width: this.availableSize ? this.availableSize.width : undefined
+            width: windowSize.width
           }}
         />
         <Text style={headerStyle}>
