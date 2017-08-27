@@ -39,6 +39,16 @@ export class Footer extends Component<Props, State> {
       textAlign: 'center'
     }
 
+    const textStyle: TextStyle = {
+      backgroundColor: 'transparent',
+      flex: 1,
+      fontWeight: '700'
+    }
+
+    const rightAlignedTextStyle: TextStyle = { ...textStyle, ...{
+      textAlign: 'right'
+    }}
+
     return (
       <View>
         <View
@@ -48,29 +58,13 @@ export class Footer extends Component<Props, State> {
             marginRight: 10
           }}
         >
-          <Text
-            style={{
-              backgroundColor: 'transparent',
-              flex: 1
-            }}
-          >
+          <Text style={textStyle}>
             Moves: {this.props.moves}
           </Text>
-          <Text
-            style={{
-              backgroundColor: 'transparent',
-              flex: 1
-            }}
-          >
+          <Text style={textStyle}>
             Shuffles: {this.props.shuffles}
           </Text>
-          <Text
-            style={{
-              backgroundColor: 'transparent',
-              flex: 1,
-              textAlign: 'right'
-            }}
-          >
+          <Text style={rightAlignedTextStyle}>
             Cards in correct spot: {this.props.cardsInCorrectPlace}
           </Text>
         </View>
@@ -81,6 +75,7 @@ export class Footer extends Component<Props, State> {
         >
           <View
             style={{
+              backgroundColor: 'transparent',
               flex: 1
             }}
           >
@@ -91,6 +86,7 @@ export class Footer extends Component<Props, State> {
           </View>
           <View
             style={{
+              backgroundColor: 'transparent',
               flex: 1
             }}
           >
