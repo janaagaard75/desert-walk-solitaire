@@ -25,12 +25,12 @@ export class CardView extends Component<Props, {}> {
       alignItems: 'center',
       backgroundColor: this.props.isInCorrectPlace ? '#dde5ee' : this.props.isDraggable ? 'white' : '#ddd',
       borderColor: this.props.isInCorrectPlace ? '#4a4' : this.props.isDraggable ? 'black' : '#b88',
-      borderRadius: Math.floor(this.props.size.width / 41 * 5),
+      borderRadius: Math.floor(0.12 * this.props.size.width),
       borderStyle: 'solid',
-      borderWidth: Math.floor(this.props.size.width / 41 * 3),
+      borderWidth: Math.floor(0.07 * this.props.size.width),
       height: this.props.size.height,
       overflow: 'hidden',
-      padding: Math.floor(this.props.size.width / 41 * 2),
+      padding: Math.floor(0.05 * this.props.size.width),
       width: this.props.size.width
     }
 
@@ -38,33 +38,33 @@ export class CardView extends Component<Props, {}> {
       Object.assign(cardStyle, {
         shadowColor: 'black',
         shadowOffset: {
-          height: Math.floor(this.props.size.width / 41 * 2),
-          width: Math.floor(this.props.size.width / 41 * 1)
+          height: Math.floor(0.05 * this.props.size.width),
+          width: Math.floor(0.02 * this.props.size.width)
         },
         shadowOpacity: 0.3,
-        shadowRadius: Math.floor(this.props.size.width / 41 * 3)
+        shadowRadius: Math.floor(0.07 * this.props.size.width)
       })
     }
 
     const valueStyle: TextStyle = {
       color: Suit.color(this.props.card.suit),
-      fontSize: Math.floor(this.props.size.width / 41 * 38),
+      fontSize: Math.floor(0.95 * this.props.size.width),
       fontWeight: '700',
-      left: -Math.floor(this.props.size.width / 41 * 5),
-      letterSpacing: -Math.floor(this.props.size.width / 41 * 3),
+      left: -Math.floor(0.12 * this.props.size.width),
+      letterSpacing: -Math.floor(0.07 * this.props.size.width),
       position: 'absolute',
-      top: -Math.floor(this.props.size.width / 41 * 7),
-      width: Math.floor(this.props.size.width / 41 * 50) // Make space for the two digits in '10'.
+      top: -Math.floor(0.17 * this.props.size.width),
+      width: Math.floor(1.22 * this.props.size.width) // Make space for the two digits in '10'.
     }
 
     const suitStyle: TextStyle = {
       backgroundColor: 'transparent',
-      bottom: -Math.floor(this.props.size.width / 41 * 5),
+      bottom: -Math.floor(0.12 * this.props.size.width),
       color: Suit.color(this.props.card.suit),
-      fontSize: Math.floor(this.props.size.width / 41 * 40),
+      fontSize: Math.floor(this.props.size.width),
       fontWeight: '900',
       position: 'absolute',
-      right: -Math.floor(this.props.size.width / 41 * 5)
+      right: -Math.floor(0.12 * this.props.size.width)
     }
 
     return (
