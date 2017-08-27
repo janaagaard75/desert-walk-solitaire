@@ -48,7 +48,7 @@ export class CardView extends Component<Props, {}> {
     }
 
     const valueStyle: TextStyle = {
-      color: this.getSuitColor(this.props.card.suit),
+      color: CardView.getSuitColor(this.props.card.suit, this.props.isDraggable),
       fontSize: Math.floor(0.95 * this.props.size.width),
       fontWeight: '700',
       left: -Math.floor(0.12 * this.props.size.width),
@@ -61,7 +61,7 @@ export class CardView extends Component<Props, {}> {
     const suitStyle: TextStyle = {
       backgroundColor: 'transparent',
       bottom: -Math.floor(0.12 * this.props.size.width),
-      color: this.getSuitColor(this.props.card.suit),
+      color: CardView.getSuitColor(this.props.card.suit, this.props.isDraggable),
       fontSize: Math.floor(this.props.size.width),
       fontWeight: '900',
       position: 'absolute',
@@ -74,22 +74,32 @@ export class CardView extends Component<Props, {}> {
           {this.props.card.displayValue}
         </Text>
         <Text style={suitStyle}>
-          {this.getValueText(this.props.card.suit)}
+          {CardView.getValueText(this.props.card.suit)}
         </Text>
       </View>
     )
   }
 
-  private getSuitColor(suit: Suit): string {
+  private static getSuitColor(suit: Suit, isDraggable: boolean): string {
     if (suit === Suit.Clubs || suit === Suit.Spades) {
-      return 'black'
+      if (isDraggable) {
+        return '#000'
+      }
+      else {
+        return '#666'
+      }
     }
     else {
-      return 'red'
+      if (isDraggable) {
+        return '#f00'
+      }
+      else {
+        return '#f66'
+      }
     }
   }
 
-  private getValueText(suit: Suit): string {
+  private static getValueText(suit: Suit): string {
     switch (suit) {
       case Suit.Clubs:
         return '\u2667'
