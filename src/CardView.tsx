@@ -23,7 +23,7 @@ export class CardView extends Component<Props, {}> {
   public render() {
     const cardStyle: ViewStyle = {
       alignItems: 'center',
-      backgroundColor: this.props.isInCorrectPlace ? '#dde5ee' : this.props.isDraggable ? 'white' : '#ccc',
+      backgroundColor: this.props.isInCorrectPlace ? '#dde5ee' : this.props.isDraggable ? 'white' : '#ddd',
       borderColor: this.props.isInCorrectPlace ? '#4a4' : this.props.isDraggable ? 'black' : '#888',
       // TODO: Add a settings class.
       borderRadius: Math.floor(0.12 * this.props.size.width),
@@ -48,7 +48,7 @@ export class CardView extends Component<Props, {}> {
     }
 
     const valueStyle: TextStyle = {
-      color: Suit.color(this.props.card.suit),
+      color: this.getSuitColor(this.props.card.suit),
       fontSize: Math.floor(0.95 * this.props.size.width),
       fontWeight: '700',
       left: -Math.floor(0.12 * this.props.size.width),
@@ -61,7 +61,7 @@ export class CardView extends Component<Props, {}> {
     const suitStyle: TextStyle = {
       backgroundColor: 'transparent',
       bottom: -Math.floor(0.12 * this.props.size.width),
-      color: Suit.color(this.props.card.suit),
+      color: this.getSuitColor(this.props.card.suit),
       fontSize: Math.floor(this.props.size.width),
       fontWeight: '900',
       position: 'absolute',
@@ -74,9 +74,34 @@ export class CardView extends Component<Props, {}> {
           {this.props.card.displayValue}
         </Text>
         <Text style={suitStyle}>
-          {Suit.unicode(this.props.card.suit)}
+          {this.getValueText(this.props.card.suit)}
         </Text>
       </View>
     )
+  }
+
+  private getSuitColor(suit: Suit): string {
+    if (suit === Suit.Clubs || suit === Suit.Spades) {
+      return 'black'
+    }
+    else {
+      return 'red'
+    }
+  }
+
+  private getValueText(suit: Suit): string {
+    switch (suit) {
+      case Suit.Clubs:
+        return '\u2667'
+
+      case Suit.Diamonds:
+        return '\u2662'
+
+      case Suit.Hearts:
+        return '\u2661'
+
+      case Suit.Spades:
+        return '\u2664'
+    }
   }
 }
