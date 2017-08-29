@@ -10,6 +10,7 @@ import { CellView } from './CellView'
 import { Grid } from './Grid'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
+import { Settings } from './Settings'
 import { Size } from './Size'
 
 interface Props {
@@ -30,14 +31,10 @@ export class GridView extends Component<Props, State> {
       draggedCard: undefined
     }
 
-    this.cellSize = this.getCellSize()
-    this.gutter = this.getGutter()
+    this.settings = new Settings(this.props.availableSize)
   }
 
-  private readonly cardSizeRatio = 3 / 2
-  private readonly cardWidthToGutterRatio = 7 / 1
-  private readonly cellSize: Size
-  private readonly gutter: number
+  private readonly settings: Settings
 
   public render() {
     const gridViewStyle: ViewStyle = {
@@ -59,7 +56,7 @@ export class GridView extends Component<Props, State> {
             onCardMoved={(card, cardRectangle) => this.handleCardMoved(card, cardRectangle)}
             onDragStarted={card => this.handleDragStarted(card)}
             position={this.getCellPosition(cell.columnIndex, cell.rowIndex)}
-            size={this.cellSize}
+            settings={this.settings}
           />
         )}
       </View>
@@ -71,9 +68,9 @@ export class GridView extends Component<Props, State> {
 
     const boundary = new Rectangle(
       cellPosition.x,
-      cellPosition.x + this.cellSize.width,
+      cellPosition.x + this.settings.cardSize.width,
       cellPosition.y,
-      cellPosition.y + this.cellSize.height
+      cellPosition.y + this.settings.cardSize.height
     )
 
     return boundary
@@ -81,40 +78,11 @@ export class GridView extends Component<Props, State> {
 
   private getCellPosition(columnIndex: number, rowIndex: number): Point {
     const position = {
-      x: this.gutter + columnIndex * (this.cellSize.width + this.gutter),
-      y: this.gutter + rowIndex * (this.cellSize.height + this.gutter)
+      x: this.settings.gutterWidth + columnIndex * (this.settings.cardSize.width + this.settings.gutterWidth),
+      y: this.settings.gutterWidth + rowIndex * (this.settings.cardSize.height + this.settings.gutterWidth)
     }
 
     return position
-  }
-
-  private getCellSize(): Size {
-    const cellWidth = Math.floor(
-      (
-        this.props.availableSize.width * this.cardWidthToGutterRatio
-      ) / (
-        this.props.grid.columns * (this.cardWidthToGutterRatio + 1) + 1
-      )
-    )
-
-    const cellHeight = Math.floor(this.cardSizeRatio * cellWidth)
-
-    // TODO: Verify that there is enough available height.
-
-    return {
-      height: cellHeight,
-      width: cellWidth
-    }
-  }
-
-  public getGutter(): number {
-    const gutter = Math.floor(
-      (
-        this.props.availableSize.width - this.props.grid.columns * this.cellSize.width
-      ) / this.props.grid.columns
-    )
-
-    return gutter
   }
 
   private handleCardDropped(fromCell: Cell, cardRectangle: Rectangle) {

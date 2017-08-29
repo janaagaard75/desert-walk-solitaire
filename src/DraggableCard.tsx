@@ -10,7 +10,7 @@ import { Card } from './Card'
 import { CardView } from './CardView'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
-import { Size } from './Size'
+import { Settings } from './Settings'
 
 interface Props {
   card: Card
@@ -19,8 +19,8 @@ interface Props {
   onCardDropped: (cardRectangle: Rectangle) => void
   onCardMoved: (cardRectangle: Rectangle) => void
   onDragStarted: (card: Card) => void
+  settings: Settings
   startPosition: Point
-  size: Size
 }
 
 enum VisualState {
@@ -136,8 +136,8 @@ export class DraggableCard extends Component<Props, State> {
           card={this.props.card}
           isDraggable={this.props.isDraggable}
           isInCorrectPlace={this.props.isInCorrectPlace}
+          settings={this.props.settings}
           shadow={this.state.visualState !== VisualState.Idle}
-          size={this.props.size}
         />
       </Animated.View>
     )
@@ -146,9 +146,9 @@ export class DraggableCard extends Component<Props, State> {
   private getCardRectangle(position: Point): Rectangle {
     const cardRectangle = new Rectangle(
       position.x,
-      position.x + this.props.size.width,
+      position.x + this.props.settings.cardSize.width,
       position.y,
-      position.y + this.props.size.height)
+      position.y + this.props.settings.cardSize.height)
 
     return cardRectangle
   }

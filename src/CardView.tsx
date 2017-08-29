@@ -7,15 +7,15 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { Card } from './Card'
-import { Size } from './Size'
+import { Settings } from './Settings'
 import { Suit } from './Suit'
 
 interface Props {
   card: Card
   isDraggable: boolean
   isInCorrectPlace: boolean
+  settings: Settings
   shadow: boolean
-  size: Size
 }
 
 @observer
@@ -26,46 +26,46 @@ export class CardView extends Component<Props, {}> {
       backgroundColor: this.props.isInCorrectPlace ? '#dde5ee' : this.props.isDraggable ? 'white' : '#ddd',
       borderColor: this.props.isInCorrectPlace ? '#4a4' : this.props.isDraggable ? 'black' : '#888',
       // TODO: Add a settings class.
-      borderRadius: Math.floor(0.12 * this.props.size.width),
+      borderRadius: this.props.settings.borderRadius,
       borderStyle: 'solid',
-      borderWidth: Math.floor(0.075 * this.props.size.width),
-      height: this.props.size.height,
+      borderWidth: this.props.settings.borderWidth,
+      height: this.props.settings.cardSize.height,
       overflow: 'hidden',
-      padding: Math.floor(0.05 * this.props.size.width),
-      width: this.props.size.width
+      padding: Math.floor(0.05 * this.props.settings.cardSize.width),
+      width: this.props.settings.cardSize.width
     }
 
     if (this.props.shadow) {
       Object.assign(cardStyle, {
         shadowColor: 'black',
         shadowOffset: {
-          height: Math.floor(0.05 * this.props.size.width),
-          width: Math.floor(0.02 * this.props.size.width)
+          height: Math.floor(0.05 * this.props.settings.cardSize.width),
+          width: Math.floor(0.02 * this.props.settings.cardSize.width)
         },
         shadowOpacity: 0.3,
-        shadowRadius: Math.floor(0.07 * this.props.size.width)
+        shadowRadius: Math.floor(0.07 * this.props.settings.cardSize.width)
       })
     }
 
     const valueStyle: TextStyle = {
       color: CardView.getSuitColor(this.props.card.suit, this.props.isDraggable),
-      fontSize: Math.floor(0.95 * this.props.size.width),
+      fontSize: Math.floor(0.95 * this.props.settings.cardSize.width),
       fontWeight: '700',
-      left: -Math.floor(0.12 * this.props.size.width),
-      letterSpacing: -Math.floor(0.07 * this.props.size.width),
+      left: -Math.floor(0.12 * this.props.settings.cardSize.width),
+      letterSpacing: -Math.floor(0.07 * this.props.settings.cardSize.width),
       position: 'absolute',
-      top: -Math.floor(0.17 * this.props.size.width),
-      width: Math.floor(1.22 * this.props.size.width) // Make space for the two digits in '10'.
+      top: -Math.floor(0.17 * this.props.settings.cardSize.width),
+      width: Math.floor(1.22 * this.props.settings.cardSize.width) // Make space for the two digits in '10'.
     }
 
     const suitStyle: TextStyle = {
       backgroundColor: 'transparent',
-      bottom: -Math.floor(0.12 * this.props.size.width),
+      bottom: -Math.floor(0.12 * this.props.settings.cardSize.width),
       color: CardView.getSuitColor(this.props.card.suit, this.props.isDraggable),
-      fontSize: Math.floor(this.props.size.width),
+      fontSize: Math.floor(this.props.settings.cardSize.width),
       fontWeight: '900',
       position: 'absolute',
-      right: -Math.floor(0.12 * this.props.size.width)
+      right: -Math.floor(0.12 * this.props.settings.cardSize.width)
     }
 
     return (

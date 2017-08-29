@@ -6,11 +6,11 @@ import { ViewStyle } from 'react-native'
 
 import { EmptyCellStatus } from './EmptyCellStatus'
 import { Point } from './Point'
-import { Size } from './Size'
+import { Settings } from './Settings'
 
 interface Props {
   position: Point
-  size: Size
+  settings: Settings
   status: EmptyCellStatus
 }
 
@@ -21,14 +21,14 @@ export class EmptyCell extends Component<Props, {}> {
 
     const emptyCellStyle: ViewStyle = {
       borderColor: color,
-      borderRadius: Math.floor(this.props.size.width / 41 * 5),
+      borderRadius: this.props.settings.borderRadius,
       borderStyle: style,
       borderWidth: width,
-      height: this.props.size.height,
+      height: this.props.settings.cardSize.height,
       left: this.props.position.x,
       position: 'absolute',
       top: this.props.position.y,
-      width: this.props.size.width
+      width: this.props.settings.cardSize.width
     }
 
     return (
@@ -44,14 +44,14 @@ export class EmptyCell extends Component<Props, {}> {
         return [undefined, undefined, 0]
 
       case EmptyCellStatus.CurrentlyDraggedCardDroppable:
-        return ['white', 'dashed', Math.floor(this.props.size.width / 41 * 3)]
+        return ['white', 'dashed', this.props.settings.borderWidth]
 
       case EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged:
       case EmptyCellStatus.DropAllowedButNotCurrentlyDraggedCard:
-        return ['black', 'dashed', Math.floor(this.props.size.width / 41 * 3)]
+        return ['black', 'dashed', this.props.settings.borderWidth]
 
       case EmptyCellStatus.HoveredByDropableCard:
-        return ['white', 'solid', Math.floor(this.props.size.width / 41 * 3)]
+        return ['white', 'solid', this.props.settings.borderWidth]
     }
   }
 }
