@@ -4,8 +4,12 @@ A game of solitare implemented in React Native and written in TypeScript.
 
 ## To Do
 
-* Remove CellView, since the cards shouldn't be redrawn once they are displayed.
 * Update engine, so that it can animate the cards between two states.
+  * Remove CellView, since the cards shouldn't be redrawn once they are displayed.
+  * Add a currentlyDraggedCard property that keeps track of the card currently being dragged - if there is a card beging dragged.
+  * When letting go of a card in a non-droppable place, let the engine snap the card back into position.
+  * Use the engine to snap cards into correct positions.
+
 * Game lost screen.
 * Game won screen.
 * Prettier background.
