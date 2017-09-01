@@ -153,3 +153,7 @@ export class DraggableCard extends Component<Props, State> {
     return cardRectangle
   }
 }
+
+// TODO: Move translatedPosition to the Card class.
+// TODO: Remove startPosition, and initialize translatedPosition instead.
+// TODO: The listener on translatedPosition can probably be moved to a more appropriate place.
