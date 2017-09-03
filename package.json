@@ -2,7 +2,10 @@
   "name": "desert-walk",
   "version": "0.0.0",
   "description": "A game of solitaire.",
-  "author": "Jan Aagaard <jan@aagaard.net>",
+  "author": {
+    "email": "jan@aagaard.net",
+    "name": "Jan Aagaard"
+  },
   "private": false,
   "license": "ISC",
   "main": "node_modules/expo/AppEntry.js",
