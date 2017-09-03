@@ -45,7 +45,7 @@ export default class App extends Component<{}, {}> {
       <View style={mainViewStyle}>
         <StatusBar hidden={true}/>
         <Image
-          source={require('./111699.png')}
+          source={require('./50713.png')}
           style={{
             height: windowSize.height,
             position: 'absolute',
