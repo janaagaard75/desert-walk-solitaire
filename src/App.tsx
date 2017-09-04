@@ -3,8 +3,8 @@ import { Component } from 'react'
 import { Dimensions } from 'react-native'
 import { Image } from 'react-native'
 import { LayoutChangeEvent } from 'react-native'
-import { observable } from 'mobx'
 import { observer } from 'mobx-react'
+import { ScreenOrientation } from 'expo'
 import { StatusBar } from 'react-native'
 import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
@@ -14,11 +14,17 @@ import { ViewStyle } from 'react-native'
 import { Footer } from './Footer'
 import { Grid } from './Grid'
 import { GridView } from './GridView'
-import { Size } from './Size'
+import { Settings } from './Settings'
 
 @observer
 export default class App extends Component<{}, {}> {
-  @observable private availableSize: Size | undefined = undefined
+  constructor(props: {}, context?: any) {
+    super(props, context)
+
+    ScreenOrientation.allow(ScreenOrientation.Orientation.ALL)
+  }
+
+  private settings: Settings | undefined = undefined
   private grid = new Grid()
 
   public render() {
@@ -75,21 +81,31 @@ export default class App extends Component<{}, {}> {
   }
 
   private layoutChanged(layoutChangeEvent: LayoutChangeEvent) {
-    this.availableSize = {
+    const availableSize = {
       height: layoutChangeEvent.nativeEvent.layout.height,
       width: layoutChangeEvent.nativeEvent.layout.width
     }
+
+    if (this.settings === undefined) {
+      this.settings = new Settings(availableSize)
+    }
+    else {
+      this.settings.availableSize = availableSize
+    }
+
+    // TODO: Can this be avoided while still keeping availableSize always defined in Settings?
+    this.forceUpdate()
   }
 
   private renderGrid() {
-    if (this.availableSize === undefined) {
+    if (this.settings === undefined) {
       return undefined
     }
 
     return (
       <GridView
-        availableSize={this.availableSize}
         grid={this.grid}
+        settings={this.settings}
       />
     )
   }

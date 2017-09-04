@@ -9,6 +9,10 @@
     lodash "^4.17.4"
     react-native-vector-icons "4.1.1"
 
+"@types/fbemitter@2.0.32":
+  version "2.0.32"
+  resolved "https://registry.yarnpkg.com/@types/fbemitter/-/fbemitter-2.0.32.tgz#8ed204da0f54e9c8eaec31b1eec91e25132d082c"
+
 "@types/react-native@0.47.9":
   version "0.47.9"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.47.9.tgz#7e7f3d8d25c46e8b6e8ad3b11d0222de0722f820"
@@ -3770,7 +3774,7 @@ watch@~0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/watch/-/watch-0.10.0.tgz#77798b2da0f9910d595f1ace5b0c2258521f21dc"
 
-"websql@github:expo/node-websql#18.0.0":
+websql@expo/node-websql#18.0.0:
   version "0.4.4"
   resolved "https://codeload.github.com/expo/node-websql/tar.gz/e364fa65146a9e2157a19e5c719e7702c2b6b87a"
   dependencies:

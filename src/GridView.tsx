@@ -11,11 +11,10 @@ import { Grid } from './Grid'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
-import { Size } from './Size'
 
 interface Props {
-  availableSize: Size
   grid: Grid
+  settings: Settings
 }
 
 interface State {
@@ -30,11 +29,7 @@ export class GridView extends Component<Props, State> {
     this.state = {
       draggedCard: undefined
     }
-
-    this.settings = new Settings(this.props.availableSize)
   }
-
-  private readonly settings: Settings
 
   public render() {
     const gridViewStyle: ViewStyle = {
@@ -56,7 +51,7 @@ export class GridView extends Component<Props, State> {
             onCardMoved={(card, cardRectangle) => this.handleCardMoved(card, cardRectangle)}
             onDragStarted={card => this.handleDragStarted(card)}
             position={this.getCellPosition(cell.columnIndex, cell.rowIndex)}
-            settings={this.settings}
+            settings={this.props.settings}
           />
         )}
       </View>
@@ -68,9 +63,9 @@ export class GridView extends Component<Props, State> {
 
     const boundary = new Rectangle(
       cellPosition.x,
-      cellPosition.x + this.settings.cardSize.width,
+      cellPosition.x + this.props.settings.cardSize.width,
       cellPosition.y,
-      cellPosition.y + this.settings.cardSize.height
+      cellPosition.y + this.props.settings.cardSize.height
     )
 
     return boundary
@@ -78,8 +73,8 @@ export class GridView extends Component<Props, State> {
 
   private getCellPosition(columnIndex: number, rowIndex: number): Point {
     const position = {
-      x: this.settings.gutterWidth + columnIndex * (this.settings.cardSize.width + this.settings.gutterWidth),
-      y: this.settings.gutterWidth + rowIndex * (this.settings.cardSize.height + this.settings.gutterWidth)
+      x: this.props.settings.gutterWidth + columnIndex * (this.props.settings.cardSize.width + this.props.settings.gutterWidth),
+      y: this.props.settings.gutterWidth + rowIndex * (this.props.settings.cardSize.height + this.props.settings.gutterWidth)
     }
 
     return position

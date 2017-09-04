@@ -6,7 +6,7 @@
     "privacy": "public",
     "sdkVersion": "20.0.0",
     "version": "1.0.0",
-    "orientation": "landscape",
+    "orientation": "default",
     "primaryColor": "#cccccc",
     "icon": "./assets/icons/app-icon.png",
     "loading": {
