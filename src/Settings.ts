@@ -11,8 +11,10 @@ export class Settings {
   }
 
   @observable public availableWidth: number
-  public readonly columns = 14
+  public readonly maxCardValue = 13
   public readonly rows = 4
+
+  public readonly columns = this.maxCardValue + 1
 
   private readonly cardSizeRatio = 3 / 2
   private readonly cardWidthToGutterRatio = 7 / 1

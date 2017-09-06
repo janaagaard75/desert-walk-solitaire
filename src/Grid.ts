@@ -132,7 +132,7 @@ export class Grid {
   private initializeDeck() {
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
       if (Suit.hasOwnProperty(suit)) {
-        for (let value = 1; value <= 13; value++) {
+        for (let value = 1; value <= this.settings.maxCardValue; value++) {
           const card = new Card(suit, value)
 
           if (value !== 1) {
