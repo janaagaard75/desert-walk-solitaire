@@ -10,6 +10,7 @@ A game of solitare implemented in React Native and written in TypeScript.
   * Use the engine to snap cards into correct positions.
   * Consider moving most of the calculations from the views to the models.
 
+* Consider the cell dragging from as a droppable cell when dragging a card.
 * Game lost screen.
 * Game won screen.
   * Some kine of reward for winning.
