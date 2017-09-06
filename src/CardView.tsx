@@ -21,6 +21,23 @@ interface Props {
 @observer
 export class CardView extends Component<Props, {}> {
   public render() {
+    const shadowStyle: ViewStyle = {
+      borderRadius: this.props.settings.borderRadius,
+      height: this.props.settings.cardSize.height,
+      width: this.props.settings.cardSize.width
+    }
+    if (this.props.shadow) {
+      Object.assign(shadowStyle, {
+        shadowColor: 'black',
+        shadowOffset: {
+          height: Math.floor(0.05 * this.props.settings.cardSize.width),
+          width: Math.floor(0.02 * this.props.settings.cardSize.width)
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: Math.floor(0.07 * this.props.settings.cardSize.width),
+      })
+    }
+
     const cardStyle: ViewStyle = {
       alignItems: 'center',
       backgroundColor: this.props.isDraggable ? 'white' : this.props.isInCorrectPlace ? '#dde5ee' : '#ddd',
@@ -32,18 +49,6 @@ export class CardView extends Component<Props, {}> {
       overflow: 'hidden',
       padding: Math.floor(0.05 * this.props.settings.cardSize.width),
       width: this.props.settings.cardSize.width
-    }
-
-    if (this.props.shadow) {
-      Object.assign(cardStyle, {
-        shadowColor: 'black',
-        shadowOffset: {
-          height: Math.floor(0.05 * this.props.settings.cardSize.width),
-          width: Math.floor(0.02 * this.props.settings.cardSize.width)
-        },
-        shadowOpacity: 0.3,
-        shadowRadius: Math.floor(0.07 * this.props.settings.cardSize.width)
-      })
     }
 
     const valueStyle: TextStyle = {
@@ -68,13 +73,15 @@ export class CardView extends Component<Props, {}> {
     }
 
     return (
-      <View style={cardStyle}>
-        <Text style={valueStyle}>
-          {this.props.card.displayValue}
-        </Text>
-        <Text style={suitStyle}>
-          {CardView.getValueText(this.props.card.suit)}
-        </Text>
+      <View style={shadowStyle}>
+        <View style={cardStyle}>
+          <Text style={valueStyle}>
+            {this.props.card.displayValue}
+          </Text>
+          <Text style={suitStyle}>
+            {CardView.getValueText(this.props.card.suit)}
+          </Text>
+        </View>
       </View>
     )
   }
