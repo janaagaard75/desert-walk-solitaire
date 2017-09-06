@@ -34,7 +34,7 @@ export class CardView extends Component<Props, {}> {
           width: Math.floor(0.02 * this.props.settings.cardSize.width)
         },
         shadowOpacity: 0.3,
-        shadowRadius: Math.floor(0.07 * this.props.settings.cardSize.width),
+        shadowRadius: Math.floor(0.07 * this.props.settings.cardSize.width)
       })
     }
 
