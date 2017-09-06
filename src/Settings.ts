@@ -5,12 +5,12 @@ import { Size } from './Size'
 
 export class Settings {
   constructor(
-    availableSize: Size
+    availableWidth: number
   ) {
-    this.availableSize = availableSize
+    this.availableWidth = availableWidth
   }
 
-  @observable public availableSize: Size
+  @observable public availableWidth: number
   public readonly columns = 14
   public readonly rows = 4
 
@@ -31,7 +31,7 @@ export class Settings {
   public get cardSize(): Size {
     const cardWidth = Math.floor(
       (
-        this.availableSize.width * this.cardWidthToGutterRatio
+        this.availableWidth * this.cardWidthToGutterRatio
       ) / (
         this.columns * (this.cardWidthToGutterRatio + 1) + 1
       )
@@ -51,7 +51,7 @@ export class Settings {
   public get gutterWidth(): number {
     const gutterWidth = Math.floor(
       (
-        this.availableSize.width - this.columns * this.cardSize.width
+        this.availableWidth - this.columns * this.cardSize.width
       ) / this.columns
     )
 

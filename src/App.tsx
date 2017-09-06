@@ -2,8 +2,8 @@ import * as React from 'react'
 import { Component } from 'react'
 import { Dimensions } from 'react-native'
 import { Image } from 'react-native'
-import { LayoutChangeEvent } from 'react-native'
 import { observer } from 'mobx-react'
+import { ScaledSize } from 'react-native'
 import { ScreenOrientation } from 'expo'
 import { StatusBar } from 'react-native'
 import { Text } from 'react-native'
@@ -16,20 +16,36 @@ import { Grid } from './Grid'
 import { GridView } from './GridView'
 import { Settings } from './Settings'
 
+interface AppState {
+  windowSize: ScaledSize
+}
+
 @observer
-export default class App extends Component<{}, {}> {
+export default class App extends Component<{}, AppState> {
   constructor(props: {}, context?: any) {
     super(props, context)
 
     ScreenOrientation.allow(ScreenOrientation.Orientation.ALL)
+
+    this.state = {
+      windowSize: Dimensions.get('window')
+    }
+
+    this.settings = new Settings(this.state.windowSize.width)
+    this.grid = new Grid(this.settings)
+
+    Dimensions.addEventListener('change', () => {
+      this.setState({
+        windowSize: Dimensions.get('window')
+      })
+      this.settings.availableWidth = this.state.windowSize.width
+    })
   }
 
-  private settings: Settings | undefined = undefined
-  private grid = new Grid()
+  private grid: Grid
+  private settings: Settings
 
   public render() {
-    const windowSize = Dimensions.get('window')
-
     const headerStyle: TextStyle = {
       backgroundColor: 'transparent',
       fontWeight: '600',
@@ -53,17 +69,16 @@ export default class App extends Component<{}, {}> {
         <Image
           source={require('./50713.png')}
           style={{
-            height: windowSize.height,
+            height: this.state.windowSize.height,
             position: 'absolute',
             resizeMode: 'repeat',
-            width: windowSize.width
+            width: this.state.windowSize.width
           }}
         />
         <Text style={headerStyle}>
           Desert Walk
         </Text>
         <View
-          onLayout={layoutChangeEvent => this.layoutChanged(layoutChangeEvent)}
           style={gridWrapperViewStyle}
         >
           {this.renderGrid()}
@@ -78,23 +93,6 @@ export default class App extends Component<{}, {}> {
         />
       </View>
     )
-  }
-
-  private layoutChanged(layoutChangeEvent: LayoutChangeEvent) {
-    const availableSize = {
-      height: layoutChangeEvent.nativeEvent.layout.height,
-      width: layoutChangeEvent.nativeEvent.layout.width
-    }
-
-    if (this.settings === undefined) {
-      this.settings = new Settings(availableSize)
-    }
-    else {
-      this.settings.availableSize = availableSize
-    }
-
-    // TODO: Can this be avoided while still keeping availableSize always defined in Settings?
-    this.forceUpdate()
   }
 
   private renderGrid() {
