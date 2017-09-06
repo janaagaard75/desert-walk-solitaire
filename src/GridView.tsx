@@ -7,13 +7,13 @@ import { ViewStyle } from 'react-native'
 import { Card } from './Card'
 import { Cell } from './Cell'
 import { CellView } from './CellView'
-import { Grid } from './Grid'
+import { Game } from './Grid'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 
 interface Props {
-  grid: Grid
+  grid: Game
   settings: Settings
 }
 

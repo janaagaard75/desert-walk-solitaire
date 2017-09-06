@@ -12,7 +12,7 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { Footer } from './Footer'
-import { Grid } from './Grid'
+import { Game } from './Grid'
 import { GridView } from './GridView'
 import { Settings } from './Settings'
 
@@ -32,7 +32,7 @@ export default class App extends Component<{}, AppState> {
     }
 
     this.settings = new Settings(this.state.windowSize.width)
-    this.grid = new Grid(this.settings)
+    this.grid = new Game(this.settings)
 
     Dimensions.addEventListener('change', () => {
       this.setState({
@@ -42,7 +42,7 @@ export default class App extends Component<{}, AppState> {
     })
   }
 
-  private grid: Grid
+  private grid: Game
   private settings: Settings
 
   public render() {

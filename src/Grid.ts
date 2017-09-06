@@ -8,7 +8,7 @@ import { GameStatus } from './GameStatus'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
 
-export class Grid {
+export class Game {
   constructor(
     private settings: Settings
   ) {
