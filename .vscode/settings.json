@@ -2,7 +2,7 @@
 {
   "editor.tabSize": 2,
   "eslint.enable": false,
-  "flow.enabled": false,
   "javascript.validate.enable": false,
-  "tslint.enable": true
+  "tslint.enable": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
