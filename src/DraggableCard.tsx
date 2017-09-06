@@ -47,11 +47,6 @@ export class DraggableCard extends Component<Props, State> {
       y: 0
     })
 
-    this.translatedPosition.setOffset({
-      x: this.props.startPosition.x,
-      y: this.props.startPosition.y
-    })
-
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
         const cardRectangle = this.getCardRectangle({
@@ -116,6 +111,11 @@ export class DraggableCard extends Component<Props, State> {
   private translatedPosition: Animated.ValueXY
 
   public render() {
+    this.translatedPosition.setOffset({
+      x: this.props.startPosition.x,
+      y: this.props.startPosition.y
+    })
+
     const style = {
       position: 'absolute',
       transform: this.translatedPosition.getTranslateTransform(),
