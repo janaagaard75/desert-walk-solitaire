@@ -9,9 +9,11 @@ A game of solitare implemented in React Native and written in TypeScript.
   * Add a currentlyDraggedCard property that keeps track of the card currently being dragged - if there is a card beging dragged.
   * When letting go of a card in a non-droppable place, let the engine snap the card back into position.
   * Use the engine to snap cards into correct positions.
+  * Consider moving most of the calculations from the views to the models.
 
 * Game lost screen.
 * Game won screen.
+  * Some kine of reward for winning.
 * Prettier background.
 * SVGs for the playing cards.
 * Consider more data to the model objects, that is all observable properties and the sizes and positions of the elements.
