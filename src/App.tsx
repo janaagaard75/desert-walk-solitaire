@@ -12,7 +12,7 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { Footer } from './Footer'
-import { Game } from './Grid'
+import { Game } from './Game'
 import { GridView } from './GridView'
 import { Settings } from './Settings'
 
