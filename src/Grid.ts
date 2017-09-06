@@ -5,22 +5,23 @@ import { ArrayUtilities } from './ArrayUtilities'
 import { Card } from './Card'
 import { Cell } from './Cell'
 import { GameStatus } from './GameStatus'
+import { Settings } from './Settings'
 import { Suit } from './Suit'
 
 export class Grid {
-  constructor() {
+  constructor(
+    private settings: Settings
+  ) {
     this.initializeDeck()
     this.initializeCells()
     this.shuffleDeckAndDealCards()
   }
 
   @observable public readonly cells: Array<Cell> = []
-  public readonly columns = 14
   @observable public moves = 0
   @observable public shuffles = 0
 
   private readonly deck: Array<Card> = []
-  private readonly rows = 4
 
   @computed
   public get cardsInCorrectPlace(): number {
@@ -112,8 +113,8 @@ export class Grid {
   private initializeCells() {
     const theFourAces = this.deck.filter(card => card.value === 1)
 
-    for (let rowIndex = 0; rowIndex < this.rows; rowIndex++) {
-      for (let columnIndex = 0; columnIndex < this.columns; columnIndex++) {
+    for (let rowIndex = 0; rowIndex < this.settings.rows; rowIndex++) {
+      for (let columnIndex = 0; columnIndex < this.settings.columns; columnIndex++) {
         let cell: Cell
         if (columnIndex === 0) {
           cell = new Cell(rowIndex, columnIndex, undefined, theFourAces)
@@ -152,7 +153,7 @@ export class Grid {
     ArrayUtilities.shuffleArray(cardsInWrongPlace)
 
     this.cellsWithCardsNotInCorrectPlace.forEach(cell => {
-      if (cell.columnIndex === this.columns - 1) {
+      if (cell.columnIndex === this.settings.columns - 1) {
         cell.card = undefined
       }
       else {
@@ -166,12 +167,12 @@ export class Grid {
   private shuffleDeckAndDealCards() {
     ArrayUtilities.shuffleArray(this.deck)
 
-    for (let rowIndex = 0; rowIndex < this.rows; rowIndex++) {
-      for (let columnIndex = 0; columnIndex < this.columns; columnIndex++) {
-        this.cells[rowIndex * this.columns + columnIndex].card
+    for (let rowIndex = 0; rowIndex < this.settings.rows; rowIndex++) {
+      for (let columnIndex = 0; columnIndex < this.settings.columns; columnIndex++) {
+        this.cells[rowIndex * this.settings.columns + columnIndex].card
           = columnIndex === 0
             ? undefined
-            : this.deck[rowIndex * (this.columns - 1) + (columnIndex - 1)]
+            : this.deck[rowIndex * (this.settings.columns - 1) + (columnIndex - 1)]
       }
     }
   }
