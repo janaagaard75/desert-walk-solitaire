@@ -109,14 +109,14 @@ export class GridView extends Component<Props, State> {
   private handleCardMoved(card: Card, cardRectangle: Rectangle) {
     // TODO: Share the lines with the ones above?
     const overlappingEmptyCells = this.props.grid.emptyCells
-    .map(cell => {
-      return {
-        cell: cell,
-        overlappingPixels: this.getCellBundary(cell).overlappingPixels(cardRectangle)
-      }
-    })
-    .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
-    .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
+      .map(cell => {
+        return {
+          cell: cell,
+          overlappingPixels: this.getCellBundary(cell).overlappingPixels(cardRectangle)
+        }
+      })
+      .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
+      .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
 
     this.props.grid.emptyCells.forEach(cell => {
       if (overlappingEmptyCells.length === 0) {
