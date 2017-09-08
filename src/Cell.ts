@@ -2,13 +2,16 @@ import { computed } from 'mobx'
 import { observable } from 'mobx'
 
 import { Card } from './Card'
+import { Point } from './Point'
+import { Settings } from './Settings'
 
 export class Cell {
   constructor(
     public readonly rowIndex: number,
     public readonly columnIndex: number,
     public readonly cellToTheLeft: Cell | undefined,
-    private readonly theFourAces: Array<Card>
+    private readonly theFourAces: Array<Card>,
+    private readonly settings: Settings
   ) {
     this.key = this.rowIndex + '.' + this.columnIndex
   }
@@ -59,5 +62,15 @@ export class Cell {
 
     const hoveredByDroppableCard = this.droppableCards.includes(this.hoveredByCard)
     return hoveredByDroppableCard
+  }
+
+  @computed
+  public get position(): Point {
+    const position = {
+      x: this.settings.gutterWidth + this.columnIndex * (this.settings.cardSize.width + this.settings.gutterWidth),
+      y: this.settings.gutterWidth + this.rowIndex * (this.settings.cardSize.height + this.settings.gutterWidth)
+    }
+
+    return position
   }
 }

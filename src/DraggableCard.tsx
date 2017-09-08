@@ -20,7 +20,6 @@ interface Props {
   onCardMoved: (cardRectangle: Rectangle) => void
   onDragStarted: (card: Card) => void
   settings: Settings
-  startPosition: Point
 }
 
 enum VisualState {
@@ -42,25 +41,19 @@ export class DraggableCard extends Component<Props, State> {
       visualState: VisualState.Idle
     }
 
-    this.translatedPosition = new Animated.ValueXY({
-      x: 0,
-      y: 0
-    })
+    this.startPosition = this.props.card.position
+    this.animatedPosition = new Animated.ValueXY()
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
-        const cardRectangle = this.getCardRectangle({
-          x: this.props.startPosition.x + gestureState.dx,
-          y: this.props.startPosition.y + gestureState.dy
-        })
-        this.props.onCardDropped(cardRectangle)
+        this.props.onCardDropped(this.props.card.boundary)
 
         this.setState({
           visualState: VisualState.Animating
         })
 
         Animated.timing(
-          this.translatedPosition,
+          this.animatedPosition,
           {
             duration: 200,
             easing: Easing.elastic(1),
@@ -85,11 +78,12 @@ export class DraggableCard extends Component<Props, State> {
           // tslint:disable-next-line:no-null-keyword
           null as any,
           {
-            dx: this.translatedPosition.x,
-            dy: this.translatedPosition.y
+            dx: this.animatedPosition.x,
+            dy: this.animatedPosition.y
           }
         ]),
       onPanResponderStart: (e, gestureState) => {
+        this.startPosition = this.props.card.position
         this.setState({
           visualState: VisualState.Dragging
         })
@@ -97,28 +91,22 @@ export class DraggableCard extends Component<Props, State> {
       onStartShouldSetPanResponder: (e, gestureState) => true
     })
 
-    this.translatedPosition.addListener(position => {
-      const cardRectangle = this.getCardRectangle({
-        x: position.x,
-        y: position.y
-      })
-
-      this.props.onCardMoved(cardRectangle)
+    this.animatedPosition.addListener(position => {
+      this.props.card.position = position
+      this.props.onCardMoved(this.props.card.boundary)
     })
   }
 
+  private animatedPosition: Animated.ValueXY
   private panResponder: PanResponderInstance
-  private translatedPosition: Animated.ValueXY
+  private startPosition: Point
 
   public render() {
-    this.translatedPosition.setOffset({
-      x: this.props.startPosition.x,
-      y: this.props.startPosition.y
-    })
+    this.animatedPosition.setOffset(this.startPosition)
 
     const style = {
       position: 'absolute',
-      transform: this.translatedPosition.getTranslateTransform(),
+      transform: this.animatedPosition.getTranslateTransform(),
       zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
     }
 
@@ -142,18 +130,4 @@ export class DraggableCard extends Component<Props, State> {
       </Animated.View>
     )
   }
-
-  private getCardRectangle(position: Point): Rectangle {
-    const cardRectangle = new Rectangle(
-      position.x,
-      position.x + this.props.settings.cardSize.width,
-      position.y,
-      position.y + this.props.settings.cardSize.height)
-
-    return cardRectangle
-  }
 }
-
-// TODO: Move translatedPosition to the Card class.
-// TODO: Remove startPosition, and initialize translatedPosition instead.
-// TODO: The listener on translatedPosition can probably be moved to a more appropriate place.

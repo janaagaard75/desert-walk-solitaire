@@ -49,7 +49,6 @@ export class CellView extends Component<Props, {}> {
           onCardMoved={cardRectangle => this.props.onCardMoved(definedCard, cardRectangle)}
           onDragStarted={card => this.props.onDragStarted(card)}
           settings={this.props.settings}
-          startPosition={this.props.position}
         />
       )
     }

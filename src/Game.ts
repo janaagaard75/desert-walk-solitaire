@@ -15,6 +15,7 @@ export class Game {
     this.initializeDeck()
     this.initializeCells()
     this.shuffleDeckAndDealCards()
+    this.moveCardsIntoPositions()
   }
 
   @observable public readonly cells: Array<Cell> = []
@@ -117,11 +118,11 @@ export class Game {
       for (let columnIndex = 0; columnIndex < this.settings.columns; columnIndex++) {
         let cell: Cell
         if (columnIndex === 0) {
-          cell = new Cell(rowIndex, columnIndex, undefined, theFourAces)
+          cell = new Cell(rowIndex, columnIndex, undefined, theFourAces, this.settings)
         }
         else {
           const cellToTheLeft = this.cells[this.cells.length - 1]
-          cell = new Cell(rowIndex, columnIndex, cellToTheLeft, theFourAces)
+          cell = new Cell(rowIndex, columnIndex, cellToTheLeft, theFourAces, this.settings)
         }
 
         this.cells.push(cell)
@@ -133,7 +134,7 @@ export class Game {
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
       if (Suit.hasOwnProperty(suit)) {
         for (let value = 1; value <= this.settings.maxCardValue; value++) {
-          const card = new Card(suit, value)
+          const card = new Card(suit, value, this.settings)
 
           if (value !== 1) {
             this.deck[this.deck.length - 1].next = card
@@ -169,12 +170,23 @@ export class Game {
 
     for (let rowIndex = 0; rowIndex < this.settings.rows; rowIndex++) {
       for (let columnIndex = 0; columnIndex < this.settings.columns; columnIndex++) {
-        this.cells[rowIndex * this.settings.columns + columnIndex].card
-          = columnIndex === 0
-            ? undefined
-            : this.deck[rowIndex * (this.settings.columns - 1) + (columnIndex - 1)]
+        if (columnIndex === 0) {
+          this.cells[rowIndex * this.settings.columns + columnIndex].card = undefined
+        }
+        else {
+          this.cells[rowIndex * this.settings.columns + columnIndex].card = this.deck[rowIndex * (this.settings.columns - 1) + (columnIndex - 1)]
+        }
       }
     }
+  }
+
+  private moveCardsIntoPositions() {
+    this.cells
+      // TODO: Make as Cells class that has a notEmpty() property.
+      .filter(cell => cell.card !== undefined)
+      .forEach(cell => {
+        (cell.card as Card).position = cell.position
+      })
   }
 
   public startOver() {
