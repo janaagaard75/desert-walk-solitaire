@@ -3,6 +3,7 @@ import { observable } from 'mobx'
 
 import { Size } from './Size'
 
+// TODO: Make the Settings class static, so that it doesn't have to be carried around in the code.
 export class Settings {
   constructor(
     availableWidth: number
