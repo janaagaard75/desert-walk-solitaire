@@ -10,7 +10,6 @@ import { Card } from './Card'
 import { CardView } from './CardView'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
-import { Settings } from './Settings'
 
 interface Props {
   card: Card
@@ -19,7 +18,6 @@ interface Props {
   onCardDropped: (cardRectangle: Rectangle) => void
   onCardMoved: (cardRectangle: Rectangle) => void
   onDragStarted: (card: Card) => void
-  settings: Settings
 }
 
 enum VisualState {
@@ -124,7 +122,6 @@ export class DraggableCard extends Component<Props, State> {
           card={this.props.card}
           isDraggable={this.props.isDraggable}
           isInCorrectPlace={this.props.isInCorrectPlace}
-          settings={this.props.settings}
           shadow={this.state.visualState !== VisualState.Idle}
         />
       </Animated.View>

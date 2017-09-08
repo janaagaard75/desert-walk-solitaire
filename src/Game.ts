@@ -9,9 +9,7 @@ import { Settings } from './Settings'
 import { Suit } from './Suit'
 
 export class Game {
-  constructor(
-    private settings: Settings
-  ) {
+  constructor() {
     this.initializeDeck()
     this.initializeCells()
     this.shuffleDeckAndDealCards()
@@ -114,15 +112,15 @@ export class Game {
   private initializeCells() {
     const theFourAces = this.deck.filter(card => card.value === 1)
 
-    for (let rowIndex = 0; rowIndex < this.settings.rows; rowIndex++) {
-      for (let columnIndex = 0; columnIndex < this.settings.columns; columnIndex++) {
+    for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
+      for (let columnIndex = 0; columnIndex < Settings.instance.columns; columnIndex++) {
         let cell: Cell
         if (columnIndex === 0) {
-          cell = new Cell(rowIndex, columnIndex, undefined, theFourAces, this.settings)
+          cell = new Cell(rowIndex, columnIndex, undefined, theFourAces)
         }
         else {
           const cellToTheLeft = this.cells[this.cells.length - 1]
-          cell = new Cell(rowIndex, columnIndex, cellToTheLeft, theFourAces, this.settings)
+          cell = new Cell(rowIndex, columnIndex, cellToTheLeft, theFourAces)
         }
 
         this.cells.push(cell)
@@ -133,8 +131,8 @@ export class Game {
   private initializeDeck() {
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
       if (Suit.hasOwnProperty(suit)) {
-        for (let value = 1; value <= this.settings.maxCardValue; value++) {
-          const card = new Card(suit, value, this.settings)
+        for (let value = 1; value <= Settings.instance.maxCardValue; value++) {
+          const card = new Card(suit, value)
 
           if (value !== 1) {
             this.deck[this.deck.length - 1].next = card
@@ -154,7 +152,7 @@ export class Game {
     ArrayUtilities.shuffleArray(cardsInWrongPlace)
 
     this.cellsWithCardsNotInCorrectPlace.forEach(cell => {
-      if (cell.columnIndex === this.settings.columns - 1) {
+      if (cell.columnIndex === Settings.instance.columns - 1) {
         cell.card = undefined
       }
       else {
@@ -168,13 +166,13 @@ export class Game {
   private shuffleDeckAndDealCards() {
     ArrayUtilities.shuffleArray(this.deck)
 
-    for (let rowIndex = 0; rowIndex < this.settings.rows; rowIndex++) {
-      for (let columnIndex = 0; columnIndex < this.settings.columns; columnIndex++) {
+    for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
+      for (let columnIndex = 0; columnIndex < Settings.instance.columns; columnIndex++) {
         if (columnIndex === 0) {
-          this.cells[rowIndex * this.settings.columns + columnIndex].card = undefined
+          this.cells[rowIndex * Settings.instance.columns + columnIndex].card = undefined
         }
         else {
-          this.cells[rowIndex * this.settings.columns + columnIndex].card = this.deck[rowIndex * (this.settings.columns - 1) + (columnIndex - 1)]
+          this.cells[rowIndex * Settings.instance.columns + columnIndex].card = this.deck[rowIndex * (Settings.instance.columns - 1) + (columnIndex - 1)]
         }
       }
     }

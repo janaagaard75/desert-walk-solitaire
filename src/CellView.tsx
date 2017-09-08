@@ -9,7 +9,6 @@ import { EmptyCell } from './EmptyCell'
 import { EmptyCellStatus } from './EmptyCellStatus'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
-import { Settings } from './Settings'
 
 interface Props {
   isDraggable: boolean
@@ -19,7 +18,6 @@ interface Props {
   onCardMoved: (card: Card, cardRectangle: Rectangle) => void
   onDragStarted: (card: Card) => void
   position: Point
-  settings: Settings
 }
 
 @observer
@@ -30,7 +28,6 @@ export class CellView extends Component<Props, {}> {
         <EmptyCell
           key={this.props.cell.key}
           position={this.props.position}
-          settings={this.props.settings}
           status={this.getEmptyCellStatus()}
         />
       )
@@ -48,7 +45,6 @@ export class CellView extends Component<Props, {}> {
           onCardDropped={cardRectangle => this.props.onCardDropped(this.props.cell, cardRectangle)}
           onCardMoved={cardRectangle => this.props.onCardMoved(definedCard, cardRectangle)}
           onDragStarted={card => this.props.onDragStarted(card)}
-          settings={this.props.settings}
         />
       )
     }

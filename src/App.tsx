@@ -30,20 +30,19 @@ export default class App extends Component<{}, AppState> {
     this.state = {
       windowSize: Dimensions.get('window')
     }
+    Settings.instance.availableWidth = this.state.windowSize.width
 
-    this.settings = new Settings(this.state.windowSize.width)
-    this.grid = new Game(this.settings)
+    this.grid = new Game()
 
     Dimensions.addEventListener('change', () => {
       this.setState({
         windowSize: Dimensions.get('window')
       })
-      this.settings.availableWidth = this.state.windowSize.width
+      Settings.instance.availableWidth = this.state.windowSize.width
     })
   }
 
   private grid: Game
-  private settings: Settings
 
   public render() {
     const headerStyle: TextStyle = {
@@ -81,7 +80,7 @@ export default class App extends Component<{}, AppState> {
         <View
           style={gridWrapperViewStyle}
         >
-          {this.renderGrid()}
+        <GridView grid={this.grid}/>
         </View>
         <Footer
           cardsInCorrectPlace={this.grid.cardsInCorrectPlace}
@@ -92,19 +91,6 @@ export default class App extends Component<{}, AppState> {
           shuffles={this.grid.shuffles}
         />
       </View>
-    )
-  }
-
-  private renderGrid() {
-    if (this.settings === undefined) {
-      return undefined
-    }
-
-    return (
-      <GridView
-        grid={this.grid}
-        settings={this.settings}
-      />
     )
   }
 }

@@ -3,22 +3,27 @@ import { observable } from 'mobx'
 
 import { Size } from './Size'
 
-// TODO: Make the Settings class static, so that it doesn't have to be carried around in the code.
 export class Settings {
-  constructor(
-    availableWidth: number
-  ) {
-    this.availableWidth = availableWidth
-  }
+  private constructor() { }
 
-  @observable public availableWidth: number
+  @observable public availableWidth = 0
   public readonly maxCardValue = 13
   public readonly rows = 4
 
   public readonly columns = this.maxCardValue + 1
 
+  private static _instance: Settings
   private readonly cardSizeRatio = 3 / 2
   private readonly cardWidthToGutterRatio = 7 / 1
+
+  /** It's necessary to use the singleton pattern, because @computed doesn't work on static fields. See https://github.com/mobxjs/mobx/issues/351#issuecomment-228304310. */
+  public static get instance(): Settings {
+    if (this._instance === undefined) {
+      this._instance = new Settings()
+    }
+
+    return this._instance
+  }
 
   @computed
   public get borderRadius(): number {

@@ -9,8 +9,7 @@ import { Suit } from './Suit'
 export class Card {
   constructor(
     public readonly suit: Suit,
-    public readonly value: number,
-    private readonly settings: Settings
+    public readonly value: number
   ) { }
 
   public next: Card | undefined
@@ -20,9 +19,9 @@ export class Card {
   public get boundary(): Rectangle {
     const surface = new Rectangle(
       this.position.x,
-      this.position.x + this.settings.cardSize.width,
+      this.position.x + Settings.instance.cardSize.width,
       this.position.y,
-      this.position.y + this.settings.cardSize.height
+      this.position.y + Settings.instance.cardSize.height
     )
 
     return surface

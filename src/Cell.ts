@@ -10,8 +10,7 @@ export class Cell {
     public readonly rowIndex: number,
     public readonly columnIndex: number,
     public readonly cellToTheLeft: Cell | undefined,
-    private readonly theFourAces: Array<Card>,
-    private readonly settings: Settings
+    private readonly theFourAces: Array<Card>
   ) {
     this.key = this.rowIndex + '.' + this.columnIndex
   }
@@ -67,8 +66,8 @@ export class Cell {
   @computed
   public get position(): Point {
     const position = {
-      x: this.settings.gutterWidth + this.columnIndex * (this.settings.cardSize.width + this.settings.gutterWidth),
-      y: this.settings.gutterWidth + this.rowIndex * (this.settings.cardSize.height + this.settings.gutterWidth)
+      x: Settings.instance.gutterWidth + this.columnIndex * (Settings.instance.cardSize.width + Settings.instance.gutterWidth),
+      y: Settings.instance.gutterWidth + this.rowIndex * (Settings.instance.cardSize.height + Settings.instance.gutterWidth)
     }
 
     return position

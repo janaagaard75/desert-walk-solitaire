@@ -10,7 +10,6 @@ import { Settings } from './Settings'
 
 interface Props {
   position: Point
-  settings: Settings
   status: EmptyCellStatus
 }
 
@@ -21,14 +20,14 @@ export class EmptyCell extends Component<Props, {}> {
 
     const emptyCellStyle: ViewStyle = {
       borderColor: color,
-      borderRadius: this.props.settings.borderRadius,
+      borderRadius: Settings.instance.borderRadius,
       borderStyle: style,
       borderWidth: width,
-      height: this.props.settings.cardSize.height,
+      height: Settings.instance.cardSize.height,
       left: this.props.position.x,
       position: 'absolute',
       top: this.props.position.y,
-      width: this.props.settings.cardSize.width
+      width: Settings.instance.cardSize.width
     }
 
     return (
@@ -44,14 +43,14 @@ export class EmptyCell extends Component<Props, {}> {
         return [undefined, undefined, 0]
 
       case EmptyCellStatus.CurrentlyDraggedCardDroppable:
-        return ['white', 'dashed', this.props.settings.borderWidth]
+        return ['white', 'dashed', Settings.instance.borderWidth]
 
       case EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged:
       case EmptyCellStatus.DropAllowedButNotCurrentlyDraggedCard:
-        return ['black', 'dashed', this.props.settings.borderWidth]
+        return ['black', 'dashed', Settings.instance.borderWidth]
 
       case EmptyCellStatus.HoveredByDropableCard:
-        return ['white', 'solid', this.props.settings.borderWidth]
+        return ['white', 'solid', Settings.instance.borderWidth]
     }
   }
 }

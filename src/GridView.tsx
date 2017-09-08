@@ -14,7 +14,6 @@ import { Settings } from './Settings'
 
 interface Props {
   grid: Game
-  settings: Settings
 }
 
 interface State {
@@ -51,7 +50,6 @@ export class GridView extends Component<Props, State> {
             onCardMoved={(card, cardRectangle) => this.handleCardMoved(card, cardRectangle)}
             onDragStarted={card => this.handleDragStarted(card)}
             position={this.getCellPosition(cell.columnIndex, cell.rowIndex)}
-            settings={this.props.settings}
           />
         )}
       </View>
@@ -63,9 +61,9 @@ export class GridView extends Component<Props, State> {
 
     const boundary = new Rectangle(
       cellPosition.x,
-      cellPosition.x + this.props.settings.cardSize.width,
+      cellPosition.x + Settings.instance.cardSize.width,
       cellPosition.y,
-      cellPosition.y + this.props.settings.cardSize.height
+      cellPosition.y + Settings.instance.cardSize.height
     )
 
     return boundary
@@ -73,8 +71,8 @@ export class GridView extends Component<Props, State> {
 
   private getCellPosition(columnIndex: number, rowIndex: number): Point {
     const position = {
-      x: this.props.settings.gutterWidth + columnIndex * (this.props.settings.cardSize.width + this.props.settings.gutterWidth),
-      y: this.props.settings.gutterWidth + rowIndex * (this.props.settings.cardSize.height + this.props.settings.gutterWidth)
+      x: Settings.instance.gutterWidth + columnIndex * (Settings.instance.cardSize.width + Settings.instance.gutterWidth),
+      y: Settings.instance.gutterWidth + rowIndex * (Settings.instance.cardSize.height + Settings.instance.gutterWidth)
     }
 
     return position
