@@ -1,6 +1,7 @@
 import { computed } from 'mobx'
 import { observable } from 'mobx'
 
+import { Cell } from './Cell'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
@@ -12,8 +13,9 @@ export class Card {
     public readonly value: number
   ) { }
 
+  @observable public cell: Cell | undefined
   public next: Card | undefined
-  @observable public position: Point
+  @observable public draggedPosition: Point | undefined
 
   @computed
   public get boundary(): Rectangle {
@@ -45,5 +47,18 @@ export class Card {
       default:
         return this.value.toString()
     }
+  }
+
+  @computed
+  public get position(): Point {
+    if (this.draggedPosition !== undefined) {
+      return this.draggedPosition
+    }
+
+    if (this.cell === undefined) {
+      throw new Error('Card.cell must be defined.')
+    }
+
+    return this.cell.position
   }
 }

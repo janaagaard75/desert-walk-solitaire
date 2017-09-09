@@ -7,7 +7,6 @@ import { Cell } from './Cell'
 import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
 import { EmptyCellStatus } from './EmptyCellStatus'
-import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 
 interface Props {
@@ -17,7 +16,6 @@ interface Props {
   onCardDropped: (fromCell: Cell, cardRectangle: Rectangle) => void
   onCardMoved: (card: Card, cardRectangle: Rectangle) => void
   onDragStarted: (card: Card) => void
-  position: Point
 }
 
 @observer
@@ -27,7 +25,7 @@ export class CellView extends Component<Props, {}> {
       return (
         <EmptyCell
           key={this.props.cell.key}
-          position={this.props.position}
+          position={this.props.cell.position}
           status={this.getEmptyCellStatus()}
         />
       )
@@ -37,6 +35,7 @@ export class CellView extends Component<Props, {}> {
       const definedCard = this.props.cell.card
 
       return (
+        // TODO: DraggableCard is not being re-rendered when the orientation changes. Fix this.
         <DraggableCard
           card={definedCard}
           isDraggable={this.props.isDraggable}

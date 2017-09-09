@@ -8,7 +8,7 @@ import { PanResponderInstance } from 'react-native'
 
 import { Card } from './Card'
 import { CardView } from './CardView'
-import { Point } from './Point'
+import { Cell } from './Cell'
 import { Rectangle } from './Rectangle'
 
 interface Props {
@@ -39,7 +39,6 @@ export class DraggableCard extends Component<Props, State> {
       visualState: VisualState.Idle
     }
 
-    this.startPosition = this.props.card.position
     this.animatedPosition = new Animated.ValueXY()
 
     this.panResponder = PanResponder.create({
@@ -81,7 +80,6 @@ export class DraggableCard extends Component<Props, State> {
           }
         ]),
       onPanResponderStart: (e, gestureState) => {
-        this.startPosition = this.props.card.position
         this.setState({
           visualState: VisualState.Dragging
         })
@@ -90,17 +88,16 @@ export class DraggableCard extends Component<Props, State> {
     })
 
     this.animatedPosition.addListener(position => {
-      this.props.card.position = position
+      this.props.card.draggedPosition = position
       this.props.onCardMoved(this.props.card.boundary)
     })
   }
 
   private animatedPosition: Animated.ValueXY
   private panResponder: PanResponderInstance
-  private startPosition: Point
 
   public render() {
-    this.animatedPosition.setOffset(this.startPosition)
+    this.animatedPosition.setOffset((this.props.card.cell as Cell).position)
 
     const style = {
       position: 'absolute',

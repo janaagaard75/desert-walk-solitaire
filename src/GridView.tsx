@@ -8,9 +8,7 @@ import { Card } from './Card'
 import { Cell } from './Cell'
 import { CellView } from './CellView'
 import { Game } from './Game'
-import { Point } from './Point'
 import { Rectangle } from './Rectangle'
-import { Settings } from './Settings'
 
 interface Props {
   grid: Game
@@ -49,36 +47,13 @@ export class GridView extends Component<Props, State> {
             onCardDropped={(fromCell, cardRectangle) => this.handleCardDropped(fromCell, cardRectangle)}
             onCardMoved={(card, cardRectangle) => this.handleCardMoved(card, cardRectangle)}
             onDragStarted={card => this.handleDragStarted(card)}
-            position={this.getCellPosition(cell.columnIndex, cell.rowIndex)}
           />
         )}
       </View>
     )
   }
 
-  private getCellBundary(cell: Cell): Rectangle {
-    const cellPosition = this.getCellPosition(cell.columnIndex, cell.rowIndex)
-
-    const boundary = new Rectangle(
-      cellPosition.x,
-      cellPosition.x + Settings.instance.cardSize.width,
-      cellPosition.y,
-      cellPosition.y + Settings.instance.cardSize.height
-    )
-
-    return boundary
-  }
-
-  private getCellPosition(columnIndex: number, rowIndex: number): Point {
-    const position = {
-      x: Settings.instance.gutterWidth + columnIndex * (Settings.instance.cardSize.width + Settings.instance.gutterWidth),
-      y: Settings.instance.gutterWidth + rowIndex * (Settings.instance.cardSize.height + Settings.instance.gutterWidth)
-    }
-
-    return position
-  }
-
-  private handleCardDropped(fromCell: Cell, cardRectangle: Rectangle) {
+  private handleCardDropped(from: Cell, cardBoundary: Rectangle) {
     if (this.state.draggedCard === undefined) {
       throw new Error('draggedCard should be defined when handling a drop.')
     }
@@ -88,15 +63,15 @@ export class GridView extends Component<Props, State> {
       .map(cell => {
         return {
           cell: cell,
-          overlappingPixels: this.getCellBundary(cell).overlappingPixels(cardRectangle)
+          overlappingPixels: cell.boundary.overlappingPixels(cardBoundary)
         }
       })
       .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
       .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
 
     if (overlappingEmptyCells.length > 0) {
-      const toCell = overlappingEmptyCells[0].cell
-      this.props.grid.moveCard(fromCell, toCell)
+      const to = overlappingEmptyCells[0].cell
+      this.props.grid.moveCard(from, to)
     }
 
     this.setState({
@@ -104,13 +79,14 @@ export class GridView extends Component<Props, State> {
     })
   }
 
-  private handleCardMoved(card: Card, cardRectangle: Rectangle) {
-    // TODO: Share the lines with the ones above?
+  private handleCardMoved(card: Card, cardBoundary: Rectangle) {
+    // TODO: Also consider the cell being dragged from.
+    // TODO: Consider sharing some code with the method above.
     const overlappingEmptyCells = this.props.grid.emptyCells
       .map(cell => {
         return {
           cell: cell,
-          overlappingPixels: this.getCellBundary(cell).overlappingPixels(cardRectangle)
+          overlappingPixels: cell.boundary.overlappingPixels(cardBoundary)
         }
       })
       .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)

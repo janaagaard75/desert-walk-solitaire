@@ -13,7 +13,6 @@ export class Game {
     this.initializeDeck()
     this.initializeCells()
     this.shuffleDeckAndDealCards()
-    this.moveCardsIntoPositions()
   }
 
   @observable public readonly cells: Array<Cell> = []
@@ -98,8 +97,20 @@ export class Game {
   }
 
   public moveCard(from: Cell, to: Cell) {
+    // TODO: Make Cell abstract and create the classes EmptyCell and OccupiedCell to avoid these checks.
+    if (from.card === undefined) {
+      throw new Error('from.card must be defined.')
+    }
+
+    if (to.card !== undefined) {
+      throw new Error('to.card cannot be defined.')
+    }
+
     to.card = from.card
     from.card = undefined
+
+    to.card.cell = to
+    to.card.draggedPosition = undefined
 
     this.moves++
 
@@ -129,6 +140,7 @@ export class Game {
   private initializeDeck() {
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
       if (Suit.hasOwnProperty(suit)) {
+        // TODO: Consider initializing in reverse order and include 'next' in Card's constructor.
         for (let value = 1; value <= Settings.instance.maxCardValue; value++) {
           const card = new Card(suit, value)
 
@@ -155,6 +167,11 @@ export class Game {
       }
       else {
         cell.card = cardsInWrongPlace.shift()
+        // TODO: Clean the code to remove these checks.
+        if (cell.card === undefined) {
+          throw new Error('cell.card must be defined here.')
+        }
+        cell.card.cell = cell
       }
     })
 
@@ -166,23 +183,16 @@ export class Game {
 
     for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
       for (let columnIndex = 0; columnIndex < Settings.instance.columns; columnIndex++) {
+        const cell = this.cells[rowIndex * Settings.instance.columns + columnIndex]
         if (columnIndex === 0) {
-          this.cells[rowIndex * Settings.instance.columns + columnIndex].card = undefined
+          cell.card = undefined
         }
         else {
-          this.cells[rowIndex * Settings.instance.columns + columnIndex].card = this.deck[rowIndex * (Settings.instance.columns - 1) + (columnIndex - 1)]
+          cell.card = this.deck[rowIndex * (Settings.instance.columns - 1) + (columnIndex - 1)]
+          cell.card.cell = cell
         }
       }
     }
-  }
-
-  private moveCardsIntoPositions() {
-    this.cells
-      // TODO: Make as Cells class that has a notEmpty() property.
-      .filter(cell => cell.card !== undefined)
-      .forEach(cell => {
-        (cell.card as Card).position = cell.position
-      })
   }
 
   public startOver() {

@@ -3,6 +3,7 @@ import { observable } from 'mobx'
 
 import { Card } from './Card'
 import { Point } from './Point'
+import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 
 export class Cell {
@@ -34,6 +35,18 @@ export class Cell {
       && (this.cellToTheLeft.card as Card).next === this.card
 
     return followsCardToTheLeft
+  }
+
+  @computed
+  public get boundary(): Rectangle {
+    const boundary = new Rectangle(
+      this.position.x,
+      this.position.x + Settings.instance.cardSize.width,
+      this.position.y,
+      this.position.y + Settings.instance.cardSize.height
+    )
+
+    return boundary
   }
 
   @computed
