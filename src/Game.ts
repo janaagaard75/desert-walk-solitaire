@@ -69,13 +69,11 @@ export class Game {
       return GameStatus.MovePossible
     }
 
-    // TODO: Avoid magic number.
-    if (this.cardsInCorrectPlace === 52) {
+    if (this.cardsInCorrectPlace === Settings.instance.numberOfCards) {
       return GameStatus.GameWon
     }
 
-    // TODO: Avoid magic number.
-    if (this.shuffles <= 100) {
+    if (this.shuffles <= Settings.instance.numberOfShuffles) {
       return GameStatus.Stuck
     }
 

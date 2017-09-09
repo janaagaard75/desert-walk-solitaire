@@ -9,8 +9,10 @@ export class Settings {
   @observable public availableWidth = 0
   public readonly maxCardValue = 13
   public readonly rows = 4
+  public readonly numberOfShuffles = 100
 
   public readonly columns = this.maxCardValue + 1
+  public readonly numberOfCards = this.maxCardValue * this.rows
 
   private static _instance: Settings
   private readonly cardSizeRatio = 3 / 2
