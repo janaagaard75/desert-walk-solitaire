@@ -66,8 +66,9 @@ export default class App extends Component<{}, AppState> {
       <View style={mainViewStyle}>
         <StatusBar hidden={true}/>
         <Image
-          source={require('./50713.png')}
+          source={require('./50713-transparent.png')}
           style={{
+            backgroundColor: '#48b',
             height: this.state.windowSize.height,
             position: 'absolute',
             resizeMode: 'repeat',
