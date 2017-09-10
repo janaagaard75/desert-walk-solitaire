@@ -29,33 +29,33 @@ export class CardView extends Component<Props, {}> {
       Object.assign(shadowStyle, {
         shadowColor: 'black',
         shadowOffset: {
-          height: Math.floor(0.05 * Settings.instance.cardSize.width),
-          width: Math.floor(0.02 * Settings.instance.cardSize.width)
+          height: Math.floor(Settings.instance.cardSize.width / 20),
+          width: Math.floor(Settings.instance.cardSize.width / 50)
         },
         shadowOpacity: 0.3,
-        shadowRadius: Math.floor(0.07 * Settings.instance.cardSize.width)
+        shadowRadius: Math.floor(Settings.instance.cardSize.width / 15)
       })
     }
 
     const cardStyle: ViewStyle = {
       alignItems: 'center',
-      backgroundColor: this.props.isDraggable ? 'white' : this.props.isInCorrectPlace ? '#dde5ee' : '#ddd',
-      borderColor: this.props.isInCorrectPlace ? '#4a4' : this.props.isDraggable ? 'black' : '#888',
+      backgroundColor: this.backgroundColor(),
+      borderColor: this.borderColor(),
       borderRadius: Settings.instance.borderRadius,
       borderStyle: 'solid',
       borderWidth: Settings.instance.borderWidth,
       height: Settings.instance.cardSize.height,
       overflow: 'hidden',
-      padding: Math.floor(0.05 * Settings.instance.cardSize.width),
+      padding: Math.floor(Settings.instance.cardSize.width / 20),
       width: Settings.instance.cardSize.width
     }
 
     const valueStyle: TextStyle = {
-      color: CardView.getSuitColor(this.props.card.suit, this.props.isDraggable),
+      color: this.suitColor(),
       fontSize: Math.floor(0.95 * Settings.instance.cardSize.width),
       fontWeight: '700',
-      left: -Math.floor(0.12 * Settings.instance.cardSize.width),
-      letterSpacing: -Math.floor(0.07 * Settings.instance.cardSize.width),
+      left: -Math.floor(Settings.instance.cardSize.width / 8),
+      letterSpacing: -Math.floor(Settings.instance.cardSize.width / 15),
       position: 'absolute',
       top: -Math.floor(0.17 * Settings.instance.cardSize.width),
       width: Math.floor(1.22 * Settings.instance.cardSize.width) // Make space for the two digits in '10'.
@@ -63,8 +63,8 @@ export class CardView extends Component<Props, {}> {
 
     const suitStyle: TextStyle = {
       backgroundColor: 'transparent',
-      bottom: -Math.floor(0.12 * Settings.instance.cardSize.width),
-      color: CardView.getSuitColor(this.props.card.suit, this.props.isDraggable),
+      bottom: -Math.floor(Settings.instance.cardSize.width / 8),
+      color: this.suitColor(),
       fontSize: Math.floor(Settings.instance.cardSize.width),
       fontWeight: '900',
       position: 'absolute',
@@ -78,16 +78,40 @@ export class CardView extends Component<Props, {}> {
             {this.props.card.displayValue}
           </Text>
           <Text style={suitStyle}>
-            {CardView.getValueText(this.props.card.suit)}
+            {this.valueText()}
           </Text>
         </View>
       </View>
     )
   }
 
-  private static getSuitColor(suit: Suit, isDraggable: boolean): string {
-    if (suit === Suit.Clubs || suit === Suit.Spades) {
-      if (isDraggable) {
+  private backgroundColor(): string {
+    if (this.props.isDraggable) {
+      return 'white'
+    }
+
+    if (this.props.isInCorrectPlace) {
+      return '#dde5ee'
+    }
+
+    return '#ddd'
+  }
+
+  private borderColor(): string {
+    if (this.props.isInCorrectPlace) {
+      return '#4a4'
+    }
+
+    if (this.props.isDraggable) {
+      return 'black'
+    }
+
+    return '#888'
+  }
+
+  private suitColor(): string {
+    if (this.props.card.suit === Suit.Clubs || this.props.card.suit === Suit.Spades) {
+      if (this.props.isDraggable) {
         return '#000'
       }
       else {
@@ -95,7 +119,7 @@ export class CardView extends Component<Props, {}> {
       }
     }
     else {
-      if (isDraggable) {
+      if (this.props.isDraggable) {
         return '#f00'
       }
       else {
@@ -104,8 +128,8 @@ export class CardView extends Component<Props, {}> {
     }
   }
 
-  private static getValueText(suit: Suit): string {
-    switch (suit) {
+  private valueText(): string {
+    switch (this.props.card.suit) {
       case Suit.Clubs:
         return '\u2667'
 
