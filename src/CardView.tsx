@@ -90,16 +90,12 @@ export class CardView extends Component<Props, {}> {
       return 'white'
     }
 
-    if (this.props.isInCorrectPlace) {
-      return '#dde5ee'
-    }
-
     return '#ddd'
   }
 
   private borderColor(): string {
     if (this.props.isInCorrectPlace) {
-      return '#4a4'
+      return '#0a0'
     }
 
     if (this.props.isDraggable) {

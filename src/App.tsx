@@ -68,7 +68,7 @@ export default class App extends Component<{}, AppState> {
         <Image
           source={require('./50713-transparent.png')}
           style={{
-            backgroundColor: '#48b',
+            backgroundColor: '#37a',
             height: this.state.windowSize.height,
             position: 'absolute',
             resizeMode: 'repeat',
