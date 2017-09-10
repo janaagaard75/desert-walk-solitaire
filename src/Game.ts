@@ -1,5 +1,6 @@
 import { computed } from 'mobx'
 import { observable } from 'mobx'
+import * as firebase from 'firebase'
 
 import { ArrayUtilities } from './ArrayUtilities'
 import { Card } from './Card'
@@ -8,11 +9,15 @@ import { GameStatus } from './GameStatus'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
 
+import * as firebaseConfig from './firebaseConfig.json'
+
 export class Game {
   constructor() {
     this.initializeDeck()
     this.initializeCells()
     this.shuffleDeckAndDealCards()
+
+    firebase.initializeApp(firebaseConfig)
   }
 
   @observable public readonly cells: Array<Cell> = []
@@ -116,6 +121,10 @@ export class Game {
 
     // TODO: Is there a cleaner way to reset the hovered state?
     to.hoveredByCard = undefined
+
+    if (this.gameStatus === GameStatus.GameLost || this.gameStatus === GameStatus.GameWon) {
+      this.storeGameData()
+    }
   }
 
   private initializeCells() {
@@ -199,5 +208,13 @@ export class Game {
     this.shuffleDeckAndDealCards()
     this.moves = 0
     this.shuffles = 0
+  }
+
+  private storeGameData() {
+    firebase.database().ref('games').push({
+      cardsInCorrectPlace: this.cardsInCorrectPlace,
+      moves: this.moves,
+      shuffles: this.shuffles
+    })
   }
 }
