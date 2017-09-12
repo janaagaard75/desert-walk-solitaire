@@ -6,6 +6,7 @@ import { ArrayUtilities } from './ArrayUtilities'
 import { Card } from './Card'
 import { Cell } from './Cell'
 import { GameStatus } from './GameStatus'
+import { GameSummary } from './GameSummary'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
 
@@ -15,7 +16,7 @@ export class Game {
   constructor() {
     this.initializeDeck()
     this.initializeCells()
-    this.shuffleDeckAndDealCards()
+    this.startOver()
 
     firebase.initializeApp(firebaseConfig)
   }
@@ -25,6 +26,7 @@ export class Game {
   @observable public shuffles = 0
 
   private readonly deck: Array<Card> = []
+  private gameSummary: GameSummary
 
   @computed
   public get cardsInCorrectPlace(): number {
@@ -122,9 +124,7 @@ export class Game {
     // TODO: Is there a cleaner way to reset the hovered state?
     to.hoveredByCard = undefined
 
-    if (this.gameStatus === GameStatus.GameLost || this.gameStatus === GameStatus.GameWon) {
-      this.storeGameData()
-    }
+    this.storeSummaryIfGameOver()
   }
 
   private initializeCells() {
@@ -185,9 +185,19 @@ export class Game {
     })
 
     this.shuffles++
+
+    if (this.gameStatus === GameStatus.GameWon) {
+      this.storeSummaryIfGameOver()
+    }
+    else {
+      this.gameSummary.addStep({
+        cardsInPlace: this.cardsInCorrectPlace,
+        moves: this.moves
+      })
+    }
   }
 
-  private shuffleDeckAndDealCards() {
+  public startOver() {
     ArrayUtilities.shuffleArray(this.deck)
 
     for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
@@ -202,19 +212,24 @@ export class Game {
         }
       }
     }
-  }
 
-  public startOver() {
-    this.shuffleDeckAndDealCards()
+    this.gameSummary = new GameSummary()
     this.moves = 0
     this.shuffles = 0
   }
 
-  private storeGameData() {
-    firebase.database().ref('games').push({
-      cardsInCorrectPlace: this.cardsInCorrectPlace,
-      moves: this.moves,
-      shuffles: this.shuffles
-    })
+  private storeGameSummary() {
+    firebase.database().ref('gameSummaries').push(this.gameSummary)
+  }
+
+  private storeSummaryIfGameOver() {
+    if (this.gameStatus === GameStatus.GameLost || this.gameStatus === GameStatus.GameWon) {
+      this.gameSummary.addFinalStep({
+        cardsInPlace: this.cardsInCorrectPlace,
+        moves: this.moves
+      })
+
+      this.storeGameSummary()
+    }
   }
 }
