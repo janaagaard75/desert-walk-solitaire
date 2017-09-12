@@ -19,6 +19,7 @@
     "mobx-react": "4.2.2",
     "react": "16.0.0-alpha.12",
     "react-native": "https://github.com/expo/react-native/archive/sdk-20.0.0.tar.gz",
+    "react-native-button-component": "0.1.25",
     "tslib": "1.7.1"
   },
   "devDependencies": {
