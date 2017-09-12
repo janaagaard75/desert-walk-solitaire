@@ -26,6 +26,7 @@
     "@types/fbemitter": "2.0.32",
     "@types/react": "16.0.5",
     "@types/react-native": "0.48.2",
+    "prop-types": "15.5.10",
     "react-native-typescript-transformer": "1.1.4",
     "tslint": "5.7.0",
     "tslint-eslint-rules": "4.1.1",
