@@ -13,9 +13,9 @@
   version "2.0.32"
   resolved "https://registry.yarnpkg.com/@types/fbemitter/-/fbemitter-2.0.32.tgz#8ed204da0f54e9c8eaec31b1eec91e25132d082c"
 
-"@types/react-native@0.48.2":
-  version "0.48.2"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.48.2.tgz#6a0b7205adc9cec795f6b8c9ec4e12fc172b7ea3"
+"@types/react-native@0.48.4":
+  version "0.48.4"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.48.4.tgz#40d69c4f0e9957d2f254235f32cf39508faea40e"
   dependencies:
     "@types/react" "*"
 
@@ -3998,7 +3998,7 @@ websocket-extensions@>=0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.2.tgz#0e18781de629a18308ce1481650f67ffa2693a5d"
 
-websql@expo/node-websql#18.0.0:
+"websql@github:expo/node-websql#18.0.0":
   version "0.4.4"
   resolved "https://codeload.github.com/expo/node-websql/tar.gz/e364fa65146a9e2157a19e5c719e7702c2b6b87a"
   dependencies:
