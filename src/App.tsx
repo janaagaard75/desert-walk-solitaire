@@ -81,7 +81,7 @@ export default class App extends Component<{}, AppState> {
         <View
           style={gridWrapperViewStyle}
         >
-        <GridView grid={this.grid}/>
+          <GridView grid={this.grid}/>
         </View>
         <Footer
           cardsInCorrectPlace={this.grid.cardsInCorrectPlace}
