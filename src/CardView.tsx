@@ -27,7 +27,7 @@ export class CardView extends Component<Props, {}> {
     }
     if (this.props.shadow) {
       Object.assign(shadowStyle, {
-        shadowColor: 'black',
+        shadowColor: Settings.instance.colors.draggedCardShadowColor,
         shadowOffset: Settings.instance.cardShadowOffset,
         shadowOpacity: 0.3,
         shadowRadius: Settings.instance.cardShadowRadius
@@ -84,40 +84,41 @@ export class CardView extends Component<Props, {}> {
 
   private backgroundColor(): string {
     if (this.props.isDraggable) {
-      return 'white'
+      return Settings.instance.colors.draggableCardBackgroundColor
     }
 
-    return '#ddd'
+    return Settings.instance.colors.fixedCardBackgroundColor
   }
 
   private borderColor(): string {
     if (this.props.isInCorrectPlace) {
-      return '#0a0'
+      return Settings.instance.colors.correctlyPlacedBorderColor
     }
 
-    if (this.props.isDraggable) {
-      return 'black'
-    }
-
-    return '#888'
+    return Settings.instance.colors.incorrectlyPlacedBorderColor
   }
 
   private suitColor(): string {
-    if (this.props.card.suit === Suit.Clubs || this.props.card.suit === Suit.Spades) {
-      if (this.props.isDraggable) {
-        return '#000'
-      }
-      else {
-        return '#666'
-      }
-    }
-    else {
-      if (this.props.isDraggable) {
-        return '#f00'
-      }
-      else {
-        return '#f66'
-      }
+    switch (this.props.card.suit) {
+      case Suit.Clubs:
+        return this.props.isDraggable
+           ? Settings.instance.colors.clubs.draggable
+           : Settings.instance.colors.clubs.fixed
+
+      case Suit.Diamonds:
+        return this.props.isDraggable
+          ? Settings.instance.colors.diamonds.draggable
+          : Settings.instance.colors.diamonds.fixed
+
+      case Suit.Hearts:
+        return this.props.isDraggable
+          ? Settings.instance.colors.hearts.draggable
+          : Settings.instance.colors.hearts.fixed
+
+      case Suit.Spades:
+        return this.props.isDraggable
+          ? Settings.instance.colors.hearts.draggable
+          : Settings.instance.colors.hearts.fixed
     }
   }
 
