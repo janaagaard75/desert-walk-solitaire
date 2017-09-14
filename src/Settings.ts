@@ -12,29 +12,29 @@ export class Settings {
   public readonly numberOfShuffles = 100
 
   public readonly colors = {
-    clubs: {
-      draggable: '#000',
-      fixed: '#666'
+    card: {
+      border: {
+        correctlyPlaced: '#0a0',
+        incorrectlyPlaced: '#444'
+      },
+      draggable: {
+        backgroundColor: '#fff',
+        clubs: '#000',
+        diamonds: '#f00',
+        hearts: '#f00',
+        spades: '#000'
+      },
+      draggedShadowColor: '#000',
+      fixed: {
+        backgroundColor: '#ddd',
+        clubs: '#666',
+        diamonds: '#f66',
+        hearts: '#f66',
+        spades: '#666'
+      }
     },
-    correctlyPlacedBorderColor: '#0a0',
-    diamonds: {
-      draggable: '#f00',
-      fixed: '#f66'
-    },
-    draggableCardBackgroundColor: 'white',
-    draggedCardShadowColor: 'black',
-    fixedCardBackgroundColor: '#ddd',
     gridBackgroundColor: '#37a',
-    hearts: {
-      draggable: '#f00',
-      fixed: '#f66'
-    },
-    incorrectlyPlacedBorderColor: '#444',
-    mainBackgroundColor: '#bbb', // Currently not used.
-    spades: {
-      draggable: '#000',
-      fixed: '#666'
-    }
+    mainBackgroundColor: '#bbb' // Currently not used.
   }
 
   public readonly columns = this.maxCardValue + 1

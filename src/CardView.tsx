@@ -27,7 +27,7 @@ export class CardView extends Component<Props, {}> {
     }
     if (this.props.shadow) {
       Object.assign(shadowStyle, {
-        shadowColor: Settings.instance.colors.draggedCardShadowColor,
+        shadowColor: Settings.instance.colors.card.draggedShadowColor,
         shadowOffset: Settings.instance.cardShadowOffset,
         shadowOpacity: 0.3,
         shadowRadius: Settings.instance.cardShadowRadius
@@ -84,41 +84,41 @@ export class CardView extends Component<Props, {}> {
 
   private backgroundColor(): string {
     if (this.props.isDraggable) {
-      return Settings.instance.colors.draggableCardBackgroundColor
+      return Settings.instance.colors.card.draggable.backgroundColor
     }
 
-    return Settings.instance.colors.fixedCardBackgroundColor
+    return Settings.instance.colors.card.fixed.backgroundColor
   }
 
   private borderColor(): string {
     if (this.props.isInCorrectPlace) {
-      return Settings.instance.colors.correctlyPlacedBorderColor
+      return Settings.instance.colors.card.border.correctlyPlaced
     }
 
-    return Settings.instance.colors.incorrectlyPlacedBorderColor
+    return Settings.instance.colors.card.border.incorrectlyPlaced
   }
 
   private suitColor(): string {
     switch (this.props.card.suit) {
       case Suit.Clubs:
         return this.props.isDraggable
-           ? Settings.instance.colors.clubs.draggable
-           : Settings.instance.colors.clubs.fixed
+           ? Settings.instance.colors.card.draggable.clubs
+           : Settings.instance.colors.card.fixed.clubs
 
       case Suit.Diamonds:
         return this.props.isDraggable
-          ? Settings.instance.colors.diamonds.draggable
-          : Settings.instance.colors.diamonds.fixed
+          ? Settings.instance.colors.card.draggable.diamonds
+          : Settings.instance.colors.card.fixed.diamonds
 
       case Suit.Hearts:
         return this.props.isDraggable
-          ? Settings.instance.colors.hearts.draggable
-          : Settings.instance.colors.hearts.fixed
+          ? Settings.instance.colors.card.draggable.hearts
+          : Settings.instance.colors.card.fixed.hearts
 
       case Suit.Spades:
         return this.props.isDraggable
-          ? Settings.instance.colors.hearts.draggable
-          : Settings.instance.colors.hearts.fixed
+          ? Settings.instance.colors.card.draggable.hearts
+          : Settings.instance.colors.card.fixed.hearts
     }
   }
 
