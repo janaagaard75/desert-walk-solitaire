@@ -11,6 +11,11 @@ export class Settings {
   public readonly rows = 4
   public readonly numberOfShuffles = 100
 
+  public readonly colors = {
+    gridBackgroundColor: '#37a',
+    mainBackgroundColor: '#bbb' // Currently not used.
+  }
+
   public readonly columns = this.maxCardValue + 1
   public readonly numberOfCards = this.maxCardValue * this.rows
 

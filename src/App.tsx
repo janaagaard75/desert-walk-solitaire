@@ -53,7 +53,7 @@ export default class App extends Component<{}, AppState> {
     }
 
     const mainViewStyle: ViewStyle = {
-      backgroundColor: '#bbb',
+      backgroundColor: Settings.instance.colors.mainBackgroundColor,
       flex: 1,
       flexDirection: 'column'
     }
@@ -68,7 +68,7 @@ export default class App extends Component<{}, AppState> {
         <Image
           source={require('./50713-transparent.png')}
           style={{
-            backgroundColor: '#37a',
+            backgroundColor: Settings.instance.colors.gridBackgroundColor,
             height: this.state.windowSize.height,
             position: 'absolute',
             resizeMode: 'repeat',
