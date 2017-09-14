@@ -28,12 +28,9 @@ export class CardView extends Component<Props, {}> {
     if (this.props.shadow) {
       Object.assign(shadowStyle, {
         shadowColor: 'black',
-        shadowOffset: {
-          height: Math.floor(Settings.instance.cardSize.width / 20),
-          width: Math.floor(Settings.instance.cardSize.width / 50)
-        },
+        shadowOffset: Settings.instance.cardShadowOffset,
         shadowOpacity: 0.3,
-        shadowRadius: Math.floor(Settings.instance.cardSize.width / 15)
+        shadowRadius: Settings.instance.cardShadowRadius
       })
     }
 
@@ -46,29 +43,29 @@ export class CardView extends Component<Props, {}> {
       borderWidth: Settings.instance.borderWidth,
       height: Settings.instance.cardSize.height,
       overflow: 'hidden',
-      padding: Math.floor(Settings.instance.cardSize.width / 20),
+      padding: Settings.instance.cardPadding,
       width: Settings.instance.cardSize.width
     }
 
     const valueStyle: TextStyle = {
       color: this.suitColor(),
-      fontSize: Math.floor(0.95 * Settings.instance.cardSize.width),
+      fontSize: Settings.instance.cardValueFontSize,
       fontWeight: '700',
-      left: -Math.floor(Settings.instance.cardSize.width / 8),
-      letterSpacing: -Math.floor(Settings.instance.cardSize.width / 15),
+      left: Settings.instance.cardValueLeft,
+      letterSpacing: Settings.instance.cardValueLetterSpacing,
       position: 'absolute',
-      top: -Math.floor(0.17 * Settings.instance.cardSize.width),
-      width: Math.floor(1.22 * Settings.instance.cardSize.width) // Make space for the two digits in '10'.
+      top: Settings.instance.cardValueTop,
+      width: Settings.instance.cardValueWidth // Make space for the two digits in '10'.
     }
 
     const suitStyle: TextStyle = {
       backgroundColor: 'transparent',
-      bottom: -Math.floor(Settings.instance.cardSize.width / 8),
+      bottom: Settings.instance.cardSuitBottom,
       color: this.suitColor(),
-      fontSize: Math.floor(Settings.instance.cardSize.width),
+      fontSize: Settings.instance.cardSuitFontSize,
       fontWeight: '900',
       position: 'absolute',
-      right: -Math.floor(0.12 * Settings.instance.cardSize.width)
+      right: Settings.instance.cardSuitRight
     }
 
     return (

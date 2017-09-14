@@ -43,6 +43,25 @@ export class Settings {
   }
 
   @computed
+  public get cardPadding(): number {
+    return Math.floor(Settings.instance.cardSize.width / 20)
+  }
+
+  @computed
+  public get cardShadowOffset() {
+    const offset = {
+      height: Math.floor(Settings.instance.cardSize.width / 20),
+      width: Math.floor(Settings.instance.cardSize.width / 50)
+    }
+    return offset
+  }
+
+  @computed
+  public get cardShadowRadius() {
+    return Math.floor(Settings.instance.cardSize.width / 15)
+  }
+
+  @computed
   public get cardSize(): Size {
     const cardWidth = Math.floor(
       (
@@ -60,6 +79,46 @@ export class Settings {
       height: cardHeight,
       width: cardWidth
     }
+  }
+
+  @computed
+  public get cardSuitBottom(): number {
+    return -Math.floor(Settings.instance.cardSize.width / 8)
+  }
+
+  @computed
+  public get cardSuitFontSize(): number {
+    return Math.floor(Settings.instance.cardSize.width)
+  }
+
+  @computed
+  public get cardSuitRight(): number {
+    return -Math.floor(0.12 * Settings.instance.cardSize.width)
+  }
+
+  @computed
+  public get cardValueFontSize(): number {
+    return Math.floor(0.95 * Settings.instance.cardSize.width)
+  }
+
+  @computed
+  public get cardValueLeft(): number {
+    return -Math.floor(Settings.instance.cardSize.width / 8)
+  }
+
+  @computed
+  public get cardValueLetterSpacing(): number {
+    return -Math.floor(Settings.instance.cardSize.width / 15)
+  }
+
+  @computed
+  public get cardValueTop(): number {
+    return -Math.floor(0.17 * Settings.instance.cardSize.width)
+  }
+
+  @computed
+  public get cardValueWidth(): number {
+    return Math.floor(1.22 * Settings.instance.cardSize.width)
   }
 
   @computed
