@@ -8,6 +8,7 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 
 import { GameStatus } from './GameStatus'
+import { GradientButton } from './GradientButton'
 
 interface Props {
   cardsInCorrectPlace: number
@@ -79,7 +80,7 @@ export class Footer extends Component<Props, State> {
               flex: 1
             }}
           >
-            <Button
+            <GradientButton
               onPress={() => this.shuffleCardsInWrongPlace()}
               disabled={this.shuffleButtonDisabled()}
               title="Shuffle"
