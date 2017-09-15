@@ -13,7 +13,7 @@ import { Rectangle } from './Rectangle'
 
 interface Props {
   card: Card
-  isDraggable: boolean
+  draggable: boolean
   correctlyPlaced: boolean
   onCardDropped: (cardRectangle: Rectangle) => void
   onCardMoved: (cardRectangle: Rectangle) => void
@@ -106,7 +106,7 @@ export class DraggableCard extends Component<Props, State> {
     }
 
     // TODO: Only initialize panResponder if the card is draggable.
-    const panHandlers = this.props.isDraggable
+    const panHandlers = this.props.draggable
       ? this.panResponder.panHandlers
       : undefined
 
@@ -117,7 +117,7 @@ export class DraggableCard extends Component<Props, State> {
       >
         <CardView
           card={this.props.card}
-          isDraggable={this.props.isDraggable}
+          draggable={this.props.draggable}
           correctlyPlaced={this.props.correctlyPlaced}
           shadow={this.state.visualState !== VisualState.Idle}
         />

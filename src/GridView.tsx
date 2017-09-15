@@ -42,7 +42,7 @@ export class GridView extends Component<Props, State> {
           <CellView
             cell={cell}
             draggedCard={this.state.draggedCard}
-            isDraggable={this.props.grid.draggableCards.some(card => cell.card === card)}
+            draggable={this.props.grid.draggableCards.some(card => cell.card === card)}
             key={cell.key}
             onCardDropped={(fromCell, cardRectangle) => this.handleCardDropped(fromCell, cardRectangle)}
             onCardMoved={(card, cardRectangle) => this.handleCardMoved(card, cardRectangle)}

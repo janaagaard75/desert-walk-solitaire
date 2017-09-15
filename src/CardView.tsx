@@ -12,7 +12,7 @@ import { Suit } from './Suit'
 
 interface Props {
   card: Card
-  isDraggable: boolean
+  draggable: boolean
   correctlyPlaced: boolean
   shadow: boolean
 }
