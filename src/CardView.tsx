@@ -117,8 +117,8 @@ export class CardView extends Component<Props, {}> {
 
       case Suit.Spades:
         return this.props.isDraggable
-          ? Settings.instance.colors.card.draggable.hearts
-          : Settings.instance.colors.card.fixed.hearts
+          ? Settings.instance.colors.card.draggable.spades
+          : Settings.instance.colors.card.fixed.spades
     }
   }
 
