@@ -26,14 +26,14 @@ export class Settings {
       },
       draggedShadowColor: '#000',
       fixed: {
-        backgroundColor: '#ddd',
+        backgroundColor: '#ccc',
         clubs: '#666',
         diamonds: '#f66',
         hearts: '#f66',
         spades: '#666'
       }
     },
-    gridBackgroundColor: '#37a',
+    gridBackgroundColor: '#259',
     mainBackgroundColor: '#bbb' // Currently not used.
   }
 
