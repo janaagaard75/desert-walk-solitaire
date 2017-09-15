@@ -127,10 +127,12 @@ export class Footer extends Component<Props, State> {
       case GameStatus.GameLost:
       case GameStatus.GameWon:
         this.props.startOver()
+        break
 
       case GameStatus.MovePossible:
       case GameStatus.Stuck:
         this.showConfirmModal()
+        break
 
       default:
         throw new Error(`GameStatus ${this.props.gameStatus} is not supported.`)
