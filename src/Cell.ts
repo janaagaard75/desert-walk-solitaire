@@ -21,7 +21,7 @@ export class Cell {
   public key: string
 
   @computed
-  public get cardIsInRightPlace(): boolean {
+  public get cardIsCorrectlyPlaced(): boolean {
     if (this.card === undefined) {
       return false
     }
@@ -31,7 +31,7 @@ export class Cell {
       return aceInFirstColumn
     }
 
-    const followsCardToTheLeft = this.cellToTheLeft.cardIsInRightPlace
+    const followsCardToTheLeft = this.cellToTheLeft.cardIsCorrectlyPlaced
       && (this.cellToTheLeft.card as Card).next === this.card
 
     return followsCardToTheLeft

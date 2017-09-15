@@ -29,15 +29,15 @@ export class Game {
   private gameSummary: GameSummary
 
   @computed
-  public get cardsInCorrectPlace(): number {
-    const cardsInCorrectPlace = this.cells.filter(cell => cell.cardIsInRightPlace).length
-    return cardsInCorrectPlace
+  public get correctlyPlacedCards(): number {
+    const numberOfCorrectlyPlacedCards = this.cells.filter(cell => cell.cardIsCorrectlyPlaced).length
+    return numberOfCorrectlyPlacedCards
   }
 
   /** Cells that are empty or have a card in the wrong place. */
-  @computed get cellsWithCardsNotInCorrectPlace(): Array<Cell> {
-    const cellsWithCardsInWrongPlace = this.cells.filter(cell => !cell.cardIsInRightPlace)
-    return cellsWithCardsInWrongPlace
+  @computed get cellsWithIncorrectlyPlacedCards(): Array<Cell> {
+    const cellsWithIncorrectlyPlacedCards = this.cells.filter(cell => !cell.cardIsCorrectlyPlaced)
+    return cellsWithIncorrectlyPlacedCards
   }
 
   @computed
@@ -75,7 +75,7 @@ export class Game {
       return GameStatus.MovePossible
     }
 
-    if (this.cardsInCorrectPlace === Settings.instance.numberOfCards) {
+    if (this.correctlyPlacedCards === Settings.instance.numberOfCards) {
       return GameStatus.GameWon
     }
 
@@ -164,13 +164,13 @@ export class Game {
   }
 
   public shuffleCardsInWrongPlace() {
-    const cardsInWrongPlace = this.cellsWithCardsNotInCorrectPlace
+    const cardsInWrongPlace = this.cellsWithIncorrectlyPlacedCards
       .map(cell => cell.card)
       .filter(card => card !== undefined) as Array<Card>
 
     ArrayUtilities.shuffleArray(cardsInWrongPlace)
 
-    this.cellsWithCardsNotInCorrectPlace.forEach(cell => {
+    this.cellsWithIncorrectlyPlacedCards.forEach(cell => {
       if (cell.columnIndex === Settings.instance.columns - 1) {
         cell.card = undefined
       }
@@ -191,7 +191,7 @@ export class Game {
     }
     else {
       this.gameSummary.addStep({
-        cardsInPlace: this.cardsInCorrectPlace,
+        cardsInPlace: this.correctlyPlacedCards,
         moves: this.moves
       })
     }
@@ -225,7 +225,7 @@ export class Game {
   private storeSummaryIfGameOver() {
     if (this.gameStatus === GameStatus.GameLost || this.gameStatus === GameStatus.GameWon) {
       this.gameSummary.addFinalStep({
-        cardsInPlace: this.cardsInCorrectPlace,
+        cardsInPlace: this.correctlyPlacedCards,
         moves: this.moves
       })
 

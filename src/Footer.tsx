@@ -10,7 +10,7 @@ import { View } from 'react-native'
 import { GameStatus } from './GameStatus'
 
 interface Props {
-  cardsInCorrectPlace: number
+  correctlyPlacedCards: number
   gameStatus: GameStatus
   moves: number
   shuffleCardsInWrongPlace: () => void
@@ -65,7 +65,7 @@ export class Footer extends Component<Props, State> {
             Shuffles: {this.props.shuffles}
           </Text>
           <Text style={rightAlignedTextStyle}>
-            Cards in correct spot: {this.props.cardsInCorrectPlace}
+            Cards in correct spot: {this.props.correctlyPlacedCards}
           </Text>
         </View>
         <View

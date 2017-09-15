@@ -13,7 +13,7 @@ import { Suit } from './Suit'
 interface Props {
   card: Card
   isDraggable: boolean
-  isInCorrectPlace: boolean
+  correctlyPlaced: boolean
   shadow: boolean
 }
 
@@ -83,19 +83,15 @@ export class CardView extends Component<Props, {}> {
   }
 
   private backgroundColor(): string {
-    if (this.props.isDraggable) {
-      return Settings.instance.colors.card.draggable.backgroundColor
-    }
-
-    return Settings.instance.colors.card.fixed.backgroundColor
+    return this.props.correctlyPlaced
+      ? Settings.instance.colors.card.backgroundColor.correctlyPlaced
+      : Settings.instance.colors.card.backgroundColor.incorrectlyPlaced
   }
 
   private borderColor(): string {
-    if (this.props.isInCorrectPlace) {
-      return Settings.instance.colors.card.border.correctlyPlaced
-    }
-
-    return Settings.instance.colors.card.border.incorrectlyPlaced
+    return this.props.isDraggable
+      ? Settings.instance.colors.card.draggable.border
+      : Settings.instance.colors.card.fixed.border
   }
 
   private suitColor(): string {

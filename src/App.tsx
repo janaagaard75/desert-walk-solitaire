@@ -84,7 +84,7 @@ export default class App extends Component<{}, AppState> {
           <GridView grid={this.grid}/>
         </View>
         <Footer
-          cardsInCorrectPlace={this.grid.cardsInCorrectPlace}
+          correctlyPlacedCards={this.grid.correctlyPlacedCards}
           gameStatus={this.grid.gameStatus}
           moves={this.grid.moves}
           shuffleCardsInWrongPlace={() => this.grid.shuffleCardsInWrongPlace()}

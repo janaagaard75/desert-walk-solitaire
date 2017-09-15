@@ -14,7 +14,7 @@ import { Rectangle } from './Rectangle'
 interface Props {
   card: Card
   isDraggable: boolean
-  isInCorrectPlace: boolean
+  correctlyPlaced: boolean
   onCardDropped: (cardRectangle: Rectangle) => void
   onCardMoved: (cardRectangle: Rectangle) => void
   onDragStarted: (card: Card) => void
@@ -118,7 +118,7 @@ export class DraggableCard extends Component<Props, State> {
         <CardView
           card={this.props.card}
           isDraggable={this.props.isDraggable}
-          isInCorrectPlace={this.props.isInCorrectPlace}
+          correctlyPlaced={this.props.correctlyPlaced}
           shadow={this.state.visualState !== VisualState.Idle}
         />
       </Animated.View>
