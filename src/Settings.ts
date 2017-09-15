@@ -131,6 +131,17 @@ export class Settings {
   }
 
   @computed
+  public get gridSize(): Size {
+    const width = this.cardSize.width * this.columns + this.gutterWidth * (this.columns - 1)
+    const height = this.cardSize.height * this.rows + this.gutterWidth * (this.rows - 1)
+
+    return {
+      height: height,
+      width: width
+    }
+  }
+
+  @computed
   public get gutterWidth(): number {
     const gutterWidth = Math.floor(
       (

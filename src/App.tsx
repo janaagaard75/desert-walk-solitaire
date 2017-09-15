@@ -50,7 +50,8 @@ export default class App extends Component<{}, AppState> {
       color: 'white',
       fontWeight: '600',
       marginTop: 4,
-      textAlign: 'center'
+      textAlign: 'center',
+      zIndex: 10 // TODO: Figure out why this is necessary.
     }
 
     const mainViewStyle: ViewStyle = {
@@ -60,7 +61,9 @@ export default class App extends Component<{}, AppState> {
     }
 
     const gridWrapperViewStyle: ViewStyle = {
-      flex: 1
+      alignItems: 'center',
+      flex: 1,
+      justifyContent: 'center'
     }
 
     return (
@@ -69,9 +72,7 @@ export default class App extends Component<{}, AppState> {
         <Text style={headerStyle}>
           Desert Walk
         </Text>
-        <View
-          style={gridWrapperViewStyle}
-        >
+        <View style={gridWrapperViewStyle}>
           <Image
             source={require('./50713-transparent.png')}
             style={{

@@ -9,6 +9,7 @@ import { Cell } from './Cell'
 import { CellView } from './CellView'
 import { Game } from './Game'
 import { Rectangle } from './Rectangle'
+import { Settings } from './Settings'
 
 interface Props {
   grid: Game
@@ -30,8 +31,9 @@ export class GridView extends Component<Props, State> {
 
   public render() {
     const gridViewStyle: ViewStyle = {
-      flex: 1,
-      position: 'relative'
+      height: Settings.instance.gridSize.height,
+      position: 'relative',
+      width: Settings.instance.gridSize.width
     }
 
     return (
