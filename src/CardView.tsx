@@ -83,15 +83,20 @@ export class CardView extends Component<Props, {}> {
   }
 
   private backgroundColor(): string {
-    return this.props.correctlyPlaced
-      ? Settings.instance.colors.card.backgroundColor.correctlyPlaced
-      : Settings.instance.colors.card.backgroundColor.incorrectlyPlaced
+    return Settings.instance.colors.card.backgroundColor
   }
 
   private borderColor(): string {
-    return this.props.isDraggable
-      ? Settings.instance.colors.card.draggable.border
-      : Settings.instance.colors.card.fixed.border
+    if (this.props.isDraggable) {
+      return this.props.correctlyPlaced
+        ? Settings.instance.colors.card.draggable.border.correctlyPlaced
+        : Settings.instance.colors.card.draggable.border.incorrectlyPlaced
+    }
+    else {
+      return this.props.correctlyPlaced
+      ? Settings.instance.colors.card.fixed.border.correctlyPlaced
+      : Settings.instance.colors.card.fixed.border.incorrectlyPlaced
+    }
   }
 
   private suitColor(): string {

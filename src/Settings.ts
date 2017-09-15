@@ -13,12 +13,12 @@ export class Settings {
 
   public readonly colors = {
     card: {
-      border: {
-        correctlyPlaced: '#0a0',
-        incorrectlyPlaced: '#444'
-      },
+      backgroundColor: '#ccc',
       draggable: {
-        backgroundColor: '#fff',
+        border: {
+          correctlyPlaced: '#cfc',
+          incorrectlyPlaced: '#fff'
+        },
         clubs: '#009',
         diamonds: '#e60',
         hearts: '#e07',
@@ -26,7 +26,10 @@ export class Settings {
       },
       draggedShadowColor: '#000',
       fixed: {
-        backgroundColor: '#ccc',
+        border: {
+          correctlyPlaced: '#7b7',
+          incorrectlyPlaced: '#999'
+        },
         clubs: '#558',
         diamonds: '#e75',
         hearts: '#e58',
