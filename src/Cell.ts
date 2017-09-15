@@ -16,6 +16,7 @@ export class Cell {
     this.key = this.rowIndex + '.' + this.columnIndex
   }
 
+  // TODO: Is this reference necessary, now that there is a reference from the cards to the cells?
   @observable public card: Card | undefined = undefined
   @observable public hoveredByCard: Card | undefined = undefined
   public key: string
