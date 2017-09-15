@@ -101,7 +101,7 @@ export class CardView extends Component<Props, {}> {
       return 0.5
     }
 
-    return 0.25
+    return 0.3
   }
 
   private suitColor(): string {
