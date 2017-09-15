@@ -13,31 +13,16 @@ export class Settings {
 
   public readonly colors = {
     card: {
-      backgroundColor: '#ccc',
-      draggable: {
-        border: {
-          correctlyPlaced: '#cfc',
-          incorrectlyPlaced: '#fff'
-        },
-        clubs: '#009',
-        diamonds: '#e60',
-        hearts: '#e07',
-        spades: '#060'
-      },
-      draggedShadowColor: '#000',
-      fixed: {
-        border: {
-          correctlyPlaced: '#7a7',
-          incorrectlyPlaced: '#999'
-        },
-        clubs: '#558',
-        diamonds: '#e75',
-        hearts: '#e58',
-        spades: '#575'
-      }
+      background: '#fff',
+      border: '#000',
+      clubs: '#000',
+      diamonds: '#f00',
+      hearts: '#f00',
+      shadowColor: '#000',
+      spades: '#000'
     },
-    gridBackgroundColor: '#259',
-    mainBackgroundColor: '#555'
+    gridBackgroundColor: '#464',
+    mainBackgroundColor: '#333'
   }
 
   public readonly columns = this.maxCardValue + 1
@@ -63,7 +48,7 @@ export class Settings {
 
   @computed
   public get borderWidth(): number {
-    return Math.round(this.cardSize.width / 14)
+    return Math.round(this.cardSize.width / 20)
   }
 
   @computed

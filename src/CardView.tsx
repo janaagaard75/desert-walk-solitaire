@@ -27,7 +27,7 @@ export class CardView extends Component<Props, {}> {
     }
     if (this.props.shadow) {
       Object.assign(shadowStyle, {
-        shadowColor: Settings.instance.colors.card.draggedShadowColor,
+        shadowColor: Settings.instance.colors.card.shadowColor,
         shadowOffset: Settings.instance.cardShadowOffset,
         shadowOpacity: 0.3,
         shadowRadius: Settings.instance.cardShadowRadius
@@ -36,8 +36,8 @@ export class CardView extends Component<Props, {}> {
 
     const cardStyle: ViewStyle = {
       alignItems: 'center',
-      backgroundColor: this.backgroundColor(),
-      borderColor: this.borderColor(),
+      backgroundColor: Settings.instance.colors.card.background,
+      borderColor: Settings.instance.colors.card.border,
       borderRadius: Settings.instance.borderRadius,
       borderStyle: 'solid',
       borderWidth: Settings.instance.borderWidth,
@@ -50,7 +50,7 @@ export class CardView extends Component<Props, {}> {
     const valueStyle: TextStyle = {
       color: this.suitColor(),
       fontSize: Settings.instance.cardValueFontSize,
-      fontWeight: '700',
+      fontWeight: '600',
       left: Settings.instance.cardValueLeft,
       letterSpacing: Settings.instance.cardValueLetterSpacing,
       position: 'absolute',
@@ -68,6 +68,15 @@ export class CardView extends Component<Props, {}> {
       right: Settings.instance.cardSuitRight
     }
 
+    const overlayStyle: ViewStyle = {
+      backgroundColor: '#000',
+      borderRadius: Settings.instance.borderRadius,
+      height: Settings.instance.cardSize.height,
+      opacity: this.overlayOpacity(),
+      position: 'absolute',
+      width: Settings.instance.cardSize.width
+    }
+
     return (
       <View style={shadowStyle}>
         <View style={cardStyle}>
@@ -78,48 +87,36 @@ export class CardView extends Component<Props, {}> {
             {this.valueText()}
           </Text>
         </View>
+        <View style={overlayStyle}/>
       </View>
     )
   }
 
-  private backgroundColor(): string {
-    return Settings.instance.colors.card.backgroundColor
-  }
+  private overlayOpacity(): number {
+    if (this.props.draggable) {
+      return 0
+    }
 
-  private borderColor(): string {
-    if (this.props.isDraggable) {
-      return this.props.correctlyPlaced
-        ? Settings.instance.colors.card.draggable.border.correctlyPlaced
-        : Settings.instance.colors.card.draggable.border.incorrectlyPlaced
+    if (this.props.correctlyPlaced) {
+      return 0.5
     }
-    else {
-      return this.props.correctlyPlaced
-      ? Settings.instance.colors.card.fixed.border.correctlyPlaced
-      : Settings.instance.colors.card.fixed.border.incorrectlyPlaced
-    }
+
+    return 0.25
   }
 
   private suitColor(): string {
     switch (this.props.card.suit) {
       case Suit.Clubs:
-        return this.props.isDraggable
-           ? Settings.instance.colors.card.draggable.clubs
-           : Settings.instance.colors.card.fixed.clubs
+        return Settings.instance.colors.card.clubs
 
       case Suit.Diamonds:
-        return this.props.isDraggable
-          ? Settings.instance.colors.card.draggable.diamonds
-          : Settings.instance.colors.card.fixed.diamonds
+        return Settings.instance.colors.card.diamonds
 
       case Suit.Hearts:
-        return this.props.isDraggable
-          ? Settings.instance.colors.card.draggable.hearts
-          : Settings.instance.colors.card.fixed.hearts
+        return Settings.instance.colors.card.hearts
 
       case Suit.Spades:
-        return this.props.isDraggable
-          ? Settings.instance.colors.card.draggable.spades
-          : Settings.instance.colors.card.fixed.spades
+        return Settings.instance.colors.card.spades
     }
   }
 
