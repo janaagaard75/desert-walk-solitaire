@@ -46,7 +46,8 @@ export default class App extends Component<{}, AppState> {
 
   public render() {
     const headerStyle: TextStyle = {
-      backgroundColor: 'transparent',
+      backgroundColor: Settings.instance.colors.mainBackgroundColor,
+      color: 'white',
       fontWeight: '600',
       marginTop: 4,
       textAlign: 'center'
@@ -65,22 +66,22 @@ export default class App extends Component<{}, AppState> {
     return (
       <View style={mainViewStyle}>
         <StatusBar hidden={true}/>
-        <Image
-          source={require('./50713-transparent.png')}
-          style={{
-            backgroundColor: Settings.instance.colors.gridBackgroundColor,
-            height: this.state.windowSize.height,
-            position: 'absolute',
-            resizeMode: 'repeat',
-            width: this.state.windowSize.width
-          }}
-        />
         <Text style={headerStyle}>
           Desert Walk
         </Text>
         <View
           style={gridWrapperViewStyle}
         >
+          <Image
+            source={require('./50713-transparent.png')}
+            style={{
+              backgroundColor: Settings.instance.colors.gridBackgroundColor,
+              height: this.state.windowSize.height,
+              position: 'absolute',
+              resizeMode: 'repeat',
+              width: this.state.windowSize.width
+            }}
+          />
           <GridView grid={this.grid}/>
         </View>
         <Footer

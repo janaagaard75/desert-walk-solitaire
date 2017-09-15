@@ -27,7 +27,7 @@ export class Settings {
       draggedShadowColor: '#000',
       fixed: {
         border: {
-          correctlyPlaced: '#7b7',
+          correctlyPlaced: '#7a7',
           incorrectlyPlaced: '#999'
         },
         clubs: '#558',
@@ -37,7 +37,7 @@ export class Settings {
       }
     },
     gridBackgroundColor: '#259',
-    mainBackgroundColor: '#bbb' // Currently not used.
+    mainBackgroundColor: '#555'
   }
 
   public readonly columns = this.maxCardValue + 1

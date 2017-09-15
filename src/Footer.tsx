@@ -8,6 +8,7 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 
 import { GameStatus } from './GameStatus'
+import { Settings } from './Settings'
 
 interface Props {
   correctlyPlacedCards: number
@@ -41,6 +42,7 @@ export class Footer extends Component<Props, State> {
 
     const textStyle: TextStyle = {
       backgroundColor: 'transparent',
+      color: 'white',
       flex: 1,
       fontWeight: '700'
     }
@@ -50,7 +52,11 @@ export class Footer extends Component<Props, State> {
     }}
 
     return (
-      <View>
+      <View
+        style={{
+          backgroundColor: Settings.instance.colors.mainBackgroundColor
+        }}
+      >
         <View
           style={{
             flexDirection: 'row',
@@ -70,7 +76,7 @@ export class Footer extends Component<Props, State> {
         </View>
         <View
           style={{
-            backgroundColor: '#555',
+            backgroundColor: Settings.instance.colors.mainBackgroundColor,
             flexDirection: 'row'
           }}
         >
