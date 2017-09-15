@@ -19,18 +19,18 @@ export class Settings {
       },
       draggable: {
         backgroundColor: '#fff',
-        clubs: '#000',
-        diamonds: '#f00',
-        hearts: '#f00',
-        spades: '#000'
+        clubs: '#009',
+        diamonds: '#e60',
+        hearts: '#e07',
+        spades: '#060'
       },
       draggedShadowColor: '#000',
       fixed: {
         backgroundColor: '#ccc',
-        clubs: '#666',
-        diamonds: '#f66',
-        hearts: '#f66',
-        spades: '#666'
+        clubs: '#558',
+        diamonds: '#e75',
+        hearts: '#e58',
+        spades: '#575'
       }
     },
     gridBackgroundColor: '#259',
