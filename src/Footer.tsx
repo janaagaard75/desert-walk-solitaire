@@ -54,7 +54,8 @@ export class Footer extends Component<Props, State> {
     return (
       <View
         style={{
-          backgroundColor: Settings.instance.colors.mainBackgroundColor
+          backgroundColor: Settings.instance.colors.mainBackgroundColor,
+          paddingTop: 4
         }}
       >
         <View

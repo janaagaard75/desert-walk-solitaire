@@ -49,7 +49,8 @@ export default class App extends Component<{}, AppState> {
       backgroundColor: Settings.instance.colors.mainBackgroundColor,
       color: 'white',
       fontWeight: '600',
-      marginTop: 4,
+      paddingBottom: 4,
+      paddingTop: 4,
       textAlign: 'center',
       zIndex: 10 // TODO: Figure out why this is necessary.
     }
