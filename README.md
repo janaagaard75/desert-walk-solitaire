@@ -8,12 +8,17 @@ A game of solitare implemented in React Native and written in TypeScript.
   * Add a currentlyDraggedCard property that keeps track of the card currently being dragged - if there is a card beging dragged.
   * When letting go of a card in a non-droppable place, let the engine snap the card back into position.
   * Use the engine to snap cards into correct positions.
-  * Consider moving most of the calculations from the views to the models.
+  * Show a fast replay of all the moves if the solitaire succeeds.
+  * Animate shuffling the cards.
+  * Consider animating that the cards are delt. This will also maje it clearer what happens when the cards arw shuffled, and make it possible to show an animation, should the cards coincidally be redlet in the exact same position as they were before.
 
 * Consider the cell dragging from as a droppable cell when dragging a card.
 * Game lost screen.
 * Game won screen.
-  * Some kine of reward for winning.
+  * Some kine of reward for winning. Show a fast replay?
+* Small animation when a card is moved into the correct position.
+  * Animate cards before shuffleling?
+  * Animate all cards when the game is won.
 * Prettier background.
 * SVGs for the playing cards.
 * Consider more data to the model objects, that is all observable properties and the sizes and positions of the elements.
