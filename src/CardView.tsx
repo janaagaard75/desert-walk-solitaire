@@ -53,19 +53,20 @@ export class CardView extends Component<Props, {}> {
 
     const valueStyle: TextStyle = {
       color: this.suitColor(),
-      fontSize: Settings.instance.cardValueFontSize,
-      fontWeight: '600',
-      left: Settings.instance.cardValueLeft,
+      fontSize: 20,
+      fontWeight: '700',
+      left: -16,
       letterSpacing: Settings.instance.cardValueLetterSpacing,
       position: 'absolute',
-      top: Settings.instance.cardValueTop,
+      textAlign: 'center',
+      top: -3,
       width: Settings.instance.cardValueWidth // Make space for the two digits in '10'.
     }
 
     const suitStyle: ViewStyle = {
-      bottom: 1,
+      left: 1,
       position: 'absolute',
-      right: -5
+      top: 20
     }
 
     const overlayStyle: ViewStyle = {
@@ -93,25 +94,27 @@ export class CardView extends Component<Props, {}> {
   }
 
   private suit() {
+    const size = 18
+
     switch (this.props.card.suit) {
       case Suit.Clubs:
         return (
-          <Club size={35}/>
+          <Club size={size}/>
         )
 
       case Suit.Diamonds:
         return (
-          <Diamond size={35}/>
+          <Diamond size={size}/>
         )
 
       case Suit.Hearts:
         return (
-          <Heart size={35}/>
+          <Heart size={size}/>
         )
 
       case Suit.Spades:
         return (
-          <Spade size={35}/>
+          <Spade size={size}/>
         )
     }
   }
