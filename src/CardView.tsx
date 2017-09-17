@@ -94,7 +94,7 @@ export class CardView extends Component<Props, {}> {
   }
 
   private suit() {
-    const size = 18
+    const size = Settings.instance.cardSuitSize
 
     switch (this.props.card.suit) {
       case Suit.Clubs:

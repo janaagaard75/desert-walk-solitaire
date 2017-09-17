@@ -92,8 +92,8 @@ export class Settings {
   }
 
   @computed
-  public get cardSuitFontSize(): number {
-    return Math.floor(Settings.instance.cardSize.width)
+  public get cardSuitSize(): number {
+    return Math.round(Settings.instance.cardSize.width / 40 * 18)
   }
 
   @computed
