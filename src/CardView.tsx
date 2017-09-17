@@ -33,7 +33,7 @@ export class CardView extends Component<Props, {}> {
       Object.assign(shadowStyle, {
         shadowColor: Settings.instance.colors.card.shadowColor,
         shadowOffset: Settings.instance.cardShadowOffset,
-        shadowOpacity: 0.3,
+        shadowOpacity: Settings.instance.cardShadowOpacity,
         shadowRadius: Settings.instance.cardShadowRadius
       })
     }

@@ -27,6 +27,7 @@ export class Settings {
 
   public readonly columns = this.maxCardValue + 1
   public readonly numberOfCards = this.maxCardValue * this.rows
+  public readonly cardShadowOpacity = 0.6
 
   private static _instance: Settings
   private readonly cardSizeRatio = 3 / 2
@@ -67,7 +68,7 @@ export class Settings {
 
   @computed
   public get cardShadowRadius() {
-    return Math.floor(Settings.instance.cardSize.width / 15)
+    return Math.floor(Settings.instance.cardSize.width / 10)
   }
 
   @computed
