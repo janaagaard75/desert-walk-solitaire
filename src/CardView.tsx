@@ -62,6 +62,12 @@ export class CardView extends Component<Props, {}> {
       width: Settings.instance.cardValueWidth // Make space for the two digits in '10'.
     }
 
+    const suitStyle: ViewStyle = {
+      bottom: 1,
+      position: 'absolute',
+      right: -5
+    }
+
     const overlayStyle: ViewStyle = {
       backgroundColor: '#000',
       borderRadius: Settings.instance.borderRadius,
@@ -77,13 +83,7 @@ export class CardView extends Component<Props, {}> {
           <Text style={valueStyle}>
             {this.props.card.displayValue}
           </Text>
-          <View
-            style={{
-              bottom: 1,
-              position: 'absolute',
-              right: -5
-            }}
-          >
+          <View style={suitStyle}>
             {this.suit()}
           </View>
         </View>
