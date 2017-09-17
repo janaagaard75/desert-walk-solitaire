@@ -60,15 +60,15 @@ export class Settings {
   @computed
   public get cardShadowOffset() {
     const offset = {
-      height: Math.floor(Settings.instance.cardSize.width / 20),
-      width: Math.floor(Settings.instance.cardSize.width / 50)
+      height: Math.round(Settings.instance.cardSize.width / 20),
+      width: Math.round(Settings.instance.cardSize.width / 50)
     }
     return offset
   }
 
   @computed
   public get cardShadowRadius() {
-    return Math.floor(Settings.instance.cardSize.width / 10)
+    return Math.round(Settings.instance.cardSize.width / 10)
   }
 
   @computed
@@ -98,37 +98,37 @@ export class Settings {
 
   @computed
   public get cardSuitLeft(): number {
-    return Math.floor(Settings.instance.cardSize.width / 40)
+    return Math.round(Settings.instance.cardSize.width / 40)
   }
 
   @computed
   public get cardSuitTop(): number {
-    return Math.floor(Settings.instance.cardSize.width / 2)
+    return Math.round(Settings.instance.cardSize.width / 2)
   }
 
   @computed
   public get cardValueFontSize(): number {
-    return Math.floor(Settings.instance.cardSize.width / 2)
+    return Math.round(Settings.instance.cardSize.width / 2)
   }
 
   @computed
   public get cardValueLeft(): number {
-    return -Math.floor(Settings.instance.cardSize.width / 40 * 16)
+    return -Math.round(Settings.instance.cardSize.width / 40 * 16)
   }
 
   @computed
   public get cardValueLetterSpacing(): number {
-    return -Math.floor(Settings.instance.cardSize.width / 15)
+    return -Math.round(Settings.instance.cardSize.width / 15)
   }
 
   @computed
   public get cardValueTop(): number {
-    return -Math.floor(Settings.instance.cardSize.width / 40 * 3)
+    return -Math.round(Settings.instance.cardSize.width / 40 * 3)
   }
 
   @computed
   public get cardValueWidth(): number {
-    return Math.floor(1.22 * Settings.instance.cardSize.width)
+    return Math.round(1.22 * Settings.instance.cardSize.width)
   }
 
   @computed
