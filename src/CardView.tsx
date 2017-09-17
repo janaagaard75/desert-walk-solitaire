@@ -7,7 +7,11 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { Card } from './Card'
+import { Club } from './Club'
+import { Diamond } from './Diamond'
+import { Heart } from './Heart'
 import { Settings } from './Settings'
+import { Spade } from './Spade'
 import { Suit } from './Suit'
 
 interface Props {
@@ -58,16 +62,6 @@ export class CardView extends Component<Props, {}> {
       width: Settings.instance.cardValueWidth // Make space for the two digits in '10'.
     }
 
-    const suitStyle: TextStyle = {
-      backgroundColor: 'transparent',
-      bottom: Settings.instance.cardSuitBottom,
-      color: this.suitColor(),
-      fontSize: Settings.instance.cardSuitFontSize,
-      fontWeight: '900',
-      position: 'absolute',
-      right: Settings.instance.cardSuitRight
-    }
-
     const overlayStyle: ViewStyle = {
       backgroundColor: '#000',
       borderRadius: Settings.instance.borderRadius,
@@ -83,13 +77,67 @@ export class CardView extends Component<Props, {}> {
           <Text style={valueStyle}>
             {this.props.card.displayValue}
           </Text>
-          <Text style={suitStyle}>
-            {this.valueText()}
-          </Text>
+          {this.suit()}
         </View>
         <View style={overlayStyle}/>
       </View>
     )
+  }
+
+  private suit() {
+    switch (this.props.card.suit) {
+      case Suit.Clubs:
+        return (
+          <View
+            style={{
+              bottom: 1,
+              position: 'absolute',
+              right: -5
+            }}
+          >
+            <Club size={35}/>
+          </View>
+        )
+
+      case Suit.Diamonds:
+        return (
+          <View
+            style={{
+              bottom: 1,
+              position: 'absolute',
+              right: -5
+            }}
+          >
+            <Diamond size={35}/>
+          </View>
+        )
+
+      case Suit.Hearts:
+        return (
+          <View
+            style={{
+              bottom: 1,
+              position: 'absolute',
+              right: -5
+            }}
+          >
+            <Heart size={34}/>
+          </View>
+        )
+
+      case Suit.Spades:
+        return (
+          <View
+            style={{
+              bottom: 1,
+              position: 'absolute',
+              right: -5
+            }}
+          >
+            <Spade size={35}/>
+          </View>
+        )
+    }
   }
 
   private overlayOpacity(): number {
@@ -117,22 +165,6 @@ export class CardView extends Component<Props, {}> {
 
       case Suit.Spades:
         return Settings.instance.colors.card.spades
-    }
-  }
-
-  private valueText(): string {
-    switch (this.props.card.suit) {
-      case Suit.Clubs:
-        return '\u2667'
-
-      case Suit.Diamonds:
-        return '\u2662'
-
-      case Suit.Hearts:
-        return '\u2661'
-
-      case Suit.Spades:
-        return '\u2664'
     }
   }
 }
