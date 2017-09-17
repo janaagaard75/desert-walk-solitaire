@@ -53,20 +53,20 @@ export class CardView extends Component<Props, {}> {
 
     const valueStyle: TextStyle = {
       color: this.suitColor(),
-      fontSize: 20,
+      fontSize: Settings.instance.cardValueFontSize,
       fontWeight: '700',
-      left: -16,
+      left: Settings.instance.cardValueLeft,
       letterSpacing: Settings.instance.cardValueLetterSpacing,
       position: 'absolute',
       textAlign: 'center',
-      top: -3,
+      top: Settings.instance.cardValueTop,
       width: Settings.instance.cardValueWidth // Make space for the two digits in '10'.
     }
 
     const suitStyle: ViewStyle = {
-      left: 1,
+      left: Settings.instance.cardSuitLeft,
       position: 'absolute',
-      top: 20
+      top: Settings.instance.cardSuitTop
     }
 
     const overlayStyle: ViewStyle = {

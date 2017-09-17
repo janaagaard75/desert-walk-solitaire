@@ -91,28 +91,28 @@ export class Settings {
   }
 
   @computed
-  public get cardSuitBottom(): number {
-    return -Math.floor(Settings.instance.cardSize.width / 8)
-  }
-
-  @computed
   public get cardSuitFontSize(): number {
     return Math.floor(Settings.instance.cardSize.width)
   }
 
   @computed
-  public get cardSuitRight(): number {
-    return -Math.floor(0.12 * Settings.instance.cardSize.width)
+  public get cardSuitLeft(): number {
+    return Math.floor(Settings.instance.cardSize.width / 40)
+  }
+
+  @computed
+  public get cardSuitTop(): number {
+    return Math.floor(Settings.instance.cardSize.width / 2)
   }
 
   @computed
   public get cardValueFontSize(): number {
-    return Math.floor(0.95 * Settings.instance.cardSize.width)
+    return Math.floor(Settings.instance.cardSize.width / 2)
   }
 
   @computed
   public get cardValueLeft(): number {
-    return -Math.floor(Settings.instance.cardSize.width / 8)
+    return -Math.floor(Settings.instance.cardSize.width / 40 * 16)
   }
 
   @computed
@@ -122,7 +122,7 @@ export class Settings {
 
   @computed
   public get cardValueTop(): number {
-    return -Math.floor(0.17 * Settings.instance.cardSize.width)
+    return -Math.floor(Settings.instance.cardSize.width / 40 * 3)
   }
 
   @computed
