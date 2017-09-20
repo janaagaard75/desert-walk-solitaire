@@ -34,7 +34,7 @@ Keeping track of all the data is getting messing. The current architechture is t
 
 The new architechture should support animating between two states, possibly shuffling multiple cards around, as they slide into their new positions. In the start and the end states the cards all have row and column indexes, but in between some of them are being animated. Keep the row and column index while the cards are animating, and update the cell positions once the animations are done.
 
-Dragging a card:
+### Dragging a Card
 
 1. game.draggedCard points to the card.
 1. The dragged card's position is updated as it's being dragged.
