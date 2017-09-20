@@ -14,6 +14,7 @@
   },
   "scripts": {
     "android": "yarn install && expo start --android",
+    "format": "prettier --write \"**/*.ts\" \"**/*.tsx\"",
     "ios": "yarn install && expo start --ios",
     "lint": "yarn install && tslint src/**/*.ts",
     "start": "yarn install && expo start",
@@ -36,6 +37,7 @@
     "@types/react": "16.8.14",
     "@types/react-native": "0.57.47",
     "babel-preset-expo": "5.1.1",
+    "prettier": "1.17.0",
     "tslint": "5.16.0",
     "tslint-config-prettier": "1.18.0",
     "tslint-eslint-rules": "5.4.0",
