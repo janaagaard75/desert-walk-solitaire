@@ -26,12 +26,12 @@ export class Deck {
   public readonly cards: Array<Card> = []
 
   @computed
-  public get theFourAces() {
+  public get theFourAces(): Array<Card> {
     const theFourAces = this.cards.filter(card => card.value === 1)
     return theFourAces
   }
 
-  public shuffle() {
+  public shuffle(): void {
     ArrayUtilities.shuffleArray(this.cards)
   }
 }

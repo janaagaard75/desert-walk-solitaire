@@ -8,15 +8,15 @@ import { Settings } from './Settings'
 
 export class Cell {
   constructor(
+    private readonly theFourAces: Array<Card>,
     public readonly rowIndex: number,
     public readonly columnIndex: number,
-    public readonly cellToTheLeft: Cell | undefined,
-    private readonly theFourAces: Array<Card>
+    public readonly cellToTheLeft: Cell | undefined
+
   ) {
     this.key = this.rowIndex + '.' + this.columnIndex
   }
 
-  // TODO: Is this reference necessary, now that there is a reference from the cards to the cells?
   @observable public card: Card | undefined = undefined
   @observable public hoveredByCard: Card | undefined = undefined
   public key: string

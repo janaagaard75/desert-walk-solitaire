@@ -32,7 +32,7 @@ export default class App extends Component<{}, AppState> {
     }
     Settings.instance.availableWidth = this.state.windowSize.width
 
-    this.grid = new Game()
+    this.game = new Game()
 
     Dimensions.addEventListener('change', () => {
       this.setState({
@@ -42,7 +42,7 @@ export default class App extends Component<{}, AppState> {
     })
   }
 
-  private grid: Game
+  private game: Game
 
   public render() {
     const headerStyle: TextStyle = {
@@ -84,15 +84,15 @@ export default class App extends Component<{}, AppState> {
               width: this.state.windowSize.width
             }}
           />
-          <GridView grid={this.grid}/>
+          <GridView game={this.game}/>
         </View>
         <Footer
-          correctlyPlacedCards={this.grid.correctlyPlacedCards}
-          gameStatus={this.grid.gameStatus}
-          moves={this.grid.moves}
-          shuffleCardsInWrongPlace={() => this.grid.shuffleCardsInWrongPlace()}
-          startOver={() => this.grid.startOver()}
-          shuffles={this.grid.shuffles}
+          correctlyPlacedCards={this.game.grid.cellsWithCorrectlyPlacedCard.map(cell => cell.card).length}
+          gameStatus={this.game.gameStatus}
+          moves={this.game.moves}
+          shuffleCardsInWrongPlace={() => this.game.shuffleCardsInWrongPlace()}
+          startOver={() => this.game.startOver()}
+          shuffles={this.game.shuffles}
         />
       </View>
     )

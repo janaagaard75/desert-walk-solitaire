@@ -8,51 +8,39 @@ import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { GameStatus } from './GameStatus'
 import { GameSummary } from './GameSummary'
+import { Grid } from './Grid'
 import { Settings } from './Settings'
 
 import * as firebaseConfig from './firebaseConfig.json'
 
 export class Game {
   constructor() {
-    this.initializeCells()
     this.startOver()
-
     firebase.initializeApp(firebaseConfig)
   }
 
-  @observable public readonly cells: Array<Cell> = []
+  private readonly deck: Deck = new Deck()
+
+  public readonly grid: Grid = new Grid(this.deck.theFourAces)
   @observable public moves = 0
   @observable public shuffles = 0
 
-  private readonly deck: Deck = new Deck()
   private gameSummary: GameSummary
 
   @computed
-  public get correctlyPlacedCards(): number {
-    const numberOfCorrectlyPlacedCards = this.cells.filter(cell => cell.cardIsCorrectlyPlaced).length
-    return numberOfCorrectlyPlacedCards
-  }
-
-  /** Cells that are empty or have a card in the wrong place. */
-  @computed get cellsWithIncorrectlyPlacedCards(): Array<Cell> {
-    const cellsWithIncorrectlyPlacedCards = this.cells.filter(cell => !cell.cardIsCorrectlyPlaced)
-    return cellsWithIncorrectlyPlacedCards
-  }
-
-  @computed
   public get draggableCards(): Array<Card> {
-    let draggableCards = this.emptyCells
+    let draggableCards = this.grid.emptyCells
       .map(cell => cell.cellToTheLeft)
       .filter(cellToTheLeft => cellToTheLeft !== undefined && cellToTheLeft.card !== undefined)
       .map(cell => ((cell as Cell).card as Card).next)
       .filter(nextCard => nextCard !== undefined) as Array<Card>
 
-    const emptyCellsInFirstColumn = this.cells
+    const emptyCellsInFirstColumn = this.grid.cells
       .filter(cell => cell.columnIndex === 0)
       .some(cell => cell.card === undefined)
 
     if (emptyCellsInFirstColumn) {
-      const aces = this.cells
+      const aces = this.grid.cells
         .filter(cell => cell.card !== undefined && cell.card.value === 1)
         .map(cell => cell.card as Card)
 
@@ -63,18 +51,12 @@ export class Game {
   }
 
   @computed
-  public get emptyCells(): Array<Cell> {
-    const emptyCells = this.cells.filter(cell => cell.card === undefined)
-    return emptyCells
-  }
-
-  @computed
   public get gameStatus(): GameStatus {
     if (this.draggableCards.length >= 1) {
       return GameStatus.MovePossible
     }
 
-    if (this.correctlyPlacedCards === Settings.instance.numberOfCards) {
+    if (this.grid.cellsWithCorrectlyPlacedCard.length === Settings.instance.numberOfCards) {
       return GameStatus.GameWon
     }
 
@@ -126,43 +108,27 @@ export class Game {
     this.storeSummaryIfGameOver()
   }
 
-  private initializeCells() {
-    for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
-      for (let columnIndex = 0; columnIndex < Settings.instance.columns; columnIndex++) {
-        let cell: Cell
-        if (columnIndex === 0) {
-          cell = new Cell(rowIndex, columnIndex, undefined, this.deck.theFourAces)
-        }
-        else {
-          const cellToTheLeft = this.cells[this.cells.length - 1]
-          cell = new Cell(rowIndex, columnIndex, cellToTheLeft, this.deck.theFourAces)
-        }
-
-        this.cells.push(cell)
-      }
-    }
-  }
-
   public shuffleCardsInWrongPlace() {
-    const cardsInWrongPlace = this.cellsWithIncorrectlyPlacedCards
+    const cardsInWrongPlace = this.grid.cellsWithIncorrectlyPlacedCardOrThatAreEmpty
       .map(cell => cell.card)
       .filter(card => card !== undefined) as Array<Card>
 
     ArrayUtilities.shuffleArray(cardsInWrongPlace)
 
-    this.cellsWithIncorrectlyPlacedCards.forEach(cell => {
-      if (cell.columnIndex === Settings.instance.columns - 1) {
-        cell.card = undefined
-      }
-      else {
-        cell.card = cardsInWrongPlace.shift()
-        // TODO: Clean the code to remove these checks.
-        if (cell.card === undefined) {
-          throw new Error('cell.card must be defined here.')
+    this.grid.cellsWithIncorrectlyPlacedCardOrThatAreEmpty
+      .forEach(cell => {
+        if (cell.columnIndex === Settings.instance.columns - 1) {
+          cell.card = undefined
         }
-        cell.card.cell = cell
-      }
-    })
+        else {
+          cell.card = cardsInWrongPlace.shift()
+          // TODO: Clean the code to remove these checks.
+          if (cell.card === undefined) {
+            throw new Error('cell.card must be defined here.')
+          }
+          cell.card.cell = cell
+        }
+      })
 
     this.shuffles++
 
@@ -171,7 +137,7 @@ export class Game {
     }
     else {
       this.gameSummary.addStep({
-        cardsInPlace: this.correctlyPlacedCards,
+        cardsInPlace: this.grid.cellsWithCorrectlyPlacedCard.length,
         moves: this.moves
       })
     }
@@ -182,7 +148,7 @@ export class Game {
 
     for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
       for (let columnIndex = 0; columnIndex < Settings.instance.columns; columnIndex++) {
-        const cell = this.cells[rowIndex * Settings.instance.columns + columnIndex]
+        const cell = this.grid.cells[rowIndex * Settings.instance.columns + columnIndex]
         if (columnIndex === 0) {
           cell.card = undefined
         }
@@ -205,7 +171,7 @@ export class Game {
   private storeSummaryIfGameOver() {
     if (this.gameStatus === GameStatus.GameLost || this.gameStatus === GameStatus.GameWon) {
       this.gameSummary.addFinalStep({
-        cardsInPlace: this.correctlyPlacedCards,
+        cardsInPlace: this.grid.cellsWithCorrectlyPlacedCard.length,
         moves: this.moves
       })
 
