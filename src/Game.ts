@@ -5,16 +5,15 @@ import * as firebase from 'firebase'
 import { ArrayUtilities } from './ArrayUtilities'
 import { Card } from './Card'
 import { Cell } from './Cell'
+import { Deck } from './Deck'
 import { GameStatus } from './GameStatus'
 import { GameSummary } from './GameSummary'
 import { Settings } from './Settings'
-import { Suit } from './Suit'
 
 import * as firebaseConfig from './firebaseConfig.json'
 
 export class Game {
   constructor() {
-    this.initializeDeck()
     this.initializeCells()
     this.startOver()
 
@@ -25,7 +24,7 @@ export class Game {
   @observable public moves = 0
   @observable public shuffles = 0
 
-  private readonly deck: Array<Card> = []
+  private readonly deck: Deck = new Deck()
   private gameSummary: GameSummary
 
   @computed
@@ -128,37 +127,18 @@ export class Game {
   }
 
   private initializeCells() {
-    const theFourAces = this.deck.filter(card => card.value === 1)
-
     for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
       for (let columnIndex = 0; columnIndex < Settings.instance.columns; columnIndex++) {
         let cell: Cell
         if (columnIndex === 0) {
-          cell = new Cell(rowIndex, columnIndex, undefined, theFourAces)
+          cell = new Cell(rowIndex, columnIndex, undefined, this.deck.theFourAces)
         }
         else {
           const cellToTheLeft = this.cells[this.cells.length - 1]
-          cell = new Cell(rowIndex, columnIndex, cellToTheLeft, theFourAces)
+          cell = new Cell(rowIndex, columnIndex, cellToTheLeft, this.deck.theFourAces)
         }
 
         this.cells.push(cell)
-      }
-    }
-  }
-
-  private initializeDeck() {
-    for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
-      if (Suit.hasOwnProperty(suit)) {
-        // TODO: Consider initializing in reverse order and include 'next' in Card's constructor.
-        for (let value = 1; value <= Settings.instance.maxCardValue; value++) {
-          const card = new Card(suit, value)
-
-          if (value !== 1) {
-            this.deck[this.deck.length - 1].next = card
-          }
-
-          this.deck.push(card)
-        }
       }
     }
   }
@@ -198,7 +178,7 @@ export class Game {
   }
 
   public startOver() {
-    ArrayUtilities.shuffleArray(this.deck)
+    this.deck.shuffle()
 
     for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
       for (let columnIndex = 0; columnIndex < Settings.instance.columns; columnIndex++) {
@@ -207,7 +187,7 @@ export class Game {
           cell.card = undefined
         }
         else {
-          cell.card = this.deck[rowIndex * (Settings.instance.columns - 1) + (columnIndex - 1)]
+          cell.card = this.deck.cards[rowIndex * (Settings.instance.columns - 1) + (columnIndex - 1)]
           cell.card.cell = cell
         }
       }
