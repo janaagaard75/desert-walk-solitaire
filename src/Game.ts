@@ -21,7 +21,6 @@ export class Game {
     firebase.initializeApp(firebaseConfig)
   }
 
-  @observable public grid: Grid = new Grid()
   @observable public moves: number
   @observable public shuffles: number
 
@@ -70,7 +69,7 @@ export class Game {
 
   public startOver() {
     const shuffledCards = Deck.instance.cards.shuffle()
-    const cellsExcludingFirstColumn = this.grid.cells.filter(cell => cell.columnIndex !== 0)
+    const cellsExcludingFirstColumn = Grid.instance.cells.filter(cell => cell.columnIndex !== 0)
 
     // TODO: Pretty much the same code is repeated in TurnState.shuffleCardsInWrongPlace.
     if (shuffledCards.length !== cellsExcludingFirstColumn.length) {
@@ -85,7 +84,7 @@ export class Game {
       })
     }
 
-    this.turnStates = [new TurnState(this.grid, positions)]
+    this.turnStates = [new TurnState(positions)]
     this.gameSummary = new GameSummary()
     this.moves = 0
     this.shuffles = 0

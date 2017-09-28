@@ -12,7 +12,6 @@ import { Settings } from './Settings'
 // TODO: Rename to GridState.
 export class TurnState {
   public constructor(
-    private readonly grid: Grid,
     positionedCards: Array<IPositionedCard>
   ) {
     positionedCards
@@ -66,7 +65,7 @@ export class TurnState {
 
   @computed
   public get emptyCells(): Array<EmptyCell> {
-    const emptyCells = this.grid.cells
+    const emptyCells = Grid.instance.cells
       .filter(cell => this.getPositionedCard(cell) === undefined)
       .map(cell => new EmptyCell(cell, Deck.instance.theFourAces, this.getCardToTheLeft(cell)))
     return emptyCells
@@ -119,7 +118,7 @@ export class TurnState {
       })
     }
 
-    const newTurnState = new TurnState(this.grid, newCardPositions)
+    const newTurnState = new TurnState(newCardPositions)
     return newTurnState
   }
 
@@ -132,7 +131,7 @@ export class TurnState {
   }
 
   private clone(): TurnState {
-    const newTurnState = new TurnState(this.grid, this.positionedCards)
+    const newTurnState = new TurnState(this.positionedCards)
     return newTurnState
   }
 

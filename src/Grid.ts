@@ -3,7 +3,7 @@ import { Settings } from './Settings'
 
 // TODO: Consider making the Grid class a singleton.
 export class Grid {
-  constructor() {
+  private constructor() {
     for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
       for (let columnIndex = 0; columnIndex < Settings.instance.columns; columnIndex++) {
         let cellToTheLeft: Cell | undefined
@@ -19,6 +19,8 @@ export class Grid {
       }
     }
   }
+
+  public static instance: Grid = new Grid()
 
   public readonly cells: Array<Cell> = []
 }
