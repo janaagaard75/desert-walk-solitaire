@@ -8,7 +8,6 @@ import { Settings } from './Settings'
 
 export class Cell {
   constructor(
-    // private readonly theFourAces: Array<Card>,
     public readonly rowIndex: number,
     public readonly columnIndex: number,
     public readonly cellToTheLeft: Cell | undefined
@@ -16,7 +15,6 @@ export class Cell {
     this.key = this.rowIndex * Settings.instance.columns + this.columnIndex + 1
   }
 
-  // @observable public card: Card | undefined = undefined
   @observable public hoveredByCard: Card | undefined = undefined
   public readonly key: number
 
@@ -41,21 +39,4 @@ export class Cell {
 
     return position
   }
-
-  // public cardIsDroppable(card: Card): boolean {
-  //   if (this.cellToTheLeft === undefined) {
-  //     const isAce = card.value === 1
-  //     return isAce
-  //   }
-
-  //   if (this.cellToTheLeft.card === undefined) {
-  //     return false
-  //   }
-
-  //   const isNextCard
-  //     = card.suit === this.cellToTheLeft.card.suit
-  //     && card.value === this.cellToTheLeft.card.value + 1
-
-  //   return isNextCard
-  // }
 }

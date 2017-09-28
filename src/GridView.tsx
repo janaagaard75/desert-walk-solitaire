@@ -66,7 +66,7 @@ export class GridView extends Component<Props, State> {
     )
   }
 
-  // TODO: Move this to the EmptyCell class.
+  // TODO: Move this to the EmptyCell class or, possibly, to the TurnState class.
   private getEmptyCellStatus(cell: Cell): EmptyCellStatus {
     // TODO: Implement missing statuses.
 

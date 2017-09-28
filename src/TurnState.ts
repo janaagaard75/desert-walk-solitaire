@@ -72,6 +72,7 @@ export class TurnState {
     return emptyCells
   }
 
+  // TODO: Create an abstract Turn class that is either a MoveTurn or a ShuffleTurn, and have an apply method here in TurnState that accepts a turn.
   public moveCard(from: Cell, to: Cell): TurnState {
     const fromPositionedCard = this.getPositionedCard(from)
     if (fromPositionedCard === undefined) {

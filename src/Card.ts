@@ -1,9 +1,5 @@
 import { computed } from 'mobx'
-// import { observable } from 'mobx'
 
-// import { Point } from './Point'
-// import { Rectangle } from './Rectangle'
-// import { Settings } from './Settings'
 import { Suit } from './Suit'
 
 export class Card {
@@ -12,8 +8,6 @@ export class Card {
     public readonly value: number
   ) { }
 
-  // @observable public cellPosition: Point | undefined
-  // @observable public draggedPosition: Point | undefined
   public next: Card | undefined
 
   @computed

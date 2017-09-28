@@ -1,10 +1,10 @@
 import { computed } from 'mobx'
 
-// import { ArrayUtilities } from './ArrayUtilities'
 import { Card } from './Card'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
 
+// TODO: Consider making the Deck class a singleton.
 export class Deck {
   constructor() {
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
@@ -30,8 +30,4 @@ export class Deck {
     const theFourAces = this.cards.filter(card => card.value === 1)
     return theFourAces
   }
-
-  // public shuffle(): void {
-  //   ArrayUtilities.shuffleInPlace(this.cards)
-  // }
 }
