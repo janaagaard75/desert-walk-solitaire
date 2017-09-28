@@ -7,11 +7,10 @@ import { ViewStyle } from 'react-native'
 import { Card } from './Card'
 import { Cell } from './Cell'
 import { DraggableCard } from './DraggableCard'
-import { DraggedCardPosition } from './DraggedCardPosition'
+import { DraggedCardBoundary } from './DraggedCardBoundary'
 import { EmptyCell } from './EmptyCell'
 import { EmptyCellStatus } from './EmptyCellStatus'
 import { EmptyCellView } from './EmptyCellView'
-import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 import { TurnState } from './TurnState'
@@ -22,7 +21,7 @@ interface Props {
 }
 
 interface State {
-  draggedCard: DraggedCardPosition | undefined
+  draggedCardBoundary: DraggedCardBoundary | undefined
 }
 
 @observer
@@ -31,7 +30,7 @@ export class GridView extends Component<Props, State> {
     super(props, context)
 
     this.state = {
-      draggedCard: undefined
+      draggedCardBoundary: undefined
     }
   }
 
@@ -51,8 +50,8 @@ export class GridView extends Component<Props, State> {
             draggable={this.props.turnState.draggableCards.some(card => card === positionedCard.card)}
             key={positionedCard.card.key}
             onCardDragged={cardRectangle => this.handleCardDragged(positionedCard.card, cardRectangle)}
-            onCardDropped={cardRectangle => this.handleCardDropped(positionedCard.cell, cardRectangle)}
-            onDragStarted={() => this.handleDragStarted(positionedCard.card, positionedCard.position)}
+            onCardDropped={() => this.handleCardDropped(positionedCard.cell)}
+            onDragStarted={() => this.handleDragStarted(positionedCard.card, positionedCard.boundary)}
             positionedCard={positionedCard}
           />
         )}
@@ -73,7 +72,7 @@ export class GridView extends Component<Props, State> {
       return EmptyCellStatus.Blocked
     }
 
-    if (this.state.draggedCard === undefined) {
+    if (this.state.draggedCardBoundary === undefined) {
       return EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged
     }
 
@@ -81,42 +80,14 @@ export class GridView extends Component<Props, State> {
       return EmptyCellStatus.HoveredByDropableCard
     }
 
-    if (this.state.draggedCard !== undefined) {
-      const draggedCard = this.state.draggedCard.card
+    if (this.state.draggedCardBoundary !== undefined) {
+      const draggedCard = this.state.draggedCardBoundary.card
       if (emptyCell.droppableCards.some(card => card === draggedCard)) {
         return EmptyCellStatus.CurrentlyDraggedCardDroppable
       }
     }
 
     return EmptyCellStatus.DropAllowedButNotCurrentlyDraggedCard
-  }
-
-  private handleCardDropped(from: Cell, cardBoundary: Rectangle) {
-    if (this.state.draggedCard === undefined) {
-      throw new Error('draggedCard should be defined when handling a drop.')
-    }
-
-    const draggedCard = this.state.draggedCard.card
-
-    const overlappingEmptyCells = this.props.turnState.emptyCells
-      .filter(emptyCell => emptyCell.cardIsDroppable(draggedCard))
-      .map(cell => {
-        return {
-          cell: cell,
-          overlappingPixels: cell.boundary.overlappingPixels(cardBoundary)
-        }
-      })
-      .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
-      .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
-
-    if (overlappingEmptyCells.length > 0) {
-      const to = overlappingEmptyCells[0].cell
-      this.props.onMoveCard(from, to)
-    }
-
-    this.setState({
-      draggedCard: undefined
-    })
   }
 
   private handleCardDragged(card: Card, cardBoundary: Rectangle) {
@@ -145,11 +116,41 @@ export class GridView extends Component<Props, State> {
       })
   }
 
-  private handleDragStarted(card: Card, position: Point) {
+  private handleCardDropped(from: Cell) {
+    if (this.state.draggedCardBoundary === undefined) {
+      throw new Error('draggedCard should be defined when handling a drop.')
+    }
+
+    // Shadowing draggedCardBoundary to satify the TypeScript compiler below.
+    const draggedCardBoundary = this.state.draggedCardBoundary
+
+    // TODO: Something's wrong with the boundaries, resulting in no overlapping pixels. Strange, since the highlighting works as it should when dragging a card in the code right above.
+    const overlappingEmptyCells = this.props.turnState.emptyCells
+      .filter(emptyCell => emptyCell.cardIsDroppable(draggedCardBoundary.card))
+      .map(emptyCell => {
+        return {
+          cell: emptyCell,
+          overlappingPixels: emptyCell.boundary.overlappingPixels(draggedCardBoundary.boundary)
+        }
+      })
+      .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
+      .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
+
+    if (overlappingEmptyCells.length > 0) {
+      const to = overlappingEmptyCells[0].cell
+      this.props.onMoveCard(from, to)
+    }
+
     this.setState({
-      draggedCard: {
-        card: card,
-        position: position
+      draggedCardBoundary: undefined
+    })
+  }
+
+  private handleDragStarted(card: Card, boundary: Rectangle) {
+    this.setState({
+      draggedCardBoundary: {
+        boundary: boundary,
+        card: card
       }
     })
   }

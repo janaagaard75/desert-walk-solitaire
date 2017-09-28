@@ -14,7 +14,7 @@ interface Props {
   draggable: boolean
   positionedCard: PositionedCard
   onCardDragged: (cardRectangle: Rectangle) => void
-  onCardDropped: (cardRectangle: Rectangle) => void
+  onCardDropped: () => void
   onDragStarted: () => void
 }
 
@@ -41,7 +41,7 @@ export class DraggableCard extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
-        this.props.onCardDropped(this.props.positionedCard.boundary)
+        this.props.onCardDropped()
 
         this.setState({
           visualState: VisualState.Animating
@@ -86,7 +86,8 @@ export class DraggableCard extends Component<Props, State> {
     })
 
     this.animatedPosition.addListener(position => {
-      this.props.onCardDragged(PositionedCard.getBoundary(position))
+      const boundary = PositionedCard.getBoundary(position)
+      this.props.onCardDragged(boundary)
     })
   }
 
