@@ -17,7 +17,7 @@ import { TurnState } from './TurnState'
 
 interface Props {
   turnState: TurnState
-  // TODO: Distinguish between 'move card' and 'card moved'.
+  // TODO: Distinguish between 'move card' and 'card dragged'.
   onMoveCard: (from: Cell, to: Cell) => void
 }
 
