@@ -84,7 +84,10 @@ export default class App extends Component<{}, AppState> {
               width: this.state.windowSize.width
             }}
           />
-          <GridView turnState={this.game.currentTurnState}/>
+          <GridView
+            turnState={this.game.currentTurnState}
+            onMoveCard={(from, to) => this.game.moveCard(from, to)}
+          />
         </View>
         <Footer
           correctlyPlacedCards={this.game.currentTurnState.correctlyPositionedCards.length}
