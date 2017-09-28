@@ -8,6 +8,7 @@ import { Card } from './Card'
 import { Cell } from './Cell'
 import { DraggableCard } from './DraggableCard'
 import { DraggedCard } from './DraggedCard'
+import { EmptyCell } from './EmptyCell'
 import { EmptyCellStatus } from './EmptyCellStatus'
 import { EmptyCellView } from './EmptyCellView'
 import { Point } from './Point'
@@ -66,25 +67,26 @@ export class GridView extends Component<Props, State> {
     )
   }
 
-  // TODO: Move this to the EmptyCell class or, possibly, to the TurnState class.
-  private getEmptyCellStatus(cell: Cell): EmptyCellStatus {
-    // TODO: Implement missing statuses.
-
-    // if (cell.droppableCards.length === 0) {
-    //   return EmptyCellStatus.Blocked
-    // }
+  // TODO: Move this to the EmptyCell or the TurnState class.
+  private getEmptyCellStatus(emptyCell: EmptyCell): EmptyCellStatus {
+    if (emptyCell.droppableCards.length === 0) {
+      return EmptyCellStatus.Blocked
+    }
 
     if (this.state.draggedCard === undefined) {
       return EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged
     }
 
-    // if (cell.hoveredByDroppableCard) {
-    //   return EmptyCellStatus.HoveredByDropableCard
-    // }
+    if (emptyCell.hoveredByDroppableCard) {
+      return EmptyCellStatus.HoveredByDropableCard
+    }
 
-    // if (cell.droppableCards.some(card => card === this.props.draggedCard)) {
-    //   return EmptyCellStatus.CurrentlyDraggedCardDroppable
-    // }
+    if (this.state.draggedCard !== undefined) {
+      const draggedCard = this.state.draggedCard.card
+      if (emptyCell.droppableCards.some(card => card === draggedCard)) {
+        return EmptyCellStatus.CurrentlyDraggedCardDroppable
+      }
+    }
 
     return EmptyCellStatus.DropAllowedButNotCurrentlyDraggedCard
   }
