@@ -4,9 +4,9 @@ import { Card } from './Card'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
 
-// TODO: Consider making the Deck class a singleton.
 export class Deck {
-  constructor() {
+  private constructor() {
+    const cards: Array<Card> = []
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
       if (Suit.hasOwnProperty(suit)) {
         // TODO: Consider initializing in reverse order and include 'next' in Card's constructor.
@@ -14,16 +14,20 @@ export class Deck {
           const card = new Card(suit, value)
 
           if (value !== 1) {
-            this.cards[this.cards.length - 1].next = card
+            cards[cards.length - 1].next = card
           }
 
-          this.cards.push(card)
+          cards.push(card)
         }
       }
     }
+
+    this.cards = cards
   }
 
-  public readonly cards: Array<Card> = []
+  public static instance: Deck = new Deck()
+
+  public readonly cards: ReadonlyArray<Card>
 
   @computed
   public get theFourAces(): Array<Card> {

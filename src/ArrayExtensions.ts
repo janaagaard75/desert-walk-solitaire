@@ -17,6 +17,11 @@ declare global {
     clone(): Array<T>
     shuffle(): Array<T>
   }
+
+  interface ReadonlyArray<T> {
+    clone(): ReadonlyArray<T>
+    shuffle(): ReadonlyArray<T>
+  }
 }
 
 // Deliberately not using fat arrow syntax here.
