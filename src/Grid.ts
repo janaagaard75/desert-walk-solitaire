@@ -20,7 +20,7 @@ export class Grid {
     }
   }
 
-  public static instance: Grid = new Grid()
+  public static readonly instance: Grid = new Grid()
 
   public readonly cells: Array<Cell> = []
 }

@@ -25,7 +25,7 @@ export class Deck {
     this.cards = cards
   }
 
-  public static instance: Deck = new Deck()
+  public static readonly instance: Deck = new Deck()
 
   public readonly cards: ReadonlyArray<Card>
 
