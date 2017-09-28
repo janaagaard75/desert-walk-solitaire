@@ -1,6 +1,6 @@
 import { computed } from 'mobx'
 
-import { ArrayUtilities } from './ArrayUtilities'
+// import { ArrayUtilities } from './ArrayUtilities'
 import { Card } from './Card'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
@@ -31,7 +31,7 @@ export class Deck {
     return theFourAces
   }
 
-  public shuffle(): void {
-    ArrayUtilities.shuffleArray(this.cards)
-  }
+  // public shuffle(): void {
+  //   ArrayUtilities.shuffleInPlace(this.cards)
+  // }
 }

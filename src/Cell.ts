@@ -8,35 +8,17 @@ import { Settings } from './Settings'
 
 export class Cell {
   constructor(
-    private readonly theFourAces: Array<Card>,
+    // private readonly theFourAces: Array<Card>,
     public readonly rowIndex: number,
     public readonly columnIndex: number,
     public readonly cellToTheLeft: Cell | undefined
-
   ) {
-    this.key = this.rowIndex + '.' + this.columnIndex
+    this.key = this.rowIndex * Settings.instance.columns + this.columnIndex + 1
   }
 
-  @observable public card: Card | undefined = undefined
+  // @observable public card: Card | undefined = undefined
   @observable public hoveredByCard: Card | undefined = undefined
-  public key: string
-
-  @computed
-  public get cardIsCorrectlyPlaced(): boolean {
-    if (this.card === undefined) {
-      return false
-    }
-
-    if (this.cellToTheLeft === undefined) {
-      const aceInFirstColumn = this.card.value === 1
-      return aceInFirstColumn
-    }
-
-    const followsCardToTheLeft = this.cellToTheLeft.cardIsCorrectlyPlaced
-      && (this.cellToTheLeft.card as Card).next === this.card
-
-    return followsCardToTheLeft
-  }
+  public readonly key: number
 
   @computed
   public get boundary(): Rectangle {
@@ -51,33 +33,6 @@ export class Cell {
   }
 
   @computed
-  public get droppableCards(): Array<Card> {
-    if (this.cellToTheLeft === undefined) {
-      return this.theFourAces
-    }
-
-    if (this.cellToTheLeft.card === undefined) {
-      return []
-    }
-
-    if (this.cellToTheLeft.card.next === undefined) {
-      return []
-    }
-
-    return [this.cellToTheLeft.card.next]
-  }
-
-  @computed
-  public get hoveredByDroppableCard(): boolean {
-    if (this.hoveredByCard === undefined) {
-      return false
-    }
-
-    const hoveredByDroppableCard = this.droppableCards.includes(this.hoveredByCard)
-    return hoveredByDroppableCard
-  }
-
-  @computed
   public get position(): Point {
     const position = {
       x: this.columnIndex * (Settings.instance.cardSize.width + Settings.instance.gutterWidth),
@@ -86,4 +41,21 @@ export class Cell {
 
     return position
   }
+
+  // public cardIsDroppable(card: Card): boolean {
+  //   if (this.cellToTheLeft === undefined) {
+  //     const isAce = card.value === 1
+  //     return isAce
+  //   }
+
+  //   if (this.cellToTheLeft.card === undefined) {
+  //     return false
+  //   }
+
+  //   const isNextCard
+  //     = card.suit === this.cellToTheLeft.card.suit
+  //     && card.value === this.cellToTheLeft.card.value + 1
+
+  //   return isNextCard
+  // }
 }

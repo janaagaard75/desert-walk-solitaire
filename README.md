@@ -44,6 +44,14 @@ The new architechture should support animating between two states, possibly shuf
 1. The engine slides the card into the exact spot by using the position of the upcoming state.
 1. After the animation is done, the old state is swapped out with the new one, resulting in updated empty spots and so on.
 
+## Model
+
+Want to have the ability to have several states in the app, and switch back and forth between them. The difference between each state is the position of the cards, but not the cards themselves, and neither the grid they are positioned on. That means that cloning the grid or the cards between each step feels wrong.
+
+The number of moves and turn states could be computed values if each turn was marked as either a move or a shuffle.
+
+Would it be better to save each move and shuffle instead of the whole grid? That would squash out any redundacy in the code and make the serialization simpler and smaller, but it might also require a good caching strategy, since the current turn would then be a calcualted value, based on all the moves and shuffles.
+
 ## Logo
 
 [Free Arabic lookings fonts](http://www.dafont.com/theme.php?cat=202&text=Desert+Walk+1234567890+AKQJ&l[]=10&l[]=1). Top candidates:

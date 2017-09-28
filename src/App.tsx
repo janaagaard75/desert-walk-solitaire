@@ -84,10 +84,10 @@ export default class App extends Component<{}, AppState> {
               width: this.state.windowSize.width
             }}
           />
-          <GridView game={this.game}/>
+          <GridView turnState={this.game.currentTurnState}/>
         </View>
         <Footer
-          correctlyPlacedCards={this.game.grid.cellsWithCorrectlyPlacedCard.map(cell => cell.card).length}
+          correctlyPlacedCards={this.game.currentTurnState.correctlyPositionedCards.length}
           gameStatus={this.game.gameStatus}
           moves={this.game.moves}
           shuffleCardsInWrongPlace={() => this.game.shuffleCardsInWrongPlace()}

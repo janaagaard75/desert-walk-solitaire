@@ -6,18 +6,16 @@ import { observer } from 'mobx-react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
-import { Card } from './Card'
 import { CardView } from './CardView'
-import { Cell } from './Cell'
+import { PositionedCard } from './PositionedCard'
 import { Rectangle } from './Rectangle'
 
 interface Props {
-  card: Card
   draggable: boolean
-  correctlyPlaced: boolean
+  positionedCard: PositionedCard
   onCardDropped: (cardRectangle: Rectangle) => void
   onCardMoved: (cardRectangle: Rectangle) => void
-  onDragStarted: (card: Card) => void
+  onDragStarted: () => void
 }
 
 enum VisualState {
@@ -43,7 +41,7 @@ export class DraggableCard extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
-        this.props.onCardDropped(this.props.card.boundary)
+        this.props.onCardDropped(this.props.positionedCard.boundary)
 
         this.setState({
           visualState: VisualState.Animating
@@ -68,7 +66,7 @@ export class DraggableCard extends Component<Props, State> {
         })
       },
       onPanResponderGrant: (e, gestureState) => {
-        this.props.onDragStarted(this.props.card)
+        this.props.onDragStarted()
       },
       onPanResponderMove:
         Animated.event([
@@ -88,8 +86,7 @@ export class DraggableCard extends Component<Props, State> {
     })
 
     this.animatedPosition.addListener(position => {
-      this.props.card.draggedPosition = position
-      this.props.onCardMoved(this.props.card.boundary)
+      this.props.onCardMoved(PositionedCard.getBoundary(position))
     })
   }
 
@@ -97,7 +94,7 @@ export class DraggableCard extends Component<Props, State> {
   private panResponder: PanResponderInstance
 
   public render() {
-    this.animatedPosition.setOffset((this.props.card.cell as Cell).position)
+    this.animatedPosition.setOffset(this.props.positionedCard.position)
 
     const style = {
       position: 'absolute',
@@ -116,9 +113,9 @@ export class DraggableCard extends Component<Props, State> {
         {...panHandlers}
       >
         <CardView
-          card={this.props.card}
+          card={this.props.positionedCard.card}
           draggable={this.props.draggable}
-          correctlyPlaced={this.props.correctlyPlaced}
+          correctlyPlaced={this.props.positionedCard.correctlyPlaced}
           shadow={this.state.visualState !== VisualState.Idle}
         />
       </Animated.View>

@@ -6,17 +6,22 @@ import { ViewStyle } from 'react-native'
 
 import { Card } from './Card'
 import { Cell } from './Cell'
-import { CellView } from './CellView'
-import { Game } from './Game'
+import { DraggableCard } from './DraggableCard'
+import { DraggedCard } from './DraggedCard'
+import { EmptyCellStatus } from './EmptyCellStatus'
+import { EmptyCellView } from './EmptyCellView'
+import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
+import { TurnState } from './TurnState'
 
 interface Props {
-  game: Game
+  turnState: TurnState
+  onMoveCard: (from: Cell, to: Cell) => void
 }
 
 interface State {
-  draggedCard: Card | undefined
+  draggedCard: DraggedCard | undefined
 }
 
 @observer
@@ -40,19 +45,48 @@ export class GridView extends Component<Props, State> {
       <View
         style={gridViewStyle}
       >
-        {this.props.game.grid.cells.map(cell =>
-          <CellView
-            cell={cell}
-            draggedCard={this.state.draggedCard}
-            draggable={this.props.game.draggableCards.some(card => cell.card === card)}
-            key={cell.key}
-            onCardDropped={(fromCell, cardRectangle) => this.handleCardDropped(fromCell, cardRectangle)}
-            onCardMoved={(card, cardRectangle) => this.handleCardMoved(card, cardRectangle)}
-            onDragStarted={card => this.handleDragStarted(card)}
+        {this.props.turnState.positionedCards.map(positionedCard =>
+          <DraggableCard
+            draggable={this.props.turnState.draggableCards.some(card => card === positionedCard.card)}
+            positionedCard={positionedCard}
+            key={positionedCard.card.key}
+            onCardDropped={cardRectangle => this.handleCardDropped(positionedCard.cell, cardRectangle)}
+            onCardMoved={cardRectangle => this.handleCardMoved(positionedCard.card, cardRectangle)}
+            onDragStarted={() => this.handleDragStarted(positionedCard.card, positionedCard.position)}
+          />
+        )}
+        {this.props.turnState.emptyCells.map(emptyCell =>
+          <EmptyCellView
+            key={emptyCell.key}
+            emptyCell={emptyCell}
+            status={this.getEmptyCellStatus(emptyCell)}
           />
         )}
       </View>
     )
+  }
+
+  // TODO: Move this to the EmptyCell class.
+  private getEmptyCellStatus(cell: Cell): EmptyCellStatus {
+    // TODO: Implement missing statuses.
+
+    // if (cell.droppableCards.length === 0) {
+    //   return EmptyCellStatus.Blocked
+    // }
+
+    if (this.state.draggedCard === undefined) {
+      return EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged
+    }
+
+    // if (cell.hoveredByDroppableCard) {
+    //   return EmptyCellStatus.HoveredByDropableCard
+    // }
+
+    // if (cell.droppableCards.some(card => card === this.props.draggedCard)) {
+    //   return EmptyCellStatus.CurrentlyDraggedCardDroppable
+    // }
+
+    return EmptyCellStatus.DropAllowedButNotCurrentlyDraggedCard
   }
 
   private handleCardDropped(from: Cell, cardBoundary: Rectangle) {
@@ -60,8 +94,10 @@ export class GridView extends Component<Props, State> {
       throw new Error('draggedCard should be defined when handling a drop.')
     }
 
-    const overlappingEmptyCells = this.props.game.grid.emptyCells
-      .filter(cell => this.props.game.cardIsDroppable(this.state.draggedCard as Card, cell))
+    const draggedCard = this.state.draggedCard.card
+
+    const overlappingEmptyCells = this.props.turnState.emptyCells
+      .filter(emptyCell => emptyCell.cardIsDroppable(draggedCard))
       .map(cell => {
         return {
           cell: cell,
@@ -73,7 +109,7 @@ export class GridView extends Component<Props, State> {
 
     if (overlappingEmptyCells.length > 0) {
       const to = overlappingEmptyCells[0].cell
-      this.props.game.moveCard(from, to)
+      this.props.onMoveCard(from, to)
     }
 
     this.setState({
@@ -84,7 +120,7 @@ export class GridView extends Component<Props, State> {
   private handleCardMoved(card: Card, cardBoundary: Rectangle) {
     // TODO: Also consider the cell being dragged from.
     // TODO: Consider sharing some code with the method above.
-    const overlappingEmptyCells = this.props.game.grid.emptyCells
+    const overlappingEmptyCells = this.props.turnState.emptyCells
       .map(cell => {
         return {
           cell: cell,
@@ -94,7 +130,7 @@ export class GridView extends Component<Props, State> {
       .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
       .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
 
-    this.props.game.grid.emptyCells
+    this.props.turnState.emptyCells
       .forEach(cell => {
         if (overlappingEmptyCells.length === 0) {
           cell.hoveredByCard = undefined
@@ -107,9 +143,12 @@ export class GridView extends Component<Props, State> {
       })
   }
 
-  private handleDragStarted(card: Card) {
+  private handleDragStarted(card: Card, position: Point) {
     this.setState({
-      draggedCard: card
+      draggedCard: {
+        card: card,
+        position: position
+      }
     })
   }
 }

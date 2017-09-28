@@ -4,17 +4,17 @@ import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
+import { EmptyCell } from './EmptyCell'
 import { EmptyCellStatus } from './EmptyCellStatus'
-import { Point } from './Point'
 import { Settings } from './Settings'
 
 interface Props {
-  position: Point
+  emptyCell: EmptyCell
   status: EmptyCellStatus
 }
 
 @observer
-export class EmptyCell extends Component<Props, {}> {
+export class EmptyCellView extends Component<Props, {}> {
   public render() {
     const [color, style, width] = this.getBorderColorStyleAndWidth()
 
@@ -24,9 +24,9 @@ export class EmptyCell extends Component<Props, {}> {
       borderStyle: style,
       borderWidth: width,
       height: Settings.instance.cardSize.height,
-      left: this.props.position.x,
+      left: this.props.emptyCell.position.x,
       position: 'absolute',
-      top: this.props.position.y,
+      top: this.props.emptyCell.position.y,
       width: Settings.instance.cardSize.width
     }
 
