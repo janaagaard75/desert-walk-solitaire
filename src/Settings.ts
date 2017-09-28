@@ -25,22 +25,15 @@ export class Settings {
     mainBackgroundColor: '#333'
   }
 
+  /** It's necessary to use the singleton pattern, because @computed doesn't work on static fields. See https://github.com/mobxjs/mobx/issues/351#issuecomment-228304310. */
+  public static readonly instance: Settings = new Settings()
+
   public readonly columns = this.maxCardValue + 1
   public readonly numberOfCards = this.maxCardValue * this.rows
   public readonly cardShadowOpacity = 0.6
 
-  private static _instance: Settings
   private readonly cardSizeRatio = 3 / 2
   private readonly cardWidthToGutterRatio = 7 / 1
-
-  /** It's necessary to use the singleton pattern, because @computed doesn't work on static fields. See https://github.com/mobxjs/mobx/issues/351#issuecomment-228304310. */
-  public static get instance(): Settings {
-    if (this._instance === undefined) {
-      this._instance = new Settings()
-    }
-
-    return this._instance
-  }
 
   @computed
   public get borderRadius(): number {
