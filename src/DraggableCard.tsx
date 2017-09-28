@@ -13,8 +13,8 @@ import { Rectangle } from './Rectangle'
 interface Props {
   draggable: boolean
   positionedCard: PositionedCard
+  onCardDragged: (cardRectangle: Rectangle) => void
   onCardDropped: (cardRectangle: Rectangle) => void
-  onCardMoved: (cardRectangle: Rectangle) => void
   onDragStarted: () => void
 }
 
@@ -86,7 +86,7 @@ export class DraggableCard extends Component<Props, State> {
     })
 
     this.animatedPosition.addListener(position => {
-      this.props.onCardMoved(PositionedCard.getBoundary(position))
+      this.props.onCardDragged(PositionedCard.getBoundary(position))
     })
   }
 

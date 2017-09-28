@@ -17,7 +17,6 @@ import { TurnState } from './TurnState'
 
 interface Props {
   turnState: TurnState
-  // TODO: Distinguish between 'move card' and 'card dragged'.
   onMoveCard: (from: Cell, to: Cell) => void
 }
 
@@ -49,11 +48,11 @@ export class GridView extends Component<Props, State> {
         {this.props.turnState.positionedCards.map(positionedCard =>
           <DraggableCard
             draggable={this.props.turnState.draggableCards.some(card => card === positionedCard.card)}
-            positionedCard={positionedCard}
             key={positionedCard.card.key}
+            onCardDragged={cardRectangle => this.handleCardDragged(positionedCard.card, cardRectangle)}
             onCardDropped={cardRectangle => this.handleCardDropped(positionedCard.cell, cardRectangle)}
-            onCardMoved={cardRectangle => this.handleCardMoved(positionedCard.card, cardRectangle)}
             onDragStarted={() => this.handleDragStarted(positionedCard.card, positionedCard.position)}
+            positionedCard={positionedCard}
           />
         )}
         {this.props.turnState.emptyCells.map(emptyCell =>
@@ -118,7 +117,7 @@ export class GridView extends Component<Props, State> {
     })
   }
 
-  private handleCardMoved(card: Card, cardBoundary: Rectangle) {
+  private handleCardDragged(card: Card, cardBoundary: Rectangle) {
     // TODO: Also consider the cell being dragged from.
     // TODO: Consider sharing some code with the method above.
     const overlappingEmptyCells = this.props.turnState.emptyCells
