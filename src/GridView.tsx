@@ -7,7 +7,7 @@ import { ViewStyle } from 'react-native'
 import { Card } from './Card'
 import { Cell } from './Cell'
 import { DraggableCard } from './DraggableCard'
-import { DraggedCard } from './DraggedCard'
+import { DraggedCardPosition } from './DraggedCardPosition'
 import { EmptyCell } from './EmptyCell'
 import { EmptyCellStatus } from './EmptyCellStatus'
 import { EmptyCellView } from './EmptyCellView'
@@ -22,7 +22,7 @@ interface Props {
 }
 
 interface State {
-  draggedCard: DraggedCard | undefined
+  draggedCard: DraggedCardPosition | undefined
 }
 
 @observer
