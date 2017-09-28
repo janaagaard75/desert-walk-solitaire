@@ -9,6 +9,7 @@ import { IPositionedCard } from './IPositionedCard'
 import { PositionedCard } from './PositionedCard'
 import { Settings } from './Settings'
 
+// TODO: Rename to GridState.
 export class TurnState {
   public constructor(
     private readonly deck: Deck,
@@ -72,7 +73,7 @@ export class TurnState {
     return emptyCells
   }
 
-  // TODO: Create an abstract Turn class that is either a MoveTurn or a ShuffleTurn, and have an apply method here in TurnState that accepts a turn.
+  // TODO: Create an abstract Turn class that is either a StartOverTurn, a MoveTurn or a ShuffleTurn, and have an apply method here in TurnState that accepts a turn. Keep the turns in and array. That way moves and shuffles would become computed values. applyTurn(currentState: TurnState): TurnState.
   public moveCard(from: Cell, to: Cell): TurnState {
     const fromPositionedCard = this.getPositionedCard(from)
     if (fromPositionedCard === undefined) {
