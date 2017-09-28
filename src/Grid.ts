@@ -1,5 +1,3 @@
-import { observable } from 'mobx'
-
 import { Cell } from './Cell'
 import { Settings } from './Settings'
 
@@ -22,6 +20,5 @@ export class Grid {
     }
   }
 
-  @observable
   public readonly cells: Array<Cell> = []
 }
