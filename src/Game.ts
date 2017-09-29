@@ -94,6 +94,7 @@ export class Game {
     firebase.database().ref('gameSummaries').push(this.gameSummary)
   }
 
+  // TODO: Add a listener on correctlyPositionedCards.length instead of having to call this method manually.
   private storeSummaryIfGameOver() {
     if (this.gameStatus === GameStatus.GameLost || this.gameStatus === GameStatus.GameWon) {
       this.gameSummary.addFinalStep({
