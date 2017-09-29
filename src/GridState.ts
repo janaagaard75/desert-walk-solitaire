@@ -31,11 +31,9 @@ export class GridState {
   public get draggableCards(): Array<Card> {
     let draggableCards = this.emptyCells
       .map(cell => cell.cellToTheLeft)
-      // TODO: Is it possible to avoid these conveluted constructs by introducing an UndefinedCard special class etc.? And if not, then at least create a generic helper method.
-      .filter((cellToTheLeft: Cell | undefined): cellToTheLeft is Cell => cellToTheLeft !== undefined)
       .map(cellToTheLeft => this.getPositionedCard(cellToTheLeft))
-      .filter((positionedCard: DraggableCard | undefined): positionedCard is DraggableCard => positionedCard !== undefined)
-      .map(positionedCard => positionedCard.card.next)
+      .map(positionedCard => positionedCard === undefined ? undefined : positionedCard.card)
+      .map(card => card === undefined ? undefined : card.next)
       .filter((nextCard: Card | undefined): nextCard is Card => nextCard !== undefined)
 
     const emptyCellsInFirstColumn = this.emptyCells
