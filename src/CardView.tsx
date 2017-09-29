@@ -7,11 +7,11 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { Card } from './Card'
-import { Club } from './Club'
-import { Diamond } from './Diamond'
-import { Heart } from './Heart'
+import { Club } from './suits/Club'
+import { Diamond } from './suits/Diamond'
+import { Heart } from './suits/Heart'
 import { Settings } from './Settings'
-import { Spade } from './Spade'
+import { Spade } from './suits/Spade'
 import { Suit } from './Suit'
 
 interface Props {

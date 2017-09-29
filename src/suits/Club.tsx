@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Component } from 'react'
 import { Svg } from 'expo'
 
-import { Settings } from './Settings'
+import { Settings } from '../Settings'
 
 interface Props {
   /** Height and width. */
