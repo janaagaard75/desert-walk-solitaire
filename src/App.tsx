@@ -85,12 +85,12 @@ export default class App extends Component<{}, AppState> {
             }}
           />
           <GridView
-            turnState={this.game.currentTurnState}
+            gridState={this.game.currentGridState}
             onMoveCard={(from, to) => this.game.moveCard(from, to)}
           />
         </View>
         <Footer
-          correctlyPlacedCards={this.game.currentTurnState.correctlyPositionedCards.length}
+          correctlyPlacedCards={this.game.currentGridState.correctlyPositionedCards.length}
           gameStatus={this.game.gameStatus}
           moves={this.game.moves}
           shuffleCardsInWrongPlace={() => this.game.shuffleCardsInWrongPlace()}

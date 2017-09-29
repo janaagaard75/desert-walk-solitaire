@@ -11,12 +11,12 @@ import { DraggedCardBoundary } from './DraggedCardBoundary'
 import { EmptyCell } from './EmptyCell'
 import { EmptyCellStatus } from './EmptyCellStatus'
 import { EmptyCellView } from './EmptyCellView'
+import { GridState } from './GridState'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
-import { TurnState } from './TurnState'
 
 interface Props {
-  turnState: TurnState
+  gridState: GridState
   onMoveCard: (from: Cell, to: Cell) => void
 }
 
@@ -45,9 +45,9 @@ export class GridView extends Component<Props, State> {
       <View
         style={gridViewStyle}
       >
-        {this.props.turnState.positionedCards.map(positionedCard =>
+        {this.props.gridState.positionedCards.map(positionedCard =>
           <DraggableCardView
-            draggable={this.props.turnState.draggableCards.some(card => card === positionedCard.card)}
+            draggable={this.props.gridState.draggableCards.some(card => card === positionedCard.card)}
             key={positionedCard.card.key}
             onCardDragged={cardRectangle => this.handleCardDragged(positionedCard.card, cardRectangle)}
             onCardDropped={() => this.handleCardDropped(positionedCard.cell)}
@@ -55,7 +55,7 @@ export class GridView extends Component<Props, State> {
             positionedCard={positionedCard}
           />
         )}
-        {this.props.turnState.emptyCells.map(emptyCell =>
+        {this.props.gridState.emptyCells.map(emptyCell =>
           <EmptyCellView
             key={emptyCell.key}
             emptyCell={emptyCell}
@@ -66,7 +66,7 @@ export class GridView extends Component<Props, State> {
     )
   }
 
-  // TODO: Move this to the EmptyCell or the TurnState class.
+  // TODO: Move this to the EmptyCell or the GridState class.
   private getEmptyCellStatus(emptyCell: EmptyCell): EmptyCellStatus {
     if (emptyCell.droppableCards.length === 0) {
       return EmptyCellStatus.Blocked
@@ -94,7 +94,7 @@ export class GridView extends Component<Props, State> {
     // TODO: Consider making this code something that flows naturally from updating draggedCardBoundary. That probably requires switching from a state variable to an observable. See https://blog.cloudboost.io/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e.
     // TODO: Also consider the cell being dragged from.
     // TODO: Consider sharing some code with the method below.
-    const overlappedEmptyCells = this.props.turnState.emptyCells
+    const overlappedEmptyCells = this.props.gridState.emptyCells
       .map(emptyCell => {
         return {
           cell: emptyCell,
@@ -104,7 +104,7 @@ export class GridView extends Component<Props, State> {
       .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
       .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
 
-    this.props.turnState.emptyCells
+    this.props.gridState.emptyCells
       .forEach(emptyCell => {
         if (overlappedEmptyCells.length === 0) {
           emptyCell.hoveredByCard = undefined
@@ -133,7 +133,7 @@ export class GridView extends Component<Props, State> {
     // Shadowing draggedCardBoundary to satify the TypeScript compiler below.
     const draggedCardBoundary = this.state.draggedCardBoundary
 
-    const overlappedTargetableEmptyCells = this.props.turnState.emptyCells
+    const overlappedTargetableEmptyCells = this.props.gridState.emptyCells
       .filter(emptyCell => emptyCell.cardIsDroppable(draggedCardBoundary.card))
       .map(emptyCell => {
         return {

@@ -10,8 +10,7 @@ import { EmptyCell } from './EmptyCell'
 import { Grid } from './Grid'
 import { Settings } from './Settings'
 
-// TODO: Rename to GridState.
-export class TurnState {
+export class GridState {
   public constructor(
     cardCellPairs: Array<CardCellPair>
   ) {
@@ -72,8 +71,8 @@ export class TurnState {
     return emptyCells
   }
 
-  // TODO: Create an abstract Turn class that is either a StartOverTurn, a MoveTurn or a ShuffleTurn, and have an apply method here in TurnState that accepts a turn. Keep the turns in and array. That way moves and shuffles would become computed values. applyTurn(currentState: TurnState): TurnState.
-  public moveCard(from: Cell, to: Cell): TurnState {
+  // TODO: Create an abstract Turn class that is either a StartOverTurn, a MoveTurn or a ShuffleTurn, and have an apply method here in GridState that accepts a turn. Keep the turns in and array. That way moves and shuffles would become computed values. applyTurn(currentState: GridState): GridState.
+  public moveCard(from: Cell, to: Cell): GridState {
     const fromPositionedCard = this.getPositionedCard(from)
     if (fromPositionedCard === undefined) {
       throw new Error('Could not find the \'from\' cell.')
@@ -105,11 +104,11 @@ export class TurnState {
     // TODO: Find a cleaner way to reset the hovered state. Making hoveredByCard a computed value would probably fix this.
     to.hoveredByCard = undefined
 
-    const newTurnState = new TurnState(newCardAndCellPairs)
-    return newTurnState
+    const newGridState = new GridState(newCardAndCellPairs)
+    return newGridState
   }
 
-  public shuffleCardsInWrongPlace(): TurnState {
+  public shuffleCardsInWrongPlace(): GridState {
     const shuffledCards = this.incorrectlyPositionedCards
       .map(positionedCard => positionedCard.card)
       .shuffle()
@@ -131,8 +130,8 @@ export class TurnState {
       })
     }
 
-    const newTurnState = new TurnState(newCardPositions)
-    return newTurnState
+    const newGridState = new GridState(newCardPositions)
+    return newGridState
   }
 
   private getCardToTheLeft(cell: Cell): Card | undefined {

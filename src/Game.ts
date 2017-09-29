@@ -10,8 +10,8 @@ import { Deck } from './Deck'
 import { GameStatus } from './GameStatus'
 import { GameSummary } from './GameSummary'
 import { Grid } from './Grid'
+import { GridState } from './GridState'
 import { Settings } from './Settings'
-import { TurnState } from './TurnState'
 
 import * as firebaseConfig from './firebaseConfig.json'
 
@@ -25,24 +25,24 @@ export class Game {
   @observable public shuffles: number
 
   private gameSummary: GameSummary
-  @observable private turnStates: Array<TurnState> = []
+  @observable private gridStates: Array<GridState> = []
 
   @computed
-  public get currentTurnState(): TurnState {
-    if (this.turnStates.length === 0) {
+  public get currentGridState(): GridState {
+    if (this.gridStates.length === 0) {
       throw new Error('Game hasn\'t started yet.')
     }
 
-    return this.turnStates[this.turnStates.length - 1]
+    return this.gridStates[this.gridStates.length - 1]
   }
 
   @computed
   public get gameStatus(): GameStatus {
-    if (this.currentTurnState.draggableCards.length >= 1) {
+    if (this.currentGridState.draggableCards.length >= 1) {
       return GameStatus.MovePossible
     }
 
-    if (this.currentTurnState.correctlyPositionedCards.length === Settings.instance.numberOfCards) {
+    if (this.currentGridState.correctlyPositionedCards.length === Settings.instance.numberOfCards) {
       return GameStatus.GameWon
     }
 
@@ -54,15 +54,15 @@ export class Game {
   }
 
   public moveCard(from: Cell, to: Cell) {
-    const newTurnState = this.currentTurnState.moveCard(from, to)
-    this.turnStates.push(newTurnState)
+    const newGridState = this.currentGridState.moveCard(from, to)
+    this.gridStates.push(newGridState)
     this.moves++
     this.storeSummaryIfGameOver()
   }
 
   public shuffleCardsInWrongPlace() {
-    const newTurnState = this.currentTurnState.shuffleCardsInWrongPlace()
-    this.turnStates.push(newTurnState)
+    const newGridState = this.currentGridState.shuffleCardsInWrongPlace()
+    this.gridStates.push(newGridState)
     this.shuffles++
     this.storeSummaryIfGameOver()
   }
@@ -71,7 +71,7 @@ export class Game {
     const shuffledCards = Deck.instance.cards.shuffle()
     const cellsExcludingFirstColumn = Grid.instance.cells.filter(cell => cell.columnIndex !== 0)
 
-    // TODO: Pretty much the same code is repeated in TurnState.shuffleCardsInWrongPlace.
+    // TODO: Pretty much the same code is repeated in GridState.shuffleCardsInWrongPlace.
     if (shuffledCards.length !== cellsExcludingFirstColumn.length) {
       throw new Error('Number of cards must match number of cells')
     }
@@ -84,7 +84,7 @@ export class Game {
       })
     }
 
-    this.turnStates = [new TurnState(positions)]
+    this.gridStates = [new GridState(positions)]
     this.gameSummary = new GameSummary()
     this.moves = 0
     this.shuffles = 0
@@ -97,7 +97,7 @@ export class Game {
   private storeSummaryIfGameOver() {
     if (this.gameStatus === GameStatus.GameLost || this.gameStatus === GameStatus.GameWon) {
       this.gameSummary.addFinalStep({
-        cardsInPlace: this.currentTurnState.correctlyPositionedCards.length,
+        cardsInPlace: this.currentGridState.correctlyPositionedCards.length,
         moves: this.moves
       })
 
