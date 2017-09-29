@@ -1,7 +1,6 @@
 import { Cell } from './Cell'
 import { Settings } from './Settings'
 
-// TODO: Consider making the Grid class a singleton.
 export class Grid {
   private constructor() {
     for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
