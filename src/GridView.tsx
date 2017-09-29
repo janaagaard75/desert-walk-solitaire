@@ -91,29 +91,38 @@ export class GridView extends Component<Props, State> {
   }
 
   private handleCardDragged(card: Card, cardBoundary: Rectangle) {
+    // TODO: Consider making this code something that flows naturally from updating draggedCardBoundary. That probably requires switching from a state variable to an observable. See https://blog.cloudboost.io/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e.
     // TODO: Also consider the cell being dragged from.
-    // TODO: Consider sharing some code with the method above.
-    const overlappingEmptyCells = this.props.turnState.emptyCells
-      .map(cell => {
+    // TODO: Consider sharing some code with the method below.
+    const overlappedEmptyCells = this.props.turnState.emptyCells
+      .map(emptyCell => {
         return {
-          cell: cell,
-          overlappingPixels: cell.boundary.overlappingPixels(cardBoundary)
+          cell: emptyCell,
+          overlappingPixels: emptyCell.boundary.overlappingPixels(cardBoundary)
         }
       })
       .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
       .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
 
     this.props.turnState.emptyCells
-      .forEach(cell => {
-        if (overlappingEmptyCells.length === 0) {
-          cell.hoveredByCard = undefined
+      .forEach(emptyCell => {
+        if (overlappedEmptyCells.length === 0) {
+          emptyCell.hoveredByCard = undefined
         }
         else {
-          cell === overlappingEmptyCells[0].cell
-            ? cell.hoveredByCard = card
-            : cell.hoveredByCard = undefined
+          const mostOverlappedCell = overlappedEmptyCells[0].cell
+          emptyCell === mostOverlappedCell
+            ? emptyCell.hoveredByCard = card
+            : emptyCell.hoveredByCard = undefined
         }
       })
+
+    this.setState({
+      draggedCardBoundary: {
+        boundary: cardBoundary,
+        card: card
+      }
+    })
   }
 
   private handleCardDropped(from: Cell) {
@@ -124,8 +133,7 @@ export class GridView extends Component<Props, State> {
     // Shadowing draggedCardBoundary to satify the TypeScript compiler below.
     const draggedCardBoundary = this.state.draggedCardBoundary
 
-    // TODO: Something's wrong with the boundaries, resulting in no overlapping pixels. Strange, since the highlighting works as it should when dragging a card in the code right above.
-    const overlappingEmptyCells = this.props.turnState.emptyCells
+    const overlappedTargetableEmptyCells = this.props.turnState.emptyCells
       .filter(emptyCell => emptyCell.cardIsDroppable(draggedCardBoundary.card))
       .map(emptyCell => {
         return {
@@ -136,9 +144,9 @@ export class GridView extends Component<Props, State> {
       .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
       .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
 
-    if (overlappingEmptyCells.length > 0) {
-      const to = overlappingEmptyCells[0].cell
-      this.props.onMoveCard(from, to)
+    if (overlappedTargetableEmptyCells.length > 0) {
+      const mostOverlappedCell = overlappedTargetableEmptyCells[0].cell
+      this.props.onMoveCard(from, mostOverlappedCell)
     }
 
     this.setState({
