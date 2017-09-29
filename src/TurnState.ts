@@ -4,9 +4,9 @@ import { Card } from './Card'
 import { CardAndCell } from './CardAndCell'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
+import { DraggableCard } from './DraggableCard'
 import { EmptyCell } from './EmptyCell'
 import { Grid } from './Grid'
-import { PositionedCard } from './PositionedCard'
 import { Settings } from './Settings'
 
 // TODO: Rename to GridState.
@@ -18,14 +18,14 @@ export class TurnState {
       .sort((a, b) => a.cell.key - b.cell.key)
       .forEach(positionedCard => {
         this.positionedCards.push(
-          new PositionedCard(positionedCard.card, positionedCard.cell, this.getPositionedCard(positionedCard.cell.cellToTheLeft))
+          new DraggableCard(positionedCard.card, positionedCard.cell, this.getPositionedCard(positionedCard.cell.cellToTheLeft))
         )
       })
   }
 
   // TODO: Consider creating a PositionedCards class.
   // TODO: Consider making this a ReadonlyArray.
-  public readonly positionedCards: Array<PositionedCard> = []
+  public readonly positionedCards: Array<DraggableCard> = []
 
   @computed
   public get draggableCards(): Array<Card> {
@@ -34,7 +34,7 @@ export class TurnState {
       // TODO: Is it possible to avoid these conveluted constructs by introducing an UndefinedCard special class etc.? And if not, then at least create a generic helper method.
       .filter((cellToTheLeft: Cell | undefined): cellToTheLeft is Cell => cellToTheLeft !== undefined)
       .map(cellToTheLeft => this.getPositionedCard(cellToTheLeft))
-      .filter((positionedCard: PositionedCard | undefined): positionedCard is PositionedCard => positionedCard !== undefined)
+      .filter((positionedCard: DraggableCard | undefined): positionedCard is DraggableCard => positionedCard !== undefined)
       .map(positionedCard => positionedCard.card.next)
       .filter((nextCard: Card | undefined): nextCard is Card => nextCard !== undefined)
 
@@ -50,14 +50,14 @@ export class TurnState {
   }
 
   @computed
-  public get correctlyPositionedCards(): Array<PositionedCard> {
+  public get correctlyPositionedCards(): Array<DraggableCard> {
     const correctlyPositionedCards = this.positionedCards
       .filter(positionedCard => positionedCard.correctlyPlaced)
     return correctlyPositionedCards
   }
 
   @computed
-  private get incorrectlyPositionedCards(): Array<PositionedCard> {
+  private get incorrectlyPositionedCards(): Array<DraggableCard> {
     const incorrectlyPositionedCards = this.positionedCards
       .filter(positionedCard => !positionedCard.correctlyPlaced)
     return incorrectlyPositionedCards
@@ -127,7 +127,7 @@ export class TurnState {
       throw new Error('Can only put a card on an empty cell.')
     }
 
-    this.positionedCards.push(new PositionedCard(card, cell, this.getPositionedCard(cell.cellToTheLeft)))
+    this.positionedCards.push(new DraggableCard(card, cell, this.getPositionedCard(cell.cellToTheLeft)))
   }
 
   private clone(): TurnState {
@@ -148,7 +148,7 @@ export class TurnState {
     return positionedCard.card
   }
 
-  private getPositionedCard(cell: Cell | undefined): PositionedCard | undefined {
+  private getPositionedCard(cell: Cell | undefined): DraggableCard | undefined {
     if (cell === undefined) {
       return undefined
     }

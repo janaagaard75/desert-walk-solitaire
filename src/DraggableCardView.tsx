@@ -7,12 +7,12 @@ import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
 import { CardView } from './CardView'
-import { PositionedCard } from './PositionedCard'
+import { DraggableCard } from './DraggableCard'
 import { Rectangle } from './Rectangle'
 
 interface Props {
   draggable: boolean
-  positionedCard: PositionedCard
+  positionedCard: DraggableCard
   onCardDragged: (cardRectangle: Rectangle) => void
   onCardDropped: () => void
   onDragStarted: () => void
@@ -86,7 +86,7 @@ export class DraggableCardView extends Component<Props, State> {
     })
 
     this.animatedPosition.addListener(position => {
-      const boundary = PositionedCard.getBoundary(position)
+      const boundary = DraggableCard.getBoundary(position)
       this.props.onCardDragged(boundary)
     })
   }

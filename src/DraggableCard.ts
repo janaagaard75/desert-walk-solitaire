@@ -7,17 +7,16 @@ import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 
-// TODO: Rename to DraggableCard? (This means renaming the current DraggableCard to DraggableCardView.)
-export class PositionedCard implements CardAndCell {
+export class DraggableCard implements CardAndCell {
   constructor(
     public card: Card,
     public cell: Cell,
-    private left: PositionedCard | undefined
+    private left: DraggableCard | undefined
   ) { }
 
   @computed
   public get boundary(): Rectangle {
-    const boundary = PositionedCard.getBoundary(this.position)
+    const boundary = DraggableCard.getBoundary(this.position)
     return boundary
   }
 
