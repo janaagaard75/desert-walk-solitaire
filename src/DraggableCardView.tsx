@@ -29,7 +29,7 @@ interface State {
 }
 
 @observer
-export class DraggableCard extends Component<Props, State> {
+export class DraggableCardView extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props, context)
 

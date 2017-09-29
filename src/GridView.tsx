@@ -6,7 +6,7 @@ import { ViewStyle } from 'react-native'
 
 import { Card } from './Card'
 import { Cell } from './Cell'
-import { DraggableCard } from './DraggableCard'
+import { DraggableCardView } from './DraggableCardView'
 import { DraggedCardBoundary } from './DraggedCardBoundary'
 import { EmptyCell } from './EmptyCell'
 import { EmptyCellStatus } from './EmptyCellStatus'
@@ -46,7 +46,7 @@ export class GridView extends Component<Props, State> {
         style={gridViewStyle}
       >
         {this.props.turnState.positionedCards.map(positionedCard =>
-          <DraggableCard
+          <DraggableCardView
             draggable={this.props.turnState.draggableCards.some(card => card === positionedCard.card)}
             key={positionedCard.card.key}
             onCardDragged={cardRectangle => this.handleCardDragged(positionedCard.card, cardRectangle)}
