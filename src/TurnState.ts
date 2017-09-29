@@ -1,11 +1,11 @@
 import { computed } from 'mobx'
 
 import { Card } from './Card'
+import { CardAndCell } from './CardAndCell'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { EmptyCell } from './EmptyCell'
 import { Grid } from './Grid'
-import { CardAndCell } from './IPositionedCard'
 import { PositionedCard } from './PositionedCard'
 import { Settings } from './Settings'
 

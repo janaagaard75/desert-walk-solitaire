@@ -1,8 +1,8 @@
 import { computed } from 'mobx'
 
 import { Card } from './Card'
+import { CardAndCell } from './CardAndCell'
 import { Cell } from './Cell'
-import { CardAndCell } from './IPositionedCard'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'

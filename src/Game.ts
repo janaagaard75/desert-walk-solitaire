@@ -4,12 +4,12 @@ import * as firebase from 'firebase'
 
 // TODO: Figure out how to get a compiler error if this import is missing.
 import './ArrayExtensions'
+import { CardAndCell } from './CardAndCell'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { GameStatus } from './GameStatus'
 import { GameSummary } from './GameSummary'
 import { Grid } from './Grid'
-import { CardAndCell } from './IPositionedCard'
 import { Settings } from './Settings'
 import { TurnState } from './TurnState'
 
