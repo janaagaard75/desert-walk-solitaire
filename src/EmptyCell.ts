@@ -2,11 +2,11 @@ import { computed } from 'mobx'
 
 import { Card } from './Card'
 import { Cell } from './Cell'
+import { Deck } from './Deck'
 
 export class EmptyCell extends Cell {
   constructor(
     cell: Cell,
-    private theFourAces: Array<Card>,
     private cardToTheLeft: Card | undefined
   ) {
     super(cell.rowIndex, cell.columnIndex, cell.cellToTheLeft)
@@ -15,7 +15,7 @@ export class EmptyCell extends Cell {
   @computed
   public get droppableCards(): Array<Card> {
     if (this.cellToTheLeft === undefined) {
-      return this.theFourAces
+      return Deck.instance.theFourAces
     }
 
     if (this.cardToTheLeft === undefined) {

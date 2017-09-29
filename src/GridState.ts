@@ -65,7 +65,7 @@ export class GridState {
   public get emptyCells(): Array<EmptyCell> {
     const emptyCells = Grid.instance.cells
       .filter(cell => this.getPositionedCard(cell) === undefined)
-      .map(cell => new EmptyCell(cell, Deck.instance.theFourAces, this.getCardToTheLeft(cell)))
+      .map(cell => new EmptyCell(cell, this.getCardToTheLeft(cell)))
     return emptyCells
   }
 
