@@ -7,6 +7,7 @@ import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 
+// TODO: Rename to DraggableCard? (This means renaming the current DraggableCard to DraggableCardView.)
 export class PositionedCard implements IPositionedCard {
   constructor(
     public card: Card,
