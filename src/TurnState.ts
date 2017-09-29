@@ -5,14 +5,14 @@ import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { EmptyCell } from './EmptyCell'
 import { Grid } from './Grid'
-import { IPositionedCard } from './IPositionedCard'
+import { CardAndCell } from './IPositionedCard'
 import { PositionedCard } from './PositionedCard'
 import { Settings } from './Settings'
 
 // TODO: Rename to GridState.
 export class TurnState {
   public constructor(
-    positionedCards: Array<IPositionedCard>
+    positionedCards: Array<CardAndCell>
   ) {
     positionedCards
       .sort((a, b) => a.cell.key - b.cell.key)
@@ -110,7 +110,7 @@ export class TurnState {
       throw new Error(`The number of cards (${shuffledCards.length}) and cells (${cellsExcludingLastColumn.length}) have to match.`)
     }
 
-    const newCardPositions: Array<IPositionedCard> = []
+    const newCardPositions: Array<CardAndCell> = []
     for (let i = 0; i < shuffledCards.length; i++) {
       newCardPositions.push({
         card: shuffledCards[i],

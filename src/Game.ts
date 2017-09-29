@@ -9,7 +9,7 @@ import { Deck } from './Deck'
 import { GameStatus } from './GameStatus'
 import { GameSummary } from './GameSummary'
 import { Grid } from './Grid'
-import { IPositionedCard } from './IPositionedCard'
+import { CardAndCell } from './IPositionedCard'
 import { Settings } from './Settings'
 import { TurnState } from './TurnState'
 
@@ -76,7 +76,7 @@ export class Game {
       throw new Error('Number of cards must match number of cells')
     }
 
-    const positions: Array<IPositionedCard> = []
+    const positions: Array<CardAndCell> = []
     for (let i = 0; i < shuffledCards.length; i++) {
       positions.push({
         card: shuffledCards[i],

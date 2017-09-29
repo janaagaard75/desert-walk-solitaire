@@ -2,13 +2,13 @@ import { computed } from 'mobx'
 
 import { Card } from './Card'
 import { Cell } from './Cell'
-import { IPositionedCard } from './IPositionedCard'
+import { CardAndCell } from './IPositionedCard'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 
 // TODO: Rename to DraggableCard? (This means renaming the current DraggableCard to DraggableCardView.)
-export class PositionedCard implements IPositionedCard {
+export class PositionedCard implements CardAndCell {
   constructor(
     public card: Card,
     public cell: Cell,
