@@ -2,7 +2,7 @@ import { computed } from 'mobx'
 import { observable } from 'mobx'
 
 import { Card } from './Card'
-import { CardAndCell } from './CardAndCell'
+import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { DraggableCard } from './DraggableCard'
@@ -13,7 +13,7 @@ import { Settings } from './Settings'
 // TODO: Rename to GridState.
 export class TurnState {
   public constructor(
-    cardCellPairs: Array<CardAndCell>
+    cardCellPairs: Array<CardCellPair>
   ) {
     cardCellPairs
       .sort((a, b) => a.cell.key - b.cell.key)
@@ -94,7 +94,7 @@ export class TurnState {
           cell: positionedCard.cell
         }
       })
-      .filter(cardAndCell => cardAndCell.cell !== from)
+      .filter(cardCellPair => cardCellPair.cell !== from)
       .concat([
         {
           card: fromPositionedCard.card,
@@ -123,7 +123,7 @@ export class TurnState {
       throw new Error(`The number of cards (${shuffledCards.length}) and cells (${cellsExcludingLastColumn.length}) have to match.`)
     }
 
-    const newCardPositions: Array<CardAndCell> = []
+    const newCardPositions: Array<CardCellPair> = []
     for (let i = 0; i < shuffledCards.length; i++) {
       newCardPositions.push({
         card: shuffledCards[i],

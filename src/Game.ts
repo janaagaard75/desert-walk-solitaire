@@ -4,7 +4,7 @@ import * as firebase from 'firebase'
 
 // TODO: Figure out how to get a compiler error if this import is missing.
 import './ArrayExtensions'
-import { CardAndCell } from './CardAndCell'
+import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { GameStatus } from './GameStatus'
@@ -76,7 +76,7 @@ export class Game {
       throw new Error('Number of cards must match number of cells')
     }
 
-    const positions: Array<CardAndCell> = []
+    const positions: Array<CardCellPair> = []
     for (let i = 0; i < shuffledCards.length; i++) {
       positions.push({
         card: shuffledCards[i],

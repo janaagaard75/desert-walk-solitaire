@@ -1,13 +1,13 @@
 import { computed } from 'mobx'
 
 import { Card } from './Card'
-import { CardAndCell } from './CardAndCell'
+import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 
-export class DraggableCard implements CardAndCell {
+export class DraggableCard implements CardCellPair {
   constructor(
     public card: Card,
     public cell: Cell,
