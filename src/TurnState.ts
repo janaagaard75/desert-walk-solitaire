@@ -1,4 +1,5 @@
 import { computed } from 'mobx'
+import { observable } from 'mobx'
 
 import { Card } from './Card'
 import { CardAndCell } from './CardAndCell'
@@ -12,19 +13,19 @@ import { Settings } from './Settings'
 // TODO: Rename to GridState.
 export class TurnState {
   public constructor(
-    positionedCards: Array<CardAndCell>
+    cardCellPairs: Array<CardAndCell>
   ) {
-    positionedCards
+    cardCellPairs
       .sort((a, b) => a.cell.key - b.cell.key)
-      .forEach(positionedCard => {
+      .forEach(cardCellPair => {
         this.positionedCards.push(
-          new DraggableCard(positionedCard.card, positionedCard.cell, this.getPositionedCard(positionedCard.cell.cellToTheLeft))
+          new DraggableCard(cardCellPair.card, cardCellPair.cell, this.getPositionedCard(cardCellPair.cell.cellToTheLeft))
         )
       })
   }
 
   // TODO: Consider creating a PositionedCards class.
-  // TODO: Consider making this a ReadonlyArray.
+  @observable
   public readonly positionedCards: Array<DraggableCard> = []
 
   @computed
@@ -86,14 +87,26 @@ export class TurnState {
       throw new Error('The \'to\' cell is already defined.')
     }
 
-    const clone = this.clone()
-    clone.addCard(fromPositionedCard.card, to)
-    clone.removeCard(from)
+    const newCardAndCellPairs = this.positionedCards
+      .map(positionedCard => {
+        return {
+          card: positionedCard.card,
+          cell: positionedCard.cell
+        }
+      })
+      .filter(cardAndCell => cardAndCell.cell !== from)
+      .concat([
+        {
+          card: fromPositionedCard.card,
+          cell: to
+        }
+      ])
 
-    // TODO: Find a cleaner way to reset the hovered state.
+    // TODO: Find a cleaner way to reset the hovered state. Making hoveredByCard a computed value would probably fix this.
     to.hoveredByCard = undefined
 
-    return clone
+    const newTurnState = new TurnState(newCardAndCellPairs)
+    return newTurnState
   }
 
   public shuffleCardsInWrongPlace(): TurnState {
@@ -122,19 +135,6 @@ export class TurnState {
     return newTurnState
   }
 
-  private addCard(card: Card, cell: Cell) {
-    if (this.getPositionedCard(cell) !== undefined) {
-      throw new Error('Can only put a card on an empty cell.')
-    }
-
-    this.positionedCards.push(new DraggableCard(card, cell, this.getPositionedCard(cell.cellToTheLeft)))
-  }
-
-  private clone(): TurnState {
-    const newTurnState = new TurnState(this.positionedCards)
-    return newTurnState
-  }
-
   private getCardToTheLeft(cell: Cell): Card | undefined {
     if (cell.cellToTheLeft === undefined) {
       return undefined
@@ -155,13 +155,5 @@ export class TurnState {
 
     const match = this.positionedCards.find(positionedCard => positionedCard.cell === cell)
     return match
-  }
-
-  private removeCard(cell: Cell) {
-    for (let i = this.positionedCards.length - 1; i >= 0; i--) {
-      if (this.positionedCards[i].cell === cell) {
-        this.positionedCards.splice(i, 1)
-      }
-    }
   }
 }
