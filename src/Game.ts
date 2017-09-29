@@ -30,7 +30,7 @@ export class Game {
   @computed
   public get currentGridState(): GridState {
     if (this.gridStates.length === 0) {
-      throw new Error('Game hasn\'t started yet.')
+      throw new Error('The game hasn\'t been started yet.')
     }
 
     return this.gridStates[this.gridStates.length - 1]
