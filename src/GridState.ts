@@ -128,7 +128,7 @@ export class GridState {
       throw new Error(`The number of cards (${shuffledCards.length}) and cells (${cellsExcludingLastColumn.length}) have to match.`)
     }
 
-    const newCardPositions: Array<CardCellPair> = []
+    const shuffledCardCellPairs: Array<CardCellPair> = []
     for (let i = 0; i < shuffledCards.length; i++) {
       newCardPositions.push({
         card: shuffledCards[i],
@@ -136,7 +136,9 @@ export class GridState {
       })
     }
 
-    const newGridState = new GridState(newCardPositions)
+    const newCardCellPairs = shuffledCardCellPairs.concat(this.correctlyPositionedCards)
+
+    const newGridState = new GridState(newCardCellPairs)
     return newGridState
   }
 
