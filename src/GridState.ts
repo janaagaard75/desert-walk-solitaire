@@ -14,7 +14,12 @@ export class GridState {
   public constructor(
     cardCellPairs: Array<CardCellPair>
   ) {
+    if (cardCellPairs.length !== Deck.instance.cards.length) {
+      throw new Error(`Must supply ${Deck.instance.cards.length} card and cell pairs to the GridState constructor.`)
+    }
+
     cardCellPairs
+      // Sort to make sure the cells are added left to right, so that cellToTheLeft is defined when used in the constructor below.
       .sort((a, b) => a.cell.key - b.cell.key)
       .forEach(cardCellPair => {
         this.positionedCards.push(
@@ -30,17 +35,18 @@ export class GridState {
   @computed
   public get draggableCards(): Array<Card> {
     let draggableCards = this.emptyCells
-      .map(cell => cell.cellToTheLeft)
+      .map(emptyCell => emptyCell.cell.cellToTheLeft)
       .map(cellToTheLeft => this.getPositionedCard(cellToTheLeft))
       .map(positionedCard => positionedCard === undefined ? undefined : positionedCard.card)
       .map(card => card === undefined ? undefined : card.next)
+      // TODO: It should be possible to create a generic funtion for filtering out undefined values in an array, see https://stackoverflow.com/questions/43010737/way-to-tell-typescript-compiler-array-prototype-filter-removes-certain-types-fro.
       .filter((nextCard: Card | undefined): nextCard is Card => nextCard !== undefined)
 
-    const emptyCellsInFirstColumn = this.emptyCells
-      .filter(cell => cell.columnIndex === 0)
-      .some(cell => this.getPositionedCard(cell) === undefined)
+    const emptyCellInFirstColumn = this.emptyCells
+      .filter(emptyCell => emptyCell.cell.columnIndex === 0)
+      .some(emptyCell => this.getPositionedCard(emptyCell.cell) === undefined)
 
-    if (emptyCellsInFirstColumn) {
+    if (emptyCellInFirstColumn) {
       draggableCards = draggableCards.concat(Deck.instance.theFourAces)
     }
 
@@ -66,6 +72,7 @@ export class GridState {
     const emptyCells = Grid.instance.cells
       .filter(cell => this.getPositionedCard(cell) === undefined)
       .map(cell => new EmptyCell(cell, this.getCardToTheLeft(cell)))
+
     return emptyCells
   }
 
@@ -84,14 +91,18 @@ export class GridState {
       throw new Error('The \'to\' cell is already defined.')
     }
 
-    const newCardAndCellPairs = this.positionedCards
+    // TODO: Find a cleaner way to reset the hovered state.
+    to.hoveredByCard = undefined
+
+    const newCardCellPairs = this.positionedCards
+      // TODO: Add a property to DraggableCard that does this mapping.
       .map(positionedCard => {
         return {
           card: positionedCard.card,
           cell: positionedCard.cell
         }
       })
-      .filter(cardCellPair => cardCellPair.cell !== from)
+      .filter(cardAndCell => cardAndCell.cell !== from)
       .concat([
         {
           card: fromPositionedCard.card,
@@ -99,10 +110,7 @@ export class GridState {
         }
       ])
 
-    // TODO: Find a cleaner way to reset the hovered state. Making hoveredByCard a computed value would probably fix this.
-    to.hoveredByCard = undefined
-
-    const newGridState = new GridState(newCardAndCellPairs)
+    const newGridState = new GridState(newCardCellPairs)
     return newGridState
   }
 
@@ -113,7 +121,7 @@ export class GridState {
 
     const cellsExcludingLastColumn = this.incorrectlyPositionedCards
       .map(positionedCard => positionedCard.cell)
-      .concat(this.emptyCells)
+      .concat(this.emptyCells.map(emptyCell => emptyCell.cell))
       .filter(cell => cell.columnIndex !== Settings.instance.columns - 1)
 
     if (shuffledCards.length !== cellsExcludingLastColumn.length) {
@@ -145,6 +153,7 @@ export class GridState {
     return positionedCard.card
   }
 
+  // TODO: Rename all positionedCard to draggableCard in the code.
   private getPositionedCard(cell: Cell | undefined): DraggableCard | undefined {
     if (cell === undefined) {
       return undefined

@@ -4,17 +4,15 @@ import { Card } from './Card'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 
-export class EmptyCell extends Cell {
+export class EmptyCell {
   constructor(
-    cell: Cell,
+    public cell: Cell,
     private cardToTheLeft: Card | undefined
-  ) {
-    super(cell.rowIndex, cell.columnIndex, cell.cellToTheLeft)
-  }
+  ) { }
 
   @computed
   public get droppableCards(): Array<Card> {
-    if (this.cellToTheLeft === undefined) {
+    if (this.cell.cellToTheLeft === undefined) {
       return Deck.instance.theFourAces
     }
 
@@ -31,16 +29,16 @@ export class EmptyCell extends Cell {
 
   @computed
   public get hoveredByDroppableCard(): boolean {
-    if (this.hoveredByCard === undefined) {
+    if (this.cell.hoveredByCard === undefined) {
       return false
     }
 
-    const hoveredByDroppableCard = this.droppableCards.includes(this.hoveredByCard)
+    const hoveredByDroppableCard = this.droppableCards.includes(this.cell.hoveredByCard)
     return hoveredByDroppableCard
   }
 
   public cardIsDroppable(card: Card): boolean {
-    if (this.cellToTheLeft === undefined) {
+    if (this.cell.cellToTheLeft === undefined) {
       const isAce = card.value === 1
       return isAce
     }

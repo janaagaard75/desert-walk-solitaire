@@ -24,9 +24,9 @@ export class EmptyCellView extends Component<Props, {}> {
       borderStyle: style,
       borderWidth: width,
       height: Settings.instance.cardSize.height,
-      left: this.props.emptyCell.position.x,
+      left: this.props.emptyCell.cell.position.x,
       position: 'absolute',
-      top: this.props.emptyCell.position.y,
+      top: this.props.emptyCell.cell.position.y,
       width: Settings.instance.cardSize.width
     }
 

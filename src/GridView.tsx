@@ -57,7 +57,7 @@ export class GridView extends Component<Props, State> {
         )}
         {this.props.gridState.emptyCells.map(emptyCell =>
           <EmptyCellView
-            key={emptyCell.key}
+            key={emptyCell.cell.key}
             emptyCell={emptyCell}
             status={this.getEmptyCellStatus(emptyCell)}
           />
@@ -98,7 +98,7 @@ export class GridView extends Component<Props, State> {
       .map(emptyCell => {
         return {
           cell: emptyCell,
-          overlappingPixels: emptyCell.boundary.overlappingPixels(cardBoundary)
+          overlappingPixels: emptyCell.cell.boundary.overlappingPixels(cardBoundary)
         }
       })
       .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
@@ -107,13 +107,13 @@ export class GridView extends Component<Props, State> {
     this.props.gridState.emptyCells
       .forEach(emptyCell => {
         if (overlappedEmptyCells.length === 0) {
-          emptyCell.hoveredByCard = undefined
+          emptyCell.cell.hoveredByCard = undefined
         }
         else {
           const mostOverlappedCell = overlappedEmptyCells[0].cell
           emptyCell === mostOverlappedCell
-            ? emptyCell.hoveredByCard = card
-            : emptyCell.hoveredByCard = undefined
+            ? emptyCell.cell.hoveredByCard = card
+            : emptyCell.cell.hoveredByCard = undefined
         }
       })
 
@@ -137,8 +137,8 @@ export class GridView extends Component<Props, State> {
       .filter(emptyCell => emptyCell.cardIsDroppable(draggedCardBoundary.card))
       .map(emptyCell => {
         return {
-          cell: emptyCell,
-          overlappingPixels: emptyCell.boundary.overlappingPixels(draggedCardBoundary.boundary)
+          cell: emptyCell.cell,
+          overlappingPixels: emptyCell.cell.boundary.overlappingPixels(draggedCardBoundary.boundary)
         }
       })
       .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
