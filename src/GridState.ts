@@ -95,7 +95,6 @@ export class GridState {
     to.hoveredByCard = undefined
 
     const newCardCellPairs = this.cardCellPairs
-      // TODO: Add a property to DraggableCard that does this mapping.
       .map(pair => {
         return {
           card: pair.card,
