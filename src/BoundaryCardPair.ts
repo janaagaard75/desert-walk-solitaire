@@ -1,8 +1,7 @@
 import { Card } from './Card'
 import { Rectangle } from './Rectangle'
 
-// TODO: Rename to BoundaryCardPair.
-export interface DraggedCardBoundary {
+export interface BoundaryCardPair {
   boundary: Rectangle
   card: Card
 }

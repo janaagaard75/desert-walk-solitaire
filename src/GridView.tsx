@@ -4,10 +4,10 @@ import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
+import { BoundaryCardPair } from './BoundaryCardPair'
 import { Card } from './Card'
 import { Cell } from './Cell'
 import { DraggableCardView } from './DraggableCardView'
-import { DraggedCardBoundary } from './DraggedCardBoundary'
 import { EmptyCell } from './EmptyCell'
 import { EmptyCellStatus } from './EmptyCellStatus'
 import { EmptyCellView } from './EmptyCellView'
@@ -21,7 +21,7 @@ interface Props {
 }
 
 interface State {
-  draggedCardBoundary: DraggedCardBoundary | undefined
+  draggedCard: BoundaryCardPair | undefined
 }
 
 @observer
@@ -30,7 +30,7 @@ export class GridView extends Component<Props, State> {
     super(props, context)
 
     this.state = {
-      draggedCardBoundary: undefined
+      draggedCard: undefined
     }
   }
 
@@ -72,7 +72,7 @@ export class GridView extends Component<Props, State> {
       return EmptyCellStatus.Blocked
     }
 
-    if (this.state.draggedCardBoundary === undefined) {
+    if (this.state.draggedCard === undefined) {
       return EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged
     }
 
@@ -80,8 +80,8 @@ export class GridView extends Component<Props, State> {
       return EmptyCellStatus.HoveredByDropableCard
     }
 
-    if (this.state.draggedCardBoundary !== undefined) {
-      const draggedCard = this.state.draggedCardBoundary.card
+    if (this.state.draggedCard !== undefined) {
+      const draggedCard = this.state.draggedCard.card
       if (emptyCell.droppableCards.some(card => card === draggedCard)) {
         return EmptyCellStatus.CurrentlyDraggedCardDroppable
       }
@@ -118,7 +118,7 @@ export class GridView extends Component<Props, State> {
       })
 
     this.setState({
-      draggedCardBoundary: {
+      draggedCard: {
         boundary: cardBoundary,
         card: card
       }
@@ -126,12 +126,12 @@ export class GridView extends Component<Props, State> {
   }
 
   private handleCardDropped(from: Cell) {
-    if (this.state.draggedCardBoundary === undefined) {
+    if (this.state.draggedCard === undefined) {
       throw new Error('draggedCard should be defined when handling a drop.')
     }
 
     // Shadowing draggedCardBoundary to satify the TypeScript compiler below.
-    const draggedCardBoundary = this.state.draggedCardBoundary
+    const draggedCardBoundary = this.state.draggedCard
 
     const overlappedTargetableEmptyCells = this.props.gridState.emptyCells
       .filter(emptyCell => emptyCell.cardIsDroppable(draggedCardBoundary.card))
@@ -150,13 +150,13 @@ export class GridView extends Component<Props, State> {
     }
 
     this.setState({
-      draggedCardBoundary: undefined
+      draggedCard: undefined
     })
   }
 
   private handleDragStarted(card: Card, boundary: Rectangle) {
     this.setState({
-      draggedCardBoundary: {
+      draggedCard: {
         boundary: boundary,
         card: card
       }
