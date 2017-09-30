@@ -15,7 +15,6 @@ export class Cell {
     this.key = this.rowIndex * Settings.instance.columns + this.columnIndex + 1
   }
 
-  // TODO: Move this property to EmptyCell? It seems that it doesn't belong in Cell, since that class is now a child of the singleton Grid class.
   @observable public hoveredByCard: Card | undefined = undefined
   public readonly key: number
 
