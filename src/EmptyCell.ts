@@ -3,6 +3,7 @@ import { computed } from 'mobx'
 import { Card } from './Card'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
+import { EmptyCellStatus } from './EmptyCellStatus'
 
 export class EmptyCell {
   constructor(
@@ -49,5 +50,27 @@ export class EmptyCell {
 
     const followsCardToTheLeft = card === this.cardToTheLeft.next
     return followsCardToTheLeft
+  }
+
+  public getStatus(draggedCard: Card | undefined): EmptyCellStatus {
+    if (this.droppableCards.length === 0) {
+      return EmptyCellStatus.Blocked
+    }
+
+    if (draggedCard === undefined) {
+      return EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged
+    }
+
+    if (this.hoveredByDroppableCard) {
+      return EmptyCellStatus.HoveredByDropableCard
+    }
+
+    if (draggedCard !== undefined) {
+      if (this.droppableCards.some(card => card === draggedCard)) {
+        return EmptyCellStatus.CurrentlyDraggedCardDroppable
+      }
+    }
+
+    return EmptyCellStatus.DropAllowedButNotCurrentlyDraggedCard
   }
 }

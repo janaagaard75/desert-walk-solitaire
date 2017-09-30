@@ -8,8 +8,6 @@ import { BoundaryCardPair } from './BoundaryCardPair'
 import { Card } from './Card'
 import { Cell } from './Cell'
 import { DraggableCardView } from './DraggableCardView'
-import { EmptyCell } from './EmptyCell'
-import { EmptyCellStatus } from './EmptyCellStatus'
 import { EmptyCellView } from './EmptyCellView'
 import { GridState } from './GridState'
 import { Rectangle } from './Rectangle'
@@ -21,6 +19,7 @@ interface Props {
 }
 
 interface State {
+  // TODO: Consider making this private member that is an observable instead. EmptyCell.status should be a computed value.
   draggedCard: BoundaryCardPair | undefined
 }
 
@@ -59,35 +58,11 @@ export class GridView extends Component<Props, State> {
           <EmptyCellView
             key={emptyCell.cell.key}
             emptyCell={emptyCell}
-            status={this.getEmptyCellStatus(emptyCell)}
+            status={emptyCell.getStatus(this.state.draggedCard === undefined ? undefined : this.state.draggedCard.card)}
           />
         )}
       </View>
     )
-  }
-
-  // TODO: Move this to the EmptyCell or the GridState class.
-  private getEmptyCellStatus(emptyCell: EmptyCell): EmptyCellStatus {
-    if (emptyCell.droppableCards.length === 0) {
-      return EmptyCellStatus.Blocked
-    }
-
-    if (this.state.draggedCard === undefined) {
-      return EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged
-    }
-
-    if (emptyCell.hoveredByDroppableCard) {
-      return EmptyCellStatus.HoveredByDropableCard
-    }
-
-    if (this.state.draggedCard !== undefined) {
-      const draggedCard = this.state.draggedCard.card
-      if (emptyCell.droppableCards.some(card => card === draggedCard)) {
-        return EmptyCellStatus.CurrentlyDraggedCardDroppable
-      }
-    }
-
-    return EmptyCellStatus.DropAllowedButNotCurrentlyDraggedCard
   }
 
   private handleCardDragged(card: Card, cardBoundary: Rectangle) {
