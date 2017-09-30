@@ -12,7 +12,7 @@ import { Rectangle } from './Rectangle'
 
 interface Props {
   draggable: boolean
-  positionedCard: DraggableCard
+  draggableCard: DraggableCard
   onCardDragged: (cardRectangle: Rectangle) => void
   onCardDropped: () => void
   onDragStarted: () => void
@@ -95,7 +95,7 @@ export class DraggableCardView extends Component<Props, State> {
   private panResponder: PanResponderInstance
 
   public render() {
-    this.animatedPosition.setOffset(this.props.positionedCard.position)
+    this.animatedPosition.setOffset(this.props.draggableCard.position)
 
     const style = {
       position: 'absolute',
@@ -114,9 +114,9 @@ export class DraggableCardView extends Component<Props, State> {
         {...panHandlers}
       >
         <CardView
-          card={this.props.positionedCard.card}
+          card={this.props.draggableCard.card}
           draggable={this.props.draggable}
-          correctlyPlaced={this.props.positionedCard.correctlyPlaced}
+          correctlyPlaced={this.props.draggableCard.correctlyPlaced}
           shadow={this.state.visualState !== VisualState.Idle}
         />
       </Animated.View>

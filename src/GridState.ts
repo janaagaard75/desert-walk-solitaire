@@ -22,29 +22,29 @@ export class GridState {
       // Sort to make sure the cells are added left to right, so that cellToTheLeft is defined when used in the constructor below.
       .sort((a, b) => a.cell.key - b.cell.key)
       .forEach(cardCellPair => {
-        this.positionedCards.push(
-          new DraggableCard(cardCellPair.card, cardCellPair.cell, this.getPositionedCard(cardCellPair.cell.cellToTheLeft))
+        this.draggableCards.push(
+          new DraggableCard(cardCellPair.card, cardCellPair.cell, this.getDraggableCard(cardCellPair.cell.cellToTheLeft))
         )
       })
   }
 
-  // TODO: Consider creating a PositionedCards class.
+  // TODO: Consider creating a DraggableCards class.
   @observable
-  public readonly positionedCards: Array<DraggableCard> = []
+  public readonly draggableCards: Array<DraggableCard> = []
 
   @computed
-  public get draggableCards(): Array<Card> {
+  public get draggableInCurrentTurn(): Array<Card> {
     let draggableCards = this.emptyCells
       .map(emptyCell => emptyCell.cell.cellToTheLeft)
-      .map(cellToTheLeft => this.getPositionedCard(cellToTheLeft))
-      .map(positionedCard => positionedCard === undefined ? undefined : positionedCard.card)
+      .map(cellToTheLeft => this.getDraggableCard(cellToTheLeft))
+      .map(draggableCard => draggableCard === undefined ? undefined : draggableCard.card)
       .map(card => card === undefined ? undefined : card.next)
       // TODO: It should be possible to create a generic funtion for filtering out undefined values in an array, see https://stackoverflow.com/questions/43010737/way-to-tell-typescript-compiler-array-prototype-filter-removes-certain-types-fro.
       .filter((nextCard: Card | undefined): nextCard is Card => nextCard !== undefined)
 
     const emptyCellInFirstColumn = this.emptyCells
       .filter(emptyCell => emptyCell.cell.columnIndex === 0)
-      .some(emptyCell => this.getPositionedCard(emptyCell.cell) === undefined)
+      .some(emptyCell => this.getDraggableCard(emptyCell.cell) === undefined)
 
     if (emptyCellInFirstColumn) {
       draggableCards = draggableCards.concat(Deck.instance.theFourAces)
@@ -55,22 +55,22 @@ export class GridState {
 
   @computed
   public get correctlyPositionedCards(): Array<DraggableCard> {
-    const correctlyPositionedCards = this.positionedCards
-      .filter(positionedCard => positionedCard.correctlyPlaced)
+    const correctlyPositionedCards = this.draggableCards
+      .filter(draggableCard => draggableCard.correctlyPlaced)
     return correctlyPositionedCards
   }
 
   @computed
   private get incorrectlyPositionedCards(): Array<DraggableCard> {
-    const incorrectlyPositionedCards = this.positionedCards
-      .filter(positionedCard => !positionedCard.correctlyPlaced)
+    const incorrectlyPositionedCards = this.draggableCards
+      .filter(draggableCard => !draggableCard.correctlyPlaced)
     return incorrectlyPositionedCards
   }
 
   @computed
   public get emptyCells(): Array<EmptyCell> {
     const emptyCells = Grid.instance.cells
-      .filter(cell => this.getPositionedCard(cell) === undefined)
+      .filter(cell => this.getDraggableCard(cell) === undefined)
       .map(cell => new EmptyCell(cell, this.getCardToTheLeft(cell)))
 
     return emptyCells
@@ -78,34 +78,34 @@ export class GridState {
 
   // TODO: Create an abstract Turn class that is either a StartOverTurn, a MoveTurn or a ShuffleTurn, and have an apply method here in GridState that accepts a turn. Keep the turns in and array. That way moves and shuffles would become computed values. applyTurn(currentState: GridState): GridState.
   public moveCard(from: Cell, to: Cell): GridState {
-    const fromPositionedCard = this.getPositionedCard(from)
-    if (fromPositionedCard === undefined) {
+    const fromDraggableCard = this.getDraggableCard(from)
+    if (fromDraggableCard === undefined) {
       throw new Error('Could not find the \'from\' cell.')
     }
-    if (fromPositionedCard.card === undefined) {
+    if (fromDraggableCard.card === undefined) {
       throw new Error('The \'from\' cell must have a card.')
     }
 
-    const toPositionedCard = this.getPositionedCard(to)
-    if (toPositionedCard !== undefined) {
+    const toDraggableCard = this.getDraggableCard(to)
+    if (toDraggableCard !== undefined) {
       throw new Error('The \'to\' cell is already defined.')
     }
 
     // TODO: Find a cleaner way to reset the hovered state.
     to.hoveredByCard = undefined
 
-    const newCardCellPairs = this.positionedCards
+    const newCardCellPairs = this.draggableCards
       // TODO: Add a property to DraggableCard that does this mapping.
-      .map(positionedCard => {
+      .map(draggableCard => {
         return {
-          card: positionedCard.card,
-          cell: positionedCard.cell
+          card: draggableCard.card,
+          cell: draggableCard.cell
         }
       })
       .filter(cardAndCell => cardAndCell.cell !== from)
       .concat([
         {
-          card: fromPositionedCard.card,
+          card: fromDraggableCard.card,
           cell: to
         }
       ])
@@ -116,11 +116,11 @@ export class GridState {
 
   public shuffleCardsInWrongPlace(): GridState {
     const shuffledCards = this.incorrectlyPositionedCards
-      .map(positionedCard => positionedCard.card)
+      .map(draggableCard => draggableCard.card)
       .shuffle()
 
     const cellsExcludingLastColumn = this.incorrectlyPositionedCards
-      .map(positionedCard => positionedCard.cell)
+      .map(draggableCard => draggableCard.cell)
       .concat(this.emptyCells.map(emptyCell => emptyCell.cell))
       .filter(cell => cell.columnIndex !== Settings.instance.columns - 1)
 
@@ -130,7 +130,7 @@ export class GridState {
 
     const shuffledCardCellPairs: Array<CardCellPair> = []
     for (let i = 0; i < shuffledCards.length; i++) {
-      newCardPositions.push({
+      shuffledCardCellPairs.push({
         card: shuffledCards[i],
         cell: cellsExcludingLastColumn[i]
       })
@@ -147,21 +147,20 @@ export class GridState {
       return undefined
     }
 
-    const positionedCard = this.getPositionedCard(cell.cellToTheLeft)
-    if (positionedCard === undefined) {
+    const draggableCard = this.getDraggableCard(cell.cellToTheLeft)
+    if (draggableCard === undefined) {
       return undefined
     }
 
-    return positionedCard.card
+    return draggableCard.card
   }
 
-  // TODO: Rename all positionedCard to draggableCard in the code.
-  private getPositionedCard(cell: Cell | undefined): DraggableCard | undefined {
+  private getDraggableCard(cell: Cell | undefined): DraggableCard | undefined {
     if (cell === undefined) {
       return undefined
     }
 
-    const match = this.positionedCards.find(positionedCard => positionedCard.cell === cell)
+    const match = this.draggableCards.find(draggableCard => draggableCard.cell === cell)
     return match
   }
 }

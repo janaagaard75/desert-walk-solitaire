@@ -38,7 +38,7 @@ export class Game {
 
   @computed
   public get gameStatus(): GameStatus {
-    if (this.currentGridState.draggableCards.length >= 1) {
+    if (this.currentGridState.draggableInCurrentTurn.length >= 1) {
       return GameStatus.MovePossible
     }
 
