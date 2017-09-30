@@ -5,10 +5,9 @@ import { Suit } from './Suit'
 export class Card {
   constructor(
     public readonly suit: Suit,
-    public readonly value: number
+    public readonly value: number,
+    public readonly next: Card | undefined
   ) { }
-
-  public next: Card | undefined
 
   @computed
   public get displayValue(): string {
