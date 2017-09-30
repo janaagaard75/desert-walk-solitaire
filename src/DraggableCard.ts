@@ -1,14 +1,14 @@
 import { computed } from 'mobx'
 
 import { Card } from './Card'
-import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
+import { ICardCellPair } from './ICardCellPair'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 
 // TODO: Find a better name for this class. CardCellPair is much better. It's probably possible to replace 'left' with 'gridState' and make left a computed value, and thus remove the need for the interface.
-export class DraggableCard implements CardCellPair {
+export class DraggableCard implements ICardCellPair {
   constructor(
     public card: Card,
     public cell: Cell,
