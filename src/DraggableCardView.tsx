@@ -47,6 +47,7 @@ export class DraggableCardView extends Component<Props, State> {
           visualState: VisualState.Animating
         })
 
+        // TODO: Fix the animation after a card has been moved.
         Animated.timing(
           this.animatedPosition,
           {
