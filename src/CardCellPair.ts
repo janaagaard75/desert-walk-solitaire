@@ -44,7 +44,6 @@ export class CardCellPair implements ICardCellPair {
     return this.cell.position
   }
 
-  // TODO: Move to the Card class.
   public static getBoundary(position: Point): Rectangle {
     const boundary = new Rectangle(
       position.x,
