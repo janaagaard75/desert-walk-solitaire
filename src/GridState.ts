@@ -28,7 +28,6 @@ export class GridState {
       })
   }
 
-  // TODO: Consider creating a CardCellPairs class.
   @observable
   public readonly cardCellPairs: Array<CardCellPair> = []
 
