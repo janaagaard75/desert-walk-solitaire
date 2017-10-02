@@ -3111,9 +3111,9 @@ react-native-vector-icons@4.1.1:
     prop-types "^15.5.8"
     yargs "^6.3.0"
 
-"react-native@https://github.com/expo/react-native/archive/sdk-21.0.0.tar.gz":
-  version "0.48.3"
-  resolved "https://github.com/expo/react-native/archive/sdk-21.0.0.tar.gz#3d931fc155441bafa018aa647ad732ebdd437d92"
+"react-native@https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz":
+  version "0.48.4"
+  resolved "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz#a26ae48f77a0ac91acd19b1bb60d63737075f3ef"
   dependencies:
     absolute-path "^0.0.0"
     art "^0.10.0"
