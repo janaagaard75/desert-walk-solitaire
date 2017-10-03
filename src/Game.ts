@@ -36,6 +36,19 @@ export class Game {
     return this.gridStates[this.gridStates.length - 1]
   }
 
+  @computed get previousGridState(): GridState {
+    if (this.gridStates.length === 0) {
+      throw new Error('The game hasn\'t been started yet.')
+    }
+
+    // If there aren't any moves yet, then use the current state as the previous one.
+    if (this.gridStates.length === 1) {
+      return this.currentGridState
+    }
+
+    return this.gridStates[this.gridStates.length - 2]
+  }
+
   @computed
   public get gameStatus(): GameStatus {
     if (this.currentGridState.draggableCards.length >= 1) {

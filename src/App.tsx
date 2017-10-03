@@ -85,8 +85,10 @@ export default class App extends Component<{}, AppState> {
             }}
           />
           <GridView
-            gridState={this.game.currentGridState}
+            // TODO: Consider sending the whole Game class instead.
+            currentGridState={this.game.currentGridState}
             onMoveCard={(from, to) => this.game.moveCard(from, to)}
+            previousGridState={this.game.previousGridState}
           />
         </View>
         <Footer
