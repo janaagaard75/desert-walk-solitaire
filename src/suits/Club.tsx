@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Component } from 'react'
+import { observer } from 'mobx-react'
 import { Svg } from 'expo'
 
 import { Settings } from '../Settings'
@@ -9,6 +10,7 @@ interface Props {
   size: number
 }
 
+@observer
 export class Club extends Component<Props, {}> {
   public render() {
     return (

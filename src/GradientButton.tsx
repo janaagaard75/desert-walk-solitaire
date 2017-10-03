@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { observer } from 'mobx-react'
 import { Text } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { Component } from 'react'
@@ -10,6 +11,7 @@ interface Props {
   title: string
 }
 
+@observer
 export class GradientButton extends Component<Props, {}> {
   public render() {
     return (
