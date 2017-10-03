@@ -21,9 +21,6 @@
     "target": "es2015"
   },
   "exclude": [
-    "acceptance-tests",
-    "build",
-    "jest",
     "node_modules"
   ],
   "types": [
