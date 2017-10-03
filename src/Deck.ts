@@ -9,7 +9,6 @@ export class Deck {
     const cards: Array<Card> = []
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
       if (Suit.hasOwnProperty(suit)) {
-        // TODO: Consider initializing in reverse order and include 'next' in Card's constructor.
         for (let value = Settings.instance.maxCardValue; value >= 1; value--) {
           const nextCard = value === Settings.instance.maxCardValue
             ? undefined
