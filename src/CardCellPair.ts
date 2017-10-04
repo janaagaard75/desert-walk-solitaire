@@ -5,7 +5,6 @@ import { Cell } from './Cell'
 import { ICardCellPair } from './ICardCellPair'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
-import { Settings } from './Settings'
 
 export class CardCellPair implements ICardCellPair {
   constructor(
@@ -16,7 +15,7 @@ export class CardCellPair implements ICardCellPair {
 
   @computed
   public get boundary(): Rectangle {
-    const boundary = CardCellPair.getBoundary(this.position)
+    const boundary = Card.getBoundary(this.position)
     return boundary
   }
 
@@ -42,16 +41,5 @@ export class CardCellPair implements ICardCellPair {
   @computed
   public get position(): Point {
     return this.cell.position
-  }
-
-  public static getBoundary(position: Point): Rectangle {
-    const boundary = new Rectangle(
-      position.x,
-      position.x + Settings.instance.cardSize.width,
-      position.y,
-      position.y + Settings.instance.cardSize.height
-    )
-
-    return boundary
   }
 }
