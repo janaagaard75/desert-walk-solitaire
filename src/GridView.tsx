@@ -47,12 +47,14 @@ export class GridView extends Component<Props, State> {
       >
         {this.props.currentGridState.cardCellPairs.map(pair =>
           <DraggableCardView
-            cardCellPair={pair}
+            card={pair.card}
+            correctlyPlaced={pair.correctlyPlaced}
             draggable={this.props.currentGridState.draggableCards.some(card => card === pair.card)}
             key={pair.card.key}
             onCardDragged={cardRectangle => this.handleCardDragged(pair.card, cardRectangle)}
             onCardDropped={() => this.handleCardDropped(pair.cell)}
             onDragStarted={() => this.handleDragStarted(pair.card, pair.boundary)}
+            startPosition={pair.position}
           />
         )}
         {this.props.currentGridState.emptyCells.map(emptyCell =>

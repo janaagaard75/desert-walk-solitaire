@@ -6,16 +6,19 @@ import { observer } from 'mobx-react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
-import { CardCellPair } from './CardCellPair'
+import { Card } from './Card'
 import { CardView } from './CardView'
+import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 
 interface Props {
-  cardCellPair: CardCellPair
+  card: Card
+  correctlyPlaced: boolean
   draggable: boolean
   onCardDragged: (cardRectangle: Rectangle) => void
   onCardDropped: () => void
   onDragStarted: () => void
+  startPosition: Point
 }
 
 enum VisualState {
@@ -87,7 +90,7 @@ export class DraggableCardView extends Component<Props, State> {
     })
 
     this.animatedPosition.addListener(position => {
-      const boundary = CardCellPair.getBoundary(position)
+      const boundary = Card.getBoundary(position)
       this.props.onCardDragged(boundary)
     })
   }
@@ -96,7 +99,7 @@ export class DraggableCardView extends Component<Props, State> {
   private panResponder: PanResponderInstance
 
   public render() {
-    this.animatedPosition.setOffset(this.props.cardCellPair.position)
+    this.animatedPosition.setOffset(this.props.startPosition)
 
     const style = {
       position: 'absolute',
@@ -115,9 +118,9 @@ export class DraggableCardView extends Component<Props, State> {
         {...panHandlers}
       >
         <CardView
-          card={this.props.cardCellPair.card}
+          card={this.props.card}
           draggable={this.props.draggable}
-          correctlyPlaced={this.props.cardCellPair.correctlyPlaced}
+          correctlyPlaced={this.props.correctlyPlaced}
           shadow={this.state.visualState !== VisualState.Idle}
         />
       </Animated.View>

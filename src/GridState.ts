@@ -23,7 +23,7 @@ export class GridState {
       .sort((a, b) => a.cell.key - b.cell.key)
       .forEach(pair => {
         this.cardCellPairs.push(
-          new CardCellPair(pair.card, pair.cell, this.getCardCellPair(pair.cell.cellToTheLeft))
+          new CardCellPair(pair.card, pair.cell, this.getPairFromCell(pair.cell.cellToTheLeft))
         )
       })
   }
@@ -35,7 +35,7 @@ export class GridState {
   public get draggableCards(): Array<Card> {
     let draggableCards = this.emptyCells
       .map(emptyCell => emptyCell.cell.cellToTheLeft)
-      .map(cellToTheLeft => this.getCardCellPair(cellToTheLeft))
+      .map(cellToTheLeft => this.getPairFromCell(cellToTheLeft))
       .map(pair => pair === undefined ? undefined : pair.card)
       .map(card => card === undefined ? undefined : card.next)
       // TODO: It should be possible to create a generic funtion for filtering out undefined values in an array, see https://stackoverflow.com/questions/43010737/way-to-tell-typescript-compiler-array-prototype-filter-removes-certain-types-fro.
@@ -43,7 +43,7 @@ export class GridState {
 
     const emptyCellInFirstColumn = this.emptyCells
       .filter(emptyCell => emptyCell.cell.columnIndex === 0)
-      .some(emptyCell => this.getCardCellPair(emptyCell.cell) === undefined)
+      .some(emptyCell => this.getPairFromCell(emptyCell.cell) === undefined)
 
     if (emptyCellInFirstColumn) {
       draggableCards = draggableCards.concat(Deck.instance.theFourAces)
@@ -69,7 +69,7 @@ export class GridState {
   @computed
   public get emptyCells(): Array<EmptyCell> {
     const emptyCells = Grid.instance.cells
-      .filter(cell => this.getCardCellPair(cell) === undefined)
+      .filter(cell => this.getPairFromCell(cell) === undefined)
       .map(cell => new EmptyCell(cell, this.getCardToTheLeft(cell)))
 
     return emptyCells
@@ -77,7 +77,7 @@ export class GridState {
 
   // TODO: Create an abstract Turn class that is either a StartOverTurn, a MoveTurn or a ShuffleTurn, and have an apply method here in GridState that accepts a turn. Keep the turns in and array. That way moves and shuffles would become computed values. applyTurn(currentState: GridState): GridState.
   public moveCard(from: Cell, to: Cell): GridState {
-    const fromPair = this.getCardCellPair(from)
+    const fromPair = this.getPairFromCell(from)
     if (fromPair === undefined) {
       throw new Error('Could not find the \'from\' cell.')
     }
@@ -85,7 +85,7 @@ export class GridState {
       throw new Error('The \'from\' cell must have a card.')
     }
 
-    const toPair = this.getCardCellPair(to)
+    const toPair = this.getPairFromCell(to)
     if (toPair !== undefined) {
       throw new Error('The \'to\' cell is already defined.')
     }
@@ -145,7 +145,7 @@ export class GridState {
       return undefined
     }
 
-    const pair = this.getCardCellPair(cell.cellToTheLeft)
+    const pair = this.getPairFromCell(cell.cellToTheLeft)
     if (pair === undefined) {
       return undefined
     }
@@ -153,7 +153,17 @@ export class GridState {
     return pair.card
   }
 
-  private getCardCellPair(cell: Cell | undefined): CardCellPair | undefined {
+  public getPairFromCard(card: Card): CardCellPair {
+    const match = this.cardCellPairs.find(pair => pair.card === card)
+
+    if (match === undefined) {
+      throw new Error(`Could not find pair with card ${card.key}.`)
+    }
+
+    return match
+  }
+
+  private getPairFromCell(cell: Cell | undefined): CardCellPair | undefined {
     if (cell === undefined) {
       return undefined
     }
