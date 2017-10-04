@@ -3,7 +3,6 @@ import { Component } from 'react'
 import { Dimensions } from 'react-native'
 import { Image } from 'react-native'
 import { observer } from 'mobx-react'
-import { ScaledSize } from 'react-native'
 import { ScreenOrientation } from 'expo'
 import { StatusBar } from 'react-native'
 import { Text } from 'react-native'
@@ -16,33 +15,29 @@ import { Game } from './Game'
 import { GridView } from './GridView'
 import { Settings } from './Settings'
 
-interface AppState {
-  windowSize: ScaledSize
-}
-
 @observer
-export default class App extends Component<{}, AppState> {
+export default class App extends Component {
   constructor(props: {}, context?: any) {
     super(props, context)
 
     ScreenOrientation.allow(ScreenOrientation.Orientation.ALL)
-
-    this.state = {
-      windowSize: Dimensions.get('window')
-    }
-    Settings.instance.availableWidth = this.state.windowSize.width
+    this.updateWindowSize()
+    Dimensions.addEventListener('change', () => {
+      this.updateWindowSize()
+    })
 
     this.game = new Game()
-
-    Dimensions.addEventListener('change', () => {
-      this.setState({
-        windowSize: Dimensions.get('window')
-      })
-      Settings.instance.availableWidth = this.state.windowSize.width
-    })
   }
 
   private game: Game
+
+  private updateWindowSize() {
+    const windowSize = Dimensions.get('window')
+    Settings.instance.windowSize = {
+      height: windowSize.height,
+      width: windowSize.width
+    }
+  }
 
   public render() {
     const headerStyle: TextStyle = {
@@ -69,7 +64,7 @@ export default class App extends Component<{}, AppState> {
 
     return (
       <View style={mainViewStyle}>
-        <StatusBar hidden={true}/>
+        <StatusBar hidden={true} />
         <Text style={headerStyle}>
           Desert Walk
         </Text>
@@ -78,10 +73,10 @@ export default class App extends Component<{}, AppState> {
             source={require('./50713-transparent.png')}
             style={{
               backgroundColor: Settings.instance.colors.gridBackgroundColor,
-              height: this.state.windowSize.height,
+              height: Settings.instance.windowSize.height,
               position: 'absolute',
               resizeMode: 'repeat',
-              width: this.state.windowSize.width
+              width: Settings.instance.windowSize.width
             }}
           />
           <GridView

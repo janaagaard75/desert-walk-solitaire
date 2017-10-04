@@ -6,10 +6,10 @@ import { Size } from './Size'
 export class Settings {
   private constructor() { }
 
-  @observable public availableWidth = 0
   public readonly maxCardValue = 13
   public readonly rows = 4
   public readonly numberOfShuffles = 100
+  @observable public windowSize: Size = { height: 0, width: 0 }
 
   public readonly colors = {
     card: {
@@ -76,7 +76,7 @@ export class Settings {
   public get cardSize(): Size {
     const cardWidth = Math.floor(
       (
-        this.availableWidth * this.cardWidthToGutterRatio
+        this.windowSize.width * this.cardWidthToGutterRatio
       ) / (
         this.columns * (this.cardWidthToGutterRatio + 1) + 1
       )
@@ -147,7 +147,7 @@ export class Settings {
   public get gutterWidth(): number {
     const gutterWidth = Math.floor(
       (
-        this.availableWidth - this.columns * this.cardSize.width
+        this.windowSize.width - this.columns * this.cardSize.width
       ) / this.columns
     )
 
