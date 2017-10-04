@@ -22,7 +22,15 @@ export class Deck {
     this.cards = cards
   }
 
-  public static readonly instance: Deck = new Deck()
+  private static _instance: Deck
+
+  public static get instance(): Deck {
+    if (this._instance === undefined) {
+      this._instance = new Deck()
+    }
+
+    return this._instance
+  }
 
   public readonly cards: ReadonlyArray<Card>
 

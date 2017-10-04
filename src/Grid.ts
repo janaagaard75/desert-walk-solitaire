@@ -19,7 +19,15 @@ export class Grid {
     }
   }
 
-  public static readonly instance: Grid = new Grid()
+  private static _instance: Grid
+
+  public static get instance(): Grid {
+    if (this._instance === undefined) {
+      this._instance = new Grid()
+    }
+
+    return this._instance
+  }
 
   public readonly cells: Array<Cell> = []
 }

@@ -25,8 +25,16 @@ export class Settings {
     mainBackgroundColor: '#333'
   }
 
-  /** It's necessary to use the singleton pattern, because @computed doesn't work on static fields. See https://github.com/mobxjs/mobx/issues/351#issuecomment-228304310. */
-  public static readonly instance: Settings = new Settings()
+  // It's necessary to use the singleton pattern, because @computed doesn't work on static fields. See https://github.com/mobxjs/mobx/issues/351#issuecomment-228304310. It's also necessary to use an _instance private member and a getter instead of simply making instance a public static field - don't know why, though.
+  private static _instance: Settings
+
+  public static get instance() {
+    if (this._instance === undefined) {
+      this._instance = new Settings()
+    }
+
+    return this._instance
+  }
 
   public readonly columns = this.maxCardValue + 1
   public readonly numberOfCards = this.maxCardValue * this.rows
