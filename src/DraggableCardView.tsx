@@ -24,7 +24,7 @@ interface Props {
 enum VisualState {
   Animating,
   Dragging,
-  Idle
+  Idle,
 }
 
 interface State {
@@ -37,7 +37,7 @@ export class DraggableCardView extends Component<Props, State> {
     super(props, context)
 
     this.state = {
-      visualState: VisualState.Idle
+      visualState: VisualState.Idle,
     }
 
     this.animatedPosition = new Animated.ValueXY()
@@ -47,7 +47,7 @@ export class DraggableCardView extends Component<Props, State> {
         this.props.onCardDropped()
 
         this.setState({
-          visualState: VisualState.Animating
+          visualState: VisualState.Animating,
         })
 
         // TODO: Fix the animation after a card has been moved.
@@ -58,13 +58,13 @@ export class DraggableCardView extends Component<Props, State> {
             easing: Easing.elastic(1),
             toValue: {
               x: 0,
-              y: 0
-            }
-          }
+              y: 0,
+            },
+          },
         ).start(() => {
           if (this.state.visualState !== VisualState.Dragging) {
             this.setState({
-              visualState: VisualState.Idle
+              visualState: VisualState.Idle,
             })
           }
         })
@@ -78,15 +78,15 @@ export class DraggableCardView extends Component<Props, State> {
           null as any,
           {
             dx: this.animatedPosition.x,
-            dy: this.animatedPosition.y
-          }
+            dy: this.animatedPosition.y,
+          },
         ]),
       onPanResponderStart: (e, gestureState) => {
         this.setState({
-          visualState: VisualState.Dragging
+          visualState: VisualState.Dragging,
         })
       },
-      onStartShouldSetPanResponder: (e, gestureState) => true
+      onStartShouldSetPanResponder: (e, gestureState) => true,
     })
 
     this.animatedPosition.addListener(position => {
@@ -104,7 +104,7 @@ export class DraggableCardView extends Component<Props, State> {
     const style = {
       position: 'absolute',
       transform: this.animatedPosition.getTranslateTransform(),
-      zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
+      zIndex: this.state.visualState === VisualState.Idle ? 1 : 2,
     }
 
     // TODO: Only initialize panResponder if the card is draggable.

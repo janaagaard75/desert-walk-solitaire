@@ -11,7 +11,7 @@ export class CardPosition implements CardCellPair {
   constructor(
     public card: Card,
     public cell: Cell,
-    private gridState: GridState
+    private gridState: GridState,
   ) { }
 
   @computed

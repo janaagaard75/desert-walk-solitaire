@@ -93,7 +93,7 @@ export class Game {
     for (let i = 0; i < shuffledCards.length; i++) {
       positions.push({
         card: shuffledCards[i],
-        cell: cellsExcludingFirstColumn[i]
+        cell: cellsExcludingFirstColumn[i],
       })
     }
 
@@ -112,7 +112,7 @@ export class Game {
     if (this.gameStatus === GameStatus.GameLost || this.gameStatus === GameStatus.GameWon) {
       this.gameSummary.addFinalStep({
         cardsInPlace: this.currentGridState.correctlyPositionedCards.length,
-        moves: this.moves
+        moves: this.moves,
       })
 
       this.storeGameSummary()

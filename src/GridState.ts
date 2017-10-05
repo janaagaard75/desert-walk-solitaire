@@ -12,7 +12,7 @@ import { Settings } from './Settings'
 
 export class GridState {
   public constructor(
-    cardCellPairs: Array<CardCellPair>
+    cardCellPairs: Array<CardCellPair>,
   ) {
     if (cardCellPairs.length !== Deck.instance.cards.length) {
       throw new Error(`Must supply ${Deck.instance.cards.length} card and cell pairs to the GridState constructor.`)
@@ -92,15 +92,15 @@ export class GridState {
       .map(pair => {
         return {
           card: pair.card,
-          cell: pair.cell
+          cell: pair.cell,
         }
       })
       .filter(cardAndCell => cardAndCell.cell !== from)
       .concat([
         {
           card: fromPair.card,
-          cell: to
-        }
+          cell: to,
+        },
       ])
 
     const newGridState = new GridState(newCardCellPairs)
@@ -125,7 +125,7 @@ export class GridState {
     for (let i = 0; i < shuffledCards.length; i++) {
       shuffledCardCellPairs.push({
         card: shuffledCards[i],
-        cell: cellsExcludingLastColumn[i]
+        cell: cellsExcludingLastColumn[i],
       })
     }
 

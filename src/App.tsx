@@ -35,7 +35,7 @@ export default class App extends Component {
     const windowSize = Dimensions.get('window')
     Settings.instance.windowSize = {
       height: windowSize.height,
-      width: windowSize.width
+      width: windowSize.width,
     }
   }
 
@@ -47,19 +47,19 @@ export default class App extends Component {
       paddingBottom: 4,
       paddingTop: 4,
       textAlign: 'center',
-      zIndex: 10 // TODO: Figure out why this is necessary.
+      zIndex: 10, // TODO: Figure out why this is necessary.
     }
 
     const mainViewStyle: ViewStyle = {
       backgroundColor: Settings.instance.colors.mainBackgroundColor,
       flex: 1,
-      flexDirection: 'column'
+      flexDirection: 'column',
     }
 
     const gridWrapperViewStyle: ViewStyle = {
       alignItems: 'center',
       flex: 1,
-      justifyContent: 'center'
+      justifyContent: 'center',
     }
 
     return (
@@ -76,7 +76,7 @@ export default class App extends Component {
               height: Settings.instance.windowSize.height,
               position: 'absolute',
               resizeMode: 'repeat',
-              width: Settings.instance.windowSize.width
+              width: Settings.instance.windowSize.width,
             }}
           />
           <GridView

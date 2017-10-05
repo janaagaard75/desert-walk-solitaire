@@ -3,5 +3,5 @@ export enum EmptyCellStatus {
   CurrentlyDraggedCardDroppable,
   DropAllowedAndNoCardIsBeingDragged,
   DropAllowedButNotCurrentlyDraggedCard,
-  HoveredByDropableCard
+  HoveredByDropableCard,
 }

@@ -18,7 +18,7 @@ export class GradientButton extends Component<Props, {}> {
       <View
         style={{
           backgroundColor: 'white',
-          borderRadius: 10
+          borderRadius: 10,
         }}
       >
         <TouchableOpacity
@@ -31,13 +31,13 @@ export class GradientButton extends Component<Props, {}> {
             this.props.onPress()
           }}
           style={{
-            borderRadius: 10
+            borderRadius: 10,
           }}
         >
           <View
             style={{
               backgroundColor: '#448',
-              borderRadius: 10
+              borderRadius: 10,
             }}
           >
             <Text
@@ -47,7 +47,7 @@ export class GradientButton extends Component<Props, {}> {
                 // fontFamily: 'Gill Sans',
                 fontSize: 18,
                 margin: 10,
-                textAlign: 'center'
+                textAlign: 'center',
               }}
             >
               {this.props.title}

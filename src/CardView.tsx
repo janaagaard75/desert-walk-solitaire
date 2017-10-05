@@ -27,14 +27,14 @@ export class CardView extends Component<Props, {}> {
     const shadowStyle: ViewStyle = {
       borderRadius: Settings.instance.borderRadius,
       height: Settings.instance.cardSize.height,
-      width: Settings.instance.cardSize.width
+      width: Settings.instance.cardSize.width,
     }
     if (this.props.shadow) {
       Object.assign(shadowStyle, {
         shadowColor: Settings.instance.colors.card.shadowColor,
         shadowOffset: Settings.instance.cardShadowOffset,
         shadowOpacity: Settings.instance.cardShadowOpacity,
-        shadowRadius: Settings.instance.cardShadowRadius
+        shadowRadius: Settings.instance.cardShadowRadius,
       })
     }
 
@@ -48,7 +48,7 @@ export class CardView extends Component<Props, {}> {
       height: Settings.instance.cardSize.height,
       overflow: 'hidden',
       padding: Settings.instance.cardPadding,
-      width: Settings.instance.cardSize.width
+      width: Settings.instance.cardSize.width,
     }
 
     const valueStyle: TextStyle = {
@@ -60,13 +60,13 @@ export class CardView extends Component<Props, {}> {
       position: 'absolute',
       textAlign: 'center',
       top: Settings.instance.cardValueTop,
-      width: Settings.instance.cardValueWidth // Make space for the two digits in '10'.
+      width: Settings.instance.cardValueWidth, // Make space for the two digits in '10'.
     }
 
     const suitStyle: ViewStyle = {
       left: Settings.instance.cardSuitLeft,
       position: 'absolute',
-      top: Settings.instance.cardSuitTop
+      top: Settings.instance.cardSuitTop,
     }
 
     const overlayStyle: ViewStyle = {
@@ -75,7 +75,7 @@ export class CardView extends Component<Props, {}> {
       height: Settings.instance.cardSize.height,
       opacity: this.overlayOpacity(),
       position: 'absolute',
-      width: Settings.instance.cardSize.width
+      width: Settings.instance.cardSize.width,
     }
 
     return (

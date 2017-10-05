@@ -8,7 +8,7 @@ import { EmptyCellStatus } from './EmptyCellStatus'
 export class EmptyCell {
   constructor(
     public cell: Cell,
-    private cardToTheLeft: Card | undefined
+    private cardToTheLeft: Card | undefined,
   ) { }
 
   @computed

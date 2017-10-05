@@ -30,7 +30,7 @@ export class Footer extends Component<Props, State> {
     super(props, context)
 
     this.state = {
-      confirmModalVisible: false
+      confirmModalVisible: false,
     }
   }
 
@@ -38,34 +38,34 @@ export class Footer extends Component<Props, State> {
     const questionStyle: TextStyle = {
       fontSize: 24,
       marginBottom: 10,
-      textAlign: 'center'
+      textAlign: 'center',
     }
 
     const textStyle: TextStyle = {
       backgroundColor: 'transparent',
       color: 'white',
       flex: 1,
-      fontWeight: '700'
+      fontWeight: '700',
     }
 
     const rightAlignedTextStyle: TextStyle = {
       ...textStyle, ...{
-        textAlign: 'right'
-      }
+        textAlign: 'right',
+      },
     }
 
     return (
       <View
         style={{
           backgroundColor: Settings.instance.colors.mainBackgroundColor,
-          paddingTop: 4
+          paddingTop: 4,
         }}
       >
         <View
           style={{
             flexDirection: 'row',
             marginLeft: 10,
-            marginRight: 10
+            marginRight: 10,
           }}
         >
           <Text style={textStyle}>
@@ -82,7 +82,7 @@ export class Footer extends Component<Props, State> {
           style={{
             backgroundColor: Settings.instance.colors.mainBackgroundColor,
             flexDirection: 'row',
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
           }}
         >
           <View
@@ -90,7 +90,7 @@ export class Footer extends Component<Props, State> {
               backgroundColor: 'transparent',
               width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
                 ? '50%'
-                : '25%'
+                : '25%',
             }}
           >
             <Button
@@ -103,7 +103,7 @@ export class Footer extends Component<Props, State> {
               backgroundColor: 'transparent',
               width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
                 ? '50%'
-                : '25%'
+                : '25%',
             }}
           >
             <Button
@@ -116,7 +116,7 @@ export class Footer extends Component<Props, State> {
               backgroundColor: 'transparent',
               width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
                 ? '50%'
-                : '25%'
+                : '25%',
             }}
           >
             <Button
@@ -130,7 +130,7 @@ export class Footer extends Component<Props, State> {
               backgroundColor: 'transparent',
               width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
                 ? '50%'
-                : '25%'
+                : '25%',
             }}
           >
             <Button
@@ -182,13 +182,13 @@ export class Footer extends Component<Props, State> {
 
   private hideConfirmModal() {
     this.setState({
-      confirmModalVisible: false
+      confirmModalVisible: false,
     })
   }
 
   private showConfirmModal() {
     this.setState({
-      confirmModalVisible: true
+      confirmModalVisible: true,
     })
   }
 

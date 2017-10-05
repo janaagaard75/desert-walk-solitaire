@@ -20,10 +20,10 @@ export class Settings {
       diamonds: '#f00',
       hearts: '#f00',
       shadowColor: '#000',
-      spades: '#000'
+      spades: '#000',
     },
     gridBackgroundColor: '#464',
-    mainBackgroundColor: '#333'
+    mainBackgroundColor: '#333',
   }
 
   // It's necessary to use the singleton pattern, because @computed doesn't work on static fields. See https://github.com/mobxjs/mobx/issues/351#issuecomment-228304310. It's also necessary to use an _instance private member and a getter instead of simply making instance a public static field - don't know why, though.
@@ -63,7 +63,7 @@ export class Settings {
   public get cardShadowOffset() {
     const offset = {
       height: Math.round(Settings.instance.cardSize.width / 20),
-      width: Math.round(Settings.instance.cardSize.width / 50)
+      width: Math.round(Settings.instance.cardSize.width / 50),
     }
     return offset
   }
@@ -80,7 +80,7 @@ export class Settings {
         this.windowSize.width * this.cardWidthToGutterRatio
       ) / (
         this.columns * (this.cardWidthToGutterRatio + 1) + 1
-      )
+      ),
     )
 
     const cardHeight = Math.floor(this.cardSizeRatio * cardWidth)
@@ -89,7 +89,7 @@ export class Settings {
 
     return {
       height: cardHeight,
-      width: cardWidth
+      width: cardWidth,
     }
   }
 
@@ -140,7 +140,7 @@ export class Settings {
 
     return {
       height: height,
-      width: width
+      width: width,
     }
   }
 
@@ -149,7 +149,7 @@ export class Settings {
     const gutterWidth = Math.floor(
       (
         this.windowSize.width - this.columns * this.cardSize.width
-      ) / this.columns
+      ) / this.columns,
     )
 
     return gutterWidth
