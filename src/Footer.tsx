@@ -47,9 +47,11 @@ export class Footer extends Component<Props, State> {
       fontWeight: '700'
     }
 
-    const rightAlignedTextStyle: TextStyle = { ...textStyle, ...{
-      textAlign: 'right'
-    }}
+    const rightAlignedTextStyle: TextStyle = {
+      ...textStyle, ...{
+        textAlign: 'right'
+      }
+    }
 
     return (
       <View
@@ -81,6 +83,28 @@ export class Footer extends Component<Props, State> {
             flexDirection: 'row'
           }}
         >
+          <View
+            style={{
+              backgroundColor: 'transparent',
+              flex: 1
+            }}
+          >
+            <Button
+              onPress={() => { console.info('Undo pressed.') }}
+              title="Undo"
+            />
+          </View>
+          <View
+            style={{
+              backgroundColor: 'transparent',
+              flex: 1
+            }}
+          >
+            <Button
+              onPress={() => { console.info('Redo pressed.') }}
+              title="Redo"
+            />
+          </View>
           <View
             style={{
               backgroundColor: 'transparent',
