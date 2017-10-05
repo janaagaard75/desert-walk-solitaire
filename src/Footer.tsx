@@ -8,6 +8,7 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 
 import { GameStatus } from './GameStatus'
+import { ScreenOrientation } from './ScreenOrientation'
 import { Settings } from './Settings'
 
 interface Props {
@@ -80,13 +81,16 @@ export class Footer extends Component<Props, State> {
         <View
           style={{
             backgroundColor: Settings.instance.colors.mainBackgroundColor,
-            flexDirection: 'row'
+            flexDirection: 'row',
+            flexWrap: 'wrap'
           }}
         >
           <View
             style={{
               backgroundColor: 'transparent',
-              flex: 1
+              width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
+                ? '50%'
+                : '25%'
             }}
           >
             <Button
@@ -97,7 +101,9 @@ export class Footer extends Component<Props, State> {
           <View
             style={{
               backgroundColor: 'transparent',
-              flex: 1
+              width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
+                ? '50%'
+                : '25%'
             }}
           >
             <Button
@@ -108,7 +114,9 @@ export class Footer extends Component<Props, State> {
           <View
             style={{
               backgroundColor: 'transparent',
-              flex: 1
+              width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
+                ? '50%'
+                : '25%'
             }}
           >
             <Button
@@ -120,7 +128,9 @@ export class Footer extends Component<Props, State> {
           <View
             style={{
               backgroundColor: 'transparent',
-              flex: 1
+              width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
+                ? '50%'
+                : '25%'
             }}
           >
             <Button

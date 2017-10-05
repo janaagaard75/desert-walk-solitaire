@@ -2,11 +2,7 @@ import { computed } from 'mobx'
 import { observable } from 'mobx'
 
 import { Size } from './Size'
-
-enum ScreenOrientation {
-  Landscape,
-  Portrait
-}
+import { ScreenOrientation } from './ScreenOrientation'
 
 export class Settings {
   private constructor() { }
