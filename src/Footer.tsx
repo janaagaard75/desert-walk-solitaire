@@ -15,9 +15,13 @@ interface Props {
   correctlyPlacedCards: number
   gameStatus: GameStatus
   moves: number
+  onRedo: () => void
+  onUndo: () => void
+  redoPossible: boolean
   shuffleCardsInWrongPlace: () => void
-  startOver: () => void
   shuffles: number
+  startOver: () => void
+  undoPossible: boolean
 }
 
 interface State {
@@ -85,8 +89,8 @@ export class Footer extends Component<Props, State> {
             flexWrap: 'wrap',
           }}
         >
-          {this.renderButton('Undo', () => { console.info('Undo pressed.') })}
-          {this.renderButton('Redo', () => { console.info('Redo pressed.') })}
+          {this.renderButton('Undo', () => this.props.onUndo(), !this.props.undoPossible)}
+          {this.renderButton('Redo', () => this.props.onRedo(), !this.props.redoPossible)}
           {this.renderButton('Shuffle', () => this.shuffleCardsInWrongPlace(), this.shuffleButtonDisabled())}
           {this.renderButton('Start Over', () => this.confirmUnlessGameOver())}
         </View>

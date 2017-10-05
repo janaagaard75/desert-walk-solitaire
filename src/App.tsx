@@ -90,9 +90,13 @@ export default class App extends Component {
           correctlyPlacedCards={this.game.currentGridState.correctlyPositionedCards.length}
           gameStatus={this.game.gameStatus}
           moves={this.game.moves}
+          onRedo={() => this.game.redo()}
+          onUndo={() => this.game.undo()}
+          redoPossible={this.game.redoPossible}
           shuffleCardsInWrongPlace={() => this.game.shuffleCardsInWrongPlace()}
-          startOver={() => this.game.startOver()}
           shuffles={this.game.shuffles}
+          startOver={() => this.game.startOver()}
+          undoPossible={this.game.undoPossible}
         />
       </View>
     )

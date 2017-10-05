@@ -24,6 +24,7 @@ export class Game {
   @observable public moves: number
   @observable public shuffles: number
 
+  @observable private currentStateIndex: number
   private gameSummary: GameSummary
   @observable private gridStates: Array<GridState> = []
 
@@ -33,7 +34,11 @@ export class Game {
       throw new Error('The game hasn\'t been started yet.')
     }
 
-    return this.gridStates[this.gridStates.length - 1]
+    if (this.currentStateIndex < 0 || this.currentStateIndex > this.gridStates.length - 1) {
+      throw new Error(`Can't access state index ${this.currentStateIndex} when there are ${this.gridStates.length} states.`)
+    }
+
+    return this.gridStates[this.currentStateIndex]
   }
 
   @computed get previousGridState(): GridState {
@@ -66,16 +71,35 @@ export class Game {
     return GameStatus.GameLost
   }
 
+  @computed
+  public get redoPossible(): boolean {
+    const redoPossible = this.currentStateIndex < this.gridStates.length - 1
+    return redoPossible
+  }
+
+  @computed
+  public get undoPossible(): boolean {
+    const undoPossible = this.currentStateIndex > 0
+    return undoPossible
+  }
+
   public moveCard(from: Cell, to: Cell) {
     const newGridState = this.currentGridState.moveCard(from, to)
     this.gridStates.push(newGridState)
+    this.currentStateIndex++
     this.moves++
     this.storeSummaryIfGameOver()
+    console.info(`Grid states: ${this.gridStates.length}.`)
+  }
+
+  public redo() {
+    this.currentStateIndex++
   }
 
   public shuffleCardsInWrongPlace() {
     const newGridState = this.currentGridState.shuffleCardsInWrongPlace()
     this.gridStates.push(newGridState)
+    this.currentStateIndex++
     this.shuffles++
     this.storeSummaryIfGameOver()
   }
@@ -101,6 +125,7 @@ export class Game {
     this.gameSummary = new GameSummary()
     this.moves = 0
     this.shuffles = 0
+    this.currentStateIndex = 0
   }
 
   private storeGameSummary() {
@@ -117,5 +142,9 @@ export class Game {
 
       this.storeGameSummary()
     }
+  }
+
+  public undo() {
+    this.currentStateIndex--
   }
 }
