@@ -6,11 +6,11 @@ import { ICardCellPair } from './ICardCellPair'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 
-export class CardCellPair implements ICardCellPair {
+export class CardPosition implements ICardCellPair {
   constructor(
     public card: Card,
     public cell: Cell,
-    private left: CardCellPair | undefined
+    private left: CardPosition | undefined
   ) { }
 
   @computed

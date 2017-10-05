@@ -2,7 +2,7 @@ import { computed } from 'mobx'
 import { observable } from 'mobx'
 
 import { Card } from './Card'
-import { CardCellPair } from './CardCellPair'
+import { CardPosition } from './CardPosition'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { EmptyCell } from './EmptyCell'
@@ -23,13 +23,13 @@ export class GridState {
       .sort((a, b) => a.cell.key - b.cell.key)
       .forEach(pair => {
         this.cardCellPairs.push(
-          new CardCellPair(pair.card, pair.cell, this.getPairFromCell(pair.cell.cellToTheLeft))
+          new CardPosition(pair.card, pair.cell, this.getPairFromCell(pair.cell.cellToTheLeft))
         )
       })
   }
 
   @observable
-  public readonly cardCellPairs: Array<CardCellPair> = []
+  public readonly cardCellPairs: Array<CardPosition> = []
 
   @computed
   public get draggableCards(): Array<Card> {
@@ -53,14 +53,14 @@ export class GridState {
   }
 
   @computed
-  public get correctlyPositionedCards(): Array<CardCellPair> {
+  public get correctlyPositionedCards(): Array<CardPosition> {
     const correctlyPositionedCards = this.cardCellPairs
       .filter(pair => pair.correctlyPlaced)
     return correctlyPositionedCards
   }
 
   @computed
-  private get incorrectlyPositionedCards(): Array<CardCellPair> {
+  private get incorrectlyPositionedCards(): Array<CardPosition> {
     const incorrectlyPositionedCards = this.cardCellPairs
       .filter(pair => !pair.correctlyPlaced)
     return incorrectlyPositionedCards
@@ -153,7 +153,7 @@ export class GridState {
     return pair.card
   }
 
-  public getPairFromCard(card: Card): CardCellPair {
+  public getPairFromCard(card: Card): CardPosition {
     const match = this.cardCellPairs.find(pair => pair.card === card)
 
     if (match === undefined) {
@@ -163,7 +163,7 @@ export class GridState {
     return match
   }
 
-  private getPairFromCell(cell: Cell | undefined): CardCellPair | undefined {
+  private getPairFromCell(cell: Cell | undefined): CardPosition | undefined {
     if (cell === undefined) {
       return undefined
     }
