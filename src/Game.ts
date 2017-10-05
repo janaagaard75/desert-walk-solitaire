@@ -89,7 +89,6 @@ export class Game {
     this.currentStateIndex++
     this.moves++
     this.storeSummaryIfGameOver()
-    console.info(`Grid states: ${this.gridStates.length}.`)
   }
 
   public redo() {

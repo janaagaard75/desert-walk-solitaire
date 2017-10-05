@@ -91,11 +91,11 @@ export default class App extends Component {
           gameStatus={this.game.gameStatus}
           moves={this.game.moves}
           onRedo={() => this.game.redo()}
+          onShuffleCardsInWrongPlace={() => this.game.shuffleCardsInWrongPlace()}
+          onStartOver={() => this.game.startOver()}
           onUndo={() => this.game.undo()}
           redoPossible={this.game.redoPossible}
-          shuffleCardsInWrongPlace={() => this.game.shuffleCardsInWrongPlace()}
           shuffles={this.game.shuffles}
-          startOver={() => this.game.startOver()}
           undoPossible={this.game.undoPossible}
         />
       </View>

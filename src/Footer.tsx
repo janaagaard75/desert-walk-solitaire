@@ -16,11 +16,11 @@ interface Props {
   gameStatus: GameStatus
   moves: number
   onRedo: () => void
+  onShuffleCardsInWrongPlace: () => void
+  onStartOver: () => void
   onUndo: () => void
   redoPossible: boolean
-  shuffleCardsInWrongPlace: () => void
   shuffles: number
-  startOver: () => void
   undoPossible: boolean
 }
 
@@ -141,7 +141,7 @@ export class Footer extends Component<Props, State> {
     switch (this.props.gameStatus) {
       case GameStatus.GameLost:
       case GameStatus.GameWon:
-        this.props.startOver()
+        this.props.onStartOver()
         break
 
       case GameStatus.MovePossible:
@@ -172,11 +172,11 @@ export class Footer extends Component<Props, State> {
   }
 
   private shuffleCardsInWrongPlace() {
-    this.props.shuffleCardsInWrongPlace()
+    this.props.onShuffleCardsInWrongPlace()
   }
 
   private startOver() {
     this.hideConfirmModal()
-    this.props.startOver()
+    this.props.onStartOver()
   }
 }
