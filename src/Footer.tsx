@@ -85,59 +85,10 @@ export class Footer extends Component<Props, State> {
             flexWrap: 'wrap',
           }}
         >
-          <View
-            style={{
-              backgroundColor: 'transparent',
-              width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
-                ? '50%'
-                : '25%',
-            }}
-          >
-            <Button
-              onPress={() => { console.info('Undo pressed.') }}
-              title="Undo"
-            />
-          </View>
-          <View
-            style={{
-              backgroundColor: 'transparent',
-              width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
-                ? '50%'
-                : '25%',
-            }}
-          >
-            <Button
-              onPress={() => { console.info('Redo pressed.') }}
-              title="Redo"
-            />
-          </View>
-          <View
-            style={{
-              backgroundColor: 'transparent',
-              width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
-                ? '50%'
-                : '25%',
-            }}
-          >
-            <Button
-              onPress={() => this.shuffleCardsInWrongPlace()}
-              disabled={this.shuffleButtonDisabled()}
-              title="Shuffle"
-            />
-          </View>
-          <View
-            style={{
-              backgroundColor: 'transparent',
-              width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
-                ? '50%'
-                : '25%',
-            }}
-          >
-            <Button
-              onPress={() => this.confirmUnlessGameOver()}
-              title="Start Over"
-            />
-          </View>
+          {this.renderButton('Undo', () => { console.info('Undo pressed.') })}
+          {this.renderButton('Redo', () => { console.info('Redo pressed.') })}
+          {this.renderButton('Shuffle', () => this.shuffleCardsInWrongPlace(), this.shuffleButtonDisabled())}
+          {this.renderButton('Start Over', () => this.confirmUnlessGameOver())}
         </View>
         <Modal
           animationType="slide"
@@ -159,6 +110,25 @@ export class Footer extends Component<Props, State> {
             />
           </View>
         </Modal>
+      </View>
+    )
+  }
+
+  private renderButton(title: string, handlePress: () => void, disabled?: boolean) {
+    return (
+      <View
+        style={{
+          backgroundColor: 'transparent',
+          width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
+            ? '50%'
+            : '25%',
+        }}
+      >
+        <Button
+          onPress={handlePress}
+          disabled={disabled ? true : false}
+          title={title}
+        />
       </View>
     )
   }
