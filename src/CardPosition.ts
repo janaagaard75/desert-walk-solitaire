@@ -3,6 +3,7 @@ import { computed } from 'mobx'
 import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
+import { GridState } from './GridState'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 
@@ -10,7 +11,7 @@ export class CardPosition implements CardCellPair {
   constructor(
     public card: Card,
     public cell: Cell,
-    private left: CardPosition | undefined
+    private gridState: GridState
   ) { }
 
   @computed
@@ -36,6 +37,12 @@ export class CardPosition implements CardCellPair {
 
     const followsCardToTheLeft = this.left.correctlyPlaced && this.left.card.next === this.card
     return followsCardToTheLeft
+  }
+
+  @computed
+  public get left(): CardPosition | undefined {
+    const cardPositionToTheLeft = this.gridState.getPairFromCell(this.cell.cellToTheLeft)
+    return cardPositionToTheLeft
   }
 
   @computed

@@ -18,14 +18,9 @@ export class GridState {
       throw new Error(`Must supply ${Deck.instance.cards.length} card and cell pairs to the GridState constructor.`)
     }
 
-    cardCellPairs
-      // Sort to make sure the cells are added left to right, so that cellToTheLeft is defined when used in the constructor below.
-      .sort((a, b) => a.cell.key - b.cell.key)
-      .forEach(pair => {
-        this.cardCellPairs.push(
-          new CardPosition(pair.card, pair.cell, this.getPairFromCell(pair.cell.cellToTheLeft))
-        )
-      })
+    cardCellPairs.forEach(pair => {
+      this.cardCellPairs.push(new CardPosition(pair.card, pair.cell, this))
+    })
   }
 
   @observable
@@ -163,7 +158,7 @@ export class GridState {
     return match
   }
 
-  private getPairFromCell(cell: Cell | undefined): CardPosition | undefined {
+  public getPairFromCell(cell: Cell | undefined): CardPosition | undefined {
     if (cell === undefined) {
       return undefined
     }
