@@ -2,17 +2,17 @@ import { computed } from 'mobx'
 import { observable } from 'mobx'
 
 import { Card } from './Card'
+import { CardCellPair } from './CardCellPair'
 import { CardPosition } from './CardPosition'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { EmptyCell } from './EmptyCell'
 import { Grid } from './Grid'
-import { ICardCellPair } from './ICardCellPair'
 import { Settings } from './Settings'
 
 export class GridState {
   public constructor(
-    cardCellPairs: Array<ICardCellPair>
+    cardCellPairs: Array<CardCellPair>
   ) {
     if (cardCellPairs.length !== Deck.instance.cards.length) {
       throw new Error(`Must supply ${Deck.instance.cards.length} card and cell pairs to the GridState constructor.`)
@@ -126,7 +126,7 @@ export class GridState {
       throw new Error(`The number of cards (${shuffledCards.length}) and cells (${cellsExcludingLastColumn.length}) have to match.`)
     }
 
-    const shuffledCardCellPairs: Array<ICardCellPair> = []
+    const shuffledCardCellPairs: Array<CardCellPair> = []
     for (let i = 0; i < shuffledCards.length; i++) {
       shuffledCardCellPairs.push({
         card: shuffledCards[i],
