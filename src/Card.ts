@@ -32,7 +32,8 @@ export class Card {
     }
   }
 
-  @computed get key(): string {
+  @computed
+  public get key(): string {
     const key = this.value.toString() + '.' + this.suit
     return key
   }
