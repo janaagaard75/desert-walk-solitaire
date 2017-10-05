@@ -9,13 +9,17 @@
     lodash "^4.17.4"
     react-native-vector-icons "4.1.1"
 
+"@firebase/webchannel-wrapper@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.1.tgz#2c4dbc15edd1de4f656d543a6f512ded7978ef72"
+
 "@types/fbemitter@2.0.32":
   version "2.0.32"
   resolved "https://registry.yarnpkg.com/@types/fbemitter/-/fbemitter-2.0.32.tgz#8ed204da0f54e9c8eaec31b1eec91e25132d082c"
 
-"@types/react-native@0.48.9":
-  version "0.48.9"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.48.9.tgz#7c4530643f5d77820f17c7a69278f4556cdb2f4a"
+"@types/react-native@0.48.10":
+  version "0.48.10"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.48.10.tgz#c808a3ed381b2f5d87f07853ae29def8d4ad9f81"
   dependencies:
     "@types/react" "*"
 
@@ -23,9 +27,9 @@
   version "16.0.5"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.5.tgz#d713cf67cc211dea20463d2a0b66005c22070c4b"
 
-"@types/react@16.0.7":
-  version "16.0.7"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.7.tgz#f85b6c33c988a1631e2f32fedae71ec6d9718a0d"
+"@types/react@16.0.9":
+  version "16.0.9"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.9.tgz#2ad952abbb22617620927694f9a4bce292d7fb2b"
 
 abbrev@1:
   version "1.1.1"
@@ -1648,10 +1652,11 @@ find-up@^1.0.0:
     path-exists "^2.0.0"
     pinkie-promise "^2.0.0"
 
-firebase@4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/firebase/-/firebase-4.4.0.tgz#cffa34964c38ae24157ec930dbe147816fd8e3f4"
+firebase@4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/firebase/-/firebase-4.5.0.tgz#e0973a9803b74c4c9d73d19f874712e6e9d16ba7"
   dependencies:
+    "@firebase/webchannel-wrapper" "^0.2.1"
     dom-storage "^2.0.2"
     faye-websocket "0.9.3"
     jsonwebtoken "^7.3.0"
