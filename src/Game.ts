@@ -11,7 +11,10 @@ import { GameStatus } from './GameStatus'
 import { GameSummary } from './GameSummary'
 import { Grid } from './Grid'
 import { GridState } from './GridState'
+import { MoveTurn } from './MoveTurn'
 import { Settings } from './Settings'
+import { ShuffleTurn } from './ShuffleTurn'
+import { Turn } from './Turn'
 
 import * as firebaseConfig from './firebaseConfig.json'
 
@@ -26,7 +29,8 @@ export class Game {
 
   @observable private currentStateIndex: number
   private gameSummary: GameSummary
-  @observable private gridStates: Array<GridState> = []
+  @observable private gridStates: Array<GridState>
+  private turns: Array<Turn>
 
   @computed
   public get currentGridState(): GridState {
@@ -83,9 +87,14 @@ export class Game {
     return undoPossible
   }
 
+  // TODO: Try to consolidate moveCard and shuffleCards since there now an abstract turn concept.
   public moveCard(from: Cell, to: Cell) {
-    const newGridState = this.currentGridState.moveCard(from, to)
+    const turn = new MoveTurn(from, to)
+    this.turns.push(turn)
+
+    const newGridState = turn.performTurn(this.currentGridState)
     this.gridStates.push(newGridState)
+
     this.currentStateIndex++
     this.moves++
     this.storeSummaryIfGameOver()
@@ -96,8 +105,12 @@ export class Game {
   }
 
   public shuffleCardsInWrongPlace() {
-    const newGridState = this.currentGridState.shuffleCardsInWrongPlace()
+    const turn = new ShuffleTurn()
+    this.turns.push(turn)
+
+    const newGridState = turn.performTurn(this.currentGridState)
     this.gridStates.push(newGridState)
+
     this.currentStateIndex++
     this.shuffles++
     this.storeSummaryIfGameOver()
@@ -121,6 +134,7 @@ export class Game {
     }
 
     this.gridStates = [new GridState(positions)]
+    this.turns = []
     this.gameSummary = new GameSummary()
     this.moves = 0
     this.shuffles = 0

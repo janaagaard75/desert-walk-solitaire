@@ -7,6 +7,7 @@ import { GridState } from './GridState'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 
+// TODO: Find a better name. CardOnGrid, perhaps?
 export class CardPosition implements CardCellPair {
   constructor(
     public card: Card,
