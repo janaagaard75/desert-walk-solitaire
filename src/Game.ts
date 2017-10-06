@@ -96,16 +96,8 @@ export class Game {
     return undoPossible
   }
 
-  // TODO: Try to consolidate moveCard and shuffleCards since there now an abstract turn concept.
   public moveCard(from: Cell, to: Cell) {
-    const turn = new MoveTurn(from, to)
-    this.turns.push(turn)
-
-    const newGridState = turn.performTurn(this.currentGridState)
-    this.gridStates.push(newGridState)
-
-    this.currentStateIndex++
-    this.storeSummaryIfGameOver()
+    this.performTurn(new MoveTurn(from, to))
   }
 
   public redo() {
@@ -113,14 +105,7 @@ export class Game {
   }
 
   public shuffleCardsInWrongPlace() {
-    const turn = new ShuffleTurn()
-    this.turns.push(turn)
-
-    const newGridState = turn.performTurn(this.currentGridState)
-    this.gridStates.push(newGridState)
-
-    this.currentStateIndex++
-    this.storeSummaryIfGameOver()
+    this.performTurn(new ShuffleTurn())
   }
 
   public startOver() {
@@ -164,5 +149,16 @@ export class Game {
 
   public undo() {
     this.currentStateIndex--
+  }
+
+  private performTurn(turn: Turn) {
+    // TODO: Handle that the currentStateIndex might not point to the last turn in the array of turns.
+    this.turns.push(turn)
+
+    const newGridState = turn.performTurn(this.currentGridState)
+    this.gridStates.push(newGridState)
+
+    this.currentStateIndex++
+    this.storeSummaryIfGameOver()
   }
 }
