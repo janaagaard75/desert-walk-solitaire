@@ -24,13 +24,10 @@ export class Game {
     firebase.initializeApp(firebaseConfig)
   }
 
-  @observable public moves: number
-  @observable public shuffles: number
-
   @observable private currentStateIndex: number
   private gameSummary: GameSummary
   @observable private gridStates: Array<GridState>
-  private turns: Array<Turn>
+  @observable private turns: Array<Turn>
 
   @computed
   public get currentGridState(): GridState {
@@ -76,6 +73,18 @@ export class Game {
   }
 
   @computed
+  public get moves(): number {
+    const moves = this.turns.filter(turn => turn instanceof MoveTurn).length
+    return moves
+  }
+
+  @computed
+  public get shuffles(): number {
+    const shuffles = this.turns.filter(turn => turn instanceof ShuffleTurn).length
+    return shuffles
+  }
+
+  @computed
   public get redoPossible(): boolean {
     const redoPossible = this.currentStateIndex < this.gridStates.length - 1
     return redoPossible
@@ -96,7 +105,6 @@ export class Game {
     this.gridStates.push(newGridState)
 
     this.currentStateIndex++
-    this.moves++
     this.storeSummaryIfGameOver()
   }
 
@@ -112,7 +120,6 @@ export class Game {
     this.gridStates.push(newGridState)
 
     this.currentStateIndex++
-    this.shuffles++
     this.storeSummaryIfGameOver()
   }
 
@@ -136,8 +143,6 @@ export class Game {
     this.gridStates = [new GridState(positions)]
     this.turns = []
     this.gameSummary = new GameSummary()
-    this.moves = 0
-    this.shuffles = 0
     this.currentStateIndex = 0
   }
 
