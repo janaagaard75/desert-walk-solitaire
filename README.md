@@ -11,7 +11,7 @@ A game of solitare implemented in React Native and written in TypeScript.
   * Show a fast replay of all the moves if the solitaire succeeds.
   * Animate shuffling the cards.
   * Consider animating that the cards are delt. This will also maje it clearer what happens when the cards arw shuffled, and make it possible to show an animation, should the cards coincidally be redlet in the exact same position as they were before.
-
+* Consider making the Game class a singleton, put Deck and Grid into it, and generally avoid passing things down with props, unless necessary.
 * Consider the cell dragging from as a droppable cell when dragging a card.
 * Game lost screen.
 * Game won screen.
