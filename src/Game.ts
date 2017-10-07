@@ -152,7 +152,13 @@ export class Game {
   }
 
   private performTurn(turn: Turn) {
-    // TODO: Handle that the currentStateIndex might not point to the last turn in the array of turns.
+    const maxStateIndex = this.gridStates.length - 1
+    if (this.currentStateIndex < maxStateIndex) {
+      const turnsToDiscard = maxStateIndex - this.currentStateIndex
+      this.gridStates = this.gridStates.slice(0, this.gridStates.length - turnsToDiscard)
+      this.turns = this.turns.slice(0, this.turns.length - turnsToDiscard)
+    }
+
     this.turns.push(turn)
 
     const newGridState = turn.performTurn(this.currentGridState)
