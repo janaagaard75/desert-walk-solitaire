@@ -82,18 +82,7 @@ export default class App extends Component {
             previousGridState={Game.instance.previousGridState}
           />
         </View>
-        <Footer
-          correctlyPlacedCards={Game.instance.currentGridState.correctlyPositionedCards.length}
-          gameStatus={Game.instance.gameStatus}
-          moves={Game.instance.moves}
-          onRedo={() => Game.instance.redo()}
-          onShuffleCardsInWrongPlace={() => Game.instance.shuffleCardsInWrongPlace()}
-          onStartOver={() => Game.instance.startOver()}
-          onUndo={() => Game.instance.undo()}
-          redoPossible={Game.instance.redoPossible}
-          shuffles={Game.instance.shuffles}
-          undoPossible={Game.instance.undoPossible}
-        />
+        <Footer/>
       </View>
     )
   }

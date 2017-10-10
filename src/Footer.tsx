@@ -7,30 +7,18 @@ import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 
+import { Game } from './Game'
 import { GameStatus } from './GameStatus'
 import { ScreenOrientation } from './ScreenOrientation'
 import { Settings } from './Settings'
-
-interface Props {
-  correctlyPlacedCards: number
-  gameStatus: GameStatus
-  moves: number
-  onRedo: () => void
-  onShuffleCardsInWrongPlace: () => void
-  onStartOver: () => void
-  onUndo: () => void
-  redoPossible: boolean
-  shuffles: number
-  undoPossible: boolean
-}
 
 interface State {
   confirmModalVisible: boolean
 }
 
 @observer
-export class Footer extends Component<Props, State> {
-  constructor(props: Props, context?: any) {
+export class Footer extends Component<{}, State> {
+  constructor(props: {}, context?: any) {
     super(props, context)
 
     this.state = {
@@ -73,13 +61,13 @@ export class Footer extends Component<Props, State> {
           }}
         >
           <Text style={textStyle}>
-            Moves: {this.props.moves}
+            Moves: {Game.instance.moves}
           </Text>
           <Text style={textStyle}>
-            Shuffles: {this.props.shuffles}
+            Shuffles: {Game.instance.shuffles}
           </Text>
           <Text style={rightAlignedTextStyle}>
-            Cards in correct spot: {this.props.correctlyPlacedCards}
+            Cards in correct spot: {Game.instance.currentGridState.correctlyPositionedCards.length}
           </Text>
         </View>
         <View
@@ -89,9 +77,9 @@ export class Footer extends Component<Props, State> {
             flexWrap: 'wrap',
           }}
         >
-          {this.renderButton('Undo', () => this.props.onUndo(), !this.props.undoPossible)}
-          {this.renderButton('Redo', () => this.props.onRedo(), !this.props.redoPossible)}
-          {this.renderButton('Shuffle', () => this.shuffleCardsInWrongPlace(), this.shuffleButtonDisabled())}
+          {this.renderButton('Undo', () => Game.instance.undo(), !Game.instance.undoPossible)}
+          {this.renderButton('Redo', () => Game.instance.redo(), !Game.instance.redoPossible)}
+          {this.renderButton('Shuffle', () => Game.instance.shuffleCardsInWrongPlace(), this.shuffleButtonDisabled())}
           {this.renderButton('Start Over', () => this.confirmUnlessGameOver())}
         </View>
         <Modal
@@ -138,10 +126,10 @@ export class Footer extends Component<Props, State> {
   }
 
   private confirmUnlessGameOver() {
-    switch (this.props.gameStatus) {
+    switch (Game.instance.gameStatus) {
       case GameStatus.GameLost:
       case GameStatus.GameWon:
-        this.props.onStartOver()
+        Game.instance.startOver()
         break
 
       case GameStatus.MovePossible:
@@ -150,7 +138,7 @@ export class Footer extends Component<Props, State> {
         break
 
       default:
-        throw new Error(`GameStatus ${this.props.gameStatus} is not supported.`)
+        throw new Error(`GameStatus ${Game.instance.gameStatus} is not supported.`)
     }
   }
 
@@ -167,16 +155,12 @@ export class Footer extends Component<Props, State> {
   }
 
   private shuffleButtonDisabled() {
-    const enabled = this.props.gameStatus === GameStatus.Stuck
+    const enabled = Game.instance.gameStatus === GameStatus.Stuck
     return !enabled
-  }
-
-  private shuffleCardsInWrongPlace() {
-    this.props.onShuffleCardsInWrongPlace()
   }
 
   private startOver() {
     this.hideConfirmModal()
-    this.props.onStartOver()
+    Game.instance.startOver()
   }
 }
