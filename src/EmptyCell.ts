@@ -52,6 +52,7 @@ export class EmptyCell {
     return followsCardToTheLeft
   }
 
+  // TODO: Make this a computed value on the EmptyCell class. This requires making the draggedCard an observable.
   public getStatus(draggedCard: Card | undefined): EmptyCellStatus {
     if (this.droppableCards.length === 0) {
       return EmptyCellStatus.Blocked
