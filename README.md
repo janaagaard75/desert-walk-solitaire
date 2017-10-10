@@ -25,6 +25,7 @@ A game of solitare implemented in React Native and written in TypeScript.
 * Disable shuffle button when it doesn't do anything.
 * More affordable buttons.
 * Splash screen.
+* Fix starting up the game while the phone is in landscape mode.
 
 * Keep track of the results for each game, that is: Number of moves, number of shuffles, number of cards in correct spot, datetime the game started, datetime the game ended.
 
