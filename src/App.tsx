@@ -11,7 +11,6 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { Footer } from './Footer'
-import { Game } from './Game'
 import { GridView } from './GridView'
 import { Settings } from './Settings'
 
@@ -75,12 +74,7 @@ export default class App extends Component {
               width: Settings.instance.windowSize.width,
             }}
           />
-          <GridView
-            // TODO: Consider sending the whole Game class instead.
-            currentGridState={Game.instance.currentGridState}
-            onMoveCard={(from, to) => Game.instance.moveCard(from, to)}
-            previousGridState={Game.instance.previousGridState}
-          />
+          <GridView/>
         </View>
         <Footer/>
       </View>
