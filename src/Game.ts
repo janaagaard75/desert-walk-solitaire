@@ -4,10 +4,10 @@ import * as firebase from 'firebase'
 
 // TODO: Figure out how to get a compiler error if this import is missing.
 import './ArrayExtensions'
-import { BoundaryCardPair } from './BoundaryCardPair'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
+import { DraggedCard } from './DraggedCard'
 import { GameState } from './GameState'
 import { GameSummary } from './GameSummary'
 import { Grid } from './Grid'
@@ -35,7 +35,7 @@ export class Game {
     return this._instance
   }
 
-  @observable public draggedCard: BoundaryCardPair | undefined
+  @observable public draggedCard: DraggedCard | undefined
 
   @observable private currentStateIndex: number
   @observable private gridStates: Array<GridState>
