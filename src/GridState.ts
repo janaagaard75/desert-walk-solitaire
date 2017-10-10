@@ -40,7 +40,6 @@ export class GridState {
       .map(cellToTheLeft => this.getPairFromCell(cellToTheLeft))
       .map(pair => pair === undefined ? undefined : pair.card)
       .map(card => card === undefined ? undefined : card.next)
-      // TODO: It should be possible to create a generic funtion for filtering out undefined values in an array, see https://stackoverflow.com/questions/43010737/way-to-tell-typescript-compiler-array-prototype-filter-removes-certain-types-fro.
       .filter((nextCard: Card | undefined): nextCard is Card => nextCard !== undefined)
 
     const emptyCellInFirstColumn = this.emptyCells
