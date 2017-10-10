@@ -7,8 +7,7 @@ import { GridState } from './GridState'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 
-// TODO: Find a better name. CardOnGrid, perhaps?
-export class CardPosition implements CardCellPair {
+export class CardOnGrid implements CardCellPair {
   constructor(
     public card: Card,
     public cell: Cell,
@@ -41,7 +40,7 @@ export class CardPosition implements CardCellPair {
   }
 
   @computed
-  public get left(): CardPosition | undefined {
+  public get left(): CardOnGrid | undefined {
     const cardPositionToTheLeft = this.gridState.getPairFromCell(this.cell.cellToTheLeft)
     return cardPositionToTheLeft
   }

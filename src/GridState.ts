@@ -3,7 +3,7 @@ import { observable } from 'mobx'
 
 import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
-import { CardPosition } from './CardPosition'
+import { CardOnGrid } from './CardOnGrid'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { EmptyCell } from './EmptyCell'
@@ -19,15 +19,15 @@ export class GridState {
     }
 
     cardCellPairs.forEach(pair => {
-      this.cardCellPairs.push(new CardPosition(pair.card, pair.cell, this))
+      this.cardCellPairs.push(new CardOnGrid(pair.card, pair.cell, this))
     })
   }
 
   @observable
-  public readonly cardCellPairs: Array<CardPosition> = []
+  public readonly cardCellPairs: Array<CardOnGrid> = []
 
   @computed
-  public get correctlyPositionedCards(): Array<CardPosition> {
+  public get correctlyPositionedCards(): Array<CardOnGrid> {
     const correctlyPositionedCards = this.cardCellPairs
       .filter(pair => pair.correctlyPlaced)
     return correctlyPositionedCards
@@ -63,7 +63,7 @@ export class GridState {
   }
 
   @computed
-  public get incorrectlyPositionedCards(): Array<CardPosition> {
+  public get incorrectlyPositionedCards(): Array<CardOnGrid> {
     const incorrectlyPositionedCards = this.cardCellPairs
       .filter(pair => !pair.correctlyPlaced)
     return incorrectlyPositionedCards
@@ -74,7 +74,7 @@ export class GridState {
     return newGridState
   }
 
-  public getPairFromCard(card: Card): CardPosition {
+  public getPairFromCard(card: Card): CardOnGrid {
     const match = this.cardCellPairs.find(pair => pair.card === card)
 
     if (match === undefined) {
@@ -84,7 +84,7 @@ export class GridState {
     return match
   }
 
-  public getPairFromCell(cell: Cell | undefined): CardPosition | undefined {
+  public getPairFromCell(cell: Cell | undefined): CardOnGrid | undefined {
     if (cell === undefined) {
       return undefined
     }
