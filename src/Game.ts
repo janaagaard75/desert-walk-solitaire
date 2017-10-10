@@ -19,9 +19,19 @@ import { Turn } from './Turn'
 import * as firebaseConfig from './firebaseConfig.json'
 
 export class Game {
-  constructor() {
+  private constructor() {
     this.startOver()
     firebase.initializeApp(firebaseConfig)
+  }
+
+  private static _instance: Game | undefined
+
+  public static get instance(): Game {
+    if (this._instance === undefined) {
+      this._instance = new Game()
+    }
+
+    return this._instance
   }
 
   @observable private currentStateIndex: number

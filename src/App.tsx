@@ -25,11 +25,9 @@ export default class App extends Component {
     Dimensions.addEventListener('change', () => {
       this.updateWindowSize()
     })
-
-    this.game = new Game()
   }
 
-  private game: Game
+  private game = Game.instance
 
   private updateWindowSize() {
     const windowSize = Dimensions.get('window')
