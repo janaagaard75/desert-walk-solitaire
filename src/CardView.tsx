@@ -14,6 +14,7 @@ import { Settings } from './Settings'
 import { Spade } from './suits/Spade'
 import { Suit } from './Suit'
 
+// TODO: Consider making the props computed values on the Card class.
 interface Props {
   card: Card
   draggable: boolean
