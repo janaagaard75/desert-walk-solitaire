@@ -27,8 +27,6 @@ export default class App extends Component {
     })
   }
 
-  private game = Game.instance
-
   private updateWindowSize() {
     const windowSize = Dimensions.get('window')
     Settings.instance.windowSize = {
@@ -79,22 +77,22 @@ export default class App extends Component {
           />
           <GridView
             // TODO: Consider sending the whole Game class instead.
-            currentGridState={this.game.currentGridState}
-            onMoveCard={(from, to) => this.game.moveCard(from, to)}
-            previousGridState={this.game.previousGridState}
+            currentGridState={Game.instance.currentGridState}
+            onMoveCard={(from, to) => Game.instance.moveCard(from, to)}
+            previousGridState={Game.instance.previousGridState}
           />
         </View>
         <Footer
-          correctlyPlacedCards={this.game.currentGridState.correctlyPositionedCards.length}
-          gameStatus={this.game.gameStatus}
-          moves={this.game.moves}
-          onRedo={() => this.game.redo()}
-          onShuffleCardsInWrongPlace={() => this.game.shuffleCardsInWrongPlace()}
-          onStartOver={() => this.game.startOver()}
-          onUndo={() => this.game.undo()}
-          redoPossible={this.game.redoPossible}
-          shuffles={this.game.shuffles}
-          undoPossible={this.game.undoPossible}
+          correctlyPlacedCards={Game.instance.currentGridState.correctlyPositionedCards.length}
+          gameStatus={Game.instance.gameStatus}
+          moves={Game.instance.moves}
+          onRedo={() => Game.instance.redo()}
+          onShuffleCardsInWrongPlace={() => Game.instance.shuffleCardsInWrongPlace()}
+          onStartOver={() => Game.instance.startOver()}
+          onUndo={() => Game.instance.undo()}
+          redoPossible={Game.instance.redoPossible}
+          shuffles={Game.instance.shuffles}
+          undoPossible={Game.instance.undoPossible}
         />
       </View>
     )
