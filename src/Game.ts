@@ -161,6 +161,7 @@ export class Game {
     this.currentStateIndex--
   }
 
+  // TODO: Consider making this the public method, and thus remove moveCard and shuffleCardsInIncorrectPlace.
   private performTurn(turn: Turn) {
     const maxStateIndex = this.gridStates.length - 1
     if (this.currentStateIndex < maxStateIndex) {
