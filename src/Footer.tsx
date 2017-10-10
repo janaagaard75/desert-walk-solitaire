@@ -8,7 +8,7 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 
 import { Game } from './Game'
-import { GameStatus } from './GameStatus'
+import { GameState } from './GameState'
 import { ScreenOrientation } from './ScreenOrientation'
 import { Settings } from './Settings'
 
@@ -127,13 +127,13 @@ export class Footer extends Component<{}, State> {
 
   private confirmUnlessGameOver() {
     switch (Game.instance.gameStatus) {
-      case GameStatus.GameLost:
-      case GameStatus.GameWon:
+      case GameState.GameLost:
+      case GameState.GameWon:
         Game.instance.startOver()
         break
 
-      case GameStatus.MovePossible:
-      case GameStatus.Stuck:
+      case GameState.MovePossible:
+      case GameState.Stuck:
         this.showConfirmModal()
         break
 
@@ -155,7 +155,7 @@ export class Footer extends Component<{}, State> {
   }
 
   private shuffleButtonDisabled() {
-    const enabled = Game.instance.gameStatus === GameStatus.Stuck
+    const enabled = Game.instance.gameStatus === GameState.Stuck
     return !enabled
   }
 

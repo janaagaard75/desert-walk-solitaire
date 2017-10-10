@@ -7,7 +7,7 @@ import './ArrayExtensions'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
-import { GameStatus } from './GameStatus'
+import { GameState } from './GameState'
 import { GameSummary } from './GameSummary'
 import { Grid } from './Grid'
 import { GridState } from './GridState'
@@ -66,20 +66,20 @@ export class Game {
   }
 
   @computed
-  public get gameStatus(): GameStatus {
+  public get gameStatus(): GameState {
     if (this.currentGridState.draggableCards.length >= 1) {
-      return GameStatus.MovePossible
+      return GameState.MovePossible
     }
 
     if (this.currentGridState.correctlyPositionedCards.length === Settings.instance.numberOfCards) {
-      return GameStatus.GameWon
+      return GameState.GameWon
     }
 
     if (this.shuffles <= Settings.instance.numberOfShuffles) {
-      return GameStatus.Stuck
+      return GameState.Stuck
     }
 
-    return GameStatus.GameLost
+    return GameState.GameLost
   }
 
   @computed
@@ -147,7 +147,7 @@ export class Game {
 
   // TODO: Add a listener on correctlyPositionedCards.length instead of having to call this method manually.
   private storeSummaryIfGameOver() {
-    if (this.gameStatus === GameStatus.GameLost || this.gameStatus === GameStatus.GameWon) {
+    if (this.gameStatus === GameState.GameLost || this.gameStatus === GameState.GameWon) {
       this.gameSummary.addFinalStep({
         cardsInPlace: this.currentGridState.correctlyPositionedCards.length,
         moves: this.moves,
