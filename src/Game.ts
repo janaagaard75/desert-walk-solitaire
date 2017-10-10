@@ -4,6 +4,7 @@ import * as firebase from 'firebase'
 
 // TODO: Figure out how to get a compiler error if this import is missing.
 import './ArrayExtensions'
+import { BoundaryCardPair } from './BoundaryCardPair'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
@@ -34,10 +35,13 @@ export class Game {
     return this._instance
   }
 
+  @observable public draggedCard: BoundaryCardPair | undefined
+
   @observable private currentStateIndex: number
-  private gameSummary: GameSummary
   @observable private gridStates: Array<GridState>
   @observable private turns: Array<Turn>
+
+  private gameSummary: GameSummary
 
   @computed
   public get currentGridState(): GridState {

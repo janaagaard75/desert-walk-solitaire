@@ -4,7 +4,6 @@ import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { BoundaryCardPair } from './BoundaryCardPair'
 import { Card } from './Card'
 import { Cell } from './Cell'
 import { DraggableCardView } from './DraggableCardView'
@@ -13,13 +12,8 @@ import { Game } from './Game'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 
-interface State {
-  // TODO: Consider making this private member that is an observable instead. EmptyCell.status should be a computed value.
-  draggedCard: BoundaryCardPair | undefined
-}
-
 @observer
-export class GridView extends Component<{}, State> {
+export class GridView extends Component {
   constructor(props: {}, context?: any) {
     super(props, context)
 
@@ -55,7 +49,7 @@ export class GridView extends Component<{}, State> {
           <EmptyCellView
             key={emptyCell.cell.key}
             emptyCell={emptyCell}
-            status={emptyCell.getStatus(this.state.draggedCard === undefined ? undefined : this.state.draggedCard.card)}
+            status={emptyCell.getStatus(Game.instance.draggedCard === undefined ? undefined : Game.instance.draggedCard.card)}
           />,
         )}
       </View>
@@ -89,21 +83,19 @@ export class GridView extends Component<{}, State> {
         }
       })
 
-    this.setState({
-      draggedCard: {
-        boundary: cardBoundary,
-        card: card,
-      },
-    })
+    Game.instance.draggedCard = {
+      boundary: cardBoundary,
+      card: card,
+    }
   }
 
   private handleCardDropped(from: Cell) {
-    if (this.state.draggedCard === undefined) {
+    if (Game.instance.draggedCard === undefined) {
       throw new Error('draggedCard should be defined when handling a drop.')
     }
 
     // Shadowing draggedCardBoundary to satify the TypeScript compiler below.
-    const draggedCardBoundary = this.state.draggedCard
+    const draggedCardBoundary = Game.instance.draggedCard
 
     const overlappedTargetableEmptyCells = Game.instance.currentGridState.emptyCells
       .filter(emptyCell => emptyCell.cardIsDroppable(draggedCardBoundary.card))
@@ -121,17 +113,13 @@ export class GridView extends Component<{}, State> {
       Game.instance.moveCard(from, mostOverlappedCell)
     }
 
-    this.setState({
-      draggedCard: undefined,
-    })
+    Game.instance.draggedCard = undefined
   }
 
   private handleDragStarted(card: Card, boundary: Rectangle) {
-    this.setState({
-      draggedCard: {
-        boundary: boundary,
-        card: card,
-      },
-    })
+    Game.instance.draggedCard = {
+      boundary: boundary,
+      card: card,
+    }
   }
 }
