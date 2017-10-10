@@ -79,7 +79,7 @@ export class Footer extends Component<{}, State> {
         >
           {this.renderButton('Undo', () => Game.instance.undo(), !Game.instance.undoPossible)}
           {this.renderButton('Redo', () => Game.instance.redo(), !Game.instance.redoPossible)}
-          {this.renderButton('Shuffle', () => Game.instance.shuffleCardsInWrongPlace(), this.shuffleButtonDisabled())}
+          {this.renderButton('Shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonDisabled())}
           {this.renderButton('Start Over', () => this.confirmUnlessGameOver())}
         </View>
         <Modal

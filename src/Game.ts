@@ -114,7 +114,7 @@ export class Game {
     this.currentStateIndex++
   }
 
-  public shuffleCardsInWrongPlace() {
+  public shuffleCardsInIncorrectPosition() {
     this.performTurn(new ShuffleTurn())
   }
 
