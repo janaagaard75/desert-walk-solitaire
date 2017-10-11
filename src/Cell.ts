@@ -1,10 +1,15 @@
 import { computed } from 'mobx'
-import { observable } from 'mobx'
 
 import { Card } from './Card'
+import { Game } from './Game'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
+
+interface OverlappingCard {
+  card: Card,
+  overlappingPixels: number,
+}
 
 export class Cell {
   constructor(
@@ -15,7 +20,6 @@ export class Cell {
     this.key = this.rowIndex * Settings.instance.columns + this.columnIndex + 1
   }
 
-  @observable public hoveredByCard: Card | undefined = undefined
   public readonly key: number
 
   @computed
@@ -28,6 +32,24 @@ export class Cell {
     )
 
     return boundary
+  }
+
+  // TODO: Add something that only returns the most hovered card.
+  @computed
+  public get hoveredByCard(): OverlappingCard | undefined {
+    if (Game.instance.draggedCard === undefined || Game.instance.draggedCardBoundary === undefined) {
+      return undefined
+    }
+
+    const overlappingPixels = this.boundary.overlappingPixels(Game.instance.draggedCardBoundary)
+    if (overlappingPixels === 0) {
+      return undefined
+    }
+
+    return {
+      card: Game.instance.draggedCard,
+      overlappingPixels: overlappingPixels,
+    }
   }
 
   @computed

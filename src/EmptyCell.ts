@@ -35,7 +35,7 @@ export class EmptyCell {
       return false
     }
 
-    const hoveredByDroppableCard = this.droppableCards.includes(this.cell.hoveredByCard)
+    const hoveredByDroppableCard = this.droppableCards.includes(this.cell.hoveredByCard.card)
     return hoveredByDroppableCard
   }
 

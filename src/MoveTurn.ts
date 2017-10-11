@@ -25,9 +25,6 @@ export class MoveTurn extends Turn {
       throw new Error('The \'to\' cell is already defined.')
     }
 
-    // TODO: Find a cleaner way to reset the hovered state.
-    this.to.hoveredByCard = undefined
-
     const newCardCellPairs = gridState.cardCellPairs
       .map(pair => {
         return {

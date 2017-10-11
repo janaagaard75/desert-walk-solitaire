@@ -151,33 +151,8 @@ export class Game {
     return this.gridStates[this.gridStates.length - 2]
   }
 
-  // TODO: It should be possible to replace draggedCard with Game.instance.draggedCard, but this results in two calls to handleCardDragged, where the card is undefined.
   public cardDragged(draggedCard: Card, boundary: Rectangle) {
     Game.instance.draggedCardBoundary = boundary
-
-    // TODO: Consider making this code something that flows naturally from updating draggedCard and draggedCardBoundary.
-    const overlappedCells = this.emptyCellsAndDraggedFromCell
-      .map(cell => {
-        return {
-          cell: cell,
-          overlappingPixels: cell.boundary.overlappingPixels(boundary),
-        }
-      })
-      .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
-      .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
-
-    this.emptyCellsAndDraggedFromCell
-      .forEach(cell => {
-        if (overlappedCells.length === 0) {
-          cell.hoveredByCard = undefined
-        }
-        else {
-          const mostOverlappedCell = overlappedCells[0]
-          cell === mostOverlappedCell.cell
-            ? cell.hoveredByCard = draggedCard
-            : cell.hoveredByCard = undefined
-        }
-      })
   }
 
   public cardDragStarted(card: Card, boundary: Rectangle) {
