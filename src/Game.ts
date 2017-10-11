@@ -59,20 +59,6 @@ export class Game {
   }
 
   @computed
-  public get emptyCellsAndDraggedFromCell(): Array<Cell> {
-    if (this.draggedCard === undefined) {
-      return []
-    }
-
-    // TODO: It feels wrong to use currentGridState here. Should the draggedCard be moved to the GridState class to keep things together, or this just a fake code smell?
-    const emptyCellsAndDraggedFromCell = Game.instance.currentGridState.emptyCells
-      .map(emptyCell => emptyCell.cell)
-      .concat(this.currentGridState.getPairFromCard(this.draggedCard).cell)
-
-    return emptyCellsAndDraggedFromCell
-  }
-
-  @computed
   public get gameStatus(): GameState {
     if (this.currentGridState.draggableCards.length >= 1) {
       return GameState.MovePossible
@@ -96,20 +82,6 @@ export class Game {
   }
 
   @computed
-  get previousGridState(): GridState {
-    if (this.gridStates.length === 0) {
-      throw new Error('The game hasn\'t been started yet.')
-    }
-
-    // If there aren't any moves yet, then use the current state as the previous one.
-    if (this.gridStates.length === 1) {
-      return this.currentGridState
-    }
-
-    return this.gridStates[this.gridStates.length - 2]
-  }
-
-  @computed
   public get shuffles(): number {
     const shuffles = this.turns.filter(turn => turn instanceof ShuffleTurn).length
     return shuffles
@@ -127,8 +99,62 @@ export class Game {
     return undoPossible
   }
 
+  @computed
+  private get emptyCellsAndDraggedFromCell(): Array<Cell> {
+    if (this.draggedCard === undefined) {
+      return []
+    }
+
+    // TODO: It feels wrong to use currentGridState here. Should the draggedCard be moved to the GridState class to keep things together, or this just a fake code smell?
+    const emptyCellsAndDraggedFromCell = Game.instance.currentGridState.emptyCells
+      .map(emptyCell => emptyCell.cell)
+      .concat(this.currentGridState.getPairFromCard(this.draggedCard).cell)
+
+    return emptyCellsAndDraggedFromCell
+  }
+
+  /** Overlapped cells sorted by number overlapped number of pixels. */
+  @computed
+  private get overlappedCells(): Array<Cell> {
+    if (this.draggedCardBoundary === undefined) {
+      return []
+    }
+
+    // Shawdow variable to satisfy the TypeScript compiler below.
+    const draggedCardBoundary = this.draggedCardBoundary
+
+    const overlappedCells = Grid.instance.cells
+      .map(cell => {
+        return {
+          cell: cell,
+          overlappingPixels: cell.boundary.overlappingPixels(draggedCardBoundary),
+        }
+      })
+      .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
+      .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
+      .map(cellAndOverlap => cellAndOverlap.cell)
+
+    return overlappedCells
+  }
+
+  @computed
+  private get previousGridState(): GridState {
+    if (this.gridStates.length === 0) {
+      throw new Error('The game hasn\'t been started yet.')
+    }
+
+    // If there aren't any moves yet, then use the current state as the previous one.
+    if (this.gridStates.length === 1) {
+      return this.currentGridState
+    }
+
+    return this.gridStates[this.gridStates.length - 2]
+  }
+
   // TODO: It should be possible to replace draggedCard with Game.instance.draggedCard, but this results in two calls to handleCardDragged, where the card is undefined.
   public cardDragged(draggedCard: Card, boundary: Rectangle) {
+    Game.instance.draggedCardBoundary = boundary
+
     // TODO: Consider making this code something that flows naturally from updating draggedCard and draggedCardBoundary.
     const overlappedCells = this.emptyCellsAndDraggedFromCell
       .map(cell => {
@@ -152,8 +178,6 @@ export class Game {
             : cell.hoveredByCard = undefined
         }
       })
-
-    Game.instance.draggedCardBoundary = boundary
   }
 
   public cardDragStarted(card: Card, boundary: Rectangle) {
