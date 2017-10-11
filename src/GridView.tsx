@@ -31,7 +31,7 @@ export class GridView extends Component {
             correctlyPlaced={pair.correctlyPlaced}
             draggable={Game.instance.currentGridState.draggableCards.some(card => card === pair.card)}
             key={pair.card.key}
-            onCardDragged={cardRectangle => this.handleCardDragged(cardRectangle)}
+            onCardDragged={cardRectangle => this.handleCardDragged(pair.card, cardRectangle)}
             onCardDropped={() => this.handleCardDropped(pair.cell)}
             onDragStarted={() => this.handleDragStarted(pair.card, pair.boundary)}
             startPosition={pair.position}
@@ -49,16 +49,8 @@ export class GridView extends Component {
   }
 
   // TODO: Move the handle-methods to the Game class, since draggedCard has been moved over there.
-  private handleCardDragged(boundary: Rectangle) {
-    if (Game.instance.draggedCard === undefined) {
-      // throw new Error('draggedCard must be defined when handling a drag.')
-      // TODO: It shouldn't be possible that draggedCard is undefined here, but two extra draggedCard calls are being made after the card was dropped.
-      return
-    }
-
-    // Shadowing the variable to satisfy the TypeScript compiler below.
-    const draggedCard = Game.instance.draggedCard
-
+  // TODO: It should be possible to replace draggedCard with Game.instance.draggedCard, but this results in two calls to handleCardDragged, where the card is undefined.
+  private handleCardDragged(draggedCard: Card, boundary: Rectangle) {
     // TODO: Consider making this code something that flows naturally from updating draggedCardBoundary. That probably requires switching from a state variable to an observable. See https://blog.cloudboost.io/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e.
     // TODO: Also consider the cell being dragged from.
     // TODO: Consider sharing some code with the method below.
