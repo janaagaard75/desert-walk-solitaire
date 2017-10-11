@@ -28,9 +28,9 @@ export class GridView extends Component {
             correctlyPlaced={pair.correctlyPlaced}
             draggable={Game.instance.currentGridState.draggableCards.some(card => card === pair.card)}
             key={pair.card.key}
-            onCardDragged={cardRectangle => Game.instance.handleCardDragged(pair.card, cardRectangle)}
-            onCardDragStarted={() => Game.instance.handleCardDragStarted(pair.card, pair.boundary)}
-            onCardDropped={() => Game.instance.handleCardDropped(pair.cell)}
+            onCardDragged={cardRectangle => Game.instance.cardDragged(pair.card, cardRectangle)}
+            onCardDragStarted={() => Game.instance.cardDragStarted(pair.card, pair.boundary)}
+            onCardDropped={() => Game.instance.cardDropped(pair.cell)}
             startPosition={pair.position}
           />,
         )}
