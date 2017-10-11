@@ -160,6 +160,7 @@ export class Game {
     Game.instance.draggedCardBoundary = boundary
   }
 
+  // TODO: This method should simply check if an empty cell has the state 'hovered'.
   public cardDropped(from: Cell) {
     if (Game.instance.draggedCard === undefined) {
       throw new Error('draggedCard must be defined when handling a drop.')
