@@ -58,17 +58,17 @@ export class Game {
     return this.gridStates[this.currentStateIndex]
   }
 
-  @computed get previousGridState(): GridState {
-    if (this.gridStates.length === 0) {
-      throw new Error('The game hasn\'t been started yet.')
+  @computed
+  public get emptyCellsAndDraggedFromCell(): Array<Cell> {
+    if (this.draggedCard === undefined) {
+      return []
     }
 
-    // If there aren't any moves yet, then use the current state as the previous one.
-    if (this.gridStates.length === 1) {
-      return this.currentGridState
-    }
+    const emptyCellsAndDraggedFromCell = Game.instance.currentGridState.emptyCells
+      .map(emptyCell => emptyCell.cell)
+      .concat(this.currentGridState.getPairFromCard(this.draggedCard).cell)
 
-    return this.gridStates[this.gridStates.length - 2]
+    return emptyCellsAndDraggedFromCell
   }
 
   @computed
@@ -95,6 +95,20 @@ export class Game {
   }
 
   @computed
+  get previousGridState(): GridState {
+    if (this.gridStates.length === 0) {
+      throw new Error('The game hasn\'t been started yet.')
+    }
+
+    // If there aren't any moves yet, then use the current state as the previous one.
+    if (this.gridStates.length === 1) {
+      return this.currentGridState
+    }
+
+    return this.gridStates[this.gridStates.length - 2]
+  }
+
+  @computed
   public get shuffles(): number {
     const shuffles = this.turns.filter(turn => turn instanceof ShuffleTurn).length
     return shuffles
@@ -110,19 +124,6 @@ export class Game {
   public get undoPossible(): boolean {
     const undoPossible = this.currentStateIndex > 0
     return undoPossible
-  }
-
-  @computed
-  public get emptyCellsAndDraggedFromCell(): Array<Cell> {
-    if (this.draggedCard === undefined) {
-      return []
-    }
-
-    const emptyCellsAndDraggedFromCell = Game.instance.currentGridState.emptyCells
-      .map(emptyCell => emptyCell.cell)
-      .concat(this.currentGridState.getPairFromCard(this.draggedCard).cell)
-
-    return emptyCellsAndDraggedFromCell
   }
 
   // TODO: It should be possible to replace draggedCard with Game.instance.draggedCard, but this results in two calls to handleCardDragged, where the card is undefined.
