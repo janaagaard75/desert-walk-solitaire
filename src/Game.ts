@@ -112,14 +112,23 @@ export class Game {
     return undoPossible
   }
 
+  @computed
+  public get emptyCellsAndDraggedFromCell(): Array<Cell> {
+    if (this.draggedCard === undefined) {
+      return []
+    }
+
+    const emptyCellsAndDraggedFromCell = Game.instance.currentGridState.emptyCells
+      .map(emptyCell => emptyCell.cell)
+      .concat(this.currentGridState.getPairFromCard(this.draggedCard).cell)
+
+    return emptyCellsAndDraggedFromCell
+  }
+
   // TODO: It should be possible to replace draggedCard with Game.instance.draggedCard, but this results in two calls to handleCardDragged, where the card is undefined.
   public cardDragged(draggedCard: Card, boundary: Rectangle) {
     // TODO: Consider making this code something that flows naturally from updating draggedCard and draggedCardBoundary.
-    const emptyCellsAndDraggedFromCell = Game.instance.currentGridState.emptyCells
-      .map(emptyCell => emptyCell.cell)
-      .concat(this.currentGridState.getPairFromCard(draggedCard).cell)
-
-    const overlappedCells = emptyCellsAndDraggedFromCell
+    const overlappedCells = this.emptyCellsAndDraggedFromCell
       .map(cell => {
         return {
           cell: cell,
@@ -129,7 +138,7 @@ export class Game {
       .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
       .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
 
-    emptyCellsAndDraggedFromCell
+    this.emptyCellsAndDraggedFromCell
       .forEach(cell => {
         if (overlappedCells.length === 0) {
           cell.hoveredByCard = undefined
