@@ -113,7 +113,7 @@ export class Game {
     return emptyCellsAndDraggedFromCell
   }
 
-  /** Overlapped cells sorted by number overlapped number of pixels. */
+  /** Overlapped cells sorted by number overlapped number of pixels. For performance reasons, only emptyCellsAndDraggedFromCell are considered. */
   @computed
   private get overlappedCells(): Array<Cell> {
     if (this.draggedCardBoundary === undefined) {
@@ -123,7 +123,7 @@ export class Game {
     // Shawdow variable to satisfy the TypeScript compiler below.
     const draggedCardBoundary = this.draggedCardBoundary
 
-    const overlappedCells = Grid.instance.cells
+    const overlappedCells = this.emptyCellsAndDraggedFromCell
       .map(cell => {
         return {
           cell: cell,
