@@ -64,6 +64,7 @@ export class Game {
       return []
     }
 
+    // TODO: It feels wrong to use currentGridState here. Should the draggedCard be moved to the GridState class to keep things together, or this just a fake code smell?
     const emptyCellsAndDraggedFromCell = Game.instance.currentGridState.emptyCells
       .map(emptyCell => emptyCell.cell)
       .concat(this.currentGridState.getPairFromCard(this.draggedCard).cell)
