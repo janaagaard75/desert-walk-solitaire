@@ -114,7 +114,7 @@ export class Game {
 
   // TODO: It should be possible to replace draggedCard with Game.instance.draggedCard, but this results in two calls to handleCardDragged, where the card is undefined.
   public cardDragged(draggedCard: Card, boundary: Rectangle) {
-    // TODO: Consider making this code something that flows naturally from updating draggedCardBoundary. That probably requires switching from a state variable to an observable. See https://blog.cloudboost.io/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e.
+    // TODO: Consider making this code something that flows naturally from updating draggedCard and draggedCardBoundary.
     const emptyCellsAndDraggedFromCell = Game.instance.currentGridState.emptyCells
       .map(emptyCell => emptyCell.cell)
       .concat(this.currentGridState.getPairFromCard(draggedCard).cell)
