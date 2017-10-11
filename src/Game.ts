@@ -115,28 +115,30 @@ export class Game {
   // TODO: It should be possible to replace draggedCard with Game.instance.draggedCard, but this results in two calls to handleCardDragged, where the card is undefined.
   public cardDragged(draggedCard: Card, boundary: Rectangle) {
     // TODO: Consider making this code something that flows naturally from updating draggedCardBoundary. That probably requires switching from a state variable to an observable. See https://blog.cloudboost.io/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e.
-    // TODO: Also consider the cell being dragged from.
-    // TODO: Consider sharing some code with the method below.
-    const overlappedEmptyCells = Game.instance.currentGridState.emptyCells
-      .map(emptyCell => {
+    const emptyCellsAndDraggedFromCell = Game.instance.currentGridState.emptyCells
+      .map(emptyCell => emptyCell.cell)
+      .concat(this.currentGridState.getPairFromCard(draggedCard).cell)
+
+    const overlappedCells = emptyCellsAndDraggedFromCell
+      .map(cell => {
         return {
-          cell: emptyCell,
-          overlappingPixels: emptyCell.cell.boundary.overlappingPixels(boundary),
+          cell: cell,
+          overlappingPixels: cell.boundary.overlappingPixels(boundary),
         }
       })
       .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
       .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
 
-    Game.instance.currentGridState.emptyCells
-      .forEach(emptyCell => {
-        if (overlappedEmptyCells.length === 0) {
-          emptyCell.cell.hoveredByCard = undefined
+    emptyCellsAndDraggedFromCell
+      .forEach(cell => {
+        if (overlappedCells.length === 0) {
+          cell.hoveredByCard = undefined
         }
         else {
-          const mostOverlappedCell = overlappedEmptyCells[0].cell
-          emptyCell === mostOverlappedCell
-            ? emptyCell.cell.hoveredByCard = draggedCard
-            : emptyCell.cell.hoveredByCard = undefined
+          const mostOverlappedCell = overlappedCells[0]
+          cell === mostOverlappedCell.cell
+            ? cell.hoveredByCard = draggedCard
+            : cell.hoveredByCard = undefined
         }
       })
 
