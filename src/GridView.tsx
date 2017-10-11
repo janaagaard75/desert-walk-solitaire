@@ -32,8 +32,8 @@ export class GridView extends Component {
             draggable={Game.instance.currentGridState.draggableCards.some(card => card === pair.card)}
             key={pair.card.key}
             onCardDragged={cardRectangle => this.handleCardDragged(pair.card, cardRectangle)}
+            onCardDragStarted={() => this.handleCardDragStarted(pair.card, pair.boundary)}
             onCardDropped={() => this.handleCardDropped(pair.cell)}
-            onDragStarted={() => this.handleDragStarted(pair.card, pair.boundary)}
             startPosition={pair.position}
           />,
         )}
@@ -80,6 +80,11 @@ export class GridView extends Component {
     Game.instance.draggedCardBoundary = boundary
   }
 
+  private handleCardDragStarted(card: Card, boundary: Rectangle) {
+    Game.instance.draggedCard = card
+    Game.instance.draggedCardBoundary = boundary
+  }
+
   private handleCardDropped(from: Cell) {
     if (Game.instance.draggedCard === undefined) {
       throw new Error('draggedCard must be defined when handling a drop.')
@@ -110,10 +115,5 @@ export class GridView extends Component {
     }
 
     Game.instance.draggedCard = undefined
-  }
-
-  private handleDragStarted(card: Card, boundary: Rectangle) {
-    Game.instance.draggedCard = card
-    Game.instance.draggedCardBoundary = boundary
   }
 }

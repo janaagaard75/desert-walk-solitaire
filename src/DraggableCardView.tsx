@@ -16,8 +16,8 @@ interface Props {
   correctlyPlaced: boolean
   draggable: boolean
   onCardDragged: (cardRectangle: Rectangle) => void
+  onCardDragStarted: () => void
   onCardDropped: () => void
-  onDragStarted: () => void
   startPosition: Point
 }
 
@@ -70,7 +70,7 @@ export class DraggableCardView extends Component<Props, State> {
         })
       },
       onPanResponderGrant: (e, gestureState) => {
-        this.props.onDragStarted()
+        this.props.onCardDragStarted()
       },
       onPanResponderMove:
         Animated.event([
