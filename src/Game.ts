@@ -5,14 +5,15 @@ import * as firebase from 'firebase'
 // TODO: Figure out how to get a compiler error if this import is missing.
 import './ArrayExtensions'
 import { CardCellPair } from './CardCellPair'
+import { Card } from './Card'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
-import { DraggedCard } from './DraggedCard'
 import { GameState } from './GameState'
 import { GameSummary } from './GameSummary'
 import { Grid } from './Grid'
 import { GridState } from './GridState'
 import { MoveTurn } from './MoveTurn'
+import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 import { ShuffleTurn } from './ShuffleTurn'
 import { Turn } from './Turn'
@@ -35,7 +36,8 @@ export class Game {
     return this._instance
   }
 
-  @observable public draggedCard: DraggedCard | undefined
+  @observable public draggedCard: Card | undefined
+  @observable public draggedCardBoundary: Rectangle | undefined
 
   @observable private currentStateIndex: number
   @observable private gridStates: Array<GridState>
