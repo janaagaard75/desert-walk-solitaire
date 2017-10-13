@@ -1,13 +1,12 @@
 import { computed } from 'mobx'
 
 import { Card } from './Card'
-import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { GridState } from './GridState'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 
-export class OccupiedCell implements CardCellPair {
+export class OccupiedCell {
   constructor(
     public card: Card,
     public cell: Cell,
