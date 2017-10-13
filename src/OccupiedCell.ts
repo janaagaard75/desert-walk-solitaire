@@ -7,7 +7,7 @@ import { GridState } from './GridState'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 
-export class CardOnGrid implements CardCellPair {
+export class OccupiedCell implements CardCellPair {
   constructor(
     public card: Card,
     public cell: Cell,
@@ -40,7 +40,7 @@ export class CardOnGrid implements CardCellPair {
   }
 
   @computed
-  public get left(): CardOnGrid | undefined {
+  public get left(): OccupiedCell | undefined {
     const cardPositionToTheLeft = this.gridState.getPairFromCell(this.cell.cellToTheLeft)
     return cardPositionToTheLeft
   }
