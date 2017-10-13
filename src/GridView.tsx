@@ -22,7 +22,7 @@ export class GridView extends Component {
       <View
         style={gridViewStyle}
       >
-        {Game.instance.currentGridState.cardCellPairs.map(pair =>
+        {Game.instance.currentGridState.occupiedCells.map(pair =>
           <DraggableCardView
             card={pair.card}
             correctlyPlaced={pair.correctlyPlaced}

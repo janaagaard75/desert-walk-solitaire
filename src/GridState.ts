@@ -19,16 +19,16 @@ export class GridState {
     }
 
     cardCellPairs.forEach(pair => {
-      this.cardCellPairs.push(new OccupiedCell(pair.card, pair.cell, this))
+      this.occupiedCells.push(new OccupiedCell(pair.card, pair.cell, this))
     })
   }
 
   @observable
-  public readonly cardCellPairs: Array<OccupiedCell> = []
+  public readonly occupiedCells: Array<OccupiedCell> = []
 
   @computed
   public get correctlyPositionedCards(): Array<OccupiedCell> {
-    const correctlyPositionedCards = this.cardCellPairs
+    const correctlyPositionedCards = this.occupiedCells
       .filter(pair => pair.correctlyPlaced)
     return correctlyPositionedCards
   }
@@ -37,14 +37,14 @@ export class GridState {
   public get draggableCards(): Array<Card> {
     let draggableCards = this.emptyCells
       .map(emptyCell => emptyCell.cell.cellToTheLeft)
-      .map(cellToTheLeft => this.getPairFromCell(cellToTheLeft))
-      .map(pair => pair === undefined ? undefined : pair.card)
+      .map(cellToTheLeft => this.getOccupiedCellFromCell(cellToTheLeft))
+      .map(occupiedCell => occupiedCell === undefined ? undefined : occupiedCell.card)
       .map(card => card === undefined ? undefined : card.next)
       .filter((nextCard: Card | undefined): nextCard is Card => nextCard !== undefined)
 
     const emptyCellInFirstColumn = this.emptyCells
       .filter(emptyCell => emptyCell.cell.columnIndex === 0)
-      .some(emptyCell => this.getPairFromCell(emptyCell.cell) === undefined)
+      .some(emptyCell => this.getOccupiedCellFromCell(emptyCell.cell) === undefined)
 
     if (emptyCellInFirstColumn) {
       draggableCards = draggableCards.concat(Deck.instance.theFourAces)
@@ -56,7 +56,7 @@ export class GridState {
   @computed
   public get emptyCells(): Array<EmptyCell> {
     const emptyCells = Grid.instance.cells
-      .filter(cell => this.getPairFromCell(cell) === undefined)
+      .filter(cell => this.getOccupiedCellFromCell(cell) === undefined)
       .map(cell => new EmptyCell(cell, this.getCardToTheLeft(cell)))
 
     return emptyCells
@@ -64,7 +64,7 @@ export class GridState {
 
   @computed
   public get incorrectlyPositionedCards(): Array<OccupiedCell> {
-    const incorrectlyPositionedCards = this.cardCellPairs
+    const incorrectlyPositionedCards = this.occupiedCells
       .filter(pair => !pair.correctlyPlaced)
     return incorrectlyPositionedCards
   }
@@ -74,8 +74,8 @@ export class GridState {
     return newGridState
   }
 
-  public getPairFromCard(card: Card): OccupiedCell {
-    const match = this.cardCellPairs.find(pair => pair.card === card)
+  public getOccupiedCellFromCard(card: Card): OccupiedCell {
+    const match = this.occupiedCells.find(pair => pair.card === card)
 
     if (match === undefined) {
       throw new Error(`Could not find pair with card ${card.key}.`)
@@ -84,13 +84,31 @@ export class GridState {
     return match
   }
 
-  public getPairFromCell(cell: Cell | undefined): OccupiedCell | undefined {
+  public getOccupiedCellFromCell(cell: Cell | undefined): OccupiedCell | undefined {
     if (cell === undefined) {
       return undefined
     }
 
-    const match = this.cardCellPairs.find(pair => pair.cell === cell)
+    const match = this.occupiedCells.find(pair => pair.cell === cell)
     return match
+  }
+
+  public getGridCellFromCell(cell: Cell): EmptyCell | OccupiedCell | undefined {
+    if (cell.cellToTheLeft === undefined) {
+      return undefined
+    }
+
+    const occupiedCell = this.getOccupiedCellFromCell(cell)
+    if (occupiedCell !== undefined) {
+      return occupiedCell
+    }
+
+    const emptyCell = this.emptyCells.find(ec => ec.cell === cell)
+    if (emptyCell === undefined) {
+      throw new Error('Neither an occupied nor an empty cell found.')
+    }
+
+    return emptyCell
   }
 
   private getCardToTheLeft(cell: Cell): Card | undefined {
@@ -98,7 +116,7 @@ export class GridState {
       return undefined
     }
 
-    const pair = this.getPairFromCell(cell.cellToTheLeft)
+    const pair = this.getOccupiedCellFromCell(cell.cellToTheLeft)
     if (pair === undefined) {
       return undefined
     }

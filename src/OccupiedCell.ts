@@ -40,7 +40,7 @@ export class OccupiedCell {
 
   @computed
   public get left(): OccupiedCell | undefined {
-    const cardPositionToTheLeft = this.gridState.getPairFromCell(this.cell.cellToTheLeft)
+    const cardPositionToTheLeft = this.gridState.getOccupiedCellFromCell(this.cell.cellToTheLeft)
     return cardPositionToTheLeft
   }
 
