@@ -4,28 +4,32 @@ import { Card } from './Card'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { EmptyCellStatus } from './EmptyCellStatus'
+import { GridCell } from './GridCell'
+import { GridState } from './GridState'
 
-export class EmptyCell {
+export class EmptyCell extends GridCell {
   constructor(
-    public cell: Cell,
-    private cardToTheLeft: Card | undefined,
-  ) { }
+    cell: Cell,
+    gridState: GridState,
+  ) {
+    super(cell, gridState)
+  }
 
   @computed
   public get droppableCards(): Array<Card> {
-    if (this.cell.cellToTheLeft === undefined) {
+    if (this.left === undefined) {
       return Deck.instance.theFourAces
     }
 
-    if (this.cardToTheLeft === undefined) {
+    if (this.left instanceof EmptyCell) {
       return []
     }
 
-    if (this.cardToTheLeft.next === undefined) {
+    if (this.left.card.next === undefined) {
       return []
     }
 
-    return [this.cardToTheLeft.next]
+    return [this.left.card.next]
   }
 
   @computed
@@ -39,17 +43,8 @@ export class EmptyCell {
   }
 
   public cardIsDroppable(card: Card): boolean {
-    if (this.cell.cellToTheLeft === undefined) {
-      const isAce = card.value === 1
-      return isAce
-    }
-
-    if (this.cardToTheLeft === undefined) {
-      return false
-    }
-
-    const followsCardToTheLeft = card === this.cardToTheLeft.next
-    return followsCardToTheLeft
+    const droppable = this.droppableCards.some(droppableCard => droppableCard === card)
+    return droppable
   }
 
   // TODO: Make this a computed value on the EmptyCell class. This requires making the draggedCard an observable.

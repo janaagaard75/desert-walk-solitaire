@@ -57,7 +57,7 @@ export class GridState {
   public get emptyCells(): Array<EmptyCell> {
     const emptyCells = Grid.instance.cells
       .filter(cell => this.getOccupiedCellFromCell(cell) === undefined)
-      .map(cell => new EmptyCell(cell, this.getCardToTheLeft(cell)))
+      .map(cell => new EmptyCell(cell, this))
 
     return emptyCells
   }
@@ -105,18 +105,5 @@ export class GridState {
     }
 
     return emptyCell
-  }
-
-  private getCardToTheLeft(cell: Cell): Card | undefined {
-    if (cell.cellToTheLeft === undefined) {
-      return undefined
-    }
-
-    const pair = this.getOccupiedCellFromCell(cell.cellToTheLeft)
-    if (pair === undefined) {
-      return undefined
-    }
-
-    return pair.card
   }
 }
