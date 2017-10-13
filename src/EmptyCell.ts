@@ -5,7 +5,6 @@ import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { EmptyCellStatus } from './EmptyCellStatus'
 
-// TODO: Merge EmptyCell into Cell.
 export class EmptyCell {
   constructor(
     public cell: Cell,
