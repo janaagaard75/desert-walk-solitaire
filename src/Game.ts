@@ -36,6 +36,7 @@ export class Game {
     return this._instance
   }
 
+  // TODO: Save the OccupiedCell being dragged from instead of the Card.
   @observable public draggedCard: Card | undefined
   @observable public draggedCardBoundary: Rectangle | undefined
 
