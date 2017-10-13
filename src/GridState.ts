@@ -19,7 +19,7 @@ export class GridState {
     }
 
     cardCellPairs.forEach(pair => {
-      this.occupiedCells.push(new OccupiedCell(pair.card, pair.cell, this))
+      this.occupiedCells.push(new OccupiedCell(pair.cell, this, pair.card))
     })
   }
 
@@ -93,11 +93,7 @@ export class GridState {
     return match
   }
 
-  public getGridCellFromCell(cell: Cell): EmptyCell | OccupiedCell | undefined {
-    if (cell.cellToTheLeft === undefined) {
-      return undefined
-    }
-
+  public getGridCellFromCell(cell: Cell): EmptyCell | OccupiedCell {
     const occupiedCell = this.getOccupiedCellFromCell(cell)
     if (occupiedCell !== undefined) {
       return occupiedCell

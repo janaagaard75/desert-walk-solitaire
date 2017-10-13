@@ -2,29 +2,21 @@ import { computed } from 'mobx'
 
 import { Card } from './Card'
 import { Cell } from './Cell'
+import { EmptyCell } from './EmptyCell'
+import { GridCell } from './GridCell'
 import { GridState } from './GridState'
-import { Point } from './Point'
-import { Rectangle } from './Rectangle'
 
-export class OccupiedCell {
+export class OccupiedCell extends GridCell {
   constructor(
+    cell: Cell,
+    gridState: GridState,
     public card: Card,
-    public cell: Cell,
-    private gridState: GridState,
-  ) { }
-
-  @computed
-  public get boundary(): Rectangle {
-    const boundary = Card.getBoundary(this.position)
-    return boundary
+  ) {
+    super(cell, gridState)
   }
 
   @computed
   public get correctlyPlaced(): boolean {
-    if (this.card === undefined) {
-      return false
-    }
-
     if (this.cell.cellToTheLeft === undefined) {
       const aceInFirstColumn = this.card.value === 1
       return aceInFirstColumn
@@ -34,18 +26,11 @@ export class OccupiedCell {
       return false
     }
 
+    if (this.left instanceof EmptyCell) {
+      return false
+    }
+
     const followsCardToTheLeft = this.left.correctlyPlaced && this.left.card.next === this.card
     return followsCardToTheLeft
-  }
-
-  @computed
-  public get left(): OccupiedCell | undefined {
-    const cardPositionToTheLeft = this.gridState.getOccupiedCellFromCell(this.cell.cellToTheLeft)
-    return cardPositionToTheLeft
-  }
-
-  @computed
-  public get position(): Point {
-    return this.cell.position
   }
 }
