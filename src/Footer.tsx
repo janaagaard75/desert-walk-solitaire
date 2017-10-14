@@ -90,7 +90,7 @@ export class Footer extends Component<{}, State> {
         >
           <View style={{ marginTop: 22 }}>
             <Text style={questionStyle}>
-              The game isn't over yet. Start over anyway?
+              This game isn't over yet. Start over anyway?
             </Text>
             <Button
               onPress={() => this.startOver()}
