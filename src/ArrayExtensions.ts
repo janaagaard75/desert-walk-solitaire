@@ -1,4 +1,4 @@
-// TODO: Consider creating an ExtendedArray class instead, since extending the built in classes is a bad idea. https://github.com/Microsoft/TypeScript/wiki/FAQ#why-doesnt-extending-built-ins-like-error-array-and-map-work.
+// TODO: Consider creating an ExtendedArray class instead, since extending the built in classes is generally frowned upon. The currently solution makes the final code really nice to read, though, and this class only has to be imported once. https://github.com/Microsoft/TypeScript/wiki/FAQ#why-doesnt-extending-built-ins-like-error-array-and-map-work.
 
 function shuffleInPlace<T>(array: Array<T>): void {
   let top = array.length
