@@ -38,30 +38,37 @@ export class OccupiedCellView extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
-        Game.instance.cardDropped()
+        const cardMoved = Game.instance.cardDropped()
 
-        this.setState({
-          visualState: VisualState.Animating,
-        })
+        if (cardMoved) {
+          this.animatedPosition.setValue({ x: 0, y: 0 })
+          this.setState({
+            visualState: VisualState.Idle,
+          })
+        }
+        else {
+          this.setState({
+            visualState: VisualState.Animating,
+          })
 
-        // TODO: Fix the animation after a card has been moved.
-        Animated.timing(
-          this.animatedPosition,
-          {
-            duration: 200,
-            easing: Easing.elastic(1),
-            toValue: {
-              x: 0,
-              y: 0,
+          Animated.timing(
+            this.animatedPosition,
+            {
+              duration: 200,
+              easing: Easing.elastic(1),
+              toValue: {
+                x: 0,
+                y: 0,
+              },
             },
-          },
-        ).start(() => {
-          if (this.state.visualState !== VisualState.Dragging) {
-            this.setState({
-              visualState: VisualState.Idle,
-            })
-          }
-        })
+          ).start(() => {
+            if (this.state.visualState !== VisualState.Dragging) {
+              this.setState({
+                visualState: VisualState.Idle,
+              })
+            }
+          })
+        }
       },
       onPanResponderGrant: (e, gestureState) => {
         Game.instance.cardDragStarted(this.props.occupiedCell)

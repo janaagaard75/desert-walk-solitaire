@@ -151,7 +151,7 @@ export class Game {
     this.draggedCardBoundary = fromCell.boundary
   }
 
-  public cardDropped() {
+  public cardDropped(): boolean {
     if (this.draggingFromCell === undefined) {
       throw new Error('draggedCard must be defined when handling a drop.')
     }
@@ -162,17 +162,18 @@ export class Game {
 
     const targetCell = this.mostOverlappedTargetableCell
     if (targetCell === undefined) {
-      return
+      return false
     }
 
     if (targetCell === this.draggingFromCell.cell) {
-      return
+      return false
     }
 
     this.performTurn(new MoveTurn(this.draggingFromCell.cell, targetCell))
 
     this.draggingFromCell = undefined
     this.draggedCardBoundary = undefined
+    return true
   }
 
   public redo() {
