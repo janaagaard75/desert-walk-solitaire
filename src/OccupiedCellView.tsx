@@ -25,9 +25,8 @@ interface State {
   visualState: VisualState
 }
 
-// TODO: Rename to OccupiedCellView.
 @observer
-export class DraggableCardView extends Component<Props, State> {
+export class OccupiedCellView extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props, context)
 
