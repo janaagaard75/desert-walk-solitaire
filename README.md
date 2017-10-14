@@ -2,6 +2,8 @@
 
 A game of solitare implemented in React Native and written in TypeScript.
 
+Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
+
 ## To Do
 
 * Update engine, so that it can animate the cards between two states.
