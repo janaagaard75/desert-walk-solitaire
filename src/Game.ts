@@ -75,14 +75,14 @@ export class Game {
     return GameState.GameLost
   }
 
-  // TODO: Use this when setting the state for empty cells.
   @computed
   public get mostOverlappedTargetableCell(): Cell | undefined {
-    if (this.targetableCells.length === 0) {
+    if (this.targetCells.length === 0) {
       return undefined
     }
 
-    const sortedByOverlappedPixels = this.targetableCells
+    const sortedByOverlappedPixels = this.targetCells
+      .filter(cell => cell.draggedCardOverlappingPixels > 0)
       .sort((cellA, cellB) => cellB.draggedCardOverlappingPixels - cellA.draggedCardOverlappingPixels)
 
     const mostOverlapped = sortedByOverlappedPixels[0]
@@ -108,20 +108,6 @@ export class Game {
   }
 
   @computed
-  private get targetableCells(): Array<Cell> {
-    if (this.draggingFromCell === undefined) {
-      return []
-    }
-
-    // TODO: It feels wrong to use currentGridState here. Should draggingFromCell be moved to the GridState class to keep things together, or would this just create another code smell, since it only make sense to have a dragged card on the current turn state.
-    const emptyCellsAndDraggedFromCell = this.currentGridState.emptyCells
-      .map(emptyCell => emptyCell.cell)
-      .concat(this.draggingFromCell.cell)
-
-    return emptyCellsAndDraggedFromCell
-  }
-
-  @computed
   public get undoPossible(): boolean {
     const undoPossible = this.currentStateIndex > 0
     return undoPossible
@@ -139,6 +125,23 @@ export class Game {
     }
 
     return this.gridStates[this.gridStates.length - 2]
+  }
+
+  @computed
+  private get targetCells(): Array<Cell> {
+    if (this.draggingFromCell === undefined) {
+      return []
+    }
+
+    // Shadow variable to satify the TypeScript compiler below.
+    const draggedCard = this.draggingFromCell.card
+
+    const targetCells = this.currentGridState.emptyCells
+      .filter(emptyCell => emptyCell.droppableCards.some(card => card === draggedCard))
+      .map(emptyCell => emptyCell.cell)
+      .concat(this.draggingFromCell.cell)
+
+    return targetCells
   }
 
   public cardDragged(boundary: Rectangle) {
