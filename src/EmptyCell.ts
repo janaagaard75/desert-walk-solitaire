@@ -4,7 +4,7 @@ import { Card } from './Card'
 import { Cell } from './Cell'
 import { Game } from './Game'
 import { Deck } from './Deck'
-import { EmptyCellStatus } from './EmptyCellStatus'
+import { EmptyCellState } from './EmptyCellState'
 import { GridCell } from './GridCell'
 import { GridState } from './GridState'
 
@@ -34,24 +34,24 @@ export class EmptyCell extends GridCell {
   }
 
   @computed
-  public get status(): EmptyCellStatus {
+  public get status(): EmptyCellState {
     if (this.droppableCards.length === 0) {
-      return EmptyCellStatus.Blocked
+      return EmptyCellState.Blocked
     }
 
     if (Game.instance.draggingFromCell === undefined) {
-      return EmptyCellStatus.DropAllowedButNoCardIsBeingDragged
+      return EmptyCellState.DropAllowedButNoCardIsBeingDragged
     }
 
     if (Game.instance.mostOverlappedTargetableCell === this.cell) {
-      return EmptyCellStatus.MostOverlappedTargetableCell
+      return EmptyCellState.MostOverlappedTargetableCell
     }
 
     const draggingFromCell = Game.instance.draggingFromCell
     if (this.droppableCards.some(card => card === draggingFromCell.card)) {
-      return EmptyCellStatus.TargetableCellButNotMostOverlapped
+      return EmptyCellState.TargetableCellButNotMostOverlapped
     }
 
-    return EmptyCellStatus.DropAllowedButNotTargetableCell
+    return EmptyCellState.DropAllowedButNotTargetableCell
   }
 }

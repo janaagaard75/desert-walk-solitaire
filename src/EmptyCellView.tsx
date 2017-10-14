@@ -5,7 +5,7 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { EmptyCell } from './EmptyCell'
-import { EmptyCellStatus } from './EmptyCellStatus'
+import { EmptyCellState } from './EmptyCellState'
 import { Settings } from './Settings'
 
 interface Props {
@@ -38,17 +38,17 @@ export class EmptyCellView extends Component<Props, {}> {
 
   private getBorderColorStyleAndWidth(): [string | undefined, 'solid' | 'dotted' | 'dashed' | undefined, number] {
     switch (this.props.emptyCell.status) {
-      case EmptyCellStatus.Blocked:
+      case EmptyCellState.Blocked:
         return [undefined, undefined, 0]
 
-      case EmptyCellStatus.TargetableCellButNotMostOverlapped:
+      case EmptyCellState.TargetableCellButNotMostOverlapped:
         return ['white', 'dashed', Settings.instance.borderWidth]
 
-      case EmptyCellStatus.DropAllowedButNoCardIsBeingDragged:
-      case EmptyCellStatus.DropAllowedButNotTargetableCell:
+      case EmptyCellState.DropAllowedButNoCardIsBeingDragged:
+      case EmptyCellState.DropAllowedButNotTargetableCell:
         return ['black', 'dashed', Settings.instance.borderWidth]
 
-      case EmptyCellStatus.MostOverlappedTargetableCell:
+      case EmptyCellState.MostOverlappedTargetableCell:
         return ['white', 'solid', Settings.instance.borderWidth]
     }
   }

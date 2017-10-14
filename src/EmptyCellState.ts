@@ -1,5 +1,4 @@
-// TODO: Rename to EmptyCellState.
-export enum EmptyCellStatus {
+export enum EmptyCellState {
   Blocked,
   DropAllowedButNoCardIsBeingDragged,
   DropAllowedButNotTargetableCell,
