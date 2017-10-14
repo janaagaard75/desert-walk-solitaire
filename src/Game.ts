@@ -201,22 +201,6 @@ export class Game {
     this.currentStateIndex = 0
   }
 
-  private storeGameSummary() {
-    firebase.database().ref('gameSummaries').push(this.gameSummary)
-  }
-
-  // TODO: Add a listener on correctlyPositionedCards.length instead of having to call this method manually.
-  private storeSummaryIfGameOver() {
-    if (this.gameStatus === GameState.GameLost || this.gameStatus === GameState.GameWon) {
-      this.gameSummary.addFinalStep({
-        cardsInPlace: this.currentGridState.correctlyPositionedCards.length,
-        moves: this.moves,
-      })
-
-      this.storeGameSummary()
-    }
-  }
-
   public undo() {
     this.currentStateIndex--
   }
@@ -236,5 +220,20 @@ export class Game {
 
     this.currentStateIndex++
     this.storeSummaryIfGameOver()
+  }
+
+  private storeGameSummary() {
+    firebase.database().ref('gameSummaries').push(this.gameSummary)
+  }
+
+  private storeSummaryIfGameOver() {
+    if (this.gameStatus === GameState.GameLost || this.gameStatus === GameState.GameWon) {
+      this.gameSummary.addFinalStep({
+        cardsInPlace: this.currentGridState.correctlyPositionedCards.length,
+        moves: this.moves,
+      })
+
+      this.storeGameSummary()
+    }
   }
 }
