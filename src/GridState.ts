@@ -74,6 +74,20 @@ export class GridState {
     return newGridState
   }
 
+  public getGridCellFromCell(cell: Cell): EmptyCell | OccupiedCell {
+    const occupiedCell = this.getOccupiedCellFromCell(cell)
+    if (occupiedCell !== undefined) {
+      return occupiedCell
+    }
+
+    const emptyCell = this.emptyCells.find(ec => ec.cell === cell)
+    if (emptyCell === undefined) {
+      throw new Error('Neither an occupied nor an empty cell found.')
+    }
+
+    return emptyCell
+  }
+
   public getOccupiedCellFromCard(card: Card): OccupiedCell {
     const match = this.occupiedCells.find(pair => pair.card === card)
 
@@ -91,19 +105,5 @@ export class GridState {
 
     const match = this.occupiedCells.find(pair => pair.cell === cell)
     return match
-  }
-
-  public getGridCellFromCell(cell: Cell): EmptyCell | OccupiedCell {
-    const occupiedCell = this.getOccupiedCellFromCell(cell)
-    if (occupiedCell !== undefined) {
-      return occupiedCell
-    }
-
-    const emptyCell = this.emptyCells.find(ec => ec.cell === cell)
-    if (emptyCell === undefined) {
-      throw new Error('Neither an occupied nor an empty cell found.')
-    }
-
-    return emptyCell
   }
 }
