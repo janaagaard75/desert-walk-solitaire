@@ -145,12 +145,12 @@ export class Game {
     this.draggedCardBoundary = boundary
   }
 
-  public cardDragStarted(fromCell: OccupiedCell, boundary: Rectangle) {
+  public cardDragStarted(fromCell: OccupiedCell) {
     this.draggingFromCell = fromCell
-    this.draggedCardBoundary = boundary
+    this.draggedCardBoundary = fromCell.boundary
   }
 
-  public cardDropped(from: Cell) {
+  public cardDropped() {
     if (this.draggingFromCell === undefined) {
       throw new Error('draggedCard must be defined when handling a drop.')
     }

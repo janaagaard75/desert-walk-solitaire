@@ -8,17 +8,11 @@ import { PanResponderInstance } from 'react-native'
 
 import { Card } from './Card'
 import { CardView } from './CardView'
-import { Point } from './Point'
-import { Rectangle } from './Rectangle'
+import { Game } from './Game'
+import { OccupiedCell } from './OccupiedCell'
 
 interface Props {
-  card: Card
-  correctlyPlaced: boolean
-  draggable: boolean
-  onCardDragged: (cardRectangle: Rectangle) => void
-  onCardDragStarted: () => void
-  onCardDropped: () => void
-  startPosition: Point
+  occupiedCell: OccupiedCell
 }
 
 enum VisualState {
@@ -31,6 +25,7 @@ interface State {
   visualState: VisualState
 }
 
+// TODO: Rename to OccupiedCellView.
 @observer
 export class DraggableCardView extends Component<Props, State> {
   constructor(props: Props, context?: any) {
@@ -44,7 +39,7 @@ export class DraggableCardView extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
-        this.props.onCardDropped()
+        Game.instance.cardDropped()
 
         this.setState({
           visualState: VisualState.Animating,
@@ -70,7 +65,7 @@ export class DraggableCardView extends Component<Props, State> {
         })
       },
       onPanResponderGrant: (e, gestureState) => {
-        this.props.onCardDragStarted()
+        Game.instance.cardDragStarted(this.props.occupiedCell)
       },
       onPanResponderMove:
         Animated.event([
@@ -91,7 +86,7 @@ export class DraggableCardView extends Component<Props, State> {
 
     this.animatedPosition.addListener(position => {
       const boundary = Card.getBoundary(position)
-      this.props.onCardDragged(boundary)
+      Game.instance.cardDragged(boundary)
     })
   }
 
@@ -99,7 +94,7 @@ export class DraggableCardView extends Component<Props, State> {
   private panResponder: PanResponderInstance
 
   public render() {
-    this.animatedPosition.setOffset(this.props.startPosition)
+    this.animatedPosition.setOffset(this.props.occupiedCell.position)
 
     const style = {
       position: 'absolute',
@@ -108,7 +103,7 @@ export class DraggableCardView extends Component<Props, State> {
     }
 
     // TODO: Only initialize panResponder if the card is draggable.
-    const panHandlers = this.props.draggable
+    const panHandlers = this.props.occupiedCell.draggable
       ? this.panResponder.panHandlers
       : undefined
 
@@ -118,9 +113,9 @@ export class DraggableCardView extends Component<Props, State> {
         {...panHandlers}
       >
         <CardView
-          card={this.props.card}
-          draggable={this.props.draggable}
-          correctlyPlaced={this.props.correctlyPlaced}
+          card={this.props.occupiedCell.card}
+          draggable={this.props.occupiedCell.draggable}
+          correctlyPlaced={this.props.occupiedCell.correctlyPlaced}
           shadow={this.state.visualState !== VisualState.Idle}
         />
       </Animated.View>

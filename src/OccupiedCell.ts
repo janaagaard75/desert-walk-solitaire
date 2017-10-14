@@ -4,6 +4,7 @@ import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { EmptyCell } from './EmptyCell'
+import { Game } from './Game'
 import { GridCell } from './GridCell'
 import { GridState } from './GridState'
 
@@ -33,5 +34,11 @@ export class OccupiedCell extends GridCell implements CardCellPair {
 
     const followsCardToTheLeft = this.left.correctlyPlaced && this.left.card.next === this.card
     return followsCardToTheLeft
+  }
+
+  @computed
+  public get draggable(): boolean {
+    const draggable = Game.instance.currentGridState.draggableCards.some(card => card === this.card)
+    return draggable
   }
 }
