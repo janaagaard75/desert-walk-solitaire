@@ -54,3 +54,15 @@ The new architechture should support animating between two states, possibly shuf
 ## Links
 
 <https://blog.cloudboost.io/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e>
+
+## Learnings
+
+Adding undo/redo and the subsequent cleanup of the datamodel was difficult. Having switched to a primarely @computed based model is nice, but there are probably still leftovers for the previous code, meaning that the currently solution could be simplified and optimized.
+
+TypeScript is nice, but it doesn't catch all errors. Specifically there are apparently no compiler errors when checking if two different classes are equal, even though the result will always be false.
+
+Having singleton classes (Game, Settings, Deck and Grid) is essentially the same as making every component a connected component, and that means that the cleanness of having pure components that only depend on their props is gone. The singleton classes also makes is harder to spot if the model is on the right track, since having a lot of the model globally avaiable easily leads to spaghetti code.
+
+Creating a good model is difficult. It might be a good idea to move the dragged card from Game to GridState.
+
+Naming this is hard, but important. OccupiedCell has been renamed at least five times. When a class is renamed, there are often local variables left, that should also be renamed.
