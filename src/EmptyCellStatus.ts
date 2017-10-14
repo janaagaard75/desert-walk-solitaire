@@ -1,7 +1,7 @@
 export enum EmptyCellStatus {
   Blocked,
-  CurrentlyDraggedCardDroppable,
-  DropAllowedAndNoCardIsBeingDragged,
-  DropAllowedButNotCurrentlyDraggedCard,
-  HoveredByDropableCard,
+  DropAllowedButNoCardIsBeingDragged,
+  DropAllowedButNotTargetableCell,
+  MostOverlappedTargetableCell,
+  TargetableCellButNotMostOverlapped,
 }

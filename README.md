@@ -40,7 +40,7 @@ The new architechture should support animating between two states, possibly shuf
 1. game.draggedCard points to the card.
 1. The dragged card's position is updated as it's being dragged.
 1. The game class keeps track of the position, updating empty cells if necessary.
-1. The card is let go when hovered over a droppable spot.
+1. The card is let go when overlapping a droppable spot.
 1. The engine calculates the upcoming game state.
 1. The engine slides the card into the exact spot by using the position of the upcoming state.
 1. After the animation is done, the old state is swapped out with the new one, resulting in updated empty spots and so on.

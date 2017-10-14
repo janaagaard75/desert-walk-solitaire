@@ -34,39 +34,25 @@ export class EmptyCell extends GridCell {
   }
 
   @computed
-  public get hoveredByDroppableCard(): boolean {
-    if (Game.instance.draggingFromCell === undefined) {
-      return false
-    }
-
-    if (this.cell.draggedCardOverlappingPixels === 0) {
-      return false
-    }
-
-    const hoveredByDroppableCard = this.droppableCards.includes(Game.instance.draggingFromCell.card)
-    return hoveredByDroppableCard
-  }
-
-  @computed
   public get status(): EmptyCellStatus {
     if (this.droppableCards.length === 0) {
       return EmptyCellStatus.Blocked
     }
 
     if (Game.instance.draggingFromCell === undefined) {
-      return EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged
+      return EmptyCellStatus.DropAllowedButNoCardIsBeingDragged
     }
 
-    if (this.hoveredByDroppableCard) {
-      return EmptyCellStatus.HoveredByDropableCard
+    if (Game.instance.mostOverlappedTargetableCell === this.cell) {
+      return EmptyCellStatus.MostOverlappedTargetableCell
     }
 
     const draggingFromCell = Game.instance.draggingFromCell
     if (this.droppableCards.some(card => card === draggingFromCell.card)) {
-      return EmptyCellStatus.CurrentlyDraggedCardDroppable
+      return EmptyCellStatus.TargetableCellButNotMostOverlapped
     }
 
-    return EmptyCellStatus.DropAllowedButNotCurrentlyDraggedCard
+    return EmptyCellStatus.DropAllowedButNotTargetableCell
   }
 
   public cardIsDroppable(card: Card): boolean {

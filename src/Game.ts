@@ -76,6 +76,20 @@ export class Game {
     return GameState.GameLost
   }
 
+  // TODO: Use this when setting the state for empty cells.
+  @computed
+  public get mostOverlappedTargetableCell(): Cell | undefined {
+    if (this.targetableCells.length === 0) {
+      return undefined
+    }
+
+    const sortedByOverlappedPixels = this.targetableCells
+      .sort((cellA, cellB) => cellB.draggedCardOverlappingPixels - cellA.draggedCardOverlappingPixels)
+
+    const mostOverlapped = sortedByOverlappedPixels[0]
+    return mostOverlapped
+  }
+
   @computed
   public get moves(): number {
     const moves = this.turns.filter(turn => turn instanceof MoveTurn).length
@@ -95,13 +109,7 @@ export class Game {
   }
 
   @computed
-  public get undoPossible(): boolean {
-    const undoPossible = this.currentStateIndex > 0
-    return undoPossible
-  }
-
-  @computed
-  private get emptyCellsAndDraggedFromCell(): Array<Cell> {
+  private get targetableCells(): Array<Cell> {
     if (this.draggingFromCell === undefined) {
       return []
     }
@@ -114,28 +122,10 @@ export class Game {
     return emptyCellsAndDraggedFromCell
   }
 
-  /** Overlapped cells sorted by number overlapped number of pixels. For performance reasons, only emptyCellsAndDraggedFromCell are considered. */
   @computed
-  private get overlappedCells(): Array<Cell> {
-    if (this.draggedCardBoundary === undefined) {
-      return []
-    }
-
-    // Shawdow variable to satisfy the TypeScript compiler below.
-    const draggedCardBoundary = this.draggedCardBoundary
-
-    const overlappedCells = this.emptyCellsAndDraggedFromCell
-      .map(cell => {
-        return {
-          cell: cell,
-          overlappingPixels: cell.boundary.overlappingPixels(draggedCardBoundary),
-        }
-      })
-      .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
-      .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
-      .map(cellAndOverlap => cellAndOverlap.cell)
-
-    return overlappedCells
+  public get undoPossible(): boolean {
+    const undoPossible = this.currentStateIndex > 0
+    return undoPossible
   }
 
   @computed
@@ -161,7 +151,6 @@ export class Game {
     Game.instance.draggedCardBoundary = boundary
   }
 
-  // TODO: This method should simply check if an empty cell has the state 'hovered'.
   public cardDropped(from: Cell) {
     if (Game.instance.draggingFromCell === undefined) {
       throw new Error('draggedCard must be defined when handling a drop.')
@@ -174,6 +163,8 @@ export class Game {
     // Shadowing the variable to satisfy the TypeScript compiler below.
     const draggedCard = Game.instance.draggingFromCell.card
     const draggedCardBoundary = Game.instance.draggedCardBoundary
+
+    // TODO: It should be possible to simplify this code using the existing computed values.
 
     const overlappedTargetableEmptyCells = Game.instance.currentGridState.emptyCells
       .filter(emptyCell => emptyCell.cardIsDroppable(draggedCard))

@@ -41,14 +41,14 @@ export class EmptyCellView extends Component<Props, {}> {
       case EmptyCellStatus.Blocked:
         return [undefined, undefined, 0]
 
-      case EmptyCellStatus.CurrentlyDraggedCardDroppable:
+      case EmptyCellStatus.TargetableCellButNotMostOverlapped:
         return ['white', 'dashed', Settings.instance.borderWidth]
 
-      case EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged:
-      case EmptyCellStatus.DropAllowedButNotCurrentlyDraggedCard:
+      case EmptyCellStatus.DropAllowedButNoCardIsBeingDragged:
+      case EmptyCellStatus.DropAllowedButNotTargetableCell:
         return ['black', 'dashed', Settings.instance.borderWidth]
 
-      case EmptyCellStatus.HoveredByDropableCard:
+      case EmptyCellStatus.MostOverlappedTargetableCell:
         return ['white', 'solid', Settings.instance.borderWidth]
     }
   }
