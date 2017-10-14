@@ -10,7 +10,6 @@ import { Settings } from './Settings'
 
 interface Props {
   emptyCell: EmptyCell
-  status: EmptyCellStatus
 }
 
 @observer
@@ -38,7 +37,7 @@ export class EmptyCellView extends Component<Props, {}> {
   }
 
   private getBorderColorStyleAndWidth(): [string | undefined, 'solid' | 'dotted' | 'dashed' | undefined, number] {
-    switch (this.props.status) {
+    switch (this.props.emptyCell.status) {
       case EmptyCellStatus.Blocked:
         return [undefined, undefined, 0]
 

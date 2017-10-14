@@ -4,8 +4,8 @@ import * as firebase from 'firebase'
 
 // TODO: Figure out how to get a compiler error if this import is missing.
 import './ArrayExtensions'
-import { CardCellPair } from './CardCellPair'
 import { Card } from './Card'
+import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { GameState } from './GameState'
@@ -13,6 +13,7 @@ import { GameSummary } from './GameSummary'
 import { Grid } from './Grid'
 import { GridState } from './GridState'
 import { MoveTurn } from './MoveTurn'
+import { OccupiedCell } from './OccupiedCell'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 import { ShuffleTurn } from './ShuffleTurn'
@@ -36,9 +37,8 @@ export class Game {
     return this._instance
   }
 
-  // TODO: Save the OccupiedCell being dragged from instead of the Card.
-  @observable public draggedCard: Card | undefined
   @observable public draggedCardBoundary: Rectangle | undefined
+  @observable public draggingFromCell: OccupiedCell | undefined
 
   @observable private currentStateIndex: number
   @observable private gridStates: Array<GridState>
@@ -102,14 +102,14 @@ export class Game {
 
   @computed
   private get emptyCellsAndDraggedFromCell(): Array<Cell> {
-    if (this.draggedCard === undefined) {
+    if (this.draggingFromCell === undefined) {
       return []
     }
 
-    // TODO: It feels wrong to use currentGridState here. Should the draggedCard be moved to the GridState class to keep things together, or this just a fake code smell?
+    // TODO: It feels wrong to use currentGridState here. Should draggingFromCell be moved to the GridState class to keep things together, or would this just create another code smell, since it only make sense to have a dragged card on the current turn state.
     const emptyCellsAndDraggedFromCell = Game.instance.currentGridState.emptyCells
       .map(emptyCell => emptyCell.cell)
-      .concat(this.currentGridState.getOccupiedCellFromCard(this.draggedCard).cell)
+      .concat(this.draggingFromCell.cell)
 
     return emptyCellsAndDraggedFromCell
   }
@@ -156,14 +156,14 @@ export class Game {
     Game.instance.draggedCardBoundary = boundary
   }
 
-  public cardDragStarted(card: Card, boundary: Rectangle) {
-    Game.instance.draggedCard = card
+  public cardDragStarted(fromCell: OccupiedCell, boundary: Rectangle) {
+    Game.instance.draggingFromCell = fromCell
     Game.instance.draggedCardBoundary = boundary
   }
 
   // TODO: This method should simply check if an empty cell has the state 'hovered'.
   public cardDropped(from: Cell) {
-    if (Game.instance.draggedCard === undefined) {
+    if (Game.instance.draggingFromCell === undefined) {
       throw new Error('draggedCard must be defined when handling a drop.')
     }
 
@@ -172,7 +172,7 @@ export class Game {
     }
 
     // Shadowing the variable to satisfy the TypeScript compiler below.
-    const draggedCard = Game.instance.draggedCard
+    const draggedCard = Game.instance.draggingFromCell.card
     const draggedCardBoundary = Game.instance.draggedCardBoundary
 
     const overlappedTargetableEmptyCells = Game.instance.currentGridState.emptyCells
@@ -191,7 +191,8 @@ export class Game {
       Game.instance.moveCard(from, mostOverlappedCell)
     }
 
-    Game.instance.draggedCard = undefined
+    Game.instance.draggingFromCell = undefined
+    Game.instance.draggedCardBoundary = undefined
   }
 
   public moveCard(from: Cell, to: Cell) {

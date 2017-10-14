@@ -22,23 +22,22 @@ export class GridView extends Component {
       <View
         style={gridViewStyle}
       >
-        {Game.instance.currentGridState.occupiedCells.map(pair =>
+        {Game.instance.currentGridState.occupiedCells.map(occupiedCell =>
           <DraggableCardView
-            card={pair.card}
-            correctlyPlaced={pair.correctlyPlaced}
-            draggable={Game.instance.currentGridState.draggableCards.some(card => card === pair.card)}
-            key={pair.card.key}
-            onCardDragged={cardRectangle => Game.instance.cardDragged(pair.card, cardRectangle)}
-            onCardDragStarted={() => Game.instance.cardDragStarted(pair.card, pair.boundary)}
-            onCardDropped={() => Game.instance.cardDropped(pair.cell)}
-            startPosition={pair.position}
+            card={occupiedCell.card}
+            correctlyPlaced={occupiedCell.correctlyPlaced}
+            draggable={Game.instance.currentGridState.draggableCards.some(card => card === occupiedCell.card)}
+            key={occupiedCell.card.key}
+            onCardDragged={cardRectangle => Game.instance.cardDragged(occupiedCell.card, cardRectangle)}
+            onCardDragStarted={() => Game.instance.cardDragStarted(occupiedCell, occupiedCell.boundary)}
+            onCardDropped={() => Game.instance.cardDropped(occupiedCell.cell)}
+            startPosition={occupiedCell.position}
           />,
         )}
         {Game.instance.currentGridState.emptyCells.map(emptyCell =>
           <EmptyCellView
             key={emptyCell.cell.key}
             emptyCell={emptyCell}
-            status={emptyCell.getStatus(Game.instance.draggedCard)}
           />,
         )}
       </View>

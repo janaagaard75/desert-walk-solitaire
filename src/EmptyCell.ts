@@ -2,6 +2,7 @@ import { computed } from 'mobx'
 
 import { Card } from './Card'
 import { Cell } from './Cell'
+import { Game } from './Game'
 import { Deck } from './Deck'
 import { EmptyCellStatus } from './EmptyCellStatus'
 import { GridCell } from './GridCell'
@@ -42,18 +43,13 @@ export class EmptyCell extends GridCell {
     return hoveredByDroppableCard
   }
 
-  public cardIsDroppable(card: Card): boolean {
-    const droppable = this.droppableCards.some(droppableCard => droppableCard === card)
-    return droppable
-  }
-
-  // TODO: Make this a computed value on the EmptyCell class. This requires making the draggedCard an observable.
-  public getStatus(draggedCard: Card | undefined): EmptyCellStatus {
+  @computed
+  public get status(): EmptyCellStatus {
     if (this.droppableCards.length === 0) {
       return EmptyCellStatus.Blocked
     }
 
-    if (draggedCard === undefined) {
+    if (Game.instance.draggingFromCell === undefined) {
       return EmptyCellStatus.DropAllowedAndNoCardIsBeingDragged
     }
 
@@ -61,12 +57,16 @@ export class EmptyCell extends GridCell {
       return EmptyCellStatus.HoveredByDropableCard
     }
 
-    if (draggedCard !== undefined) {
-      if (this.droppableCards.some(card => card === draggedCard)) {
-        return EmptyCellStatus.CurrentlyDraggedCardDroppable
-      }
+    const draggingFromCell = Game.instance.draggingFromCell
+    if (this.droppableCards.some(card => card === draggingFromCell.card)) {
+      return EmptyCellStatus.CurrentlyDraggedCardDroppable
     }
 
     return EmptyCellStatus.DropAllowedButNotCurrentlyDraggedCard
+  }
+
+  public cardIsDroppable(card: Card): boolean {
+    const droppable = this.droppableCards.some(droppableCard => droppableCard === card)
+    return droppable
   }
 }

@@ -6,6 +6,7 @@ import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 
+// TODO: No need to have the card here, since the dragged card is available on the Game class.
 interface OverlappingCard {
   card: Card,
   overlappingPixels: number,
@@ -37,7 +38,7 @@ export class Cell {
   // TODO: Add something that only returns the most hovered card.
   @computed
   public get hoveredByCard(): OverlappingCard | undefined {
-    if (Game.instance.draggedCard === undefined || Game.instance.draggedCardBoundary === undefined) {
+    if (Game.instance.draggingFromCell === undefined || Game.instance.draggedCardBoundary === undefined) {
       return undefined
     }
 
@@ -47,7 +48,7 @@ export class Cell {
     }
 
     return {
-      card: Game.instance.draggedCard,
+      card: Game.instance.draggingFromCell.card,
       overlappingPixels: overlappingPixels,
     }
   }
