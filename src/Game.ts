@@ -211,11 +211,6 @@ export class Game {
     const shuffledCards = Deck.instance.cards.shuffle()
     const cellsExcludingFirstColumn = Grid.instance.cells.filter(cell => cell.columnIndex !== 0)
 
-    // TODO: Pretty much the same code is repeated in GridState.shuffleCardsInWrongPlace.
-    if (shuffledCards.length !== cellsExcludingFirstColumn.length) {
-      throw new Error('Number of cards must match number of cells')
-    }
-
     const positions: Array<CardCellPair> = []
     for (let i = 0; i < shuffledCards.length; i++) {
       positions.push({
