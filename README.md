@@ -7,14 +7,11 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 ## To Do
 
 * Update engine, so that it can animate the cards between two states.
-  * Add a currentlyDraggedCard property that keeps track of the card currently being dragged - if there is a card beging dragged.
   * When letting go of a card in a non-droppable place, let the engine snap the card back into position.
   * Use the engine to snap cards into correct positions.
-  * Show a fast replay of all the moves if the solitaire succeeds.
   * Animate shuffling the cards.
   * Consider animating that the cards are delt. This will also maje it clearer what happens when the cards arw shuffled, and make it possible to show an animation, should the cards coincidally be redlet in the exact same position as they were before.
 * Consider making the Game class a singleton, put Deck and Grid into it, and generally avoid passing things down with props, unless necessary.
-* Consider the cell dragging from as a droppable cell when dragging a card.
 * Game lost screen.
 * Game won screen.
   * Some kine of reward for winning. Show a fast replay?
@@ -22,14 +19,12 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
   * Animate cards before shuffleling?
   * Animate all cards when the game is won.
 * Prettier background.
-* SVGs for the playing cards.
+* SVGs for the playing cards, since iOS and Android have different fonts.
 * Consider more data to the model objects, that is all observable properties and the sizes and positions of the elements.
 * Disable shuffle button when it doesn't do anything.
 * More affordable buttons.
 * Splash screen.
 * Fix starting up the game while the phone is in landscape mode.
-
-* Keep track of the results for each game, that is: Number of moves, number of shuffles, number of cards in correct spot, datetime the game started, datetime the game ended.
 
 ## Fat Models
 
