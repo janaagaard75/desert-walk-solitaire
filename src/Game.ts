@@ -159,27 +159,16 @@ export class Game {
       throw new Error('draggedCardBoundary must be defined when handling a drop.')
     }
 
-    // Shadowing the variable to satisfy the TypeScript compiler below.
-    const draggedCard = Game.instance.draggingFromCell.card
-    const draggedCardBoundary = Game.instance.draggedCardBoundary
-
-    // TODO: It should be possible to simplify this code using the existing computed values.
-
-    const overlappedTargetableEmptyCells = Game.instance.currentGridState.emptyCells
-      .filter(emptyCell => emptyCell.cardIsDroppable(draggedCard))
-      .map(emptyCell => {
-        return {
-          cell: emptyCell.cell,
-          overlappingPixels: emptyCell.cell.boundary.overlappingPixels(draggedCardBoundary),
-        }
-      })
-      .filter(cellAndOverlap => cellAndOverlap.overlappingPixels > 0)
-      .sort((cellAndOverlap1, cellAndOverlap2) => cellAndOverlap2.overlappingPixels - cellAndOverlap1.overlappingPixels)
-
-    if (overlappedTargetableEmptyCells.length > 0) {
-      const mostOverlappedCell = overlappedTargetableEmptyCells[0].cell
-      Game.instance.moveCard(from, mostOverlappedCell)
+    const targetCell = Game.instance.mostOverlappedTargetableCell
+    if (targetCell === undefined) {
+      return
     }
+
+    if (targetCell === Game.instance.draggingFromCell.cell) {
+      return
+    }
+
+    Game.instance.moveCard(Game.instance.draggingFromCell.cell, targetCell)
 
     Game.instance.draggingFromCell = undefined
     Game.instance.draggedCardBoundary = undefined
