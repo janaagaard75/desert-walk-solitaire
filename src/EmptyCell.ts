@@ -35,11 +35,15 @@ export class EmptyCell extends GridCell {
 
   @computed
   public get hoveredByDroppableCard(): boolean {
-    if (this.cell.hoveredByCard === undefined) {
+    if (Game.instance.draggingFromCell === undefined) {
       return false
     }
 
-    const hoveredByDroppableCard = this.droppableCards.includes(this.cell.hoveredByCard.card)
+    if (this.cell.draggedCardOverlappingPixels === 0) {
+      return false
+    }
+
+    const hoveredByDroppableCard = this.droppableCards.includes(Game.instance.draggingFromCell.card)
     return hoveredByDroppableCard
   }
 

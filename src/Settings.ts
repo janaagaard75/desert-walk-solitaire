@@ -85,7 +85,7 @@ export class Settings {
 
     const cardHeight = Math.floor(this.cardSizeRatio * cardWidth)
 
-    // TODO: Should verify that there is enough available height.
+    // TODO: Should verify that there is enough available height. There is not on the iPhone X.
 
     return {
       height: cardHeight,
