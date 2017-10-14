@@ -4,7 +4,6 @@ import * as firebase from 'firebase'
 
 // TODO: Figure out how to get a compiler error if this import is missing.
 import './ArrayExtensions'
-import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
@@ -142,7 +141,7 @@ export class Game {
     return this.gridStates[this.gridStates.length - 2]
   }
 
-  public cardDragged(draggedCard: Card, boundary: Rectangle) {
+  public cardDragged(boundary: Rectangle) {
     Game.instance.draggedCardBoundary = boundary
   }
 
