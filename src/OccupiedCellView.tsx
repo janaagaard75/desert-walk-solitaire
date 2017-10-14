@@ -101,7 +101,6 @@ export class OccupiedCellView extends Component<Props, State> {
       zIndex: this.state.visualState === VisualState.Idle ? 1 : 2,
     }
 
-    // TODO: Only initialize panResponder if the card is draggable.
     const panHandlers = this.props.occupiedCell.draggable
       ? this.panResponder.panHandlers
       : undefined
@@ -113,8 +112,8 @@ export class OccupiedCellView extends Component<Props, State> {
       >
         <CardView
           card={this.props.occupiedCell.card}
-          draggable={this.props.occupiedCell.draggable}
           correctlyPlaced={this.props.occupiedCell.correctlyPlaced}
+          draggable={this.props.occupiedCell.draggable}
           shadow={this.state.visualState !== VisualState.Idle}
         />
       </Animated.View>
