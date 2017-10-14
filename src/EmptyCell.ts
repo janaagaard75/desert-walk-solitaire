@@ -54,9 +54,4 @@ export class EmptyCell extends GridCell {
 
     return EmptyCellStatus.DropAllowedButNotTargetableCell
   }
-
-  public cardIsDroppable(card: Card): boolean {
-    const droppable = this.droppableCards.some(droppableCard => droppableCard === card)
-    return droppable
-  }
 }

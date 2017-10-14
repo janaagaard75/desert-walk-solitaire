@@ -114,7 +114,7 @@ export class Game {
     }
 
     // TODO: It feels wrong to use currentGridState here. Should draggingFromCell be moved to the GridState class to keep things together, or would this just create another code smell, since it only make sense to have a dragged card on the current turn state.
-    const emptyCellsAndDraggedFromCell = Game.instance.currentGridState.emptyCells
+    const emptyCellsAndDraggedFromCell = this.currentGridState.emptyCells
       .map(emptyCell => emptyCell.cell)
       .concat(this.draggingFromCell.cell)
 
@@ -142,40 +142,36 @@ export class Game {
   }
 
   public cardDragged(boundary: Rectangle) {
-    Game.instance.draggedCardBoundary = boundary
+    this.draggedCardBoundary = boundary
   }
 
   public cardDragStarted(fromCell: OccupiedCell, boundary: Rectangle) {
-    Game.instance.draggingFromCell = fromCell
-    Game.instance.draggedCardBoundary = boundary
+    this.draggingFromCell = fromCell
+    this.draggedCardBoundary = boundary
   }
 
   public cardDropped(from: Cell) {
-    if (Game.instance.draggingFromCell === undefined) {
+    if (this.draggingFromCell === undefined) {
       throw new Error('draggedCard must be defined when handling a drop.')
     }
 
-    if (Game.instance.draggedCardBoundary === undefined) {
+    if (this.draggedCardBoundary === undefined) {
       throw new Error('draggedCardBoundary must be defined when handling a drop.')
     }
 
-    const targetCell = Game.instance.mostOverlappedTargetableCell
+    const targetCell = this.mostOverlappedTargetableCell
     if (targetCell === undefined) {
       return
     }
 
-    if (targetCell === Game.instance.draggingFromCell.cell) {
+    if (targetCell === this.draggingFromCell.cell) {
       return
     }
 
-    Game.instance.moveCard(Game.instance.draggingFromCell.cell, targetCell)
+    this.performTurn(new MoveTurn(this.draggingFromCell.cell, targetCell))
 
-    Game.instance.draggingFromCell = undefined
-    Game.instance.draggedCardBoundary = undefined
-  }
-
-  public moveCard(from: Cell, to: Cell) {
-    this.performTurn(new MoveTurn(from, to))
+    this.draggingFromCell = undefined
+    this.draggedCardBoundary = undefined
   }
 
   public redo() {
@@ -224,7 +220,6 @@ export class Game {
     this.currentStateIndex--
   }
 
-  // TODO: Consider making this the public method, and thus remove moveCard and shuffleCardsInIncorrectPlace.
   private performTurn(turn: Turn) {
     const maxStateIndex = this.gridStates.length - 1
     if (this.currentStateIndex < maxStateIndex) {
