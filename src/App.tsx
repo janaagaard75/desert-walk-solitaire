@@ -10,6 +10,8 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
+import './ArrayExtensions'
+
 import { Footer } from './Footer'
 import { GridView } from './GridView'
 import { Settings } from './Settings'

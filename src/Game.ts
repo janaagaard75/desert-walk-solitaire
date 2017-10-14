@@ -2,8 +2,6 @@ import { computed } from 'mobx'
 import { observable } from 'mobx'
 import * as firebase from 'firebase'
 
-// TODO: Figure out how to get a compiler error if this import is missing.
-import './ArrayExtensions'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
