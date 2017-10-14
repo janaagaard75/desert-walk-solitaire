@@ -51,10 +51,6 @@ The new architechture should support animating between two states, possibly shuf
 * [Aceh Darusalam](http://www.dafont.com/aceh-darusalam.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+K+Q+J&fpp=100&l[]=10&l[]=1)
 * [XXII Arabian Onenightstand](http://www.dafont.com/xxii-arabian-onenightstand.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+J+Q+K)
 
-## Links
-
-<https://blog.cloudboost.io/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e>
-
 ## Learnings
 
 Adding undo/redo and the subsequent cleanup of the datamodel was difficult. Having switched to a primarely @computed based model is nice, but there are probably still leftovers for the previous code, meaning that the currently solution could be simplified and optimized.
@@ -66,3 +62,7 @@ Having singleton classes (Game, Settings, Deck and Grid) is essentially the same
 Creating a good model is difficult. It might be a good idea to move the dragged card from Game to GridState.
 
 Naming this is hard, but important. OccupiedCell has been renamed at least five times. When a class is renamed, there are often local variables left, that should also be renamed.
+
+## Links
+
+<https://blog.cloudboost.io/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e>
