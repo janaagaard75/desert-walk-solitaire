@@ -26,23 +26,27 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 * Splash screen.
 * Fix starting up the game while the phone is in landscape mode.
 
+### Animating Between States
+
+Animating between two grid states is still to do. It should be possible to send a 'from' and a 'to' grid state to GridStateView, and let the view animate appropriately.
+
+For each card: Animate from the position of the 'from' state to the position of the 'to' state.
+
+It might be worth moving the dragged card observables from Game to GridState, because then snapping a dropped card into position could be handled by the engine.
+
 ## Fat Models
 
-Keeping track of all the data is getting messing. The current architechture is to only keep the information necessary for the rules of the game, and leave all that has to do with presentation of the game in the view classes. It might be a better solution to move more information into the model, including what's required for drawing the interface, that is switch to an architechure with fat models.
+The first data architechture was to only keep the information necessary for the rules of the game in the models, and leave all that has to do with presentation of the game to the view classes. That got messy, so the new architechture is to put pretty much everything in the models. Most of the properties are computed values. Making Settings, Game, Deck and Grid singletons has lead to somewhat a spaghetti code architechture, but currently it's okay. That might actually be the force of MobX: Embrace the spaghetti architecture, and avoid drowning in it.
 
-The new architechture should support animating between two states, possibly shuffling multiple cards around, as they slide into their new positions. In the start and the end states the cards all have row and column indexes, but in between some of them are being animated. Keep the row and column index while the cards are animating, and update the cell positions once the animations are done.
+## Dragging a Card
 
-### Dragging a Card
+1. The observables game.draggingFromCell and game.draggedCardBoundary are set.
+1. The dragged card's boundary is updated as it's being dragged.
+1. Everything flows as computed values based on these two observables.
+1. If the card is let go in a non-droppable spot, OccupiedCellView puts it back, and does so with a small animation.
+1. If the card is let go when overlapping a droppable cell, a new grid state is calculated, added to the array of states, and the current grid state then points to the newly added state.
 
-1. game.draggedCard points to the card.
-1. The dragged card's position is updated as it's being dragged.
-1. The game class keeps track of the position, updating empty cells if necessary.
-1. The card is let go when overlapping a droppable spot.
-1. The engine calculates the upcoming game state.
-1. The engine slides the card into the exact spot by using the position of the upcoming state.
-1. After the animation is done, the old state is swapped out with the new one, resulting in updated empty spots and so on.
-
-### Logo
+## Logo
 
 [Free Arabic lookings fonts](http://www.dafont.com/theme.php?cat=202&text=Desert+Walk+1234567890+AKQJ&l[]=10&l[]=1). Top candidates:
 
@@ -61,7 +65,7 @@ Having singleton classes (Game, Settings, Deck and Grid) is essentially the same
 
 Creating a good model is difficult. It might be a good idea to move the dragged card from Game to GridState.
 
-Naming this is hard, but important. OccupiedCell has been renamed at least five times. When a class is renamed, there are often local variables left, that should also be renamed.
+Naming things is hard, but important. OccupiedCell has been renamed at least five times. When a class is renamed, there are often local variables left, that should also be renamed.
 
 ## Links
 
