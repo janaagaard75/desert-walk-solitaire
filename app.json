@@ -4,7 +4,7 @@
     "description": "A game of solitaire. Source code at https://github.com/janaagaard75/desert-walk",
     "slug": "desert-walk",
     "privacy": "public",
-    "sdkVersion": "21.0.0",
+    "sdkVersion": "22.0.0",
     "version": "0.0.0",
     "orientation": "default",
     "primaryColor": "#cccccc",
