@@ -1,9 +1,11 @@
+// tslint:disable:ban-types
 // tslint:disable:interface-over-type-literal
 // tslint:disable:max-classes-per-file
 
 declare module 'expo' {
   import { ColorPropType } from 'react-native'
   import { Component } from 'react'
+  // tslint:disable-next-line:no-implicit-dependencies - fbemitter is included by Expo.
   import { EventSubscription } from 'fbemitter'
   import { GestureResponderEvent } from 'react-native'
   import { PanResponderGestureState } from 'react-native'
@@ -339,120 +341,274 @@ declare module 'expo' {
     export function getContactsAsync(options: Options): Promise<Response>
   }
 
-  export namespace Components {
-    /**
-     * AppLoading
-     */
-    export class AppLoading extends React.Component<void, void> { }
+  //#region BlurView
+  interface BlurViewProps {
+    intensity: number
+    style?: ViewStyle
+    tint: 'light' | 'default' | 'dark'
+  }
 
-    /**
-     * Expo BarCodeScanner
-     */
-    export interface BarCodeScannerProps {
-      type?: 'front' | 'back'
-      torchMode?: 'on' | 'off'
-      barCodeTypes: Array<string>     // TODO: add supported formats
-      style: ViewStyle
+  export class BlurView extends React.Component<BlurViewProps, {}> { }
+  //#endregion
+
+  export class AppLoading extends React.Component<void, void> { }
+
+  //#region BarCodeScanner
+  export interface BarCodeScannerProps {
+    type?: 'front' | 'back'
+    torchMode?: 'on' | 'off'
+    barCodeTypes: Array<string>     // TODO: add supported formats
+    style: ViewStyle
+  }
+
+  export class BarCodeScanner extends React.Component<BarCodeScannerProps, void> { }
+  //#endregion
+
+  //#region GLView
+  // TODO: better defs because there is no complete documentation. I did it from the code.
+  interface GLViewProps extends ViewProperties {
+    onContextCreate(): void
+    msaaSamples: number
+  }
+
+  export class GLView extends React.Component<GLViewProps, { msaaSamples: number }> { }
+  //#endregion
+
+  export class KeepAwake extends React.Component<void, void> {
+    public static activate(): void
+    public static deactivate(): void
+  }
+
+  //#region MapView
+  // Copied from https://github.com/airbnb/react-native-maps/blob/master/index.d.ts. Don't know if it is possible to avoid copying.
+  interface MapViewProps {
+    provider?: 'google'
+    style: any
+    customMapStyle?: Array<any>
+    customMapStyleString?: string
+    showsUserLocation?: boolean
+    userLocationAnnotationTitle?: string
+    showsMyLocationButton?: boolean
+    followsUserLocation?: boolean
+    showsPointsOfInterest?: boolean
+    showsCompass?: boolean
+    zoomEnabled?: boolean
+    rotateEnabled?: boolean
+    cacheEnabled?: boolean
+    loadingEnabled?: boolean
+    loadingBackgroundColor?: any
+    loadingIndicatorColor?: any
+    scrollEnabled?: boolean
+    pitchEnabled?: boolean
+    toolbarEnabled?: boolean
+    moveOnMarkerPress?: boolean
+    showsScale?: boolean
+    showsBuildings?: boolean
+    showsTraffic?: boolean
+    showsIndoors?: boolean
+    showsIndoorLevelPicker?: boolean
+    mapType?: 'standard' | 'satellite' | 'hybrid' | 'terrain' | 'none'
+    region?: {
+      latitude: number;
+      longitude: number;
+      /** Distance between the minimum and the maximum latitude. */
+      latitudeDelta: number;
+      /** Distance between the minimum and the maximum longitude. */
+      longitudeDelta: number;
+    }
+    initialRegion?: {
+      latitude: number;
+      longitude: number;
+      /** Distance between the minimum and the maximum latitude. */
+      latitudeDelta: number;
+      /** Distance between the minimum and the maximum longitude. */
+      longitudeDelta: number;
+    }
+    liteMode?: boolean
+    maxDelta?: number
+    minDelta?: number
+    legalLabelInsets?: any
+    onChange?: Function
+    onMapReady?: Function
+    onRegionChange?: Function
+    onRegionChangeComplete?: Function
+    onPress?: Function
+    onLayout?: Function
+    onLongPress?: Function
+    onPanDrag?: Function
+    onMarkerPress?: Function
+    onMarkerSelect?: Function
+    onMarkerDeselect?: Function
+    onCalloutPress?: Function
+    onMarkerDragStart?: Function
+    onMarkerDrag?: Function
+    onMarkerDragEnd?: Function
+    minZoomLevel?: number
+    maxZoomLevel?: number
+  }
+
+  class MapView extends React.Component<MapViewProps, any> {
+    public static Animated: any
+    public static AnimatedRegion: any
+  }
+
+  namespace MapView {
+    type LineCapType = 'butt' | 'round' | 'square'
+    type LineJoinType = 'miter' | 'round' | 'bevel'
+
+    interface MarkerProps {
+      identifier?: string
+      reuseIdentifier?: string
+      title?: string
+      description?: string
+      image?: any
+      opacity?: number
+      pinColor?: string
+      coordinate: { latitude: number; longitude: number }
+      centerOffset?: { x: number; y: number }
+      calloutOffset?: { x: number; y: number }
+      anchor?: { x: number; y: number }
+      calloutAnchor?: { x: number; y: number }
+      flat?: boolean
+      draggable?: boolean
+      onPress?: Function
+      onSelect?: Function
+      onDeselect?: Function
+      onCalloutPress?: Function
+      onDragStart?: Function
+      onDrag?: Function
+      onDragEnd?: Function
+      zIndex?: number
     }
 
-    export class BarCodeScanner extends React.Component<BarCodeScannerProps, void> { }
-
-    /**
-     * Expo BlurView
-     */
-    export interface BlurViewProps {
-      tint: 'light' | 'default' | 'dark'
-      intensity: number
-      style: ViewStyle
-    }
-    export class BlurView extends React.Component<BlurViewProps, void> { }
-
-    /**
-     * Expo GLView
-     * TODO: better defs because there is no complete documentation.
-     * I did it from the code.
-     */
-    export interface GLViewProps extends ViewProperties {
-      onContextCreate(): void
-      msaaSamples: number
-    }
-    export class GLView extends React.Component<GLViewProps, { msaaSamples: number }> { }
-
-    /**
-     * Expo KeepAwake
-     */
-    export class KeepAwake extends React.Component<void, void> {
-      public static activate(): void
-      public static deactivate(): void
+    interface MapPolylineProps {
+      coordinates?: Array<{ latitude: number; longitude: number; }>
+      onPress?: Function
+      tappable?: boolean
+      fillColor?: string
+      strokeWidth?: number
+      strokeColor?: string
+      zIndex?: number
+      lineCap?: LineCapType
+      lineJoin?: LineJoinType
+      miterLimit?: number
+      geodesic?: boolean
+      lineDashPhase?: number
+      lineDashPattern?: Array<number>
     }
 
-    /**
-     * Expo MapView
-     */
-    // TODO: MapView
-
-    /**
-     * Expo Video
-     */
-    export interface VideoLoad {
-      duration: number
-      currentTime: number
-      canPlayReverse: boolean
-      canPlayFastForward: boolean
-      canPlaySlowForward: boolean
-      canPlaySlowReverse: boolean
-      canStepBackward: boolean
-      canStepForward: boolean
-      naturalSize: {
-        width: number;
-        heigth: number;
-        orientation: 'landscape' | 'portrait'
-      }
-    }
-    export type VideoError = {
-      code: any,
-      domain: any,
-    } | {
-      what: any,
-      extra: any,
+    interface MapPolygonProps {
+      coordinates?: Array<{ latitude: number; longitude: number; }>
+      holes?: Array<Array<{ latitude: number; longitude: number; }>>
+      onPress?: Function
+      tappable?: boolean
+      strokeWidth?: number
+      strokeColor?: string
+      fillColor?: string
+      zIndex?: number
+      lineCap?: LineCapType
+      lineJoin?: LineJoinType
+      miterLimit?: number
+      geodesic?: boolean
+      lineDashPhase?: number
+      lineDashPattern?: Array<number>
     }
 
-    export interface VideoProgress {
-      currentTime: number
-      playableDuration: number
+    interface MapCircleProps {
+      center: { latitude: number; longitude: number }
+      radius: number
+      onPress?: Function
+      strokeWidth?: number
+      strokeColor?: string
+      fillColor?: string
+      zIndex?: number
+      lineCap?: LineCapType
+      lineJoin?: LineJoinType
+      miterLimit?: number
+      lineDashPhase?: number
+      lineDashPattern?: Array<number>
     }
 
-    export interface VideoSeek {
-      currentTime: number
-      seekTime: number
+    interface MapUrlTitleProps {
+      urlTemplate: string
+      zIndex?: number
     }
 
-    export interface VideoProps {
-      source: any    // TODO: better def: string|*require(file)*
-      fullscreen?: boolean
-      resizeMode?: string    // TODO: resize mode instead of general string
-      repeat?: boolean
-      paused?: boolean
-      volume?: number
-      muted?: boolean
-      rate?: number
-      onLoadStart?: (param: { uri: string }) => any
-      onLoad?: (load: VideoLoad) => any
-      onError?: (error: { error: VideoError }) => any
-      onProgress?: (progress: VideoProgress) => any
-      onSeek?: (seek: VideoSeek) => any
-      onEnd?: () => any
+    interface MapCalloutProps {
+      tooltip?: boolean
+      onPress?: Function
     }
 
-    export class Video extends React.Component<VideoProps, void> {
-      public static RESIZE_MODE_CONTAIN: string
-      public static RESIZE_MODE_COVER: string
-      public static RESIZE_MODE_STRETCH: string
+    export class Marker extends React.Component<MarkerProps, any> { }
+    export class Polyline extends React.Component<MapPolylineProps, any> { }
+    export class Polygon extends React.Component<MapPolygonProps, any> { }
+    export class Circle extends React.Component<MapCircleProps, any> { }
+    export class UrlTile extends React.Component<MapUrlTitleProps, any> { }
+    export class Callout extends React.Component<MapCalloutProps, any> { }
+  }
+  //#endregion
 
-      public seek(time: string): void
-      public presentFullscreenPlayer(): void
-      public dismissFullscreenPlayer(): void
+  /**
+   * Expo Video
+   */
+  export interface VideoLoad {
+    duration: number
+    currentTime: number
+    canPlayReverse: boolean
+    canPlayFastForward: boolean
+    canPlaySlowForward: boolean
+    canPlaySlowReverse: boolean
+    canStepBackward: boolean
+    canStepForward: boolean
+    naturalSize: {
+      width: number;
+      heigth: number;
+      orientation: 'landscape' | 'portrait'
     }
+  }
+  export type VideoError = {
+    code: any,
+    domain: any,
+  } | {
+    what: any,
+    extra: any,
+  }
+
+  export interface VideoProgress {
+    currentTime: number
+    playableDuration: number
+  }
+
+  export interface VideoSeek {
+    currentTime: number
+    seekTime: number
+  }
+
+  export interface VideoProps {
+    source: any    // TODO: better def: string|*require(file)*
+    fullscreen?: boolean
+    resizeMode?: string    // TODO: resize mode instead of general string
+    repeat?: boolean
+    paused?: boolean
+    volume?: number
+    muted?: boolean
+    rate?: number
+    onLoadStart?: (param: { uri: string }) => any
+    onLoad?: (load: VideoLoad) => any
+    onError?: (error: { error: VideoError }) => any
+    onProgress?: (progress: VideoProgress) => any
+    onSeek?: (seek: VideoSeek) => any
+    onEnd?: () => any
+  }
+
+  export class Video extends React.Component<VideoProps, void> {
+    public static RESIZE_MODE_CONTAIN: string
+    public static RESIZE_MODE_COVER: string
+    public static RESIZE_MODE_STRETCH: string
+
+    public seek(time: string): void
+    public presentFullscreenPlayer(): void
+    public dismissFullscreenPlayer(): void
   }
 
   export namespace DocumentPicker {
@@ -743,7 +899,7 @@ declare module 'expo' {
 
   export namespace ScreenOrientation {
     export namespace Orientation {
-      /** All 4 possible orientations */
+      /** All 4 possible orientations. */
       export const ALL: 'ALL'
 
       /** All but reverse portrait, could be all 4 orientations on certain Android devices. */
@@ -827,6 +983,7 @@ declare module 'expo' {
     ): any
   }
 
+  //#region Svg
   export class Svg extends Component<Svg.SvgProps, {}> { }
 
   export namespace Svg {
@@ -1073,6 +1230,7 @@ declare module 'expo' {
     export class TSpan extends Component<TSpanProps, {}> { }
     export class Use extends Component<UseProps, {}> { }
   }
+  //#endregion
 
   export function takeSnapshotAsync(
     view?: (number | React.ReactElement<any>),
