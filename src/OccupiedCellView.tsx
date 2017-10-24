@@ -21,6 +21,7 @@ enum VisualState {
   Idle,
 }
 
+// TODO: Move the state to a computed value.
 interface State {
   visualState: VisualState
 }
@@ -38,37 +39,32 @@ export class OccupiedCellView extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
-        const cardMoved = Game.instance.cardDropped()
+        this.setState({
+          visualState: VisualState.Animating,
+        })
 
-        if (cardMoved) {
+        const animationTargetValue = {
+          x: Game.instance.snapToOnDrop.position.x - this.props.occupiedCell.position.x,
+          y: Game.instance.snapToOnDrop.position.y - this.props.occupiedCell.position.y,
+        }
+
+        Animated.timing(
+          this.animatedPosition,
+          {
+            duration: 200,
+            easing: Easing.elastic(1),
+            toValue: animationTargetValue,
+          },
+        ).start(() => {
+          if (this.state.visualState !== VisualState.Dragging) {
+            this.setState({
+              visualState: VisualState.Idle,
+            })
+          }
+
+          Game.instance.cardDropped()
           this.animatedPosition.setValue({ x: 0, y: 0 })
-          this.setState({
-            visualState: VisualState.Idle,
-          })
-        }
-        else {
-          this.setState({
-            visualState: VisualState.Animating,
-          })
-
-          Animated.timing(
-            this.animatedPosition,
-            {
-              duration: 200,
-              easing: Easing.elastic(1),
-              toValue: {
-                x: 0,
-                y: 0,
-              },
-            },
-          ).start(() => {
-            if (this.state.visualState !== VisualState.Dragging) {
-              this.setState({
-                visualState: VisualState.Idle,
-              })
-            }
-          })
-        }
+        })
       },
       onPanResponderGrant: (e, gestureState) => {
         Game.instance.cardDragStarted(this.props.occupiedCell)

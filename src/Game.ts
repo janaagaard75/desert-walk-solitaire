@@ -94,6 +94,19 @@ export class Game {
   }
 
   @computed
+  public get snapToOnDrop(): Cell {
+    if (this.draggingFromCell === undefined) {
+      throw new Error('No cell to snap to since currently not dragging a card.')
+    }
+
+    if (this.mostOverlappedTargetableCell !== undefined) {
+      return this.mostOverlappedTargetableCell
+    }
+
+    return this.draggingFromCell.cell
+  }
+
+  @computed
   public get shuffles(): number {
     const shuffles = this.turns.filter(turn => turn instanceof ShuffleTurn).length
     return shuffles
