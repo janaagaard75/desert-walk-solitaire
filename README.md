@@ -28,11 +28,14 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ### Animating Between States
 
-Animating between two grid states is still to do. It should be possible to send a 'from' and a 'to' grid state to GridStateView, and let the view animate appropriately.
+Animating between two grid states is still to do. The goal is to be able to supply a ‘from’ and a ‘to’ grid state to GridStateView, and let the view handle the animation. The current solution where a card is snapped into position before the next turn is calculated makes the game feel unresponsive. It would be better if the new draggable cards and empty spaces where shown while the card was doing the lille snap animation.
 
-For each card: Animate from the position of the 'from' state to the position of the 'to' state.
+Proposal: When the dragged card is let go over a target cell, moveCard is immediately called. This triggers the calculation of a new state, that then becomes the currentGridState. In the new grid state the draggard is, however, not positioned on the cell, but rather where it was let go. This should be picked up by OccupiedCell, and the appropirate snap animatio then triggered.
 
-It might be worth moving the dragged card observables from Game to GridState, because then snapping a dropped card into position could be handled by the engine.
+OccupiedCellView needs a startPosition or a startOffset, that triggers an animation to the cell’s position should the not already be in the correct position.
+
+Ideally the empty cells shoul switch midways through the animation. Perhaps the whole game needs an ‘animating’ state, that would also handle switching the empty cells halfway through. GridView’s componentWillReceiveProps should handle this.
+
 
 ## Fat Models
 
