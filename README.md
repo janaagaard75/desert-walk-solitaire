@@ -32,9 +32,11 @@ Animating between two grid states is still to do. The goal is to be able to supp
 
 Proposal: When the dragged card is let go over a target cell, moveCard is immediately called. This triggers the calculation of a new state, that then becomes the currentGridState. In the new grid state the draggard is, however, not positioned on the cell, but rather where it was let go. This should be picked up by OccupiedCell, and the appropirate snap animatio then triggered.
 
-OccupiedCellView needs a startPosition or a startOffset, that triggers an animation to the cell’s position should the not already be in the correct position.
+OccupiedCellView needs a previousPosition that triggers an animation to the current cell’s position.
 
-Ideally the empty cells shoul switch midways through the animation. Perhaps the whole game needs an ‘animating’ state, that would also handle switching the empty cells halfway through. GridView’s componentWillReceiveProps should handle this.
+Ideally the empty cells shoul switch midways through the animation.
+
+componentWillReceiveProps might be used instead of sending both the current and the previous state to GridView.
 
 
 ## Fat Models
