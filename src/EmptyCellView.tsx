@@ -13,7 +13,7 @@ interface Props {
 }
 
 @observer
-export class EmptyCellView extends Component<Props, {}> {
+export class EmptyCellView extends Component<Props> {
   public render() {
     const [color, style, width] = this.getBorderColorStyleAndWidth()
 
