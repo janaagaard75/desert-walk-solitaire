@@ -16,8 +16,8 @@ import { Suit } from './Suit'
 
 interface Props {
   card: Card
-  draggable: boolean
   correctlyPlaced: boolean
+  draggable: boolean
   shadow: boolean
 }
 
