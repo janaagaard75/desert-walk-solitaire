@@ -3,6 +3,7 @@ import { computed } from 'mobx'
 import { Card } from './Card'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
+import { Value } from './Value'
 
 export class Deck {
   private constructor() {
@@ -14,7 +15,7 @@ export class Deck {
             ? undefined
             : cards[cards.length - 1]
 
-          cards.push(new Card(suit, value, nextCard))
+          cards.push(new Card(suit, value as Value, nextCard))
         }
       }
     }

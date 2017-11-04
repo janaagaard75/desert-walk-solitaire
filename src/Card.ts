@@ -4,11 +4,12 @@ import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
+import { Value } from './Value'
 
 export class Card {
   constructor(
     public readonly suit: Suit,
-    public readonly value: number,
+    public readonly value: Value,
     public readonly next: Card | undefined,
   ) { }
 
@@ -34,7 +35,7 @@ export class Card {
 
   @computed
   public get key(): string {
-    const key = this.value.toString() + '.' + this.suit
+    const key = this.displayValue + Suit.toString(this.suit)
     return key
   }
 
