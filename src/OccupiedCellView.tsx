@@ -39,39 +39,35 @@ export class OccupiedCellView extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
-        const cardMoved = Game.instance.cardDropped()
+        const dropOffset = Game.instance.cardDropped()
 
-        if (cardMoved) {
-          this.animatedPosition.setValue({ x: 0, y: 0 })
-          this.setState({
-            visualState: VisualState.Idle,
-          })
+        if (dropOffset !== undefined) {
+          this.animatedPosition.setValue(dropOffset)
         }
-        else {
-          this.setState({
-            visualState: VisualState.Animating,
-          })
 
-          const animationTargetValue = {
-            x: 0,
-            y: 0,
+        this.setState({
+          visualState: VisualState.Animating,
+        })
+
+        const animationTargetValue = {
+          x: 0,
+          y: 0,
+        }
+
+        Animated.timing(
+          this.animatedPosition,
+          {
+            duration: 200,
+            easing: Easing.elastic(1),
+            toValue: animationTargetValue,
+          },
+        ).start(() => {
+          if (this.state.visualState !== VisualState.Dragging) {
+            this.setState({
+              visualState: VisualState.Idle,
+            })
           }
-
-          Animated.timing(
-            this.animatedPosition,
-            {
-              duration: 200,
-              easing: Easing.elastic(1),
-              toValue: animationTargetValue,
-            },
-          ).start(() => {
-            if (this.state.visualState !== VisualState.Dragging) {
-              this.setState({
-                visualState: VisualState.Idle,
-              })
-            }
-          })
-        }
+        })
       },
       onPanResponderGrant: (e, gestureState) => {
         Game.instance.cardDragStarted(this.props.occupiedCell)

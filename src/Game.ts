@@ -11,6 +11,7 @@ import { Grid } from './Grid'
 import { GridState } from './GridState'
 import { MoveTurn } from './MoveTurn'
 import { OccupiedCell } from './OccupiedCell'
+import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 import { ShuffleTurn } from './ShuffleTurn'
@@ -164,7 +165,8 @@ export class Game {
     this.draggedCardBoundary = fromCell.boundary
   }
 
-  public cardDropped(): boolean {
+  /** Returns the offset from the droppable target, if the card was let go over a droppeable target. Otherwize returns undefined. */
+  public cardDropped(): Point | undefined {
     if (this.draggingFromCell === undefined) {
       throw new Error('draggedCard must be defined when handling a drop.')
     }
@@ -175,18 +177,24 @@ export class Game {
 
     const targetCell = this.mostOverlappedTargetableCell
     if (targetCell === undefined) {
-      return false
+      return undefined
     }
 
     if (targetCell === this.draggingFromCell.cell) {
-      return false
+      return undefined
     }
 
     this.performTurn(new MoveTurn(this.draggingFromCell.cell, targetCell))
 
+    const dropOffset: Point = {
+      x: targetCell.position.x - this.draggedCardBoundary.x1,
+      y: targetCell.position.y - this.draggedCardBoundary.y1,
+    }
+
     this.draggingFromCell = undefined
     this.draggedCardBoundary = undefined
-    return true
+
+    return dropOffset
   }
 
   public redo() {
