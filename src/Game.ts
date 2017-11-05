@@ -188,7 +188,7 @@ export class Game {
 
     const dropOffset: Point = {
       x: targetCell.position.x - this.draggedCardBoundary.x1,
-      y: targetCell.position.y - this.draggedCardBoundary.y1,
+      y: targetCell.position.y - this.draggedCardBoundary.y1
     }
 
     this.draggingFromCell = undefined
@@ -213,7 +213,7 @@ export class Game {
     for (let i = 0; i < shuffledCards.length; i++) {
       positions.push({
         card: shuffledCards[i],
-        cell: cellsExcludingFirstColumn[i],
+        cell: cellsExcludingFirstColumn[i]
       })
     }
 
@@ -252,7 +252,7 @@ export class Game {
     if (this.gameStatus === GameState.GameLost || this.gameStatus === GameState.GameWon) {
       this.gameSummary.addFinalStep({
         cardsInPlace: this.currentGridState.correctlyPositionedCards.length,
-        moves: this.moves,
+        moves: this.moves
       })
 
       this.storeGameSummary()

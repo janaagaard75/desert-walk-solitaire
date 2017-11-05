@@ -19,7 +19,7 @@ interface Props {
 enum VisualState {
   Animating,
   Dragging,
-  Idle,
+  Idle
 }
 
 // TODO: Move the state to a computed value.
@@ -33,7 +33,7 @@ export class OccupiedCellView extends Component<Props, State> {
     super(props, context)
 
     this.state = {
-      visualState: VisualState.Idle,
+      visualState: VisualState.Idle
     }
 
     this.animatedPosition = new Animated.ValueXY()
@@ -47,12 +47,12 @@ export class OccupiedCellView extends Component<Props, State> {
         }
 
         this.setState({
-          visualState: VisualState.Animating,
+          visualState: VisualState.Animating
         })
 
         const animationTargetValue = {
           x: 0,
-          y: 0,
+          y: 0
         }
 
         Animated.timing(
@@ -60,12 +60,12 @@ export class OccupiedCellView extends Component<Props, State> {
           {
             duration: Settings.instance.animationDuration,
             easing: Easing.elastic(1),
-            toValue: animationTargetValue,
-          },
+            toValue: animationTargetValue
+          }
         ).start(() => {
           if (this.state.visualState !== VisualState.Dragging) {
             this.setState({
-              visualState: VisualState.Idle,
+              visualState: VisualState.Idle
             })
           }
         })
@@ -79,15 +79,15 @@ export class OccupiedCellView extends Component<Props, State> {
           null as any,
           {
             dx: this.animatedPosition.x,
-            dy: this.animatedPosition.y,
-          },
+            dy: this.animatedPosition.y
+          }
         ]),
       onPanResponderStart: (e, gestureState) => {
         this.setState({
-          visualState: VisualState.Dragging,
+          visualState: VisualState.Dragging
         })
       },
-      onStartShouldSetPanResponder: (e, gestureState) => true,
+      onStartShouldSetPanResponder: (e, gestureState) => true
     })
 
     this.animatedPosition.addListener(position => {
@@ -105,7 +105,7 @@ export class OccupiedCellView extends Component<Props, State> {
     const style = {
       position: 'absolute',
       transform: this.animatedPosition.getTranslateTransform(),
-      zIndex: this.state.visualState === VisualState.Idle ? 1 : 2,
+      zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
     }
 
     const panHandlers = this.props.occupiedCell.draggable

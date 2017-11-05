@@ -2,7 +2,7 @@ export enum Suit {
   Clubs,
   Diamonds,
   Hearts,
-  Spades,
+  Spades
 }
 
 // tslint:disable-next-line:no-namespace

@@ -71,17 +71,17 @@ declare module 'expo' {
     export enum InterruptionModeIOS {
       INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS = 0,
       INTERRUPTION_MODE_IOS_DO_NOT_MIX = 1,
-      INTERRUPTION_MODE_IOS_DUCK_OTHERS = 2,
+      INTERRUPTION_MODE_IOS_DUCK_OTHERS = 2
     }
 
     export enum InterruptionModeAndroid {
       INTERRUPTION_MODE_ANDROID_DO_NOT_MIX = 1,
-      INTERRUPTION_MODE_ANDROID_DUCK_OTHERS = 2,
+      INTERRUPTION_MODE_ANDROID_DUCK_OTHERS = 2
     }
 
     export type SoundStatus =
       {
-        isLoaded: false,
+        isLoaded: false
       } | {
         isLoaded: true,
         isPlaying: boolean,
@@ -92,21 +92,21 @@ declare module 'expo' {
         volume: number,
         isMuted: boolean,
         isLooping: boolean,
-        didJustFinish: boolean,
+        didJustFinish: boolean
       }
 
     export type RecordingStatus =
       {
         canRecord: false,
-        isDoneRecording: false,
+        isDoneRecording: false
       } | {
         canRecord: true,
         isRecording: boolean,
-        durationMillis: number,
+        durationMillis: number
       } | {
         canRecord: false,
         isDoneRecording: true,
-        durationMillis: number,
+        durationMillis: number
       }
 
     export type AudioMode = {
@@ -114,7 +114,7 @@ declare module 'expo' {
       interruptionModeIOS: InterruptionModeIOS,
       playsInSilentLockedModeIOS: boolean,
       interruptionModeAndroid: InterruptionModeAndroid,
-      shouldDuckAndroid: boolean,
+      shouldDuckAndroid: boolean
     }
 
     export function setAudioModeAsync(mode: AudioMode): Promise<void>  // TODO: better return
@@ -140,7 +140,7 @@ declare module 'expo' {
       public setPositionAsync(millis: number): Promise<SoundStatus>
       public setRateAsync(
         value: number,
-        shouldCorrectPitch: boolean,
+        shouldCorrectPitch: boolean
       ): Promise<SoundStatus>
       public setVolumeAsync(value: number): Promise<SoundStatus>
       public setIsMutedAsync(value: boolean): Promise<SoundStatus>
@@ -179,7 +179,7 @@ declare module 'expo' {
         platform: string;
         model: string;
         userInterfaceIdiom: string;
-      },
+      }
     }
     export const platform: Platform
     export const sessionId: string
@@ -201,7 +201,7 @@ declare module 'expo' {
         icon?: string,
         color?: string,
         androidMode?: 'default' | 'collapse',
-        androidCollapsedTitle?: string,
+        androidCollapsedTitle?: string
       }
       loading?: {
         icon?: string,
@@ -209,18 +209,18 @@ declare module 'expo' {
         exponentIconGrayscale?: 1 | 0,
         backgroundImage?: string,
         backgroundColor?: string,
-        hideExponentText?: boolean,
+        hideExponentText?: boolean
       }
       appKey?: string
       androidStatusBarColor?: string
       androidStatusBar?: {
         barStyle?: 'lignt-content' | 'dark-content',
-        backgroundColor?: string,
+        backgroundColor?: string
       }
       androidHideExponentNotificationInShellApp?: boolean
       scheme?: string
       extra?: {
-        [propName: string]: any,
+        [propName: string]: any
       }
       rnCliPath?: any
       entryPoint?: string
@@ -232,7 +232,7 @@ declare module 'expo' {
         urlType?: string,
         urlRandomness?: string,
         lanType?: string,
-        [propName: string]: any,
+        [propName: string]: any
       }
       ignoreNodeModulesValidation?: any  // TODO: better def
       nodeModulesPath?: string
@@ -242,11 +242,11 @@ declare module 'expo' {
         config?: {
           usesNonExemptEncryption?: boolean,
           googleSignIn?: {
-            reservedClientId: string,
-          },
+            reservedClientId: string
+          }
         },
         supportsTablet?: boolean,
-        infoPlist?: any,
+        infoPlist?: any
       }
       android?: {
         package?: string,
@@ -254,22 +254,22 @@ declare module 'expo' {
         config?: {
           fabric?: {
             apiKey: string,
-            buildSecret: string,
+            buildSecret: string
           },
           googleMaps?: {
-            apiKey: string,
+            apiKey: string
           },
           googleSignIn?: {
             apiKey: string,
-            certificateHash: string,
-          },
-        },
+            certificateHash: string
+          }
+        }
       },
       facebookScheme: any
       xde: boolean
       developper?: {
         tool?: string,
-        [propName: string]: any,
+        [propName: string]: any
       }
       bundleUrl?: string
       debuggerHost?: string
@@ -299,12 +299,12 @@ declare module 'expo' {
       emails?: Array<{
         email?: string,
         primary?: boolean,
-        label: string,
+        label: string
       }>
       phoneNumbers?: Array<{
         number?: string,
         primary?: boolean,
-        label: string,
+        label: string
       }>
       addresses?: Array<{
         street?: string,
@@ -314,7 +314,7 @@ declare module 'expo' {
         neighborhood?: string,
         postcode?: string,
         pobox?: string,
-        label: string,
+        label: string
       }>
       company?: string
       jobTitle?: string
@@ -568,10 +568,10 @@ declare module 'expo' {
   }
   export type VideoError = {
     code: any,
-    domain: any,
+    domain: any
   } | {
     what: any,
-    extra: any,
+    extra: any
   }
 
   export interface VideoProgress {
@@ -619,9 +619,9 @@ declare module 'expo' {
       type: 'success',
       uri: string,
       name: string,
-      size: number,
+      size: number
     } | {
-      type: 'cancel',
+      type: 'cancel'
     }
 
     export function getDocumentAsync(options: Options): Response
@@ -639,9 +639,9 @@ declare module 'expo' {
     export type Response = {
       type: 'success',
       token: string,
-      expires: number,
+      expires: number
     } | {
-      type: 'cancel',
+      type: 'cancel'
     }
     export function logInWithReadPermissionsAsync(appId: string, options: Options): void
   }
@@ -724,7 +724,7 @@ declare module 'expo' {
     }
 
     export type LogInResult = {
-      type: 'cancel',
+      type: 'cancel'
     } | {
       type: 'success',
       accessToken: string,
@@ -737,8 +737,8 @@ declare module 'expo' {
         givenName: string,
         familyName: string,
         photoUrl?: string,
-        email?: string,
-      },
+        email?: string
+      }
     }
 
     export function logInAsync(config: LogInConfig): Promise<LogInResult>
@@ -806,7 +806,7 @@ declare module 'expo' {
         altitude: number,
         accuracy: number,
         heading: number,
-        speed: number,
+        speed: number
       }
       timestamp: number
     }
@@ -830,7 +830,7 @@ declare module 'expo' {
       body?: string
       data?: any
       ios?: {
-        sound?: boolean,
+        sound?: boolean
       }
       android?: {
         sound?: boolean;
@@ -850,7 +850,7 @@ declare module 'expo' {
     export function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>
     export function scheduleLocalNotificationAsync(
       localNotification: LocalNotification,
-      schedulingOptions: { time: Date | number, repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year' },
+      schedulingOptions: { time: Date | number, repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year' }
     ): Promise<LocalNotificationId>
     export function dismissNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>
     export function dismissAllNotificationsAsync(): Promise<void>
@@ -945,7 +945,7 @@ declare module 'expo' {
       transaction(
         callback: (transaction: Transaction) => any,
         error?: (error: Error) => any,     // TODO def of error
-        success?: () => any,
+        success?: () => any
       ): void
     }
 
@@ -954,7 +954,7 @@ declare module 'expo' {
         sqlStatement: string,
         arguments?: Array<string | number>,
         success?: (transaction: Transaction, resultSet: ResultSet) => any,
-        error?: (transaction: Transaction, error: Error) => any,
+        error?: (transaction: Transaction, error: Error) => any
       ): any
     }
 
@@ -974,12 +974,12 @@ declare module 'expo' {
         version?: string,
         description?: string,
         size?: number,
-        callback?: () => any,
+        callback?: () => any
       },
       version?: string,
       description?: string,
       size?: number,
-      callback?: () => any,
+      callback?: () => any
     ): any
   }
 
@@ -1239,8 +1239,8 @@ declare module 'expo' {
       height?: number,
       format?: 'png' | 'jpg' | 'jpeg' | 'webm',
       quality?: number,
-      result?: 'file' | 'base64' | 'data-uri',
-    },
+      result?: 'file' | 'base64' | 'data-uri'
+    }
   ): Promise<string>
 
   export namespace Util {

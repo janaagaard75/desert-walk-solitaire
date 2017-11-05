@@ -11,7 +11,7 @@ import { Rectangle } from './Rectangle'
 export abstract class GridCell {
   constructor(
     public cell: Cell,
-    protected gridState: GridState,
+    protected gridState: GridState
   ) { }
 
   @computed

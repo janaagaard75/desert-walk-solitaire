@@ -10,7 +10,7 @@ export class Card {
   constructor(
     public readonly suit: Suit,
     public readonly value: Value,
-    public readonly next: Card | undefined,
+    public readonly next: Card | undefined
   ) { }
 
   @computed
@@ -44,7 +44,7 @@ export class Card {
       position.x,
       position.x + Settings.instance.cardSize.width,
       position.y,
-      position.y + Settings.instance.cardSize.height,
+      position.y + Settings.instance.cardSize.height
     )
 
     return boundary

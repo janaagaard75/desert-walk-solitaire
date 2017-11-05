@@ -12,7 +12,7 @@ export class OccupiedCell extends GridCell implements CardCellPair {
   constructor(
     cell: Cell,
     gridState: GridState,
-    public card: Card,
+    public card: Card
   ) {
     super(cell, gridState)
   }

@@ -11,7 +11,7 @@ import { GridState } from './GridState'
 export class EmptyCell extends GridCell {
   constructor(
     cell: Cell,
-    gridState: GridState,
+    gridState: GridState
   ) {
     super(cell, gridState)
   }

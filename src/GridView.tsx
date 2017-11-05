@@ -15,7 +15,7 @@ export class GridView extends Component {
     const gridViewStyle: ViewStyle = {
       height: Settings.instance.gridSize.height,
       position: 'relative',
-      width: Settings.instance.gridSize.width,
+      width: Settings.instance.gridSize.width
     }
 
     return (
@@ -26,13 +26,13 @@ export class GridView extends Component {
           <OccupiedCellView
             key={occupiedCell.card.key}
             occupiedCell={occupiedCell}
-          />,
+          />
         )}
         {Game.instance.currentGridState.emptyCells.map(emptyCell =>
           <EmptyCellView
             emptyCell={emptyCell}
             key={emptyCell.cell.key}
-          />,
+          />
         )}
       </View>
     )

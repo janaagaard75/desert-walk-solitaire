@@ -12,7 +12,7 @@ import { Turn } from './Turn'
 
 export class GridState {
   public constructor(
-    cardCellPairs: Array<CardCellPair>,
+    cardCellPairs: Array<CardCellPair>
   ) {
     if (cardCellPairs.length !== Deck.instance.cards.length) {
       throw new Error(`Must supply ${Deck.instance.cards.length} card and cell pairs to the GridState constructor.`)

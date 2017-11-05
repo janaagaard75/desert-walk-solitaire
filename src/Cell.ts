@@ -9,7 +9,7 @@ export class Cell {
   constructor(
     public readonly rowIndex: number,
     public readonly columnIndex: number,
-    public readonly cellToTheLeft: Cell | undefined,
+    public readonly cellToTheLeft: Cell | undefined
   ) {
     this.key = this.rowIndex * Settings.instance.columns + this.columnIndex + 1
   }
@@ -22,7 +22,7 @@ export class Cell {
       this.position.x,
       this.position.x + Settings.instance.cardSize.width,
       this.position.y,
-      this.position.y + Settings.instance.cardSize.height,
+      this.position.y + Settings.instance.cardSize.height
     )
 
     return boundary
@@ -42,7 +42,7 @@ export class Cell {
   public get position(): Point {
     const position = {
       x: this.columnIndex * (Settings.instance.cardSize.width + Settings.instance.gutterWidth),
-      y: this.rowIndex * (Settings.instance.cardSize.height + Settings.instance.gutterWidth),
+      y: this.rowIndex * (Settings.instance.cardSize.height + Settings.instance.gutterWidth)
     }
 
     return position

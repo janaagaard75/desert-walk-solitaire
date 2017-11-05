@@ -23,7 +23,7 @@ export class ShuffleTurn extends Turn {
     for (let i = 0; i < shuffledCards.length; i++) {
       shuffledCardCellPairs.push({
         card: shuffledCards[i],
-        cell: cellsExcludingLastColumn[i],
+        cell: cellsExcludingLastColumn[i]
       })
     }
 

@@ -6,7 +6,7 @@ import { Turn } from './Turn'
 export class MoveTurn extends Turn {
   constructor(
     private from: Cell,
-    private to: Cell,
+    private to: Cell
   ) {
     super()
   }
@@ -29,15 +29,15 @@ export class MoveTurn extends Turn {
       .map(pair => {
         return {
           card: pair.card,
-          cell: pair.cell,
+          cell: pair.cell
         }
       })
       .filter(cardAndCell => cardAndCell.cell !== this.from)
       .concat([
         {
           card: fromPair.card,
-          cell: this.to,
-        },
+          cell: this.to
+        }
       ])
 
     const newGridState = new GridState(newCardCellPairs)
