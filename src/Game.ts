@@ -187,8 +187,8 @@ export class Game {
     this.performTurn(new MoveTurn(this.draggingFromCell.cell, targetCell))
 
     const dropOffset: Point = {
-      x: targetCell.position.x - this.draggedCardBoundary.x1,
-      y: targetCell.position.y - this.draggedCardBoundary.y1
+      x: this.draggedCardBoundary.x1 - targetCell.position.x,
+      y: this.draggedCardBoundary.y1 - targetCell.position.y
     }
 
     this.draggingFromCell = undefined
