@@ -18,7 +18,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "outDir": "build/dist",
-    "sourceMap": true,
+    "sourceMap": false,
     "strict": true,
     "strictFunctionTypes": false,
     "target": "es2017"
