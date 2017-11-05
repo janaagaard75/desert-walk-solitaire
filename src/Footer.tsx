@@ -63,11 +63,8 @@ export class Footer extends Component<{}, State> {
           <Text style={textStyle}>
             Moves: {Game.instance.moves}
           </Text>
-          <Text style={textStyle}>
-            Shuffles: {Game.instance.shuffles}
-          </Text>
           <Text style={rightAlignedTextStyle}>
-            Cards in correct spot: {Game.instance.currentGridState.correctlyPositionedCards.length}
+            Shuffles: {Game.instance.shuffles}
           </Text>
         </View>
         <View
