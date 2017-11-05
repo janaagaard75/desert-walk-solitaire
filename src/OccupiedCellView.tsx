@@ -10,6 +10,7 @@ import { Card } from './Card'
 import { CardView } from './CardView'
 import { Game } from './Game'
 import { OccupiedCell } from './OccupiedCell'
+import { Settings } from './Settings'
 
 interface Props {
   occupiedCell: OccupiedCell
@@ -57,7 +58,7 @@ export class OccupiedCellView extends Component<Props, State> {
         Animated.timing(
           this.animatedPosition,
           {
-            duration: 200,
+            duration: Settings.instance.animationDuration,
             easing: Easing.elastic(1),
             toValue: animationTargetValue,
           },

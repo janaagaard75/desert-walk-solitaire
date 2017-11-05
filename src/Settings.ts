@@ -37,6 +37,7 @@ export class Settings {
     return this._instance
   }
 
+  public readonly animationDuration = 200
   public readonly columns = this.maxCardValue + 1
   public readonly numberOfCards = this.maxCardValue * this.rows
   public readonly cardShadowOpacity = 0.6
