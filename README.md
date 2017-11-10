@@ -7,24 +7,22 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 ## To Do
 
 * Update engine, so that it can animate the cards between two states.
-  * When letting go of a card in a non-droppable place, let the engine snap the card back into position.
-  * Use the engine to snap cards into correct positions.
-  * Animate shuffling the cards.
-  * Consider animating that the cards are delt. This will also maje it clearer what happens when the cards arw shuffled, and make it possible to show an animation, should the cards coincidally be redlet in the exact same position as they were before.
-* Consider making the Game class a singleton, put Deck and Grid into it, and generally avoid passing things down with props, unless necessary.
+  * Animate a single card when undoing / redoing.
+  * Animate the cards when shuffeling.
+  * Consider animating the cards when the cards are delt.
 * Game lost screen.
 * Game won screen.
-  * Some kine of reward for winning. Show a fast replay?
-* Small animation when a card is moved into the correct position.
-  * Animate cards before shuffleling?
+  * Some kind of reward for winning. Could be showing a fast replay of all the moves.
+* Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app.
   * Animate all cards when the game is won.
-* Prettier background.
-* SVGs for the playing cards, since iOS and Android have different fonts.
-* Consider more data to the model objects, that is all observable properties and the sizes and positions of the elements.
+* SVGs for the numbers or a custom fonts, to make sure it looks correct on Android too.
+* Consider letting MobX handle the full state, including local states.
 * Disable shuffle button when it doesn't do anything.
 * More affordable buttons.
+* Limit the number of shuffles. Could be done with showing a number of buttons that become disabled when they are used.
 * Splash screen.
 * Fix starting up the game while the phone is in landscape mode.
+* Remember game state when the Expo app has been closed for a long time.
 
 ### Animating Between States
 
@@ -37,11 +35,6 @@ OccupiedCellView needs a previousPosition that triggers an animation to the curr
 Ideally the empty cells shoul switch midways through the animation.
 
 componentWillReceiveProps might be used instead of sending both the current and the previous state to GridView.
-
-
-## Fat Models
-
-The first data architechture was to only keep the information necessary for the rules of the game in the models, and leave all that has to do with presentation of the game to the view classes. That got messy, so the new architechture is to put pretty much everything in the models. Most of the properties are computed values. Making Settings, Game, Deck and Grid singletons has lead to somewhat a spaghetti code architechture, but currently it's okay. That might actually be the force of MobX: Embrace the spaghetti architecture, and avoid drowning in it.
 
 ## Dragging a Card
 
@@ -70,7 +63,9 @@ Having singleton classes (Game, Settings, Deck and Grid) is essentially the same
 
 Creating a good model is difficult. It might be a good idea to move the dragged card from Game to GridState.
 
-Naming things is hard, but important. OccupiedCell has been renamed at least five times. When a class is renamed, there are often local variables left, that should also be renamed.
+Naming things is hard, but important. OccupiedCell has been renamed at least five times, and it still needs a rename, since it focuses on the cards and not the ceels. Perhaps going back to PositionedCard? When a class is renamed, there are often local variables left, that should also be renamed. OccupiedCell and EmptyCell makes for a great pair, but the two classes are distinct in that when switching between states, the cards are all the same only moved, whereas the empty cells are removed and added.
+
+The first data architechture was to only keep the information necessary for the rules of the game in the models, and leave all that has to do with presentation of the game to the view classes. That got messy, so the new architechture is to put pretty much everything in the models. Most of the properties are computed values. Making Settings, Game, Deck and Grid singletons has lead to somewhat a spaghetti code architechture, but currently it's okay. That might actually be the force of MobX: Embrace the spaghetti architecture, and avoid drowning in it.
 
 ## Links
 
