@@ -4,6 +4,17 @@ A game of solitare implemented in React Native and written in TypeScript.
 
 Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
+## Running the App Locally
+
+1. Fetch the repo and install packages with `yarn install` (or `npm install`).
+1. Download and install the [Expo XDE](https://expo.io/tools).
+1. (Not sure if this is mandatory: Install XCode on Mac. The iOS Simulator is part of XCode.)
+1. Open the project in Expo XDE. This should compile everyting.
+1. Open the project in the iOS simulator* or...
+1. ... Install the Expo client on a mobile device and scan the QR code revealed by the Share button.
+
+*) It also possible to run the app in Android simulator, but I haven't tried that yet.
+
 ## To Do
 
 * Update engine, so that it can animate the cards between two states.
