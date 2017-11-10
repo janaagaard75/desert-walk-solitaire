@@ -13,7 +13,7 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 * Game lost screen.
 * Game won screen.
   * Some kind of reward for winning. Could be showing a fast replay of all the moves.
-* Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app.
+* Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
   * Animate all cards when the game is won.
 * SVGs for the numbers or a custom fonts, to make sure it looks correct on Android too.
 * Consider letting MobX handle the full state, including local states.
