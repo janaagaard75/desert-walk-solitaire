@@ -16,23 +16,23 @@
     "validate-typescript": "tsc --noEmit"
   },
   "dependencies": {
-    "expo": "22.0.0",
-    "firebase": "4.6.1",
-    "mobx": "3.3.1",
-    "mobx-react": "4.3.2",
-    "react": "16.0.0-beta.5",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-22.0.1.tar.gz",
+    "expo": "23.0.2",
+    "firebase": "4.6.2",
+    "mobx": "3.3.2",
+    "mobx-react": "4.3.5",
+    "react": "16.0.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-23.0.0.tar.gz",
     "tslib": "1.8.0"
   },
   "devDependencies": {
     "@types/fbemitter": "2.0.32",
-    "@types/react": "16.0.19",
-    "@types/react-native": "0.49.5",
+    "@types/react": "16.0.25",
+    "@types/react-native": "0.50.7",
     "prop-types": "15.6.0",
     "react-native-typescript-transformer": "1.1.4",
     "tslint": "5.8.0",
     "tslint-eslint-rules": "4.1.1",
     "tslint-react": "3.2.0",
-    "typescript": "2.6.1"
+    "typescript": "2.6.2"
   }
 }
