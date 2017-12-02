@@ -19,9 +19,7 @@ export class GridView extends Component {
     }
 
     return (
-      <View
-        style={gridViewStyle}
-      >
+      <View style={gridViewStyle}>
         {Game.instance.currentGridState.occupiedCells.map(occupiedCell =>
           <OccupiedCellView
             key={occupiedCell.card.key}
