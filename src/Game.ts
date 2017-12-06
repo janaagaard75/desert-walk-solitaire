@@ -113,9 +113,8 @@ export class Game {
     return mostOverlapped
   }
 
-  // TODO: Rename to numberOfMoveTurns to avoid confusion.
   @computed
-  public get moves(): number {
+  public get numberOfMoveTurns(): number {
     const moves = this.turns.filter(turn => turn instanceof MoveTurn).length
     return moves
   }
@@ -264,7 +263,7 @@ export class Game {
     if (this.gameStatus === GameState.GameLost || this.gameStatus === GameState.GameWon) {
       this.gameSummary.addFinalStep({
         cardsInPlace: this.currentGridState.correctlyPositionedCards.length,
-        moves: this.moves
+        moves: this.numberOfMoveTurns
       })
 
       this.storeGameSummary()

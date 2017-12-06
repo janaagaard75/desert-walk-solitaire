@@ -61,7 +61,7 @@ export class Footer extends Component<{}, State> {
           }}
         >
           <Text style={textStyle}>
-            Moves: {Game.instance.moves}
+            Moves: {Game.instance.numberOfMoveTurns}
           </Text>
           <Text style={rightAlignedTextStyle}>
             Shuffles: {Game.instance.shuffles}
