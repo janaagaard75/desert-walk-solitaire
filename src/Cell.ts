@@ -40,10 +40,10 @@ export class Cell {
 
   @computed
   public get position(): Point {
-    const position = {
-      x: this.columnIndex * (Settings.instance.cardSize.width + Settings.instance.gutterWidth),
-      y: this.rowIndex * (Settings.instance.cardSize.height + Settings.instance.gutterWidth)
-    }
+    const position = new Point(
+      this.columnIndex * (Settings.instance.cardSize.width + Settings.instance.gutterWidth),
+      this.rowIndex * (Settings.instance.cardSize.height + Settings.instance.gutterWidth)
+    )
 
     return position
   }

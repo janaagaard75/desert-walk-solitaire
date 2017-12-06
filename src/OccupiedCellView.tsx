@@ -10,6 +10,7 @@ import { Card } from './Card'
 import { CardView } from './CardView'
 import { Game } from './Game'
 import { OccupiedCell } from './OccupiedCell'
+import { Point } from './Point'
 import { Settings } from './Settings'
 
 interface Props {
@@ -91,13 +92,30 @@ export class OccupiedCellView extends Component<Props, State> {
     })
 
     this.animatedPosition.addListener(position => {
-      const boundary = Card.getBoundary(position)
+      const boundary = Card.getBoundary(new Point(position.x, position.y))
       Game.instance.cardDragged(boundary)
     })
   }
 
   private animatedPosition: Animated.ValueXY
   private panResponder: PanResponderInstance
+
+  public componentWillReceiveProps(nextProps: Props) {
+    if (Game.instance.animateFromPreviousPosition && !this.props.occupiedCell.position.equals(nextProps.occupiedCell.position)) {
+      const animateFromOffset = this.props.occupiedCell.position.subtract(nextProps.occupiedCell.position)
+      this.animatedPosition.setValue(animateFromOffset)
+
+      Animated.timing(
+        this.animatedPosition,
+        {
+          // TODO: The animation is too fast when the cards are being shuffled.
+          duration: Settings.instance.animationDuration,
+          easing: Easing.elastic(1),
+          toValue: { x: 0, y: 0 }
+        }
+      ).start()
+    }
+  }
 
   public render() {
     this.animatedPosition.setOffset(this.props.occupiedCell.position)

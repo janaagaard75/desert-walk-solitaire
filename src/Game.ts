@@ -45,6 +45,21 @@ export class Game {
   private gameSummary: GameSummary
 
   @computed
+  public get animateFromPreviousPosition(): boolean {
+    if (this.latestTurn === undefined) {
+      return false
+    }
+
+    if (this.latestTurn instanceof ShuffleTurn) {
+      return true
+    }
+
+    // TODO: This is incorrect when clicking Redo to get back to the latest state.
+    const isLatestState = this.currentStateIndex === this.gridStates.length - 1
+    return !isLatestState
+  }
+
+  @computed
   public get currentGridState(): GridState {
     if (this.gridStates.length === 0) {
       throw new Error('The game hasn\'t been started yet.')
@@ -75,6 +90,16 @@ export class Game {
   }
 
   @computed
+  public get latestTurn(): Turn | undefined {
+    if (this.turns.length === 0) {
+      return undefined
+    }
+
+    const latestTurn = this.turns[this.turns.length - 1]
+    return latestTurn
+  }
+
+  @computed
   public get mostOverlappedTargetableCell(): Cell | undefined {
     if (this.targetCells.length === 0) {
       return undefined
@@ -88,6 +113,7 @@ export class Game {
     return mostOverlapped
   }
 
+  // TODO: Rename to numberOfMoveTurns to avoid confusion.
   @computed
   public get moves(): number {
     const moves = this.turns.filter(turn => turn instanceof MoveTurn).length
@@ -123,20 +149,6 @@ export class Game {
   public get undoPossible(): boolean {
     const undoPossible = this.currentStateIndex > 0
     return undoPossible
-  }
-
-  @computed
-  private get previousGridState(): GridState {
-    if (this.gridStates.length === 0) {
-      throw new Error('The game hasn\'t been started yet.')
-    }
-
-    // If there aren't any moves yet, then use the current state as the previous one.
-    if (this.gridStates.length === 1) {
-      return this.currentGridState
-    }
-
-    return this.gridStates[this.gridStates.length - 2]
   }
 
   @computed
@@ -186,10 +198,10 @@ export class Game {
 
     this.performTurn(new MoveTurn(this.draggingFromCell.cell, targetCell))
 
-    const dropOffset: Point = {
-      x: this.draggedCardBoundary.x1 - targetCell.position.x,
-      y: this.draggedCardBoundary.y1 - targetCell.position.y
-    }
+    const dropOffset = new Point(
+      this.draggedCardBoundary.x1 - targetCell.position.x,
+      this.draggedCardBoundary.y1 - targetCell.position.y
+    )
 
     this.draggingFromCell = undefined
     this.draggedCardBoundary = undefined
