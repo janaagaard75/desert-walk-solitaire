@@ -12,6 +12,17 @@ export class Settings {
   public readonly numberOfShuffles = 100
   @observable public windowSize: Size = { height: 0, width: 0 }
 
+  public readonly animation = {
+    snap: {
+      duration: 200,
+      elasticity: 1
+    },
+    turn: {
+      duration: 400,
+      elasticity: 0.5
+    }
+  }
+
   public readonly colors = {
     card: {
       background: '#fff',
@@ -37,7 +48,6 @@ export class Settings {
     return this._instance
   }
 
-  public readonly animationDuration = 200
   public readonly columns = this.maxCardValue + 1
   public readonly numberOfCards = this.maxCardValue * this.rows
   public readonly cardShadowOpacity = 0.6

@@ -59,8 +59,8 @@ export class OccupiedCellView extends Component<Props, State> {
         Animated.timing(
           this.animatedPosition,
           {
-            duration: Settings.instance.animationDuration,
-            easing: Easing.elastic(1),
+            duration: Settings.instance.animation.snap.duration,
+            easing: Easing.elastic(Settings.instance.animation.snap.elasticity),
             toValue: animationTargetValue
           }
         ).start(() => {
@@ -108,9 +108,8 @@ export class OccupiedCellView extends Component<Props, State> {
       Animated.timing(
         this.animatedPosition,
         {
-          // TODO: The animation is too fast when the cards are being shuffled.
-          duration: Settings.instance.animationDuration,
-          easing: Easing.elastic(1),
+          duration: Settings.instance.animation.turn.duration,
+          easing: Easing.elastic(Settings.instance.animation.turn.elasticity),
           toValue: { x: 0, y: 0 }
         }
       ).start()
