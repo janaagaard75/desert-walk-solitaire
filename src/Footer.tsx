@@ -74,10 +74,10 @@ export class Footer extends Component<{}, State> {
             flexWrap: 'wrap'
           }}
         >
-          {this.renderButton('Undo', () => Game.instance.undo(), !Game.instance.undoPossible)}
-          {this.renderButton('Redo', () => Game.instance.redo(), !Game.instance.redoPossible)}
-          {this.renderButton('Shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), !this.shuffleButtonEnabled())}
-          {this.renderButton('Start Over', () => this.confirmUnlessGameOver())}
+          {this.renderButton('Undo', () => Game.instance.undo(), Game.instance.undoPossible)}
+          {this.renderButton('Redo', () => Game.instance.redo(), Game.instance.redoPossible)}
+          {this.renderButton('Shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled())}
+          {this.renderButton('Start Over', () => this.confirmUnlessGameOver(), true)}
         </View>
         <Modal
           animationType="slide"
@@ -103,7 +103,7 @@ export class Footer extends Component<{}, State> {
     )
   }
 
-  private renderButton(title: string, handlePress: () => void, disabled?: boolean) {
+  private renderButton(title: string, handlePress: () => void, enabled: boolean) {
     return (
       <View
         style={{
@@ -115,7 +115,7 @@ export class Footer extends Component<{}, State> {
       >
         <Button
           onPress={handlePress}
-          disabled={disabled ? true : false}
+          disabled={!enabled}
           title={title}
         />
       </View>
