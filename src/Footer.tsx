@@ -76,7 +76,7 @@ export class Footer extends Component<{}, State> {
         >
           {this.renderButton('Undo', () => Game.instance.undo(), !Game.instance.undoPossible)}
           {this.renderButton('Redo', () => Game.instance.redo(), !Game.instance.redoPossible)}
-          {this.renderButton('Shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonDisabled())}
+          {this.renderButton('Shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), !this.shuffleButtonEnabled())}
           {this.renderButton('Start Over', () => this.confirmUnlessGameOver())}
         </View>
         <Modal
@@ -151,9 +151,9 @@ export class Footer extends Component<{}, State> {
     })
   }
 
-  private shuffleButtonDisabled() {
+  private shuffleButtonEnabled() {
     const enabled = Game.instance.gameStatus === GameState.Stuck
-    return !enabled
+    return enabled
   }
 
   private startOver() {
