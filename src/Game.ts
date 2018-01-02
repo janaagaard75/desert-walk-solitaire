@@ -140,7 +140,8 @@ export class Game {
 
   @computed
   public get undoPossible(): boolean {
-    const undoPossible = this.currentStateIndex > 0
+    const undoPossible = this.currentStateIndex >= 1
+      && this.turns[this.currentStateIndex - 1] instanceof MoveTurn
     return undoPossible
   }
 
