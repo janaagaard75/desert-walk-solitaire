@@ -139,12 +139,6 @@ export class Game {
   }
 
   @computed
-  public get redoPossible(): boolean {
-    const redoPossible = this.currentStateIndex < this.gridStates.length - 1
-    return redoPossible
-  }
-
-  @computed
   public get undoPossible(): boolean {
     const undoPossible = this.currentStateIndex > 0
     return undoPossible
@@ -206,10 +200,6 @@ export class Game {
     this.draggedCardBoundary = undefined
 
     return dropOffset
-  }
-
-  public redo() {
-    this.currentStateIndex++
   }
 
   public shuffleCardsInIncorrectPosition() {
