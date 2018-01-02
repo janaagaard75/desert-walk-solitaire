@@ -246,6 +246,10 @@ export class Game {
   }
 
   private storeGameSummary() {
+    if (firebase.database === undefined) {
+      throw new Error('firebase.database has to be defined.')
+    }
+
     firebase.database().ref('gameSummaries').push(this.gameSummary)
   }
 
