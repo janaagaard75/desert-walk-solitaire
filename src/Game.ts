@@ -226,6 +226,7 @@ export class Game {
   }
 
   public undo() {
+    // TODO: The card is submarining below the others when undoing.
     this.currentStateIndex--
   }
 
