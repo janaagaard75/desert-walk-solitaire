@@ -39,14 +39,43 @@ declare module 'expo' {
     function setUpdateInterval(intervalMs: number): void
   }
 
+  /**
+   * Provides access to Amplitude mobile analytics which basically lets you log various events to the Cloud. This module wraps Amplitude’s iOS and Android SDKs.
+   *
+   * Note: Session tracking may not work correctly when running Experiences in the main Expo app. It will work correctly if you create a standalone app.
+   */
   namespace Amplitude {
+    /** Initializes Amplitude with your Amplitude API key. */
     function initialize(apiKey: string): void
+
+    /** Assign a user ID to the current user. If you don’t have a system for user IDs you don’t need to call this. */
     function setUserId(userId: string): void
-    function setUserProperties(userProperties: object): void    // TODO: add userProperties definition from amplitude doc
+
+    /** Set properties for the current user. */
+    function setUserProperties(userProperties: object): void
+
+    /** Clear properties set by `setUserProperties()`. */
     function clearUserProperties(): void
+
+    /** Log an event to Amplitude. */
     function logEvent(eventName: string): void
-    function logEventWithProperties(eventName: string, properties: object): void
-    function setGroup(groupType: string, groupNames: object): void
+
+    /** Log an event to Amplitude with custom properties. */
+    function logEventWithProperties(
+      eventName: string,
+
+      /** A map of custom properties. */
+      properties: object
+    ): void
+
+    /** Add the current user to a group. */
+    function setGroup(
+      /** The group name, e.g. `'sports'`. */
+      groupType: string,
+
+      /** An array of group names, e.g. `['tennis', 'soccer']`. */
+      groupNames: Array<string>
+    ): void
   }
 
   /** The following props are recommended, but optional for the sake of backwards compatibility (they were introduced in SDK21). If you do not provide any props, you are responsible for coordinating loading assets, handling errors, and updating state to unmount the `AppLoading` component. */
@@ -1364,15 +1393,71 @@ declare module 'expo' {
     function allow(orientation: 'ALL' | 'ALL_BUT_UPSIDE_DOWN' | 'PORTRAIT' | 'PORTRAIT_UP' | 'PORTRAIT_DOWN' | 'LANDSCAPE' | 'LANDSCAPE_LEFT' | 'LANDSCAPE_RIGHT'): void
   }
 
-  // TODO: check that all these functions return void or not.
+  /**
+   * Provides access to https://segment.com/ mobile analytics. Wraps Segment’s iOS and Android sources.
+   *
+   * Session tracking may not work correctly when running Experiences in the main Expo app. It will work correctly if you create a standalone app.
+   */
   namespace Segment {
-    function initializeIOS(writeKey: string): void
-    function initializeAndroid(writeKey: string): void
-    function identify(userId: string): void
-    function identifyWithTraits(userId: string, traits: any): void
-    function track(event: string): void
-    function trackWithProperties(event: string, properties: any): void
+    /** Manually flush the event queue. You shouldn’t need to call this in most cases. */
     function flush(): void
+
+    /** Associates the current user with a user ID. Call this after calling `initialize()` but before other segment calls. See https://segment.com/docs/spec/identify/. */
+    function identify(
+      /** User ID for the current user. */
+      userId: string
+    ): void
+
+    /** Associates the current user with a user ID and some metadata. Call this after calling Expo.Segment.initialize() but before other segment calls. See https://segment.com/docs/spec/identify/. */
+    function identifyWithTraits(
+      /** User ID for the current user. */
+      userId: string,
+
+      /** A map of custom properties. */
+      traits: object
+    ): void
+
+    /** Segment requires separate write keys for iOS and Android. You will need to log in to Segment to recieve these https://segment.com/docs/guides/setup/how-do-i-find-my-write-key/. */
+    function initialize(options: {
+      /** Write key for Android source. */
+      androidWriteKey?: string,
+
+      /** Write key for iOS source. */
+      iosWriteKey?: string
+    }): void
+
+    /** Clears the current user. See https://segment.com/docs/sources/mobile/ios/#reset. */
+    function reset(): void
+
+    /** Record that a user has seen a screen to Segment. See https://segment.com/docs/spec/screen/. */
+    function screen(
+      /** Name of the screen. */
+      screenName: string
+    ): void
+
+    /** Record that a user has seen a screen to Segment with custom properties. See https://segment.com/docs/spec/screen/. */
+    function screenWithProperties(
+      /**  Name of the screen. */
+      screenName: string,
+
+      /** A map of custom properties. */
+      properties: object
+    ): void
+
+    /** Log an event to Segment. See https://segment.com/docs/spec/track/. */
+    function track(
+      /** The event name. */
+      event: string
+    ): void
+
+    /** Log an event to Segment with custom properties. See https://segment.com/docs/spec/track/. */
+    function trackWithProperties(
+      /** The event name. */
+      event: string,
+
+      /** A map of custom properties. */
+      properties: object
+    ): void
   }
 
   namespace SQLite {
