@@ -203,6 +203,10 @@ export class Game {
     return dropOffset
   }
 
+  public replay() {
+    // TODO: Implement. Need a callback telling the game when animating between two moves is done.
+  }
+
   public shuffleCardsInIncorrectPosition() {
     this.performTurn(new ShuffleTurn())
   }
