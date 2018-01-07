@@ -105,6 +105,10 @@ export class OccupiedCellView extends Component<Props, State> {
       const animateFromOffset = this.props.occupiedCell.position.subtract(nextProps.occupiedCell.position)
       this.animatedPosition.setValue(animateFromOffset)
 
+      this.setState({
+        visualState: VisualState.Animating
+      })
+
       Animated.timing(
         this.animatedPosition,
         {
@@ -112,7 +116,13 @@ export class OccupiedCellView extends Component<Props, State> {
           easing: Easing.elastic(Settings.instance.animation.turn.elasticity),
           toValue: { x: 0, y: 0 }
         }
-      ).start()
+      ).start(() => {
+        if (this.state.visualState !== VisualState.Dragging) {
+          this.setState({
+            visualState: VisualState.Idle
+          })
+        }
+      })
     }
   }
 
