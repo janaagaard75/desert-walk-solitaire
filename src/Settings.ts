@@ -13,6 +13,9 @@ export class Settings {
   @observable public windowSize: Size = { height: 0, width: 0 }
 
   public readonly animation = {
+    replay: {
+      duration: 100
+    },
     snap: {
       duration: 200,
       elasticity: 1

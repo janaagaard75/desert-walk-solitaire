@@ -204,7 +204,21 @@ export class Game {
   }
 
   public replay() {
-    // TODO: Implement. Need a callback telling the game when animating between two moves is done.
+    // TODO: Animater faster when replaying.
+    // TODO: Verify how it well works with shuffle moves.
+    // TODO: The last card is not animated.
+    this.currentStateIndex = 0
+
+    window.setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
+  }
+
+  private waitAndGoToNextStateIndex() {
+    if (this.currentStateIndex === this.gridStates.length - 1) {
+      return
+    }
+
+    this.currentStateIndex += 1
+    window.setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
   }
 
   public shuffleCardsInIncorrectPosition() {
