@@ -74,7 +74,7 @@ export class Footer extends Component<{}, State> {
             flexWrap: 'wrap'
           }}
         >
-          {this.renderButton('Undo', () => Game.instance.undo(), Game.instance.undoPossible)}
+          {this.renderButton('Undo', () => Game.instance.undo(), Game.instance.undoEnabled)}
           {this.renderButton('Replay', () => Game.instance.replay(), true)}
           {this.renderButton('Shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled())}
           {this.renderButton('Start Over', () => this.confirmUnlessGameOver(), true)}
