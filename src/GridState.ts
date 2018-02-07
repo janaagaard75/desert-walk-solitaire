@@ -35,21 +35,19 @@ export class GridState {
 
   @computed
   public get draggableCards(): Array<Card> {
-    let draggableCards = this.emptyCells
+    const draggableNonAces = this.emptyCells
       .map(emptyCell => emptyCell.cell.cellToTheLeft)
       .map(cellToTheLeft => this.getOccupiedCellFromCell(cellToTheLeft))
       .map(occupiedCell => occupiedCell === undefined ? undefined : occupiedCell.card)
       .map(card => card === undefined ? undefined : card.next)
       .filter((nextCard: Card | undefined): nextCard is Card => nextCard !== undefined)
 
-    const emptyCellInFirstColumn = this.emptyCells
-      .filter(emptyCell => emptyCell.cell.columnIndex === 0)
-      .some(emptyCell => this.getOccupiedCellFromCell(emptyCell.cell) === undefined)
+    const draggableAces = this.occupiedCells
+      .filter(occupiedCell => Deck.instance.theFourAces.includes(occupiedCell.card))
+      .filter(cellWithAce => !cellWithAce.correctlyPlaced)
+      .map(cellWithAce => cellWithAce.card)
 
-    if (emptyCellInFirstColumn) {
-      draggableCards = draggableCards.concat(Deck.instance.theFourAces)
-    }
-
+    const draggableCards = draggableNonAces.concat(draggableAces)
     return draggableCards
   }
 

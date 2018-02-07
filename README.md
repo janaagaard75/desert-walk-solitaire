@@ -17,7 +17,6 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## To Do
 
-* Remove the possibility to rearrange the aces, since there now is an undo feature. This should simplify the code a bit.
 * Animate the cards when they are delt.
 * Game lost screen.
 * Game won screen.
