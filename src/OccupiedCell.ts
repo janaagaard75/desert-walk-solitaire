@@ -8,6 +8,7 @@ import { Game } from './Game'
 import { GridCell } from './GridCell'
 import { GridState } from './GridState'
 
+/** An occupied cells is a card that has a position on the grid. */
 export class OccupiedCell extends GridCell implements CardCellPair {
   constructor(
     cell: Cell,
