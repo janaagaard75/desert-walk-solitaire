@@ -17,6 +17,7 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## To Do
 
+* Fix layout on an iPhone X.
 * Animate the cards when they are delt.
 * Game lost screen.
 * Game won screen.

@@ -118,12 +118,13 @@ export class Settings {
     //
     // r ch + (r + 1) g <= ah
     // r cw sr + (r + 1) cw / gr <= ah
-    // cw (r sr + (r + 1) gr) <= ah
-    // cw <= ah / (r sr + (r + 1) gr)
-    // cw <= ah / (r sr + r gr + gr)
-    // cw <= ah / (r (sr + gr) + gr)
+    // cw (r sr + (r + 1) / gr) <= ah
+    // cw <= ah / (r sr + (r + 1) / gr)
+    // cw <= ah gr / (r sr + (r + 1) / gr) gr
+    // cw <= ah gr / (r sr gr + r + 1)
+    // cw <= ah gr / (r (sr gr + 1) + 1)
 
-    const cardWidth = Math.floor(
+    const maxCardWidth1 = Math.floor(
       (
         this.windowSize.width * this.cardWidthToGutterRatio
       ) / (
@@ -131,13 +132,24 @@ export class Settings {
       )
     )
 
-    const cardHeight = Math.floor(this.cardSizeRatio * cardWidth)
+    // TODO: Figure out the real available height.
+    const availableHeight = this.windowSize.height - 200
 
-    // TODO: Should verify that there is enough available height. There is not on the iPhone X.
+    const maxCardWidth2 = Math.floor(
+      (
+        availableHeight * this.cardWidthToGutterRatio
+      ) / (
+        this.rows * (this.cardSizeRatio * this.cardWidthToGutterRatio + 1) + 1
+      )
+    )
+
+    const maxCardWidth = Math.min(maxCardWidth1, maxCardWidth2)
+
+    const cardHeight = Math.floor(this.cardSizeRatio * maxCardWidth)
 
     return {
       height: cardHeight,
-      width: cardWidth
+      width: maxCardWidth
     }
   }
 
@@ -194,6 +206,7 @@ export class Settings {
 
   @computed
   public get gutterWidth(): number {
+    // TODO: Take the avaiable height into account.
     const gutterWidth = Math.floor(
       (
         this.windowSize.width - this.columns * this.cardSize.width
