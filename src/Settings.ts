@@ -89,6 +89,40 @@ export class Settings {
 
   @computed
   public get cardSize(): Size {
+    // gutter * cardWithToGutterRatio = cardWidth
+    // cardWidth * cardSizeRatio = cardHeight
+    // columns * cardWidth + (columns + 1) * gutter <= availableWidth
+    // rows * cardHeight + (rows + 1) * gutter <= availableHeight
+    //
+    // aw = availableWidth
+    // ah = availableHeight
+    // cw = cardWidth
+    // ch = cardHeight
+    // g = gutter
+    // gr = cardWidthToGutterRatio
+    // sr = cardSizeRatio
+    // c = columns
+    // r = rows
+    //
+    // g = cw / gr
+    //
+    // c cw + (c + 1) cw / gr <= aw
+    // cw (c + (c + 1) / gr) <= aw
+    // cw (c + c / gr + 1 / gr) <= aw
+    // cw <= aw / (c + c / gr + 1 / gr)
+    // cw <= aw gr / (c + c / gr + 1 / gr) gr
+    // cw <= aw gr / (c gr + c + 1)
+    // cw <= aw gr / (c (gr + 1) + 1)
+    //
+    // ch = cw sr
+    //
+    // r ch + (r + 1) g <= ah
+    // r cw sr + (r + 1) cw / gr <= ah
+    // cw (r sr + (r + 1) gr) <= ah
+    // cw <= ah / (r sr + (r + 1) gr)
+    // cw <= ah / (r sr + r gr + gr)
+    // cw <= ah / (r (sr + gr) + gr)
+
     const cardWidth = Math.floor(
       (
         this.windowSize.width * this.cardWidthToGutterRatio
