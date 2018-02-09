@@ -59,6 +59,16 @@ export class Settings {
   private readonly cardWidthToGutterRatio = 7 / 1
 
   @computed
+  public get availableSize(): Size {
+    // TODO: Figure out the correct height of the menu bars.
+    const menuBarsHeight = 200
+    return {
+      height: this.windowSize.height - menuBarsHeight,
+      width: this.windowSize.width
+    }
+  }
+
+  @computed
   public get borderRadius(): number {
     return Math.round(this.cardSize.width / 8)
   }
@@ -126,18 +136,15 @@ export class Settings {
 
     const maxCardWidth1 = Math.floor(
       (
-        this.windowSize.width * this.cardWidthToGutterRatio
+        this.availableSize.width * this.cardWidthToGutterRatio
       ) / (
         this.columns * (this.cardWidthToGutterRatio + 1) + 1
       )
     )
 
-    // TODO: Figure out the real available height.
-    const availableHeight = this.windowSize.height - 200
-
     const maxCardWidth2 = Math.floor(
       (
-        availableHeight * this.cardWidthToGutterRatio
+        this.availableSize.height * this.cardWidthToGutterRatio
       ) / (
         this.rows * (this.cardSizeRatio * this.cardWidthToGutterRatio + 1) + 1
       )
