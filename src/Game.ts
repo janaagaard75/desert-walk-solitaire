@@ -38,11 +38,11 @@ export class Game {
   @observable public draggedCardBoundary: Rectangle | undefined
   @observable public draggingFromCell: OccupiedCell | undefined
 
-  @observable private currentStateIndex: number
-  @observable private gridStates: Array<GridState>
-  @observable private turns: Array<Turn>
+  @observable private currentStateIndex: number = 0
+  @observable private gridStates: Array<GridState> = []
+  @observable private turns: Array<Turn> = []
 
-  private gameSummary: GameSummary
+  private gameSummary: GameSummary | undefined
 
   @computed
   public get animateFromPreviousPosition(): boolean {
@@ -279,6 +279,10 @@ export class Game {
   }
 
   private storeSummaryIfGameOver() {
+    if (this.gameSummary === undefined) {
+      return
+    }
+
     if (this.gameStatus === GameState.GameLost || this.gameStatus === GameState.GameWon) {
       this.gameSummary.addFinalStep({
         cardsInPlace: this.currentGridState.correctlyPositionedCards.length,
