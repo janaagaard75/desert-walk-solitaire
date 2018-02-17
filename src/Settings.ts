@@ -59,16 +59,6 @@ export class Settings {
   private readonly cardWidthToGutterRatio = 7 / 1
 
   @computed
-  public get availableSize(): Size {
-    // TODO: Figure out the correct height of the menu bars.
-    const menuBarsHeight = 200
-    return {
-      height: this.windowSize.height - menuBarsHeight,
-      width: this.windowSize.width
-    }
-  }
-
-  @computed
   public get borderRadius(): number {
     return Math.round(this.cardSize.width / 8)
   }
@@ -99,64 +89,13 @@ export class Settings {
 
   @computed
   public get cardSize(): Size {
-    // gutter * cardWithToGutterRatio = cardWidth
-    // cardWidth * cardSizeRatio = cardHeight
-    // columns * cardWidth + (columns + 1) * gutter <= availableWidth
-    // rows * cardHeight + (rows + 1) * gutter <= availableHeight
-    //
-    // aw = availableWidth
-    // ah = availableHeight
-    // cw = cardWidth
-    // ch = cardHeight
-    // g = gutter
-    // gr = cardWidthToGutterRatio
-    // sr = cardSizeRatio
-    // c = columns
-    // r = rows
-    //
-    // g = cw / gr
-    //
-    // c cw + (c + 1) cw / gr <= aw
-    // cw (c + (c + 1) / gr) <= aw
-    // cw (c + c / gr + 1 / gr) <= aw
-    // cw <= aw / (c + c / gr + 1 / gr)
-    // cw <= aw gr / (c + c / gr + 1 / gr) gr
-    // cw <= aw gr / (c gr + c + 1)
-    // cw <= aw gr / (c (gr + 1) + 1)
-    //
-    // ch = cw sr
-    //
-    // r ch + (r + 1) g <= ah
-    // r cw sr + (r + 1) cw / gr <= ah
-    // cw (r sr + (r + 1) / gr) <= ah
-    // cw <= ah / (r sr + (r + 1) / gr)
-    // cw <= ah gr / (r sr + (r + 1) / gr) gr
-    // cw <= ah gr / (r sr gr + r + 1)
-    // cw <= ah gr / (r (sr gr + 1) + 1)
-
-    const maxCardWidth1 = Math.floor(
-      (
-        this.availableSize.width * this.cardWidthToGutterRatio
-      ) / (
-        this.columns * (this.cardWidthToGutterRatio + 1) + 1
-      )
-    )
-
-    const maxCardWidth2 = Math.floor(
-      (
-        this.availableSize.height * this.cardWidthToGutterRatio
-      ) / (
-        this.rows * (this.cardSizeRatio * this.cardWidthToGutterRatio + 1) + 1
-      )
-    )
-
-    const maxCardWidth = Math.min(maxCardWidth1, maxCardWidth2)
-
-    const cardHeight = Math.floor(this.cardSizeRatio * maxCardWidth)
+    // const cardWidth = Math.min(this.widthRestrictedCardWidth, this.heightRestrictedCardWidth)
+    const cardWidth = this.widthRestrictedCardWidth
+    const cardHeight = Math.floor(this.cardSizeRatio * cardWidth)
 
     return {
       height: cardHeight,
-      width: maxCardWidth
+      width: cardWidth
     }
   }
 
@@ -216,7 +155,7 @@ export class Settings {
     // TODO: Take the avaiable height into account.
     const gutterWidth = Math.floor(
       (
-        this.windowSize.width - this.columns * this.cardSize.width
+        this.playingFieldSize.width - this.columns * this.cardSize.width
       ) / this.columns
     )
 
@@ -231,5 +170,46 @@ export class Settings {
     else {
       return ScreenOrientation.Landscape
     }
+  }
+  private get playingFieldSize(): Size {
+    // TODO: Figure out the correct height of the menu bars.
+    const menuBarsHeight = 200
+    // TODO: Take account of the notch on the iPhone X.
+    return {
+      height: this.windowSize.height - menuBarsHeight,
+      width: this.windowSize.width
+    }
+  }
+
+  @computed
+  private get widthRestrictedCardWidth(): number {
+    // gutter * cardWithToGutterRatio = cardWidth
+    // columns * cardWidth + (columns + 1) * gutter <= availableWidth
+    //
+    // aw = availableWidth
+    // cw = cardWidth
+    // g = gutter
+    // gr = cardWidthToGutterRatio
+    // c = columns
+    //
+    // g = cw / gr
+    //
+    // c cw + (c + 1) cw / gr <= aw
+    // cw (c + (c + 1) / gr) <= aw
+    // cw (c + c / gr + 1 / gr) <= aw
+    // cw <= aw / (c + c / gr + 1 / gr)
+    // cw <= aw gr / (c + c / gr + 1 / gr) gr
+    // cw <= aw gr / (c gr + c + 1)
+    // cw <= aw gr / (c (gr + 1) + 1)
+
+    const maxCardWidth = Math.floor(
+      (
+        this.playingFieldSize.width * this.cardWidthToGutterRatio
+      ) / (
+        this.columns * (this.cardWidthToGutterRatio + 1) + 1
+      )
+    )
+
+    return maxCardWidth
   }
 }
