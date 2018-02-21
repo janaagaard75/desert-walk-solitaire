@@ -12,6 +12,9 @@ export class Settings {
   public readonly numberOfShuffles = 100
   @observable public windowSize: Size = { height: 0, width: 0 }
 
+  // Manually tweaked value.
+  private readonly menuBarsHeight = 92
+
   public readonly animation = {
     replay: {
       duration: 100
@@ -180,11 +183,8 @@ export class Settings {
 
   @computed
   private get availablePlayingFieldSize(): Size {
-    // TODO: Figure out the correct height of the menu bars.
-    const menuBarsHeight = 50
-    // TODO: Take account of the notch on the iPhone X.
     return {
-      height: this.windowSize.height - menuBarsHeight,
+      height: this.windowSize.height - this.menuBarsHeight,
       width: this.windowSize.width
     }
   }
