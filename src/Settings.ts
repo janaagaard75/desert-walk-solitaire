@@ -89,13 +89,11 @@ export class Settings {
 
   @computed
   public get cardSize(): Size {
-    // const cardWidth = Math.min(this.widthRestrictedCardWidth, this.heightRestrictedCardWidth)
-    const cardWidth = this.widthRestrictedCardWidth
-    const cardHeight = Math.floor(this.cardSizeRatio * cardWidth)
-
-    return {
-      height: cardHeight,
-      width: cardWidth
+    if (this.restrictedBy === 'height') {
+      return this.heightRestrictedCardSize
+    }
+    else {
+      return this.widthRestrictedCardSize
     }
   }
 
@@ -141,8 +139,8 @@ export class Settings {
 
   @computed
   public get gridSize(): Size {
-    const width = this.cardSize.width * this.columns + this.gutterWidth * (this.columns - 1)
-    const height = this.cardSize.height * this.rows + this.gutterWidth * (this.rows - 1)
+    const width = this.cardSize.width * this.columns + this.gutterSize * (this.columns - 1)
+    const height = this.cardSize.height * this.rows + this.gutterSize * (this.rows - 1)
 
     return {
       height: height,
@@ -151,15 +149,13 @@ export class Settings {
   }
 
   @computed
-  public get gutterWidth(): number {
-    // TODO: Take the avaiable height into account.
-    const gutterWidth = Math.floor(
-      (
-        this.playingFieldSize.width - this.columns * this.cardSize.width
-      ) / this.columns
-    )
-
-    return gutterWidth
+  public get gutterSize(): number {
+    if (this.restrictedBy === 'height') {
+      return this.heightRestrictedGutterSize
+    }
+    else {
+      return this.widthRestrictedGutterSize
+    }
   }
 
   @computed
@@ -171,9 +167,21 @@ export class Settings {
       return ScreenOrientation.Landscape
     }
   }
-  private get playingFieldSize(): Size {
+
+  @computed
+  private get restrictedBy(): 'height' | 'width' {
+    if (this.heightRestrictedPlayingFieldSize.width <= this.widthRestrictedPlayingFieldSize.width) {
+      return 'height'
+    }
+    else {
+      return 'width'
+    }
+  }
+
+  @computed
+  private get availablePlayingFieldSize(): Size {
     // TODO: Figure out the correct height of the menu bars.
-    const menuBarsHeight = 200
+    const menuBarsHeight = 50
     // TODO: Take account of the notch on the iPhone X.
     return {
       height: this.windowSize.height - menuBarsHeight,
@@ -182,7 +190,72 @@ export class Settings {
   }
 
   @computed
-  private get widthRestrictedCardWidth(): number {
+  private get heightRestrictedCardSize(): Size {
+    // gutter * cardWithToGutterRatio = cardWidth
+    // cardWidth * cardSizeRatio = cardHeight
+    // rows * cardHeight + (rows + 1) * gutter <= availableHeight
+    //
+    // ah = availableHeight
+    // cw = cardWidth
+    // ch = cardHeight
+    // g = gutter
+    // gr = cardWidthToGutterRatio
+    // sr = cardSizeRatio
+    // r = rows
+    //
+    // g = cw / gr
+    // ch = cw sr
+    //
+    // r ch + (r + 1) g <= ah
+    // r cw sr + (r + 1) cw / gr <= ah
+    // cw (r sr + (r + 1) / gr) <= ah
+    // cw <= ah / (r sr + (r + 1) / gr)
+    // cw <= ah gr / (r sr + (r + 1) / gr) gr
+    // cw <= ah gr / (r sr gr + r + 1)
+    // cw <= ah gr / (r (sr gr + 1) + 1)
+
+    const cardWidth = Math.floor(
+      (
+        this.availablePlayingFieldSize.height * this.cardWidthToGutterRatio
+      ) / (
+        this.rows * (this.cardSizeRatio * this.cardWidthToGutterRatio + 1) + 1
+      )
+    )
+
+    const cardHeight = Math.floor(cardWidth * this.cardSizeRatio)
+
+    return {
+      height: cardHeight,
+      width: cardWidth
+    }
+  }
+
+  @computed
+  private get heightRestrictedGutterSize(): number {
+    const gutterSize = Math.floor(
+      (
+        this.availablePlayingFieldSize.height - this.rows * this.heightRestrictedCardSize.height
+      ) / this.rows
+    )
+
+    return gutterSize
+  }
+
+  @computed
+  private get heightRestrictedPlayingFieldSize(): Size {
+    const height = this.rows * this.heightRestrictedCardSize.height
+      + (this.rows + 1) * this.heightRestrictedGutterSize
+    const width = this.columns * this.heightRestrictedCardSize.width
+      + (this.columns + 1) * this.heightRestrictedGutterSize
+
+    return {
+      height: height,
+      width: width
+    }
+  }
+
+  @computed
+  private get widthRestrictedCardSize(): Size {
     // gutter * cardWithToGutterRatio = cardWidth
     // columns * cardWidth + (columns + 1) * gutter <= availableWidth
     //
@@ -202,14 +275,43 @@ export class Settings {
     // cw <= aw gr / (c gr + c + 1)
     // cw <= aw gr / (c (gr + 1) + 1)
 
-    const maxCardWidth = Math.floor(
+    const cardWidth = Math.floor(
       (
-        this.playingFieldSize.width * this.cardWidthToGutterRatio
+        this.availablePlayingFieldSize.width * this.cardWidthToGutterRatio
       ) / (
         this.columns * (this.cardWidthToGutterRatio + 1) + 1
       )
     )
 
-    return maxCardWidth
+    const cardHeight = Math.floor(cardWidth * this.cardSizeRatio)
+
+    return {
+      height: cardHeight,
+      width: cardWidth
+    }
+  }
+
+  @computed
+  private get widthRestrictedGutterSize(): number {
+    const gutterSize = Math.floor(
+      (
+        this.availablePlayingFieldSize.width - this.columns * this.widthRestrictedCardSize.width
+      ) / this.columns
+    )
+
+    return gutterSize
+  }
+
+  @computed
+  private get widthRestrictedPlayingFieldSize(): Size {
+    const height = this.rows * this.widthRestrictedCardSize.height
+      + (this.rows + 1) * this.widthRestrictedGutterSize
+    const width = this.columns * this.widthRestrictedCardSize.width
+      + (this.columns + 1) * this.widthRestrictedGutterSize
+
+    return {
+      height: height,
+      width: width
+    }
   }
 }
