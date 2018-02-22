@@ -14,6 +14,7 @@ import { Point } from './Point'
 import { Settings } from './Settings'
 
 interface Props {
+  animateUpcomingPosition: boolean
   occupiedCell: OccupiedCell
 }
 
@@ -101,7 +102,10 @@ export class OccupiedCellView extends Component<Props, State> {
   private panResponder: PanResponderInstance
 
   public componentWillReceiveProps(nextProps: Props) {
-    if (Game.instance.animateFromPreviousPosition && !this.props.occupiedCell.position.equals(nextProps.occupiedCell.position)) {
+    if (nextProps.animateUpcomingPosition
+      && Game.instance.animateFromPreviousPosition
+      && !this.props.occupiedCell.position.equals(nextProps.occupiedCell.position)
+    ) {
       const animateFromOffset = this.props.occupiedCell.position.subtract(nextProps.occupiedCell.position)
       this.animatedPosition.setValue(animateFromOffset)
 

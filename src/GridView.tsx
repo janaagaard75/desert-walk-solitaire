@@ -23,6 +23,7 @@ export class GridView extends Component {
         {Game.instance.currentGridState.occupiedCells.map(occupiedCell =>
           <OccupiedCellView
             key={occupiedCell.card.key}
+            animateUpcomingPosition={true}
             occupiedCell={occupiedCell}
           />
         )}
