@@ -15,9 +15,8 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 *) It also possible to run the app in Android simulator, but I haven't tried that yet.
 
-## To Do
+## TODO
 
-* Fix layout on an iPhone X.
 * Animate the cards when they are delt.
 * Game lost screen.
 * Game won screen.
@@ -31,26 +30,6 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 * Splash screen.
 * Fix starting up the game while the phone is in landscape mode.
 * Remember game state when the Expo app has been closed for a long time.
-
-### Animating Between States
-
-Animating between two grid states is still to do. The goal is to be able to supply a ‘from’ and a ‘to’ grid state to GridStateView, and let the view handle the animation. The current solution where a card is snapped into position before the next turn is calculated makes the game feel unresponsive. It would be better if the new draggable cards and empty spaces where shown while the card was doing the lille snap animation.
-
-Proposal: When the dragged card is let go over a target cell, moveCard is immediately called. This triggers the calculation of a new state, that then becomes the currentGridState. In the new grid state the draggard is, however, not positioned on the cell, but rather where it was let go. This should be picked up by OccupiedCell, and the appropirate snap animatio then triggered.
-
-OccupiedCellView needs a previousPosition that triggers an animation to the current cell’s position.
-
-Ideally the empty cells shoul switch midways through the animation.
-
-componentWillReceiveProps might be used instead of sending both the current and the previous state to GridView.
-
-## Dragging a Card
-
-1. The observables game.draggingFromCell and game.draggedCardBoundary are set.
-1. The dragged card's boundary is updated as it's being dragged.
-1. Everything flows as computed values based on these two observables.
-1. If the card is let go in a non-droppable spot, OccupiedCellView puts it back, and does so with a small animation.
-1. If the card is let go when overlapping a droppable cell, a new grid state is calculated, added to the array of states, and the current grid state then points to the newly added state.
 
 ## Logo
 
@@ -74,6 +53,10 @@ Creating a good model is difficult. It might be a good idea to move the dragged 
 Naming things is hard, but important. OccupiedCell has been renamed at least five times, and it still needs a rename, since it focuses on the cards and not the ceels. Perhaps going back to PositionedCard? When a class is renamed, there are often local variables left, that should also be renamed. OccupiedCell and EmptyCell makes for a great pair, but the two classes are distinct in that when switching between states, the cards are all the same only moved, whereas the empty cells are removed and added.
 
 The first data architechture was to only keep the information necessary for the rules of the game in the models, and leave all that has to do with presentation of the game to the view classes. That got messy, so the new architechture is to put pretty much everything in the models. Most of the properties are computed values. Making Settings, Game, Deck and Grid singletons has lead to somewhat a spaghetti code architechture, but currently it's okay. That might actually be the force of MobX: Embrace the spaghetti architecture, and avoid drowning in it.
+
+Right now the models are separated from the views, but this actually not be a good idea where there is a one-to-one relation between model and view, as with for example the cards.
+
+It is probably wize to go all in on MobX and remove all setState calls from the application.
 
 ## Links
 
