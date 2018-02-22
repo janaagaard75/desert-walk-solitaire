@@ -1,15 +1,15 @@
 import { computed } from 'mobx'
 
+import { CardValue } from './CardValue'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
-import { Value } from './Value'
 
 export class Card {
   constructor(
     public readonly suit: Suit,
-    public readonly value: Value,
+    public readonly value: CardValue,
     public readonly next: Card | undefined
   ) { }
 
