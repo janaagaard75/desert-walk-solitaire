@@ -93,6 +93,18 @@ export class CardView extends Component<Props> {
     )
   }
 
+  private overlayOpacity(): number {
+    if (this.props.draggable) {
+      return 0
+    }
+
+    if (this.props.correctlyPlaced) {
+      return 0.5
+    }
+
+    return 0.3
+  }
+
   private suit() {
     const size = Settings.instance.cardSuitSize
 
@@ -117,18 +129,6 @@ export class CardView extends Component<Props> {
           <Spade size={size}/>
         )
     }
-  }
-
-  private overlayOpacity(): number {
-    if (this.props.draggable) {
-      return 0
-    }
-
-    if (this.props.correctlyPlaced) {
-      return 0.5
-    }
-
-    return 0.3
   }
 
   private suitColor(): string {
