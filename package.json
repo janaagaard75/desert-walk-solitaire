@@ -13,6 +13,7 @@
     "preset": "jest-expo-ts"
   },
   "scripts": {
+    "start": "exp start --ios",
     "validate-typescript": "tsc --noEmit"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "@types/fbemitter": "2.0.32",
     "@types/react": "16.0.38",
     "@types/react-native": "0.52.13",
+    "exp": "49.2.2",
     "prop-types": "15.6.0",
     "react-native-typescript-transformer": "1.2.3",
     "tslint": "5.9.1",
