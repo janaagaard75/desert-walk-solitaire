@@ -35,10 +35,11 @@ export class Game {
     return this._instance
   }
 
+  @observable public animateNextTurn: boolean = true
   @observable public draggedCardBoundary: Rectangle | undefined
   @observable public draggingFromCell: OccupiedCell | undefined
 
-  @observable private currentStateIndex: number = 0
+  @observable private _currentStateIndex: number = 0
   @observable private gridStates: Array<GridState> = []
   @observable private turns: Array<Turn> = []
 
@@ -152,6 +153,11 @@ export class Game {
   }
 
   @computed
+  private get currentStateIndex(): number {
+    return this._currentStateIndex
+  }
+
+  @computed
   private get targetCells(): Array<Cell> {
     if (this.draggingFromCell === undefined) {
       return []
@@ -213,7 +219,7 @@ export class Game {
     // TODO: Animater faster when replaying.
     // TODO: Verify how it well works with shuffle moves.
     // TODO: The last card is not animated.
-    this.currentStateIndex = 0
+    this.setCurrentStateIndex(0, false)
 
     window.setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
   }
@@ -223,7 +229,7 @@ export class Game {
       return
     }
 
-    this.currentStateIndex += 1
+    this.setCurrentStateIndex(this.currentStateIndex + 1, true)
     window.setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
   }
 
@@ -246,11 +252,11 @@ export class Game {
     this.gridStates = [new GridState(positions)]
     this.turns = []
     this.gameSummary = new GameSummary()
-    this.currentStateIndex = 0
+    this.setCurrentStateIndex(0, false)
   }
 
   public undo() {
-    this.currentStateIndex--
+    this.setCurrentStateIndex(this.currentStateIndex - 1, true)
   }
 
   private performTurn(turn: Turn) {
@@ -266,8 +272,13 @@ export class Game {
     const newGridState = turn.performTurn(this.currentGridState)
     this.gridStates.push(newGridState)
 
-    this.currentStateIndex++
+    this.setCurrentStateIndex(this.currentStateIndex + 1, true)
     this.storeSummaryIfGameOver()
+  }
+
+  private setCurrentStateIndex(newIndex: number, animateNextTurn: boolean) {
+    this.animateNextTurn = animateNextTurn
+    this._currentStateIndex = newIndex
   }
 
   private storeGameSummary() {
