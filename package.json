@@ -18,22 +18,22 @@
   },
   "dependencies": {
     "expo": "25.0.0",
-    "firebase": "4.10.1",
-    "mobx": "3.5.1",
-    "mobx-react": "4.4.2",
+    "firebase": "4.12.0",
+    "mobx": "4.1.0",
+    "mobx-react": "5.0.0",
     "react": "16.2.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
     "tslib": "1.9.0"
   },
   "devDependencies": {
     "@types/fbemitter": "2.0.32",
-    "@types/react": "16.0.38",
-    "@types/react-native": "0.52.13",
-    "exp": "49.2.2",
-    "prop-types": "15.6.0",
+    "@types/react": "16.0.40",
+    "@types/react-native": "0.52.18",
+    "exp": "50.0.1",
+    "prop-types": "15.6.1",
     "react-native-typescript-transformer": "1.2.3",
     "tslint": "5.9.1",
-    "tslint-eslint-rules": "5.0.0",
+    "tslint-eslint-rules": "5.1.0",
     "tslint-react": "3.5.1",
     "typescript": "2.7.2"
   }
