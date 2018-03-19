@@ -216,9 +216,6 @@ export class Game {
   }
 
   public replay() {
-    // TODO: Animater faster when replaying.
-    // TODO: Verify how it well works with shuffle moves.
-    // TODO: The last card is not animated.
     this.setCurrentStateIndex(0, false)
 
     window.setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
