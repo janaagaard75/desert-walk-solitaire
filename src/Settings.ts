@@ -9,7 +9,7 @@ export class Settings {
 
   public readonly maxCardValue = 13
   public readonly rows = 4
-  public readonly numberOfShuffles = 100
+  public readonly numberOfShuffles = 3
   @observable public windowSize: Size = { height: 0, width: 0 }
 
   // Manually tweaked value.

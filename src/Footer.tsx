@@ -74,10 +74,12 @@ export class Footer extends Component<{}, State> {
             flexWrap: 'wrap'
           }}
         >
+          {this.renderButton('Restart', () => this.confirmUnlessGameOver(), true)}
+          {this.renderButton('Replay', () => Game.instance.replay(), this.replayEnabled())}
+          {this.renderButton('Shuffle 1', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
+          {this.renderButton('Shuffle 2', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
+          {this.renderButton('Shuffle 3', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
           {this.renderButton('Undo', () => Game.instance.undo(), Game.instance.undoEnabled)}
-          {this.renderButton('Replay', () => Game.instance.replay(), true)}
-          {this.renderButton('Shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled())}
-          {this.renderButton('Start Over', () => this.confirmUnlessGameOver(), true)}
         </View>
         <Modal
           animationType="slide"
@@ -110,7 +112,7 @@ export class Footer extends Component<{}, State> {
           backgroundColor: 'transparent',
           width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
             ? '50%'
-            : '25%'
+            : '16.666%'
         }}
       >
         <Button
@@ -145,14 +147,29 @@ export class Footer extends Component<{}, State> {
     })
   }
 
+  private replayEnabled(): boolean {
+    const enabled = Game.instance.gameStatus === GameState.GameWon
+    return enabled
+  }
+
   private showConfirmModal() {
     this.setState({
       confirmModalVisible: true
     })
   }
 
-  private shuffleButtonEnabled() {
-    const enabled = Game.instance.gameStatus === GameState.Stuck
+  private shuffleButtonEnabled(buttonNumber: number): boolean {
+    if (Game.instance.gameStatus !== GameState.Stuck) {
+      return false
+    }
+
+    const enabledButtonNumber = Game.instance.shuffles + 1
+
+    if (enabledButtonNumber > Settings.instance.numberOfShuffles) {
+      return false
+    }
+
+    const enabled = buttonNumber === enabledButtonNumber
     return enabled
   }
 
