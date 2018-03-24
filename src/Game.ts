@@ -83,7 +83,7 @@ export class Game {
       return GameState.GameWon
     }
 
-    if (this.shuffles <= Settings.instance.numberOfShuffles) {
+    if (this.shuffles < Settings.instance.numberOfShuffles) {
       return GameState.Stuck
     }
 
