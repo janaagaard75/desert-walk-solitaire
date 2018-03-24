@@ -21,7 +21,11 @@
     "sourceMap": false,
     "strict": true,
     "strictFunctionTypes": false,
-    "target": "es2017"
+    "target": "es2017",
+    "types": [
+      "react",
+      "react-native"
+    ],
   },
   "exclude": [
     "node_modules"
