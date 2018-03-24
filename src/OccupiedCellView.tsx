@@ -7,7 +7,7 @@ import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
 import { CardModel } from './CardModel'
-import { CardView } from './CardView'
+import { CardModelView } from './CardModelView'
 import { Game } from './Game'
 import { Card } from './Card'
 import { Point } from './Point'
@@ -147,7 +147,7 @@ export class OccupiedCellView extends Component<Props, State> {
         style={style}
         {...panHandlers}
       >
-        <CardView
+        <CardModelView
           card={this.props.occupiedCell.card}
           correctlyPlaced={this.props.occupiedCell.correctlyPlaced}
           draggable={this.props.occupiedCell.draggable}

@@ -22,7 +22,7 @@ interface Props {
 }
 
 @observer
-export class CardView extends Component<Props> {
+export class CardModelView extends Component<Props> {
   public render() {
     const shadowStyle: ViewStyle = {
       borderRadius: Settings.instance.borderRadius,
