@@ -56,6 +56,8 @@ Right now the models are separated from the views, but this actually not be a go
 
 It is probably wize to go all in on MobX and remove all setState calls from the application.
 
+Designing for the iPhone X is tricky because 1) it has rounded corners, so you can get buttons that are cut off and 2) it has a bar at the bottom of the screen to close the app. The design has to take account of both things manually.
+
 ## Links
 
 <https://blog.cloudboost.io/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e>
