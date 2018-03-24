@@ -23,10 +23,8 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
   * Some kind of reward for winning. Could be showing a fast replay of all the moves. Also see below.
 * Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
   * Animate all cards when the game is won. Also see above.
-* SVGs for the numbers or a custom fonts, to make sure it looks correct on Android too.
-* Consider letting MobX handle the full state, including local states.
+* Numbers drawn using a custom font or SVGs to make sure it looks correct on both platforms.
 * More affordable buttons.
-* Limit the number of shuffles. An intuitive UI is important. Might be done with showing a number of buttons that become disabled when they are used.
 * Splash screen.
 * Fix starting up the game while the phone is in landscape mode.
 * Remember game state when the Expo app has been closed for a long time.
