@@ -29,7 +29,7 @@ interface State {
 }
 
 @observer
-export class OccupiedCellView extends Component<Props, State> {
+export class CardView extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props, context)
 
