@@ -271,12 +271,12 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
 
 "@types/node@*":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.0.tgz#f5d649cc49af8ed6507d15dc6e9b43fe8b927540"
+  version "9.6.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.0.tgz#d3480ee666df9784b1001a1872a2f6ccefb6c2d7"
 
-"@types/react-native@0.52.18":
-  version "0.52.18"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.52.18.tgz#082fada6fdddc6c745a4c1a6234e4aa3b104176b"
+"@types/react-native@0.52.19":
+  version "0.52.19"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.52.19.tgz#28655fa82751e5bdb9d2bef7d03c1ddb75fe4c68"
   dependencies:
     "@types/react" "*"
 
@@ -2222,9 +2222,9 @@ exists-async@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/exists-async/-/exists-async-2.0.0.tgz#7e0b1652b34b0fe18b9f9640987bd56d59e51e5e"
 
-exp@50.0.1:
-  version "50.0.1"
-  resolved "https://registry.yarnpkg.com/exp/-/exp-50.0.1.tgz#7556cecb9bd7632d75c29fe3a219c345333dee9e"
+exp@50.0.3:
+  version "50.0.3"
+  resolved "https://registry.yarnpkg.com/exp/-/exp-50.0.3.tgz#3e053a71686a54e2d9d1bd109cb67da27152d41f"
   dependencies:
     "@expo/bunyan" "^1.8.10"
     "@expo/json-file" "^5.2.0"
@@ -3825,8 +3825,8 @@ lower-case@^1.1.0, lower-case@^1.1.1, lower-case@^1.1.2:
   resolved "https://registry.yarnpkg.com/lower-case/-/lower-case-1.1.4.tgz#9a2cabd1b9e8e0ae993a4bf7d5875c39c42e8eac"
 
 lowercase-keys@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/lowercase-keys/-/lowercase-keys-1.0.0.tgz#4e3366b39e7f5457e35f1324bdf6f88d0bfc7306"
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/lowercase-keys/-/lowercase-keys-1.0.1.tgz#6f9e30b47084d971a7c820ff15a6c5167b74c26f"
 
 lru-cache@^2.6.5:
   version "2.7.3"
@@ -4820,8 +4820,8 @@ range-parser@~1.2.0:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
 raven-js@^3.17.0:
-  version "3.23.3"
-  resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.23.3.tgz#6174f506c7362eb8bb72b291af5f22edb44ef165"
+  version "3.24.0"
+  resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.24.0.tgz#59464d8bc4b3812ae87a282e9bb98ecad5b4b047"
 
 raven@^2.1.1:
   version "2.4.2"

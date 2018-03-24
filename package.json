@@ -28,8 +28,8 @@
   "devDependencies": {
     "@types/fbemitter": "2.0.32",
     "@types/react": "16.0.40",
-    "@types/react-native": "0.52.18",
-    "exp": "50.0.1",
+    "@types/react-native": "0.52.19",
+    "exp": "50.0.3",
     "prop-types": "15.6.1",
     "react-native-typescript-transformer": "1.2.3",
     "tslint": "5.9.1",
