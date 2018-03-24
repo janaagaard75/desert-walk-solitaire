@@ -50,7 +50,7 @@ Having singleton classes (Game, Settings, Deck and Grid) is essentially the same
 
 Creating a good model is difficult. It might be a good idea to move the dragged card from Game to GridState.
 
-Naming things is hard, but important. OccupiedCell has been renamed at least five times, and it still needs a rename, since it focuses on the cards and not the ceels. Perhaps going back to PositionedCard? When a class is renamed, there are often local variables left, that should also be renamed. OccupiedCell and EmptyCell makes for a great pair, but the two classes are distinct in that when switching between states, the cards are all the same only moved, whereas the empty cells are removed and added.
+Naming things is hard, but important. Card has been renamed at least five times, and it still needs a rename, since it focuses on the cards and not the ceels. Perhaps going back to PositionedCard? When a class is renamed, there are often local variables left, that should also be renamed. Card and EmptyCell makes for a great pair, but the two classes are distinct in that when switching between states, the cards are all the same only moved, whereas the empty cells are removed and added.
 
 The first data architechture was to only keep the information necessary for the rules of the game in the models, and leave all that has to do with presentation of the game to the view classes. That got messy, so the new architechture is to put pretty much everything in the models. Most of the properties are computed values. Making Settings, Game, Deck and Grid singletons has lead to somewhat a spaghetti code architechture, but currently it's okay. That might actually be the force of MobX: Embrace the spaghetti architecture, and avoid drowning in it.
 

@@ -10,7 +10,7 @@ import { GameSummary } from './GameSummary'
 import { Grid } from './Grid'
 import { GridState } from './GridState'
 import { MoveTurn } from './MoveTurn'
-import { OccupiedCell } from './OccupiedCell'
+import { Card } from './Card'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
@@ -37,7 +37,7 @@ export class Game {
 
   @observable public animateNextTurn: boolean = true
   @observable public draggedCardBoundary: Rectangle | undefined
-  @observable public draggingFromCell: OccupiedCell | undefined
+  @observable public draggingFromCell: Card | undefined
 
   @observable private _currentStateIndex: number = 0
   @observable private gridStates: Array<GridState> = []
@@ -178,7 +178,7 @@ export class Game {
     this.draggedCardBoundary = boundary
   }
 
-  public cardDragStarted(fromCell: OccupiedCell) {
+  public cardDragStarted(fromCell: Card) {
     this.draggingFromCell = fromCell
     this.draggedCardBoundary = fromCell.boundary
   }

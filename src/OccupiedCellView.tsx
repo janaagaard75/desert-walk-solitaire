@@ -9,12 +9,12 @@ import { PanResponderInstance } from 'react-native'
 import { CardModel } from './CardModel'
 import { CardView } from './CardView'
 import { Game } from './Game'
-import { OccupiedCell } from './OccupiedCell'
+import { Card } from './Card'
 import { Point } from './Point'
 import { Settings } from './Settings'
 
 interface Props {
-  occupiedCell: OccupiedCell
+  occupiedCell: Card
 }
 
 enum VisualState {

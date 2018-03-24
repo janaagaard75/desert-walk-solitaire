@@ -4,7 +4,7 @@ import { CardModel } from './CardModel'
 import { Cell } from './Cell'
 import { EmptyCell } from './EmptyCell'
 import { GridState } from './GridState'
-import { OccupiedCell } from './OccupiedCell'
+import { Card } from './Card'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 
@@ -21,7 +21,7 @@ export abstract class GridCell {
   }
 
   @computed
-  public get left(): OccupiedCell | EmptyCell | undefined {
+  public get left(): Card | EmptyCell | undefined {
     if (this.cell.cellToTheLeft === undefined) {
       return undefined
     }

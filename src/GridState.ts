@@ -7,7 +7,7 @@ import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { EmptyCell } from './EmptyCell'
 import { Grid } from './Grid'
-import { OccupiedCell } from './OccupiedCell'
+import { Card } from './Card'
 import { Turn } from './Turn'
 
 export class GridState {
@@ -19,15 +19,15 @@ export class GridState {
     }
 
     cardCellPairs.forEach(pair => {
-      this.occupiedCells.push(new OccupiedCell(pair.cell, this, pair.card))
+      this.occupiedCells.push(new Card(pair.cell, this, pair.card))
     })
   }
 
   @observable
-  public readonly occupiedCells: Array<OccupiedCell> = []
+  public readonly occupiedCells: Array<Card> = []
 
   @computed
-  public get correctlyPositionedCards(): Array<OccupiedCell> {
+  public get correctlyPositionedCards(): Array<Card> {
     const correctlyPositionedCards = this.occupiedCells
       .filter(pair => pair.correctlyPlaced)
     return correctlyPositionedCards
@@ -61,7 +61,7 @@ export class GridState {
   }
 
   @computed
-  public get incorrectlyPositionedCards(): Array<OccupiedCell> {
+  public get incorrectlyPositionedCards(): Array<Card> {
     const incorrectlyPositionedCards = this.occupiedCells
       .filter(pair => !pair.correctlyPlaced)
     return incorrectlyPositionedCards
@@ -72,7 +72,7 @@ export class GridState {
     return newGridState
   }
 
-  public getGridCellFromCell(cell: Cell): EmptyCell | OccupiedCell {
+  public getGridCellFromCell(cell: Cell): EmptyCell | Card {
     const occupiedCell = this.getOccupiedCellFromCell(cell)
     if (occupiedCell !== undefined) {
       return occupiedCell
@@ -86,7 +86,7 @@ export class GridState {
     return emptyCell
   }
 
-  public getOccupiedCellFromCard(card: CardModel): OccupiedCell {
+  public getOccupiedCellFromCard(card: CardModel): Card {
     const match = this.occupiedCells.find(pair => pair.card === card)
 
     if (match === undefined) {
@@ -96,7 +96,7 @@ export class GridState {
     return match
   }
 
-  public getOccupiedCellFromCell(cell: Cell | undefined): OccupiedCell | undefined {
+  public getOccupiedCellFromCell(cell: Cell | undefined): Card | undefined {
     if (cell === undefined) {
       return undefined
     }
