@@ -822,7 +822,7 @@ declare module 'expo' {
   interface BarCodeScannerProps {
     type?: 'front' | 'back'
     torchMode?: 'on' | 'off'
-    barCodeTypes: Array<string>     // TODO: add supported formats
+    barCodeTypes: Array<string>     // todo: add supported formats
     style: ViewStyle
   }
 
@@ -870,7 +870,7 @@ declare module 'expo' {
   }
 
   //#region GLView
-  // TODO: better defs because there is no complete documentation. I did it from the code.
+  // todo: better defs because there is no complete documentation. I did it from the code.
   interface GLViewProps extends ViewProperties {
     onContextCreate(): void
     msaaSamples: number
@@ -1275,7 +1275,7 @@ declare module 'expo' {
 
     type LocationCallback = (data: LocationData) => any
 
-    function getCurrentPositionAsync(options: LocationOptions): Promise<LocationData>    // TODO: check if it's correct
+    function getCurrentPositionAsync(options: LocationOptions): Promise<LocationData>    // todo: check if it's correct
     function watchPositionAsync(options: LocationOptions, callback: (data: LocationData) => any): EventSubscription
   }
 
@@ -1466,7 +1466,7 @@ declare module 'expo' {
     interface Database {
       transaction(
         callback: (transaction: Transaction) => any,
-        error?: (error: Error) => any,     // TODO def of error
+        error?: (error: Error) => any,     // todo def of error
         success?: () => any
       ): void
     }
