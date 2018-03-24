@@ -1,6 +1,8 @@
 import * as React from 'react'
-import { Button } from 'react-native'
+import { Button, TouchableOpacity } from 'react-native'
 import { Component } from 'react'
+// tslint:disable-next-line:no-implicit-dependencies
+import { Entypo } from '@expo/vector-icons'
 import { Modal } from 'react-native'
 import { observer } from 'mobx-react'
 import { Text } from 'react-native'
@@ -76,9 +78,9 @@ export class Footer extends Component<{}, State> {
         >
           {this.renderButton('Restart', () => this.confirmUnlessGameOver(), true)}
           {this.renderButton('Replay', () => Game.instance.replay(), this.replayEnabled())}
-          {this.renderButton('Shuffle 1', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
-          {this.renderButton('Shuffle 2', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
-          {this.renderButton('Shuffle 3', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
+          {this.renderIcon('shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
+          {this.renderIcon('shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
+          {this.renderIcon('shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
           {this.renderButton('Undo', () => Game.instance.undo(), Game.instance.undoEnabled)}
         </View>
         <Modal
@@ -101,6 +103,34 @@ export class Footer extends Component<{}, State> {
             />
           </View>
         </Modal>
+      </View>
+    )
+  }
+
+  private renderIcon(name: 'shuffle', handlePress: () => void, enabled: boolean) {
+    const color = enabled ? '#99f' : '#ccc'
+
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          alignSelf: 'center',
+          backgroundColor: 'transparent',
+          width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
+            ? '50%'
+            : '16.666%'
+        }}
+      >
+        <TouchableOpacity
+          onPress={handlePress}
+          disabled={!enabled}
+        >
+          <Entypo
+            color={color}
+            name={name}
+            size={20}
+          />
+        </TouchableOpacity>
       </View>
     )
   }
