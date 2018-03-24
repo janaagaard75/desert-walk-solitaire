@@ -1,6 +1,6 @@
 import { computed } from 'mobx'
 
-import { Card } from './Card'
+import { CardModel } from './CardModel'
 import { Cell } from './Cell'
 import { Game } from './Game'
 import { Deck } from './Deck'
@@ -17,7 +17,7 @@ export class EmptyCell extends GridCell {
   }
 
   @computed
-  public get droppableCards(): Array<Card> {
+  public get droppableCards(): Array<CardModel> {
     if (this.left === undefined) {
       return Deck.instance.theFourAces
     }

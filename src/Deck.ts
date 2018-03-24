@@ -1,13 +1,13 @@
 import { computed } from 'mobx'
 
-import { Card } from './Card'
+import { CardModel } from './CardModel'
 import { CardValue } from './CardValue'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
 
 export class Deck {
   private constructor() {
-    const cards: Array<Card> = []
+    const cards: Array<CardModel> = []
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
       if (Suit.hasOwnProperty(suit)) {
         for (let value = Settings.instance.maxCardValue; value >= 1; value--) {
@@ -15,7 +15,7 @@ export class Deck {
             ? undefined
             : cards[cards.length - 1]
 
-          cards.push(new Card(suit, value as CardValue, nextCard))
+          cards.push(new CardModel(suit, value as CardValue, nextCard))
         }
       }
     }
@@ -33,10 +33,10 @@ export class Deck {
     return this._instance
   }
 
-  public readonly cards: ReadonlyArray<Card>
+  public readonly cards: ReadonlyArray<CardModel>
 
   @computed
-  public get theFourAces(): Array<Card> {
+  public get theFourAces(): Array<CardModel> {
     const theFourAces = this.cards.filter(card => card.value === 1)
     return theFourAces
   }

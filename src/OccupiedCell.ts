@@ -1,6 +1,6 @@
 import { computed } from 'mobx'
 
-import { Card } from './Card'
+import { CardModel } from './CardModel'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { EmptyCell } from './EmptyCell'
@@ -13,7 +13,7 @@ export class OccupiedCell extends GridCell implements CardCellPair {
   constructor(
     cell: Cell,
     gridState: GridState,
-    public card: Card
+    public card: CardModel
   ) {
     super(cell, gridState)
   }

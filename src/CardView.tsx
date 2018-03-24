@@ -6,7 +6,7 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { Card } from './Card'
+import { CardModel } from './CardModel'
 import { Club } from './suits/Club'
 import { Diamond } from './suits/Diamond'
 import { Heart } from './suits/Heart'
@@ -15,7 +15,7 @@ import { Spade } from './suits/Spade'
 import { Suit } from './Suit'
 
 interface Props {
-  card: Card
+  card: CardModel
   correctlyPlaced: boolean
   draggable: boolean
   shadow: boolean

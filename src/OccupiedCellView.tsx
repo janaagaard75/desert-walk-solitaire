@@ -6,7 +6,7 @@ import { observer } from 'mobx-react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
-import { Card } from './Card'
+import { CardModel } from './CardModel'
 import { CardView } from './CardView'
 import { Game } from './Game'
 import { OccupiedCell } from './OccupiedCell'
@@ -92,7 +92,7 @@ export class OccupiedCellView extends Component<Props, State> {
     })
 
     this.animatedPosition.addListener(position => {
-      const boundary = Card.getBoundary(new Point(position.x, position.y))
+      const boundary = CardModel.getBoundary(new Point(position.x, position.y))
       Game.instance.cardDragged(boundary)
     })
   }
