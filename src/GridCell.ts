@@ -1,10 +1,10 @@
 import { computed } from 'mobx'
 
+import { Card } from './Card'
 import { CardModel } from './CardModel'
 import { Cell } from './Cell'
 import { EmptyCell } from './EmptyCell'
 import { GridState } from './GridState'
-import { Card } from './Card'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 

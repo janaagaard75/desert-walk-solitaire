@@ -6,10 +6,10 @@ import { observer } from 'mobx-react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
+import { Card } from './Card'
 import { CardModel } from './CardModel'
 import { CardModelView } from './CardModelView'
 import { Game } from './Game'
-import { Card } from './Card'
 import { Point } from './Point'
 import { Settings } from './Settings'
 

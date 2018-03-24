@@ -1,8 +1,8 @@
 import { computed } from 'mobx'
 import { observable } from 'mobx'
 
-import { Size } from './Size'
 import { ScreenOrientation } from './ScreenOrientation'
+import { Size } from './Size'
 
 export class Settings {
   private constructor() { }

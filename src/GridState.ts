@@ -1,13 +1,13 @@
 import { computed } from 'mobx'
 import { observable } from 'mobx'
 
-import { CardModel } from './CardModel'
+import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
+import { CardModel } from './CardModel'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { EmptyCell } from './EmptyCell'
 import { Grid } from './Grid'
-import { Card } from './Card'
 import { Turn } from './Turn'
 
 export class GridState {

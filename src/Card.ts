@@ -1,7 +1,7 @@
 import { computed } from 'mobx'
 
-import { CardModel } from './CardModel'
 import { CardCellPair } from './CardCellPair'
+import { CardModel } from './CardModel'
 import { Cell } from './Cell'
 import { EmptyCell } from './EmptyCell'
 import { Game } from './Game'
