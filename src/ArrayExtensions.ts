@@ -1,17 +1,5 @@
 // It is generally discouraged to extend the prototypes of the built in classes, but extending the classes or wrapping them would require a lot of casting or boxing/unboxing. Note this about extending built ins: https://github.com/Microsoft/TypeScript/wiki/FAQ#why-doesnt-extending-built-ins-like-error-array-and-map-work.
 
-function shuffleInPlace<T>(array: Array<T>): void {
-  let top = array.length
-  if (top >= 0) {
-    while (--top) {
-      const current = Math.floor(Math.random() * (top + 1))
-      const temporaryElement = array[current]
-      array[current] = array[top]
-      array[top] = temporaryElement
-    }
-  }
-}
-
 declare global {
   interface Array<T> {
     clone(): Array<T>
@@ -37,6 +25,18 @@ if (!Array.prototype.shuffle) {
     const clone = this.clone()
     shuffleInPlace(clone)
     return clone
+  }
+}
+
+function shuffleInPlace<T>(array: Array<T>): void {
+  let top = array.length
+  if (top >= 0) {
+    while (--top) {
+      const current = Math.floor(Math.random() * (top + 1))
+      const temporaryElement = array[current]
+      array[current] = array[top]
+      array[top] = temporaryElement
+    }
   }
 }
 
