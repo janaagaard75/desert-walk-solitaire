@@ -55,7 +55,6 @@ export class Game {
       return true
     }
 
-    // TODO: This is incorrect when clicking Redo to get back to the latest state.
     const isLatestState = this.currentStateIndex === this.gridStates.length - 1
     return !isLatestState
   }
