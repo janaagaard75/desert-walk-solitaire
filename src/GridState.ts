@@ -3,11 +3,11 @@ import { observable } from 'mobx'
 
 import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
-import { PlayingCard } from './CardModel'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { EmptyCell } from './EmptyCell'
 import { Grid } from './Grid'
+import { PlayingCard } from './PlayingCard'
 import { Turn } from './Turn'
 
 export class GridState {

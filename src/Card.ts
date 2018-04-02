@@ -1,12 +1,12 @@
 import { computed } from 'mobx'
 
 import { CardCellPair } from './CardCellPair'
-import { PlayingCard } from './CardModel'
 import { Cell } from './Cell'
 import { EmptyCell } from './EmptyCell'
 import { Game } from './Game'
 import { GridCell } from './GridCell'
 import { GridState } from './GridState'
+import { PlayingCard } from './PlayingCard'
 
 /** An occupied cells is a card that has a position on the grid. */
 export class Card extends GridCell implements CardCellPair {

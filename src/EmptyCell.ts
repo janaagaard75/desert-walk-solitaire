@@ -1,12 +1,12 @@
 import { computed } from 'mobx'
 
-import { PlayingCard } from './CardModel'
 import { Cell } from './Cell'
-import { Game } from './Game'
 import { Deck } from './Deck'
 import { EmptyCellState } from './EmptyCellState'
+import { Game } from './Game'
 import { GridCell } from './GridCell'
 import { GridState } from './GridState'
+import { PlayingCard } from './PlayingCard'
 
 export class EmptyCell extends GridCell {
   constructor(

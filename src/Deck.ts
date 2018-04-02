@@ -1,7 +1,7 @@
 import { computed } from 'mobx'
 
-import { PlayingCard } from './CardModel'
 import { CardValue } from './CardValue'
+import { PlayingCard } from './PlayingCard'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
 
