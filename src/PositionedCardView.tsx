@@ -22,7 +22,6 @@ enum VisualState {
   Idle
 }
 
-// TODO: Move the state to a computed value.
 interface State {
   visualState: VisualState
 }
