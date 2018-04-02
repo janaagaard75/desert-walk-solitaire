@@ -151,7 +151,7 @@ export class CardView extends Component<Props, State> {
           card={this.props.occupiedCell.card}
           correctlyPlaced={this.props.occupiedCell.correctlyPlaced}
           draggable={this.props.occupiedCell.draggable}
-          shadow={this.state.visualState !== VisualState.Idle}
+          dragged={this.state.visualState !== VisualState.Idle}
         />
       </Animated.View>
     )

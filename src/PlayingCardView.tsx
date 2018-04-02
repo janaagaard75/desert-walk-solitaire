@@ -18,7 +18,7 @@ interface Props {
   card: PlayingCard
   correctlyPlaced: boolean
   draggable: boolean
-  shadow: boolean
+  dragged: boolean
 }
 
 @observer
@@ -29,7 +29,7 @@ export class PlayingCardView extends Component<Props> {
       height: Settings.instance.cardSize.height,
       width: Settings.instance.cardSize.width
     }
-    if (this.props.shadow) {
+    if (this.props.dragged) {
       Object.assign(shadowStyle, {
         shadowColor: Settings.instance.colors.card.shadowColor,
         shadowOffset: Settings.instance.cardShadowOffset,
