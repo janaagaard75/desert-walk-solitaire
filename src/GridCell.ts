@@ -1,7 +1,7 @@
 import { computed } from 'mobx'
 
 import { Card } from './Card'
-import { CardModel } from './CardModel'
+import { PlayingCard } from './CardModel'
 import { Cell } from './Cell'
 import { EmptyCell } from './EmptyCell'
 import { GridState } from './GridState'
@@ -16,7 +16,7 @@ export abstract class GridCell {
 
   @computed
   public get boundary(): Rectangle {
-    const boundary = CardModel.getBoundary(this.position)
+    const boundary = PlayingCard.getBoundary(this.position)
     return boundary
   }
 

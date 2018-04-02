@@ -3,7 +3,7 @@ import { observable } from 'mobx'
 
 import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
-import { CardModel } from './CardModel'
+import { PlayingCard } from './CardModel'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { EmptyCell } from './EmptyCell'
@@ -34,13 +34,13 @@ export class GridState {
   }
 
   @computed
-  public get draggableCards(): Array<CardModel> {
+  public get draggableCards(): Array<PlayingCard> {
     const draggableNonAces = this.emptyCells
       .map(emptyCell => emptyCell.cell.cellToTheLeft)
       .map(cellToTheLeft => this.getOccupiedCellFromCell(cellToTheLeft))
       .map(occupiedCell => occupiedCell === undefined ? undefined : occupiedCell.card)
       .map(card => card === undefined ? undefined : card.next)
-      .filter((nextCard: CardModel | undefined): nextCard is CardModel => nextCard !== undefined)
+      .filter((nextCard: PlayingCard | undefined): nextCard is PlayingCard => nextCard !== undefined)
 
     const draggableAces = this.occupiedCells
       .filter(occupiedCell => Deck.instance.theFourAces.includes(occupiedCell.card))
@@ -86,7 +86,7 @@ export class GridState {
     return emptyCell
   }
 
-  public getOccupiedCellFromCard(card: CardModel): Card {
+  public getOccupiedCellFromCard(card: PlayingCard): Card {
     const match = this.occupiedCells.find(pair => pair.card === card)
 
     if (match === undefined) {

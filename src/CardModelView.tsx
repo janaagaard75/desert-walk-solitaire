@@ -6,7 +6,7 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { CardModel } from './CardModel'
+import { PlayingCard } from './CardModel'
 import { Club } from './suits/Club'
 import { Diamond } from './suits/Diamond'
 import { Heart } from './suits/Heart'
@@ -15,14 +15,14 @@ import { Spade } from './suits/Spade'
 import { Suit } from './Suit'
 
 interface Props {
-  card: CardModel
+  card: PlayingCard
   correctlyPlaced: boolean
   draggable: boolean
   shadow: boolean
 }
 
 @observer
-export class CardModelView extends Component<Props> {
+export class PlayingCardView extends Component<Props> {
   public render() {
     const shadowStyle: ViewStyle = {
       borderRadius: Settings.instance.borderRadius,

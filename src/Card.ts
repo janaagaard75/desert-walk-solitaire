@@ -1,7 +1,7 @@
 import { computed } from 'mobx'
 
 import { CardCellPair } from './CardCellPair'
-import { CardModel } from './CardModel'
+import { PlayingCard } from './CardModel'
 import { Cell } from './Cell'
 import { EmptyCell } from './EmptyCell'
 import { Game } from './Game'
@@ -13,7 +13,7 @@ export class Card extends GridCell implements CardCellPair {
   constructor(
     cell: Cell,
     gridState: GridState,
-    public card: CardModel
+    public card: PlayingCard
   ) {
     super(cell, gridState)
   }

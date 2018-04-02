@@ -7,8 +7,8 @@ import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
 import { Card } from './Card'
-import { CardModel } from './CardModel'
-import { CardModelView } from './CardModelView'
+import { PlayingCard } from './CardModel'
+import { PlayingCardView } from './CardModelView'
 import { Game } from './Game'
 import { Point } from './Point'
 import { Settings } from './Settings'
@@ -92,7 +92,7 @@ export class CardView extends Component<Props, State> {
     })
 
     this.animatedPosition.addListener(position => {
-      const boundary = CardModel.getBoundary(new Point(position.x, position.y))
+      const boundary = PlayingCard.getBoundary(new Point(position.x, position.y))
       Game.instance.cardDragged(boundary)
     })
   }
@@ -147,7 +147,7 @@ export class CardView extends Component<Props, State> {
         style={style}
         {...panHandlers}
       >
-        <CardModelView
+        <PlayingCardView
           card={this.props.occupiedCell.card}
           correctlyPlaced={this.props.occupiedCell.correctlyPlaced}
           draggable={this.props.occupiedCell.draggable}

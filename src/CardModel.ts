@@ -6,11 +6,11 @@ import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
 
-export class CardModel {
+export class PlayingCard {
   constructor(
     public readonly suit: Suit,
     public readonly value: CardValue,
-    public readonly next: CardModel | undefined
+    public readonly next: PlayingCard | undefined
   ) { }
 
   @computed
