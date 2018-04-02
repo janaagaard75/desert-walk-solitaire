@@ -1,12 +1,12 @@
 import { computed } from 'mobx'
 
-import { PositionedCard } from './Card'
-import { Cell } from './Cell'
-import { EmptyCell } from './EmptyCell'
-import { GridState } from './GridState'
-import { PlayingCardView } from './PlayingCardView'
-import { Point } from './Point'
 import { Rectangle } from './Rectangle'
+import { PositionedCard } from './PositionedCard'
+import { Point } from './Point'
+import { PlayingCardView } from './PlayingCardView'
+import { GridState } from './GridState'
+import { EmptyCell } from './EmptyCell'
+import { Cell } from './Cell'
 
 export abstract class GridCell {
   constructor(

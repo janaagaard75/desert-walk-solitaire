@@ -6,11 +6,11 @@ import { observer } from 'mobx-react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
-import { PositionedCard } from './Card'
-import { Game } from './Game'
-import { PlayingCardView } from './PlayingCardView'
-import { Point } from './Point'
 import { Settings } from './Settings'
+import { PositionedCard } from './PositionedCard'
+import { Point } from './Point'
+import { PlayingCardView } from './PlayingCardView'
+import { Game } from './Game'
 
 interface Props {
   occupiedCell: PositionedCard
