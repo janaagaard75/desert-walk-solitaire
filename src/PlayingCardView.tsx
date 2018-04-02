@@ -10,6 +10,8 @@ import { Club } from './suits/Club'
 import { Diamond } from './suits/Diamond'
 import { Heart } from './suits/Heart'
 import { PlayingCard } from './PlayingCard'
+import { Point } from './Point'
+import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 import { Spade } from './suits/Spade'
 import { Suit } from './Suit'
@@ -91,6 +93,17 @@ export class PlayingCardView extends Component<Props> {
         <View style={overlayStyle}/>
       </View>
     )
+  }
+
+  public static getBoundary(position: Point): Rectangle {
+    const boundary = new Rectangle(
+      position.x,
+      position.x + Settings.instance.cardSize.width,
+      position.y,
+      position.y + Settings.instance.cardSize.height
+    )
+
+    return boundary
   }
 
   private overlayOpacity(): number {

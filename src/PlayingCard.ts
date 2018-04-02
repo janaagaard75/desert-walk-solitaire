@@ -1,9 +1,6 @@
 import { computed } from 'mobx'
 
 import { CardValue } from './CardValue'
-import { Point } from './Point'
-import { Rectangle } from './Rectangle'
-import { Settings } from './Settings'
 import { Suit } from './Suit'
 
 export class PlayingCard {
@@ -37,16 +34,5 @@ export class PlayingCard {
   public get key(): string {
     const key = this.displayValue + Suit.toString(this.suit)
     return key
-  }
-
-  public static getBoundary(position: Point): Rectangle {
-    const boundary = new Rectangle(
-      position.x,
-      position.x + Settings.instance.cardSize.width,
-      position.y,
-      position.y + Settings.instance.cardSize.height
-    )
-
-    return boundary
   }
 }
