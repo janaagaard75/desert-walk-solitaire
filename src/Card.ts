@@ -8,8 +8,7 @@ import { GridCell } from './GridCell'
 import { GridState } from './GridState'
 import { PlayingCard } from './PlayingCard'
 
-/** An occupied cells is a card that has a position on the grid. */
-export class Card extends GridCell implements CardCellPair {
+export class PositionedCard extends GridCell implements CardCellPair {
   constructor(
     cell: Cell,
     gridState: GridState,

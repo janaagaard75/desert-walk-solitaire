@@ -2,7 +2,7 @@ import { computed } from 'mobx'
 import { observable } from 'mobx'
 import * as firebase from 'firebase'
 
-import { Card } from './Card'
+import { PositionedCard } from './Card'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
@@ -37,7 +37,7 @@ export class Game {
 
   @observable public animateNextTurn: boolean = true
   @observable public draggedCardBoundary: Rectangle | undefined
-  @observable public draggingFromCell: Card | undefined
+  @observable public draggingFromCell: PositionedCard | undefined
 
   @observable private _currentStateIndex: number = 0
   @observable private gridStates: Array<GridState> = []
@@ -177,7 +177,7 @@ export class Game {
     this.draggedCardBoundary = boundary
   }
 
-  public cardDragStarted(fromCell: Card) {
+  public cardDragStarted(fromCell: PositionedCard) {
     this.draggingFromCell = fromCell
     this.draggedCardBoundary = fromCell.boundary
   }

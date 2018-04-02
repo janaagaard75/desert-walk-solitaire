@@ -1,6 +1,6 @@
 import { computed } from 'mobx'
 
-import { Card } from './Card'
+import { PositionedCard } from './Card'
 import { Cell } from './Cell'
 import { EmptyCell } from './EmptyCell'
 import { GridState } from './GridState'
@@ -21,7 +21,7 @@ export abstract class GridCell {
   }
 
   @computed
-  public get left(): Card | EmptyCell | undefined {
+  public get left(): PositionedCard | EmptyCell | undefined {
     if (this.cell.cellToTheLeft === undefined) {
       return undefined
     }

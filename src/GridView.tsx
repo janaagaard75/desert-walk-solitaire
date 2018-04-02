@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { CardView } from './CardView'
+import { PositionedCardView } from './CardView'
 import { EmptyCellView } from './EmptyCellView'
 import { Game } from './Game'
 import { Settings } from './Settings'
@@ -21,7 +21,7 @@ export class GridView extends Component {
     return (
       <View style={gridViewStyle}>
         {Game.instance.currentGridState.occupiedCells.map(occupiedCell =>
-          <CardView
+          <PositionedCardView
             key={occupiedCell.card.key}
             occupiedCell={occupiedCell}
           />

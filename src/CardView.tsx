@@ -6,14 +6,14 @@ import { observer } from 'mobx-react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
-import { Card } from './Card'
+import { PositionedCard } from './Card'
 import { Game } from './Game'
 import { PlayingCardView } from './PlayingCardView'
 import { Point } from './Point'
 import { Settings } from './Settings'
 
 interface Props {
-  occupiedCell: Card
+  occupiedCell: PositionedCard
 }
 
 enum VisualState {
@@ -28,7 +28,7 @@ interface State {
 }
 
 @observer
-export class CardView extends Component<Props, State> {
+export class PositionedCardView extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props, context)
 
