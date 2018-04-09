@@ -87,8 +87,29 @@ export class PlayingCardView extends Component<Props> {
             {this.props.card.displayValue}
           </Text>
           <View style={suitStyle}>
-            {this.suit()}
+            {this.suit(Settings.instance.cardSuitSize)}
           </View>
+          {this.props.card.value === 10
+            ?
+              [0, 1, 2, 3].map(y =>
+                [0, 1, 2, 3].map(x =>
+                  x >= y
+                    ?
+                      <View
+                        key={`${x}${y}`}
+                        style={{
+                          bottom: 3 + x * 7.5 - y * 7.5,
+                          position: 'absolute',
+                          right: 3 + y * 7.5
+                        }}
+                      >
+                        {this.suit(Settings.instance.cardSuitSize / 3)}
+                      </View>
+                    : undefined
+                )
+              )
+            : undefined
+          }
         </View>
         <View style={overlayStyle}/>
       </View>
@@ -118,9 +139,7 @@ export class PlayingCardView extends Component<Props> {
     return 0.3
   }
 
-  private suit() {
-    const size = Settings.instance.cardSuitSize
-
+  private suit(size: number) {
     switch (this.props.card.suit) {
       case Suit.Clubs:
         return (
