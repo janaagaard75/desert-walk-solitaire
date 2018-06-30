@@ -120,31 +120,33 @@ export class PlayingCardView extends Component<Props> {
   }
 
   private getSmallSuits() {
-    const margin = 2
-    const gridSize = 7
-
     if (this.props.card.value === 10) {
       return (
         [0, 1, 2, 3].map(y =>
-          [0, 1, 2, 3].map(x => {
-            if (x >= y) {
-              return (
-                <View
-                  key={`${x}${y}`}
-                  style={{
-                    bottom: margin + x * gridSize - y * gridSize,
-                    position: 'absolute',
-                    right: margin + y * gridSize
-                  }}
-                >
-                  {this.suit(Settings.instance.cardSuitSize / 3)}
-                </View>
-              )
-            }
-
-            return undefined
-          })
+          [0, 1, 2, 3].map(x => this.getSmallSuit(x, y))
         )
+      )
+    }
+
+    return undefined
+  }
+
+  private getSmallSuit(x: number, y: number) {
+    const margin = 2
+    const gridSize = 7
+
+    if (x >= y) {
+      return (
+        <View
+          key={`${x}${y}`}
+          style={{
+            bottom: margin + x * gridSize - y * gridSize,
+            position: 'absolute',
+            right: margin + y * gridSize
+          }}
+        >
+          {this.suit(Settings.instance.cardSuitSize / 3)}
+        </View>
       )
     }
 
