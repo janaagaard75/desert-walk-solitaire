@@ -80,6 +80,9 @@ export class PlayingCardView extends Component<Props> {
       width: Settings.instance.cardSize.width
     }
 
+    const margin = 2
+    const gridSize = 7
+
     return (
       <View style={shadowStyle}>
         <View style={cardStyle}>
@@ -98,9 +101,9 @@ export class PlayingCardView extends Component<Props> {
                       <View
                         key={`${x}${y}`}
                         style={{
-                          bottom: 3 + x * 7.5 - y * 7.5,
+                          bottom: margin + x * gridSize - y * gridSize,
                           position: 'absolute',
-                          right: 3 + y * 7.5
+                          right: margin + y * gridSize
                         }}
                       >
                         {this.suit(Settings.instance.cardSuitSize / 3)}
