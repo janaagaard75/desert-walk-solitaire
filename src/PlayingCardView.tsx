@@ -80,9 +80,6 @@ export class PlayingCardView extends Component<Props> {
       width: Settings.instance.cardSize.width
     }
 
-    const margin = 2
-    const gridSize = 7
-
     return (
       <View style={shadowStyle}>
         <View style={cardStyle}>
@@ -92,27 +89,7 @@ export class PlayingCardView extends Component<Props> {
           <View style={suitStyle}>
             {this.suit(Settings.instance.cardSuitSize)}
           </View>
-          {this.props.card.value === 10
-            ?
-              [0, 1, 2, 3].map(y =>
-                [0, 1, 2, 3].map(x =>
-                  x >= y
-                    ?
-                      <View
-                        key={`${x}${y}`}
-                        style={{
-                          bottom: margin + x * gridSize - y * gridSize,
-                          position: 'absolute',
-                          right: margin + y * gridSize
-                        }}
-                      >
-                        {this.suit(Settings.instance.cardSuitSize / 3)}
-                      </View>
-                    : undefined
-                )
-              )
-            : undefined
-          }
+          {this.getSmallSuits()}
         </View>
         <View style={overlayStyle}/>
       </View>
@@ -142,7 +119,39 @@ export class PlayingCardView extends Component<Props> {
     return 0.3
   }
 
-  private suit(size: number) {
+  private getSmallSuits() {
+    const margin = 2
+    const gridSize = 7
+
+    if (this.props.card.value === 10) {
+      return (
+        [0, 1, 2, 3].map(y =>
+          [0, 1, 2, 3].map(x => {
+            if (x >= y) {
+              return (
+                <View
+                  key={`${x}${y}`}
+                  style={{
+                    bottom: margin + x * gridSize - y * gridSize,
+                    position: 'absolute',
+                    right: margin + y * gridSize
+                  }}
+                >
+                  {this.suit(Settings.instance.cardSuitSize / 3)}
+                </View>
+              )
+            }
+
+            return undefined
+          })
+        )
+      )
+    }
+
+    return undefined
+  }
+
+  private suit(size: number): JSX.Element {
     switch (this.props.card.suit) {
       case Suit.Clubs:
         return (
