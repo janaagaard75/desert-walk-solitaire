@@ -1,7 +1,6 @@
 import { computed } from 'mobx'
 import { observable } from 'mobx'
 
-import { ScreenOrientation } from './ScreenOrientation'
 import { Size } from './Size'
 
 export class Settings {
@@ -158,16 +157,6 @@ export class Settings {
     }
     else {
       return this.widthRestrictedGutterSize
-    }
-  }
-
-  @computed
-  public get screenOrientation(): ScreenOrientation {
-    if (this.windowSize.height > this.windowSize.width) {
-      return ScreenOrientation.Portrait
-    }
-    else {
-      return ScreenOrientation.Landscape
     }
   }
 

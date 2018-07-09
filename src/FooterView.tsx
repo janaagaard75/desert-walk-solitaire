@@ -11,7 +11,6 @@ import { View } from 'react-native'
 
 import { Game } from './Game'
 import { GameState } from './GameState'
-import { ScreenOrientation } from './ScreenOrientation'
 import { Settings } from './Settings'
 
 interface State {
@@ -116,9 +115,7 @@ export class FooterView extends Component<{}, State> {
           alignItems: 'center',
           alignSelf: 'center',
           backgroundColor: 'transparent',
-          width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
-            ? '50%'
-            : '16.666%'
+          width: '16.666%'
         }}
       >
         <TouchableOpacity
@@ -140,9 +137,7 @@ export class FooterView extends Component<{}, State> {
       <View
         style={{
           backgroundColor: 'transparent',
-          width: Settings.instance.screenOrientation === ScreenOrientation.Portrait
-            ? '50%'
-            : '16.666%'
+          width: '16.666%'
         }}
       >
         <Button
