@@ -16,7 +16,7 @@ import { GridView } from './GridView'
 import { Settings } from './Settings'
 
 @observer
-export default class App extends Component {
+export default class MainView extends Component {
   constructor(props: {}, context?: any) {
     super(props, context)
 
