@@ -6,15 +6,12 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { Club } from './suits/Club'
-import { Diamond } from './suits/Diamond'
-import { Heart } from './suits/Heart'
 import { PlayingCard } from './PlayingCard'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
-import { Spade } from './suits/Spade'
 import { Suit } from './Suit'
+import { SuitView } from './SuitView'
 
 interface Props {
   card: PlayingCard
@@ -219,27 +216,33 @@ export class PlayingCardView extends Component<Props> {
   }
 
   private suit(size: number): JSX.Element {
-    switch (this.props.card.suit) {
-      case Suit.Clubs:
-        return (
-          <Club size={size}/>
-        )
+    return (
+      <SuitView
+        size={size}
+        suit={this.props.card.suit}
+      />
+    )
+    // switch (this.props.card.suit) {
+    //   case Suit.Clubs:
+    //     return (
+    //       <Club size={size}/>
+    //     )
 
-      case Suit.Diamonds:
-        return (
-          <Diamond size={size}/>
-        )
+    //   case Suit.Diamonds:
+    //     return (
+    //       <Diamond size={size}/>
+    //     )
 
-      case Suit.Hearts:
-        return (
-          <Heart size={size}/>
-        )
+    //   case Suit.Hearts:
+    //     return (
+    //       <Heart size={size}/>
+    //     )
 
-      case Suit.Spades:
-        return (
-          <Spade size={size}/>
-        )
-    }
+    //   case Suit.Spades:
+    //     return (
+    //       <Spade size={size}/>
+    //     )
+    // }
   }
 
   private suitColor(): string {
