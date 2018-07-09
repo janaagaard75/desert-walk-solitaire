@@ -19,7 +19,7 @@ interface State {
 }
 
 @observer
-export class Footer extends Component<{}, State> {
+export class FooterView extends Component<{}, State> {
   constructor(props: {}, context?: any) {
     super(props, context)
 

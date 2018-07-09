@@ -11,7 +11,7 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import './ArrayExtensions'
-import { Footer } from './Footer'
+import { FooterView } from './Footer'
 import { GridView } from './GridView'
 import { Settings } from './Settings'
 
@@ -77,7 +77,7 @@ export default class App extends Component {
           />
           <GridView/>
         </View>
-        <Footer/>
+        <FooterView/>
       </View>
     )
   }
