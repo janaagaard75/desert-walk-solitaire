@@ -11,7 +11,7 @@ import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import './ArrayExtensions'
-import { FooterView } from './Footer'
+import { FooterView } from './FooterView'
 import { GridView } from './GridView'
 import { Settings } from './Settings'
 
