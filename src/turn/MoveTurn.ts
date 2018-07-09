@@ -1,5 +1,5 @@
-import { Cell } from './Cell'
-import { GridState } from './GridState'
+import { Cell } from '../Cell'
+import { GridState } from '../GridState'
 import { Turn } from './Turn'
 
 /** Move a card from one cell to another. */

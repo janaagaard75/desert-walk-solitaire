@@ -8,7 +8,7 @@ import { EmptyCell } from './EmptyCell'
 import { Grid } from './Grid'
 import { PlayingCard } from './PlayingCard'
 import { PositionedCard } from './PositionedCard'
-import { Turn } from './Turn'
+import { Turn } from './turn/Turn'
 
 export class GridState {
   public constructor(

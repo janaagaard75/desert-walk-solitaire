@@ -1,6 +1,6 @@
-import { CardCellPair } from './CardCellPair'
-import { GridState } from './GridState'
-import { Settings } from './Settings'
+import { CardCellPair } from '../CardCellPair'
+import { GridState } from '../GridState'
+import { Settings } from '../Settings'
 import { Turn } from './Turn'
 
 /** Shuffle the cards that are incorrectly placed. */
