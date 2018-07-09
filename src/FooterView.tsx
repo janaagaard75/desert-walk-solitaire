@@ -17,6 +17,12 @@ interface State {
   confirmModalVisible: boolean
 }
 
+enum ButtonState {
+  Disabled,
+  Enabled,
+  Hidden
+}
+
 @observer
 export class FooterView extends Component<{}, State> {
   constructor(props: {}, context?: any) {
@@ -106,8 +112,8 @@ export class FooterView extends Component<{}, State> {
     )
   }
 
-  private renderIcon(name: 'shuffle', handlePress: () => void, enabled: boolean) {
-    const color = enabled ? '#99f' : '#ccc'
+  private renderIcon(name: 'shuffle', handlePress: () => void, state: ButtonState) {
+    const color = state === ButtonState.Enabled ? '#99f' : '#ccc'
 
     return (
       <View
@@ -118,16 +124,21 @@ export class FooterView extends Component<{}, State> {
           width: '16.666%'
         }}
       >
-        <TouchableOpacity
-          onPress={handlePress}
-          disabled={!enabled}
-        >
-          <Entypo
-            color={color}
-            name={name}
-            size={20}
-          />
-        </TouchableOpacity>
+        {state === ButtonState.Hidden
+          ?
+            undefined
+          :
+            <TouchableOpacity
+              onPress={handlePress}
+              disabled={state === ButtonState.Disabled}
+            >
+              <Entypo
+                color={color}
+                name={name}
+                size={20}
+              />
+            </TouchableOpacity>
+        }
       </View>
     )
   }
@@ -172,6 +183,7 @@ export class FooterView extends Component<{}, State> {
     })
   }
 
+  // TODO: Make computed?
   private replayEnabled(): boolean {
     const enabled = Game.instance.gameStatus === GameState.GameWon
     return enabled
@@ -183,19 +195,19 @@ export class FooterView extends Component<{}, State> {
     })
   }
 
-  private shuffleButtonEnabled(buttonNumber: number): boolean {
-    if (Game.instance.gameStatus !== GameState.Stuck) {
-      return false
+  private shuffleButtonEnabled(buttonNumber: number): ButtonState {
+    const buttonNumberToEnable = Game.instance.shuffles + 1
+
+    if (buttonNumber < buttonNumberToEnable) {
+      return ButtonState.Hidden
     }
 
-    const enabledButtonNumber = Game.instance.shuffles + 1
-
-    if (enabledButtonNumber > Settings.instance.numberOfShuffles) {
-      return false
+    if (buttonNumber === buttonNumberToEnable
+      && Game.instance.gameStatus === GameState.Stuck) {
+      return ButtonState.Enabled
     }
 
-    const enabled = buttonNumber === enabledButtonNumber
-    return enabled
+    return ButtonState.Disabled
   }
 
   private startOver() {
