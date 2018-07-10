@@ -1,28 +1,27 @@
 # Desert Walk
 
-A game of solitare implemented in React Native and written in TypeScript.
+Solitare implemented in React Native and written in TypeScript.
 
 Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## Running the App Locally
 
 1. Fetch the repo and install packages with `yarn install` (or `npm install`).
-1. Download and install the [Expo XDE](https://expo.io/tools).
-1. (Not sure if this is mandatory: Install XCode on Mac. The iOS Simulator is part of XCode.)
-1. Open the project in Expo XDE. This should compile everyting.
-1. Open the project in the iOS simulator* or...
-1. ... Install the Expo client on a mobile device and scan the QR code revealed by the Share button.
+2. Download and install the [Expo XDE](https://expo.io/tools).
+3. (Not sure if this is mandatory: Install XCode on Mac. The iOS Simulator is part of XCode.)
+4. Open the project in Expo XDE. This should compile everyting.
+5. Open the project in the iOS simulator* or...
+   1. Install the Expo client on a mobile device and scan the QR code revealed by the Share button.
 
-*) It also possible to run the app in Android simulator, but I haven't tried that yet.
+*  It also possible to run the app in Android simulator, but I have not tried that yet.
 
 ## TODO
 
-* Animate the cards when they are delt.
+* Animate the cards when they are dealt.
 * Game lost screen.
 * Game won screen.
-  * Some kind of reward for winning. Could be showing a fast replay of all the moves. Also see below.
+  * Display a reward for winning. A rapid animation of all previous moves when a game is won could be an option.
 * Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
-  * Animate all cards when the game is won. Also see above.
 * Numbers drawn using a custom font or SVGs to make sure it looks correct on both platforms.
 * More affordable buttons.
 * Splash screen.
@@ -38,25 +37,29 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 * [Aceh Darusalam](http://www.dafont.com/aceh-darusalam.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+K+Q+J&fpp=100&l[]=10&l[]=1)
 * [XXII Arabian Onenightstand](http://www.dafont.com/xxii-arabian-onenightstand.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+J+Q+K)
 
-## Learnings
+## Knowledge Gained
 
-Adding undo/redo and the subsequent cleanup of the datamodel was difficult. Having switched to a primarely @computed based model is nice, but there are probably still leftovers for the previous code, meaning that the currently solution could be simplified and optimized.
+Adding undo/redo and cleaning up the datamodel was difficult. Having switched to a @computed based model simplified things. However there is still some code leftover from the previous model, meaning that the currently solution could be simplified and optimized.
 
-TypeScript is nice, but it doesn't catch all errors. Specifically there are apparently no compiler errors when checking if two different classes are equal, even though the result will always be false.
+TypeScript does not catch all errors. There are no compiler errors when checking if two different classes are equal, even though the result will always be false.
 
-Having singleton classes (Game, Settings, Deck and Grid) is essentially the same as making every component a connected component, and that means that the cleanness of having pure components that only depend on their props is gone. The singleton classes also makes is harder to spot if the model is on the right track, since having a lot of the model globally avaiable easily leads to spaghetti code.
+Having singleton classes (Game, Settings, Deck and Grid) is the same as making every component a connected component, meaning the cleanliness of having pure components that only depend on their props is gone. Singleton classes make it harder to spot if the model is on the right track, since having a lot of the model globally avaiable easily leads to spaghetti code.
 
 Creating a good model is difficult. It might be a good idea to move the dragged card from Game to GridState.
 
-Naming things is hard, but important. Card has been renamed at least five times, and it still needs a rename, since it focuses on the cards and not the ceels. Perhaps going back to PositionedCard? When a class is renamed, there are often local variables left, that should also be renamed. Card and EmptyCell makes for a great pair, but the two classes are distinct in that when switching between states, the cards are all the same only moved, whereas the empty cells are removed and added.
+Creating meaningful names is a difficult but important task. Card has been renamed at least five times, and it still needs a rename, since it focuses on the cards and not the cells. Perhaps going back to PositionedCard? When a class is renamed, there are often local variables left, that should also be renamed. Card and EmptyCell makes for a great pair, but the two classes are distinct in that when switching between states, the cards are all the same only moved, whereas the empty cells are removed and added.
 
-The first data architechture was to only keep the information necessary for the rules of the game in the models, and leave all that has to do with presentation of the game to the view classes. That got messy, so the new architechture is to put pretty much everything in the models. Most of the properties are computed values. Making Settings, Game, Deck and Grid singletons has lead to somewhat a spaghetti code architechture, but currently it's okay. That might actually be the force of MobX: Embrace the spaghetti architecture, and avoid drowning in it.
+The first data architechture kept only the game logic with the model, while leaving the presentation of the game to the view classes. That got messy, so the new architechture puts everything inside the models. Most properties are computed values. Making Settings, Game, Deck and Grid singletons has lead to somewhat a spaghetti code architechture, but currently it's okay. That might actually be the force of MobX: Embrace the spaghetti architecture, and avoid drowning in it.
 
 Right now the models are separated from the views, but this actually not be a good idea where there is a one-to-one relation between model and view, as with for example the cards.
 
-It is probably wize to go all in on MobX and remove all setState calls from the application.
+It is probably wise to go all in on MobX and remove all setState calls from the application.
 
-Designing for the iPhone X is tricky because 1) it has rounded corners, so you can get buttons that are cut off and 2) it has a bar at the bottom of the screen to close the app. The design has to take account of both things manually.
+Designing for the iPhone X is tricky for two reasons:  
+1) it has rounded corners, so you can get buttons that are cut off 
+2) it has a bar at the bottom of the screen to close the app. 
+
+The design has to take account of both things manually.
 
 ## Links
 
