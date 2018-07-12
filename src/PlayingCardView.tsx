@@ -222,27 +222,6 @@ export class PlayingCardView extends Component<Props> {
         suit={this.props.card.suit}
       />
     )
-    // switch (this.props.card.suit) {
-    //   case Suit.Clubs:
-    //     return (
-    //       <Club size={size}/>
-    //     )
-
-    //   case Suit.Diamonds:
-    //     return (
-    //       <Diamond size={size}/>
-    //     )
-
-    //   case Suit.Hearts:
-    //     return (
-    //       <Heart size={size}/>
-    //     )
-
-    //   case Suit.Spades:
-    //     return (
-    //       <Spade size={size}/>
-    //     )
-    // }
   }
 
   private suitColor(): string {
