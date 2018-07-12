@@ -36,35 +36,13 @@ export default class MainView extends Component {
   }
 
   public render() {
-    const headerStyle: TextStyle = {
-      backgroundColor: Settings.instance.colors.mainBackgroundColor,
-      color: 'white',
-      fontWeight: '600',
-      paddingBottom: 4,
-      paddingTop: 4,
-      textAlign: 'center',
-      zIndex: 10 // TODO: Figure out why this is necessary.
-    }
-
-    const mainViewStyle: ViewStyle = {
-      backgroundColor: Settings.instance.colors.mainBackgroundColor,
-      flex: 1,
-      flexDirection: 'column'
-    }
-
-    const gridWrapperViewStyle: ViewStyle = {
-      alignItems: 'center',
-      flex: 1,
-      justifyContent: 'center'
-    }
-
     return (
-      <View style={mainViewStyle}>
+      <View style={this.getMainStyle()}>
         <StatusBar hidden={true} />
-        <Text style={headerStyle}>
+        <Text style={this.getHeaderStyle()}>
           Desert Walk
         </Text>
-        <View style={gridWrapperViewStyle}>
+        <View style={this.getGridWrapperStyle()}>
           <Image
             source={require('./50713-transparent.png')}
             style={{
@@ -80,5 +58,33 @@ export default class MainView extends Component {
         <FooterView/>
       </View>
     )
+  }
+
+  private getGridWrapperStyle(): ViewStyle {
+    return {
+      alignItems: 'center',
+      flex: 1,
+      justifyContent: 'center'
+    }
+  }
+
+  private getHeaderStyle(): TextStyle {
+    return {
+      backgroundColor: Settings.instance.colors.mainBackgroundColor,
+      color: 'white',
+      fontWeight: '600',
+      paddingBottom: 4,
+      paddingTop: 4,
+      textAlign: 'center',
+      zIndex: 10 // TODO: Figure out why this is necessary.
+    }
+  }
+
+  private getMainStyle(): ViewStyle {
+    return {
+      backgroundColor: Settings.instance.colors.mainBackgroundColor,
+      flex: 1,
+      flexDirection: 'column'
+    }
   }
 }
