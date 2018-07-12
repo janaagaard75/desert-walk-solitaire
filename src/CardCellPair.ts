@@ -1,7 +1,7 @@
+import { Card } from './PlayingCard'
 import { Cell } from './Cell'
-import { PlayingCard } from './PlayingCard'
 
 export interface CardCellPair {
-  card: PlayingCard
+  card: Card
   cell: Cell
 }

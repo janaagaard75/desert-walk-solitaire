@@ -1,18 +1,18 @@
 import { computed } from 'mobx'
 
+import { Card } from './PlayingCard'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { EmptyCell } from './EmptyCell'
 import { Game } from './Game'
 import { GridCell } from './GridCell'
 import { GridState } from './GridState'
-import { PlayingCard } from './PlayingCard'
 
 export class PositionedCard extends GridCell implements CardCellPair {
   constructor(
     cell: Cell,
     gridState: GridState,
-    public card: PlayingCard
+    public card: Card
   ) {
     super(cell, gridState)
   }
