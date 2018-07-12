@@ -23,72 +23,18 @@ interface Props {
 @observer
 export class PlayingCardView extends Component<Props> {
   public render() {
-    const shadowStyle: ViewStyle = {
-      borderRadius: Settings.instance.borderRadius,
-      height: Settings.instance.cardSize.height,
-      width: Settings.instance.cardSize.width
-    }
-    if (this.props.dragged) {
-      Object.assign(shadowStyle, {
-        shadowColor: Settings.instance.colors.card.shadowColor,
-        shadowOffset: Settings.instance.cardShadowOffset,
-        shadowOpacity: Settings.instance.cardShadowOpacity,
-        shadowRadius: Settings.instance.cardShadowRadius
-      })
-    }
-
-    const cardStyle: ViewStyle = {
-      alignItems: 'center',
-      backgroundColor: Settings.instance.colors.card.background,
-      borderColor: Settings.instance.colors.card.border,
-      borderRadius: Settings.instance.borderRadius,
-      borderStyle: 'solid',
-      borderWidth: Settings.instance.borderWidth,
-      height: Settings.instance.cardSize.height,
-      overflow: 'hidden',
-      padding: Settings.instance.cardPadding,
-      width: Settings.instance.cardSize.width
-    }
-
-    const valueStyle: TextStyle = {
-      color: Suit.color(this.props.card.suit),
-      fontSize: Settings.instance.cardValueFontSize,
-      fontWeight: '700',
-      left: Settings.instance.cardValueLeft,
-      letterSpacing: Settings.instance.cardValueLetterSpacing,
-      position: 'absolute',
-      textAlign: 'center',
-      top: Settings.instance.cardValueTop,
-      width: Settings.instance.cardValueWidth // Make space for the two digits in '10'.
-    }
-
-    const suitStyle: ViewStyle = {
-      left: Settings.instance.cardSuitLeft,
-      position: 'absolute',
-      top: Settings.instance.cardSuitTop
-    }
-
-    const overlayStyle: ViewStyle = {
-      backgroundColor: '#000',
-      borderRadius: Settings.instance.borderRadius,
-      height: Settings.instance.cardSize.height,
-      opacity: this.overlayOpacity(),
-      position: 'absolute',
-      width: Settings.instance.cardSize.width
-    }
-
     return (
-      <View style={shadowStyle}>
-        <View style={cardStyle}>
-          <Text style={valueStyle}>
+      <View style={this.getShadowStyle()}>
+        <View style={this.getCardStyle()}>
+          <Text style={this.getValueStyle()}>
             {this.props.card.displayValue}
           </Text>
-          <View style={suitStyle}>
+          <View style={this.getSuitStyle()}>
             {this.suit(Settings.instance.cardSuitSize)}
           </View>
           {this.getSmallSuits()}
         </View>
-        <View style={overlayStyle}/>
+        <View style={this.getOverlayStyle()}/>
       </View>
     )
   }
@@ -114,6 +60,50 @@ export class PlayingCardView extends Component<Props> {
     }
 
     return 0.3
+  }
+
+  private getCardStyle(): ViewStyle {
+    return {
+      alignItems: 'center',
+      backgroundColor: Settings.instance.colors.card.background,
+      borderColor: Settings.instance.colors.card.border,
+      borderRadius: Settings.instance.borderRadius,
+      borderStyle: 'solid',
+      borderWidth: Settings.instance.borderWidth,
+      height: Settings.instance.cardSize.height,
+      overflow: 'hidden',
+      padding: Settings.instance.cardPadding,
+      width: Settings.instance.cardSize.width
+    }
+  }
+
+  private getOverlayStyle(): ViewStyle {
+    return {
+      backgroundColor: '#000',
+      borderRadius: Settings.instance.borderRadius,
+      height: Settings.instance.cardSize.height,
+      opacity: this.overlayOpacity(),
+      position: 'absolute',
+      width: Settings.instance.cardSize.width
+    }
+  }
+
+  private getShadowStyle(): ViewStyle {
+    const shadowStyle: ViewStyle = {
+      borderRadius: Settings.instance.borderRadius,
+      height: Settings.instance.cardSize.height,
+      width: Settings.instance.cardSize.width
+    }
+    if (this.props.dragged) {
+      Object.assign(shadowStyle, {
+        shadowColor: Settings.instance.colors.card.shadowColor,
+        shadowOffset: Settings.instance.cardShadowOffset,
+        shadowOpacity: Settings.instance.cardShadowOpacity,
+        shadowRadius: Settings.instance.cardShadowRadius
+      })
+    }
+
+    return shadowStyle
   }
 
   private getSmallSuits() {
@@ -213,6 +203,28 @@ export class PlayingCardView extends Component<Props> {
         {this.suit(suitSize)}
       </View>
     )
+  }
+
+  private getSuitStyle(): ViewStyle {
+    return {
+      left: Settings.instance.cardSuitLeft,
+      position: 'absolute',
+      top: Settings.instance.cardSuitTop
+    }
+  }
+
+  private getValueStyle(): TextStyle {
+    return {
+      color: Suit.color(this.props.card.suit),
+      fontSize: Settings.instance.cardValueFontSize,
+      fontWeight: '700',
+      left: Settings.instance.cardValueLeft,
+      letterSpacing: Settings.instance.cardValueLetterSpacing,
+      position: 'absolute',
+      textAlign: 'center',
+      top: Settings.instance.cardValueTop,
+      width: Settings.instance.cardValueWidth // Make space for the two digits in '10'.
+    }
   }
 
   private suit(size: number): JSX.Element {
