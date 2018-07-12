@@ -32,7 +32,7 @@ export class PlayingCard {
 
   @computed
   public get key(): string {
-    const key = this.displayValue + Suit.toString(this.suit)
+    const key = this.displayValue + Suit.character(this.suit)
     return key
   }
 }

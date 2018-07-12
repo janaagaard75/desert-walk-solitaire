@@ -9,6 +9,15 @@ export enum Suit {
 
 // tslint:disable-next-line:no-namespace
 export namespace Suit {
+  export const character = (suit: Suit): string => {
+    switch (suit) {
+      case Suit.Clubs: return '♣'
+      case Suit.Diamonds: return '♦'
+      case Suit.Hearts: return '♥'
+      case Suit.Spades: return '♠'
+    }
+  }
+
   export const color = (suit: Suit): string => {
     switch (suit) {
       case Suit.Clubs:
@@ -22,15 +31,6 @@ export namespace Suit {
 
       case Suit.Spades:
         return Settings.instance.colors.card.spades
-    }
-  }
-
-  export const toString = (suit: Suit): string => {
-    switch (suit) {
-      case Suit.Clubs: return '♣'
-      case Suit.Diamonds: return '♦'
-      case Suit.Hearts: return '♥'
-      case Suit.Spades: return '♠'
     }
   }
 }
