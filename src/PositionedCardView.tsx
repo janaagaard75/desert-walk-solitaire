@@ -6,11 +6,11 @@ import { observer } from 'mobx-react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
-import { Settings } from './Settings'
-import { PositionedCard } from './PositionedCard'
-import { Point } from './Point'
-import { PlayingCardView } from './PlayingCardView'
+import { CardView } from './PlayingCardView'
 import { Game } from './Game'
+import { Point } from './Point'
+import { PositionedCard } from './PositionedCard'
+import { Settings } from './Settings'
 
 interface Props {
   occupiedCell: PositionedCard
@@ -90,7 +90,7 @@ export class PositionedCardView extends Component<Props, State> {
     })
 
     this.animatedPosition.addListener(position => {
-      const boundary = PlayingCardView.getBoundary(new Point(position.x, position.y))
+      const boundary = CardView.getBoundary(new Point(position.x, position.y))
       Game.instance.cardDragged(boundary)
     })
   }
@@ -145,7 +145,7 @@ export class PositionedCardView extends Component<Props, State> {
         style={style}
         {...panHandlers}
       >
-        <PlayingCardView
+        <CardView
           card={this.props.occupiedCell.card}
           correctlyPlaced={this.props.occupiedCell.correctlyPlaced}
           draggable={this.props.occupiedCell.draggable}

@@ -1,12 +1,12 @@
 import { computed } from 'mobx'
 
-import { Rectangle } from './Rectangle'
-import { PositionedCard } from './PositionedCard'
-import { Point } from './Point'
-import { PlayingCardView } from './PlayingCardView'
-import { GridState } from './GridState'
-import { EmptyCell } from './EmptyCell'
+import { CardView } from './PlayingCardView'
 import { Cell } from './Cell'
+import { EmptyCell } from './EmptyCell'
+import { GridState } from './GridState'
+import { Point } from './Point'
+import { PositionedCard } from './PositionedCard'
+import { Rectangle } from './Rectangle'
 
 export abstract class GridCell {
   constructor(
@@ -16,7 +16,7 @@ export abstract class GridCell {
 
   @computed
   public get boundary(): Rectangle {
-    const boundary = PlayingCardView.getBoundary(this.position)
+    const boundary = CardView.getBoundary(this.position)
     return boundary
   }
 

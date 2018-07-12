@@ -21,7 +21,7 @@ interface Props {
 }
 
 @observer
-export class PlayingCardView extends Component<Props> {
+export class CardView extends Component<Props> {
   public render() {
     return (
       <View style={this.getShadowStyle()}>
