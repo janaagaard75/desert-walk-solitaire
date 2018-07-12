@@ -3,7 +3,6 @@ import { Component } from 'react'
 import { observer } from 'mobx-react'
 import { Svg } from 'expo'
 
-import { Settings } from './Settings'
 import { Suit } from './Suit'
 
 interface Props {
