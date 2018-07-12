@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Component } from 'react'
 import { Dimensions } from 'react-native'
 import { Image } from 'react-native'
+import { isIphoneX } from 'react-native-iphone-x-helper'
 import { observer } from 'mobx-react'
 import { ScreenOrientation } from 'expo'
 import { StatusBar } from 'react-native'
@@ -56,6 +57,16 @@ export default class MainView extends Component {
           <GridView/>
         </View>
         <FooterView/>
+        {isIphoneX()
+          ?
+            <View
+              style={{
+                height: 12
+              }}
+            />
+          :
+            undefined
+        }
       </View>
     )
   }
