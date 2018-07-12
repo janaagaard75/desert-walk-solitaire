@@ -1,6 +1,6 @@
 import { computed } from 'mobx'
 
-import { Card } from './PlayingCard'
+import { Card } from './Card'
 import { CardValue } from './CardValue'
 import { Settings } from './Settings'
 import { Suit } from './Suit'

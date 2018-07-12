@@ -1,6 +1,6 @@
 import { computed } from 'mobx'
 
-import { Card } from './PlayingCard'
+import { Card } from './Card'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { EmptyCellState } from './EmptyCellState'

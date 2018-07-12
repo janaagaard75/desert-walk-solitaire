@@ -6,7 +6,7 @@ import { observer } from 'mobx-react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
-import { CardView } from './PlayingCardView'
+import { CardView } from './CardView'
 import { Game } from './Game'
 import { Point } from './Point'
 import { PositionedCard } from './PositionedCard'
