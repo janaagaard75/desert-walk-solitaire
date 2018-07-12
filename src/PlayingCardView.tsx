@@ -51,7 +51,7 @@ export class PlayingCardView extends Component<Props> {
     }
 
     const valueStyle: TextStyle = {
-      color: this.suitColor(),
+      color: Suit.color(this.props.card.suit),
       fontSize: Settings.instance.cardValueFontSize,
       fontWeight: '700',
       left: Settings.instance.cardValueLeft,
@@ -222,21 +222,5 @@ export class PlayingCardView extends Component<Props> {
         suit={this.props.card.suit}
       />
     )
-  }
-
-  private suitColor(): string {
-    switch (this.props.card.suit) {
-      case Suit.Clubs:
-        return Settings.instance.colors.card.clubs
-
-      case Suit.Diamonds:
-        return Settings.instance.colors.card.diamonds
-
-      case Suit.Hearts:
-        return Settings.instance.colors.card.hearts
-
-      case Suit.Spades:
-        return Settings.instance.colors.card.spades
-    }
   }
 }

@@ -23,27 +23,11 @@ export class SuitView extends Component<Props, {}> {
         <Svg.G>
           <Svg.Path
             d={SuitView.getPath(this.props.suit)}
-            fill={SuitView.getColor(this.props.suit)}
+            fill={Suit.color(this.props.suit)}
           />
         </Svg.G>
       </Svg>
     )
-  }
-
-  private static getColor(suit: Suit): string {
-    switch (suit) {
-      case Suit.Clubs:
-        return Settings.instance.colors.card.clubs
-
-      case Suit.Diamonds:
-        return Settings.instance.colors.card.diamonds
-
-      case Suit.Hearts:
-        return Settings.instance.colors.card.hearts
-
-      case Suit.Spades:
-        return Settings.instance.colors.card.spades
-    }
   }
 
   private static getPath(suit: Suit): string {

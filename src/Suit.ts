@@ -1,3 +1,5 @@
+import { Settings } from './Settings'
+
 export enum Suit {
   Clubs,
   Diamonds,
@@ -7,6 +9,22 @@ export enum Suit {
 
 // tslint:disable-next-line:no-namespace
 export namespace Suit {
+  export const color = (suit: Suit): string => {
+    switch (suit) {
+      case Suit.Clubs:
+        return Settings.instance.colors.card.clubs
+
+      case Suit.Diamonds:
+        return Settings.instance.colors.card.diamonds
+
+      case Suit.Hearts:
+        return Settings.instance.colors.card.hearts
+
+      case Suit.Spades:
+        return Settings.instance.colors.card.spades
+    }
+  }
+
   export const toString = (suit: Suit): string => {
     switch (suit) {
       case Suit.Clubs: return '♣'
