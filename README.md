@@ -17,6 +17,7 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## TODO
 
+* Remove highlight of target cell when a draggable card is let go.
 * Animate the cards when they are dealt.
 * Game lost screen.
 * Game won screen.
@@ -55,9 +56,9 @@ Right now the models are separated from the views, but this actually not be a go
 
 It is probably wise to go all in on MobX and remove all setState calls from the application.
 
-Designing for the iPhone X is tricky for two reasons:  
-1) it has rounded corners, so you can get buttons that are cut off 
-2) it has a bar at the bottom of the screen to close the app. 
+Designing for the iPhone X is tricky for two reasons:
+1) it has rounded corners, so you can get buttons that are cut off
+2) it has a bar at the bottom of the screen to close the app.
 
 The design has to take account of both things manually.
 
