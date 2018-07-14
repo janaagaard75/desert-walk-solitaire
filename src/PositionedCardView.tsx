@@ -13,7 +13,7 @@ import { PositionedCard } from './PositionedCard'
 import { Settings } from './Settings'
 
 interface Props {
-  occupiedCell: PositionedCard
+  positionedCard: PositionedCard
 }
 
 enum VisualState {
@@ -70,7 +70,7 @@ export class PositionedCardView extends Component<Props, State> {
         })
       },
       onPanResponderGrant: (e, gestureState) => {
-        Game.instance.cardDragStarted(this.props.occupiedCell)
+        Game.instance.cardDragStarted(this.props.positionedCard)
       },
       onPanResponderMove: (e, gestureEvent) => {
         Animated.event([
@@ -102,9 +102,9 @@ export class PositionedCardView extends Component<Props, State> {
   public componentWillReceiveProps(nextProps: Props) {
     if (Game.instance.animateNextTurn
       && Game.instance.animateFromPreviousPosition
-      && !this.props.occupiedCell.position.equals(nextProps.occupiedCell.position)
+      && !this.props.positionedCard.position.equals(nextProps.positionedCard.position)
     ) {
-      const animateFromOffset = this.props.occupiedCell.position.subtract(nextProps.occupiedCell.position)
+      const animateFromOffset = this.props.positionedCard.position.subtract(nextProps.positionedCard.position)
       this.animatedPosition.setValue(animateFromOffset)
 
       this.setState({
@@ -129,7 +129,7 @@ export class PositionedCardView extends Component<Props, State> {
   }
 
   public render() {
-    this.animatedPosition.setOffset(this.props.occupiedCell.position)
+    this.animatedPosition.setOffset(this.props.positionedCard.position)
 
     const style = {
       position: 'absolute',
@@ -137,7 +137,7 @@ export class PositionedCardView extends Component<Props, State> {
       zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
     }
 
-    const panHandlers = this.props.occupiedCell.draggable
+    const panHandlers = this.props.positionedCard.draggable
       ? this.panResponder.panHandlers
       : undefined
 
@@ -147,9 +147,9 @@ export class PositionedCardView extends Component<Props, State> {
         {...panHandlers}
       >
         <CardView
-          card={this.props.occupiedCell.card}
-          correctlyPlaced={this.props.occupiedCell.correctlyPlaced}
-          draggable={this.props.occupiedCell.draggable}
+          card={this.props.positionedCard.card}
+          correctlyPlaced={this.props.positionedCard.correctlyPlaced}
+          draggable={this.props.positionedCard.draggable}
           dragged={this.state.visualState !== VisualState.Idle}
         />
       </Animated.View>
