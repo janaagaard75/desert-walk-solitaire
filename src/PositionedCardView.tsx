@@ -72,7 +72,7 @@ export class PositionedCardView extends Component<Props, State> {
       onPanResponderGrant: (e, gestureState) => {
         Game.instance.cardDragStarted(this.props.occupiedCell)
       },
-      onPanResponderMove:
+      onPanResponderMove: (e, gestureEvent) => {
         Animated.event([
           // tslint:disable-next-line:no-null-keyword
           null as any,
@@ -80,7 +80,8 @@ export class PositionedCardView extends Component<Props, State> {
             dx: this.animatedPosition.x,
             dy: this.animatedPosition.y
           }
-        ]),
+        ])(e, gestureEvent)
+      },
       onPanResponderStart: (e, gestureState) => {
         this.setState({
           visualState: VisualState.Dragging
