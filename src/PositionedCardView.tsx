@@ -39,6 +39,10 @@ export class PositionedCardView extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
+        if (gestureState.dx === 0 && gestureState.dy === 0) {
+          this.props.positionedCard.moveToTarget()
+        }
+
         const dropOffset = Game.instance.cardDropped()
 
         if (dropOffset !== undefined) {

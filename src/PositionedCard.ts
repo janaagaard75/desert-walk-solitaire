@@ -41,4 +41,9 @@ export class PositionedCard extends GridCell implements CardCellPair {
     const draggable = Game.instance.currentGridState.draggableCards.some(card => card === this.card)
     return draggable
   }
+
+  /** Moves the card to the first availble target. This is only called on cards that are draggable. */
+  public moveToTarget(): void {
+
+  }
 }
