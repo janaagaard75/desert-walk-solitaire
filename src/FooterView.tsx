@@ -17,7 +17,7 @@ interface State {
   confirmModalVisible: boolean
 }
 
-enum ButtonState {
+enum TouchableState {
   Disabled,
   Enabled,
   Hidden
@@ -85,8 +85,8 @@ export class FooterView extends Component<{}, State> {
     )
   }
 
-  private renderIcon(name: 'shuffle', handlePress: () => void, state: ButtonState) {
-    const color = state === ButtonState.Enabled ? '#99f' : '#ccc'
+  private renderIcon(name: 'shuffle', handlePress: () => void, state: TouchableState) {
+    const color = state === TouchableState.Enabled ? '#99f' : '#ccc'
 
     return (
       <View
@@ -97,13 +97,13 @@ export class FooterView extends Component<{}, State> {
           width: '16.666%'
         }}
       >
-        {state === ButtonState.Hidden
+        {state === TouchableState.Hidden
           ?
             undefined
           :
             <TouchableOpacity
               onPress={handlePress}
-              disabled={state === ButtonState.Disabled}
+              disabled={state === TouchableState.Disabled}
             >
               <Entypo
                 color={color}
@@ -168,19 +168,19 @@ export class FooterView extends Component<{}, State> {
     })
   }
 
-  private shuffleButtonEnabled(buttonNumber: number): ButtonState {
+  private shuffleButtonEnabled(buttonNumber: number): TouchableState {
     const buttonNumberToEnable = Game.instance.shuffles + 1
 
     if (buttonNumber < buttonNumberToEnable) {
-      return ButtonState.Hidden
+      return TouchableState.Hidden
     }
 
     if (buttonNumber === buttonNumberToEnable
       && Game.instance.gameStatus === GameState.Stuck) {
-      return ButtonState.Enabled
+      return TouchableState.Enabled
     }
 
-    return ButtonState.Disabled
+    return TouchableState.Disabled
   }
 
   private startOver() {
