@@ -12,7 +12,7 @@ export class MoveTurn extends Turn {
   }
 
   public performTurn(gridState: GridState): GridState {
-    const fromPair = gridState.getOccupiedCellFromCell(this.from)
+    const fromPair = gridState.getPositionedCardFromCell(this.from)
     if (fromPair === undefined) {
       throw new Error('Could not find the \'from\' cell.')
     }
@@ -20,12 +20,12 @@ export class MoveTurn extends Turn {
       throw new Error('The \'from\' cell must have a card.')
     }
 
-    const toPair = gridState.getOccupiedCellFromCell(this.to)
+    const toPair = gridState.getPositionedCardFromCell(this.to)
     if (toPair !== undefined) {
       throw new Error('The \'to\' cell is already defined.')
     }
 
-    const newCardCellPairs = gridState.occupiedCells
+    const newCardCellPairs = gridState.positionedCards
       .map(pair => {
         return {
           card: pair.card,

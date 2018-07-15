@@ -214,6 +214,16 @@ export class Game {
     return dropOffset
   }
 
+  /** Returns a vector pointing from the source cell to the target cell, used to animate the move. */
+  public moveCardToTarget(positionedCard: PositionedCard): Point {
+    const targetCell = this.targetCells[0]
+    const moveTurn = new MoveTurn(positionedCard.cell, targetCell)
+    this.performTurn(moveTurn)
+
+    const offset = positionedCard.cell.position.subtract(targetCell.position)
+    return offset
+  }
+
   public replay() {
     this.setCurrentStateIndex(0, false)
 

@@ -1,12 +1,12 @@
 import { computed } from 'mobx'
 import { observable } from 'mobx'
 
+import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { EmptyCell } from './EmptyCell'
 import { Grid } from './Grid'
-import { PlayingCard } from './PlayingCard'
 import { PositionedCard } from './PositionedCard'
 import { Turn } from './turn/Turn'
 
@@ -19,31 +19,31 @@ export class GridState {
     }
 
     cardCellPairs.forEach(pair => {
-      this.occupiedCells.push(new PositionedCard(pair.cell, this, pair.card))
+      this.positionedCards.push(new PositionedCard(pair.cell, this, pair.card))
     })
   }
 
   @observable
-  public readonly occupiedCells: Array<PositionedCard> = []
+  public readonly positionedCards: Array<PositionedCard> = []
 
   @computed
   public get correctlyPositionedCards(): Array<PositionedCard> {
-    const correctlyPositionedCards = this.occupiedCells
+    const correctlyPositionedCards = this.positionedCards
       .filter(pair => pair.correctlyPlaced)
     return correctlyPositionedCards
   }
 
   @computed
-  public get draggableCards(): Array<PlayingCard> {
+  public get draggableCards(): Array<Card> {
     const draggableNonAces = this.emptyCells
       .map(emptyCell => emptyCell.cell.cellToTheLeft)
-      .map(cellToTheLeft => this.getOccupiedCellFromCell(cellToTheLeft))
-      .map(occupiedCell => occupiedCell === undefined ? undefined : occupiedCell.card)
+      .map(cellToTheLeft => this.getPositionedCardFromCell(cellToTheLeft))
+      .map(positionedCard => positionedCard === undefined ? undefined : positionedCard.card)
       .map(card => card === undefined ? undefined : card.next)
-      .filter((nextCard: PlayingCard | undefined): nextCard is PlayingCard => nextCard !== undefined)
+      .filter((nextCard: Card | undefined): nextCard is Card => nextCard !== undefined)
 
-    const draggableAces = this.occupiedCells
-      .filter(occupiedCell => Deck.instance.theFourAces.includes(occupiedCell.card))
+    const draggableAces = this.positionedCards
+      .filter(positionedCard => Deck.instance.theFourAces.includes(positionedCard.card))
       .filter(cellWithAce => !cellWithAce.correctlyPlaced)
       .map(cellWithAce => cellWithAce.card)
 
@@ -54,7 +54,7 @@ export class GridState {
   @computed
   public get emptyCells(): Array<EmptyCell> {
     const emptyCells = Grid.instance.cells
-      .filter(cell => this.getOccupiedCellFromCell(cell) === undefined)
+      .filter(cell => this.getPositionedCardFromCell(cell) === undefined)
       .map(cell => new EmptyCell(cell, this))
 
     return emptyCells
@@ -62,7 +62,7 @@ export class GridState {
 
   @computed
   public get incorrectlyPositionedCards(): Array<PositionedCard> {
-    const incorrectlyPositionedCards = this.occupiedCells
+    const incorrectlyPositionedCards = this.positionedCards
       .filter(pair => !pair.correctlyPlaced)
     return incorrectlyPositionedCards
   }
@@ -73,9 +73,9 @@ export class GridState {
   }
 
   public getGridCellFromCell(cell: Cell): EmptyCell | PositionedCard {
-    const occupiedCell = this.getOccupiedCellFromCell(cell)
-    if (occupiedCell !== undefined) {
-      return occupiedCell
+    const positionedCard = this.getPositionedCardFromCell(cell)
+    if (positionedCard !== undefined) {
+      return positionedCard
     }
 
     const emptyCell = this.emptyCells.find(ec => ec.cell === cell)
@@ -86,8 +86,8 @@ export class GridState {
     return emptyCell
   }
 
-  public getOccupiedCellFromCard(card: PlayingCard): PositionedCard {
-    const match = this.occupiedCells.find(pair => pair.card === card)
+  public getPositionedCardFromCard(card: Card): PositionedCard {
+    const match = this.positionedCards.find(pair => pair.card === card)
 
     if (match === undefined) {
       throw new Error(`Could not find pair with card ${card.key}.`)
@@ -96,12 +96,12 @@ export class GridState {
     return match
   }
 
-  public getOccupiedCellFromCell(cell: Cell | undefined): PositionedCard | undefined {
+  public getPositionedCardFromCell(cell: Cell | undefined): PositionedCard | undefined {
     if (cell === undefined) {
       return undefined
     }
 
-    const match = this.occupiedCells.find(pair => pair.cell === cell)
+    const match = this.positionedCards.find(pair => pair.cell === cell)
     return match
   }
 }

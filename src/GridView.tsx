@@ -20,10 +20,10 @@ export class GridView extends Component {
 
     return (
       <View style={gridViewStyle}>
-        {Game.instance.currentGridState.occupiedCells.map(occupiedCell =>
+        {Game.instance.currentGridState.positionedCards.map(positionedCard =>
           <PositionedCardView
-            key={occupiedCell.card.key}
-            occupiedCell={occupiedCell}
+            key={positionedCard.card.key}
+            positionedCard={positionedCard}
           />
         )}
         {Game.instance.currentGridState.emptyCells.map(emptyCell =>

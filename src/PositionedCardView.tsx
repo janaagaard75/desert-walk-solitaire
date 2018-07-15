@@ -6,14 +6,14 @@ import { observer } from 'mobx-react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
-import { Settings } from './Settings'
-import { PositionedCard } from './PositionedCard'
-import { Point } from './Point'
-import { PlayingCardView } from './PlayingCardView'
+import { CardView } from './CardView'
 import { Game } from './Game'
+import { Point } from './Point'
+import { PositionedCard } from './PositionedCard'
+import { Settings } from './Settings'
 
 interface Props {
-  occupiedCell: PositionedCard
+  positionedCard: PositionedCard
 }
 
 enum VisualState {
@@ -39,10 +39,16 @@ export class PositionedCardView extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
-        const dropOffset = Game.instance.cardDropped()
+        let animationVector: Point | undefined
+        if (gestureState.dx === 0 && gestureState.dy === 0) {
+          animationVector = this.props.positionedCard.moveToTarget()
+        }
+        else {
+          animationVector = Game.instance.cardDropped()
+        }
 
-        if (dropOffset !== undefined) {
-          this.animatedPosition.setValue(dropOffset)
+        if (animationVector !== undefined) {
+          this.animatedPosition.setValue(animationVector)
         }
 
         this.setState({
@@ -70,9 +76,9 @@ export class PositionedCardView extends Component<Props, State> {
         })
       },
       onPanResponderGrant: (e, gestureState) => {
-        Game.instance.cardDragStarted(this.props.occupiedCell)
+        Game.instance.cardDragStarted(this.props.positionedCard)
       },
-      onPanResponderMove:
+      onPanResponderMove: (e, gestureEvent) => {
         Animated.event([
           // tslint:disable-next-line:no-null-keyword
           null as any,
@@ -80,7 +86,8 @@ export class PositionedCardView extends Component<Props, State> {
             dx: this.animatedPosition.x,
             dy: this.animatedPosition.y
           }
-        ]),
+        ])(e, gestureEvent)
+      },
       onPanResponderStart: (e, gestureState) => {
         this.setState({
           visualState: VisualState.Dragging
@@ -90,7 +97,7 @@ export class PositionedCardView extends Component<Props, State> {
     })
 
     this.animatedPosition.addListener(position => {
-      const boundary = PlayingCardView.getBoundary(new Point(position.x, position.y))
+      const boundary = CardView.getBoundary(new Point(position.x, position.y))
       Game.instance.cardDragged(boundary)
     })
   }
@@ -101,9 +108,9 @@ export class PositionedCardView extends Component<Props, State> {
   public componentWillReceiveProps(nextProps: Props) {
     if (Game.instance.animateNextTurn
       && Game.instance.animateFromPreviousPosition
-      && !this.props.occupiedCell.position.equals(nextProps.occupiedCell.position)
+      && !this.props.positionedCard.position.equals(nextProps.positionedCard.position)
     ) {
-      const animateFromOffset = this.props.occupiedCell.position.subtract(nextProps.occupiedCell.position)
+      const animateFromOffset = this.props.positionedCard.position.subtract(nextProps.positionedCard.position)
       this.animatedPosition.setValue(animateFromOffset)
 
       this.setState({
@@ -128,7 +135,7 @@ export class PositionedCardView extends Component<Props, State> {
   }
 
   public render() {
-    this.animatedPosition.setOffset(this.props.occupiedCell.position)
+    this.animatedPosition.setOffset(this.props.positionedCard.position)
 
     const style = {
       position: 'absolute',
@@ -136,7 +143,7 @@ export class PositionedCardView extends Component<Props, State> {
       zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
     }
 
-    const panHandlers = this.props.occupiedCell.draggable
+    const panHandlers = this.props.positionedCard.draggable
       ? this.panResponder.panHandlers
       : undefined
 
@@ -145,10 +152,10 @@ export class PositionedCardView extends Component<Props, State> {
         style={style}
         {...panHandlers}
       >
-        <PlayingCardView
-          card={this.props.occupiedCell.card}
-          correctlyPlaced={this.props.occupiedCell.correctlyPlaced}
-          draggable={this.props.occupiedCell.draggable}
+        <CardView
+          card={this.props.positionedCard.card}
+          correctlyPlaced={this.props.positionedCard.correctlyPlaced}
+          draggable={this.props.positionedCard.draggable}
           dragged={this.state.visualState !== VisualState.Idle}
         />
       </Animated.View>

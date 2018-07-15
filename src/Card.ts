@@ -3,11 +3,11 @@ import { computed } from 'mobx'
 import { CardValue } from './CardValue'
 import { Suit } from './Suit'
 
-export class PlayingCard {
+export class Card {
   constructor(
     public readonly suit: Suit,
     public readonly value: CardValue,
-    public readonly next: PlayingCard | undefined
+    public readonly next: Card | undefined
   ) { }
 
   @computed

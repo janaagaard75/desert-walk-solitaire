@@ -40,19 +40,6 @@ export class FooterView extends Component<{}, State> {
       textAlign: 'center'
     }
 
-    const textStyle: TextStyle = {
-      backgroundColor: 'transparent',
-      color: 'white',
-      flex: 1,
-      fontWeight: '700'
-    }
-
-    const rightAlignedTextStyle: TextStyle = {
-      ...textStyle, ...{
-        textAlign: 'right'
-      }
-    }
-
     return (
       <View
         style={{
@@ -60,20 +47,6 @@ export class FooterView extends Component<{}, State> {
           paddingTop: 4
         }}
       >
-        <View
-          style={{
-            flexDirection: 'row',
-            marginLeft: 10,
-            marginRight: 10
-          }}
-        >
-          <Text style={textStyle}>
-            Moves: {Game.instance.numberOfMoveTurns}
-          </Text>
-          <Text style={rightAlignedTextStyle}>
-            Shuffles: {Game.instance.shuffles}
-          </Text>
-        </View>
         <View
           style={{
             backgroundColor: Settings.instance.colors.mainBackgroundColor,
