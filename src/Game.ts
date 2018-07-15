@@ -214,6 +214,12 @@ export class Game {
     return dropOffset
   }
 
+  public moveCardToTarget(positionedCard: PositionedCard): void {
+    const targetCell = this.targetCells[0]
+    const moveTurn = new MoveTurn(positionedCard.cell, targetCell)
+    this.performTurn(moveTurn)
+  }
+
   public replay() {
     this.setCurrentStateIndex(0, false)
 

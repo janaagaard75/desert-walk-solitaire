@@ -44,6 +44,6 @@ export class PositionedCard extends GridCell implements CardCellPair {
 
   /** Moves the card to the first availble target. This is only called on cards that are draggable. */
   public moveToTarget(): void {
-
+    Game.instance.moveCardToTarget(this)
   }
 }
