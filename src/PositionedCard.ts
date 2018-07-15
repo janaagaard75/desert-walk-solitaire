@@ -7,6 +7,7 @@ import { EmptyCell } from './EmptyCell'
 import { Game } from './Game'
 import { GridCell } from './GridCell'
 import { GridState } from './GridState'
+import { Point } from './Point'
 
 export class PositionedCard extends GridCell implements CardCellPair {
   constructor(
@@ -42,8 +43,8 @@ export class PositionedCard extends GridCell implements CardCellPair {
     return draggable
   }
 
-  /** Moves the card to the first availble target. This is only called on cards that are draggable. */
-  public moveToTarget(): void {
-    Game.instance.moveCardToTarget(this)
+  /** Moves the card to the first availble target. This is only called on cards that are draggable. Returns the vector used for the animating the move. */
+  public moveToTarget(): Point {
+    return Game.instance.moveCardToTarget(this)
   }
 }
