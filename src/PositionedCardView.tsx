@@ -39,13 +39,15 @@ export class PositionedCardView extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
-        let animationVector: Point | undefined
-        if (gestureState.dx === 0 && gestureState.dy === 0) {
-          animationVector = this.props.positionedCard.moveToTarget()
-        }
-        else {
-          animationVector = Game.instance.cardDropped()
-        }
+        const isPress = gestureState.dx === 0 && gestureState.dy === 0
+
+        const animationVector = isPress
+          ? this.props.positionedCard.moveToTarget()
+          : Game.instance.cardDropped()
+
+        const duration = isPress
+          ? Settings.instance.animation.turn.duration
+          : Settings.instance.animation.snap.duration
 
         if (animationVector !== undefined) {
           this.animatedPosition.setValue(animationVector)
@@ -63,7 +65,7 @@ export class PositionedCardView extends Component<Props, State> {
         Animated.timing(
           this.animatedPosition,
           {
-            duration: Settings.instance.animation.snap.duration,
+            duration: duration,
             easing: Easing.elastic(Settings.instance.animation.snap.elasticity),
             toValue: animationTargetValue
           }
