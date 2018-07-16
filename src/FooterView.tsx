@@ -55,7 +55,7 @@ export class FooterView extends Component<{}, State> {
           }}
         >
           {this.renderButton('Restart', () => this.confirmUnlessGameOver(), true)}
-          {this.renderButton('Replay', () => Game.instance.replay(), this.replayEnabled())}
+          {this.renderIcon('entypo', 'controller-fast-forward', () => Game.instance.replay(), this.replayEnabled() ? TouchableState.Enabled : TouchableState.Hidden)}
           {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
           {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
           {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
