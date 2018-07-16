@@ -91,7 +91,7 @@ export class FooterView extends Component<{}, State> {
     handlePress: () => void,
     state: TouchableState
   ) {
-    const color = state === TouchableState.Enabled ? '#99f' : '#ccc'
+    const color = state === TouchableState.Enabled ? '#9ff' : '#999'
 
     return (
       <View
