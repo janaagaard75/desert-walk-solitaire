@@ -140,13 +140,20 @@ export class Game {
 
   @computed
   public get undoEnabled(): boolean {
+    // TODO: isFirstState?
     const isNotFirstState = this.currentStateIndex >= 1
     const lastTurn = this.turns[this.currentStateIndex - 1]
 
-    const undoPossible = isNotFirstState
-      && lastTurn instanceof MoveTurn
-
+    const undoPossible = isNotFirstState && lastTurn instanceof MoveTurn
     return undoPossible
+  }
+
+  @computed
+  public get redoEnabled(): boolean {
+    // TODO: This is not correct.
+    // const isLastState = this.currentStateIndex === this.turns.length - 1
+    // return isLastState
+    return false
   }
 
   @computed
@@ -220,6 +227,10 @@ export class Game {
 
     const offset = positionedCard.cell.position.subtract(targetCell.position)
     return offset
+  }
+
+  public redo() {
+    this.setCurrentStateIndex(this.currentStateIndex + 1, true)
   }
 
   public replay() {

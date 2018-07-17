@@ -44,6 +44,7 @@ export class FooterView extends Component<{}, State> {
       <View
         style={{
           backgroundColor: Settings.instance.colors.mainBackgroundColor,
+          paddingBottom: 14, // TODO: Remove the need for this value. Tweaked manually to make it fit.
           paddingTop: 4
         }}
       >
@@ -54,12 +55,14 @@ export class FooterView extends Component<{}, State> {
             flexWrap: 'wrap'
           }}
         >
-          {this.renderIcon('fontAwesome', 'fast-backward', () => this.confirmUnlessGameOver(), TouchableState.Enabled)}
+          {/* TODO: Use fast-backward. Requires updating the icon library. */}
+          {this.renderIcon('fontAwesome', 'backward', () => this.confirmUnlessGameOver(), TouchableState.Enabled)}
           {this.renderIcon('entypo', 'controller-fast-forward', () => Game.instance.replay(), this.replayEnabled() ? TouchableState.Enabled : TouchableState.Hidden)}
           {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
           {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
           {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
-          {this.renderIcon('fontAwesome', 'undo', () => Game.instance.undo(), Game.instance.undoEnabled ? TouchableState.Enabled : TouchableState.Disabled)}
+          {this.renderIcon('fontAwesome', 'step-backward', () => Game.instance.undo(), Game.instance.undoEnabled ? TouchableState.Enabled : TouchableState.Disabled)}
+          {this.renderIcon('fontAwesome', 'step-forward', () => Game.instance.redo(), Game.instance.redoEnabled ? TouchableState.Enabled : TouchableState.Disabled)}
         </View>
         <Modal
           animationType="slide"
@@ -92,7 +95,7 @@ export class FooterView extends Component<{}, State> {
     state: TouchableState
   ) {
     const color = state === TouchableState.Enabled ? '#9ff' : '#999'
-    const numberOfIcons = 6
+    const numberOfIcons = 7
     const width = 1 / numberOfIcons * 100
 
     return (
