@@ -32,11 +32,11 @@ export class Settings {
     card: {
       background: '#fff',
       border: '#000',
-      clubs: '#000',
-      diamonds: '#f00',
-      hearts: '#f00',
+      clubs: '#018804',
+      diamonds: '#211ae9',
+      hearts: '#ea0001',
       shadowColor: '#000',
-      spades: '#000'
+      spades: '#0e0e0e'
     },
     gridBackgroundColor: '#464',
     mainBackgroundColor: '#333'
