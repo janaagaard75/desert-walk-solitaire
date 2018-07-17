@@ -54,7 +54,7 @@ export class FooterView extends Component<{}, State> {
             flexWrap: 'wrap'
           }}
         >
-          {this.renderButton('Restart', () => this.confirmUnlessGameOver(), true)}
+          {this.renderIcon('fontAwesome', 'fast-backward', () => this.confirmUnlessGameOver(), TouchableState.Enabled)}
           {this.renderIcon('entypo', 'controller-fast-forward', () => Game.instance.replay(), this.replayEnabled() ? TouchableState.Enabled : TouchableState.Hidden)}
           {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
           {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
@@ -148,23 +148,6 @@ export class FooterView extends Component<{}, State> {
       default:
         throw new Error(`The iconGroup '${iconGroup} is not supported.`)
     }
-  }
-
-  private renderButton(title: string, handlePress: () => void, enabled: boolean) {
-    return (
-      <View
-        style={{
-          backgroundColor: 'transparent',
-          width: '16.666%'
-        }}
-      >
-        <Button
-          onPress={handlePress}
-          disabled={!enabled}
-          title={title}
-        />
-      </View>
-    )
   }
 
   private confirmUnlessGameOver() {
