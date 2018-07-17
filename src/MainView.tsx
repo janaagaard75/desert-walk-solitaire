@@ -61,7 +61,7 @@ export default class MainView extends Component {
           ?
             <View
               style={{
-                height: 12
+                height: 15
               }}
             />
           :
