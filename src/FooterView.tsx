@@ -55,8 +55,7 @@ export class FooterView extends Component<{}, State> {
             flexWrap: 'wrap'
           }}
         >
-          {/* TODO: Use fast-backward. Requires updating the icon library. */}
-          {this.renderIcon('fontAwesome', 'backward', () => this.confirmUnlessGameOver(), TouchableState.Enabled)}
+          {this.renderIcon('fontAwesome', 'fast-backward', () => this.confirmUnlessGameOver(), TouchableState.Enabled)}
           {this.renderIcon('entypo', 'controller-fast-forward', () => Game.instance.replay(), this.replayEnabled() ? TouchableState.Enabled : TouchableState.Hidden)}
           {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
           {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
