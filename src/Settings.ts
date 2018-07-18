@@ -12,7 +12,7 @@ export class Settings {
   @observable public windowSize: Size = { height: 0, width: 0 }
 
   // Manually tweaked value.
-  private readonly menuBarsHeight = 92
+  private readonly footerHeight = 66
 
   public readonly animation = {
     replay: {
@@ -173,7 +173,7 @@ export class Settings {
   @computed
   private get availablePlayingFieldSize(): Size {
     return {
-      height: this.windowSize.height - this.menuBarsHeight,
+      height: this.windowSize.height - this.footerHeight,
       width: this.windowSize.width
     }
   }
