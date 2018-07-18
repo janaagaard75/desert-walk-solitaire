@@ -153,7 +153,7 @@ export class FooterView extends Component<{}, State> {
   }
 
   private confirmUnlessGameOver() {
-    switch (Game.instance.gameStatus) {
+    switch (Game.instance.gameState) {
       case GameState.GameLost:
       case GameState.GameWon:
         Game.instance.startOver()
@@ -165,7 +165,7 @@ export class FooterView extends Component<{}, State> {
         break
 
       default:
-        throw new Error(`GameStatus ${Game.instance.gameStatus} is not supported.`)
+        throw new Error(`Game state ${Game.instance.gameState} is not supported.`)
     }
   }
 
@@ -177,7 +177,7 @@ export class FooterView extends Component<{}, State> {
 
   // TODO: Make computed?
   private replayEnabled(): boolean {
-    const enabled = Game.instance.gameStatus === GameState.GameWon
+    const enabled = Game.instance.gameState === GameState.GameWon
     return enabled
   }
 
@@ -195,7 +195,7 @@ export class FooterView extends Component<{}, State> {
     }
 
     if (buttonNumber === buttonNumberToEnable
-      && Game.instance.gameStatus === GameState.Stuck) {
+      && Game.instance.gameState === GameState.Stuck) {
       return TouchableState.Enabled
     }
 
