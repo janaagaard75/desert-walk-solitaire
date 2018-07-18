@@ -141,9 +141,10 @@ export class Game {
   @computed
   public get undoEnabled(): boolean {
     const isFirstState = this.currentStateIndex === 0
-    const lastTurn = this.turns[this.currentStateIndex - 1]
+    const previousTurnWasMove = this.turns[this.currentStateIndex - 1] instanceof MoveTurn
+    const gameOver = this.gameStatus === GameState.GameLost
 
-    const undoPossible = !isFirstState && lastTurn instanceof MoveTurn
+    const undoPossible = !isFirstState && previousTurnWasMove && !gameOver
     return undoPossible
   }
 
