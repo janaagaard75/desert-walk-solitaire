@@ -149,10 +149,8 @@ export class Game {
 
   @computed
   public get redoEnabled(): boolean {
-    // TODO: This is not correct.
-    // const isLastState = this.currentStateIndex === this.turns.length - 1
-    // return isLastState
-    return false
+    const isLastState = this.currentStateIndex === this.turns.length
+    return !isLastState
   }
 
   @computed
