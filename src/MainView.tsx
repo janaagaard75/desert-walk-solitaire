@@ -6,8 +6,6 @@ import { isIphoneX } from 'react-native-iphone-x-helper'
 import { observer } from 'mobx-react'
 import { ScreenOrientation } from 'expo'
 import { StatusBar } from 'react-native'
-import { Text } from 'react-native'
-import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
@@ -40,9 +38,6 @@ export default class MainView extends Component {
     return (
       <View style={this.getMainStyle()}>
         <StatusBar hidden={true} />
-        <Text style={this.getHeaderStyle()}>
-          Desert Walk
-        </Text>
         <View style={this.getGridWrapperStyle()}>
           <Image
             source={require('./50713-transparent.png')}
@@ -61,7 +56,7 @@ export default class MainView extends Component {
           ?
             <View
               style={{
-                height: 12
+                height: 15
               }}
             />
           :
@@ -76,18 +71,6 @@ export default class MainView extends Component {
       alignItems: 'center',
       flex: 1,
       justifyContent: 'center'
-    }
-  }
-
-  private getHeaderStyle(): TextStyle {
-    return {
-      backgroundColor: Settings.instance.colors.mainBackgroundColor,
-      color: 'white',
-      fontWeight: '600',
-      paddingBottom: 4,
-      paddingTop: 4,
-      textAlign: 'center',
-      zIndex: 10 // TODO: Figure out why this is necessary.
     }
   }
 

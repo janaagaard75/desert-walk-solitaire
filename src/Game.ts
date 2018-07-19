@@ -73,7 +73,7 @@ export class Game {
   }
 
   @computed
-  public get gameStatus(): GameState {
+  public get gameState(): GameState {
     if (this.currentGridState.draggableCards.length >= 1) {
       return GameState.MovePossible
     }
@@ -140,13 +140,18 @@ export class Game {
 
   @computed
   public get undoEnabled(): boolean {
-    const isNotFirstState = this.currentStateIndex >= 1
-    const lastTurn = this.turns[this.currentStateIndex - 1]
+    const isFirstState = this.currentStateIndex === 0
+    const previousTurnWasMove = this.turns[this.currentStateIndex - 1] instanceof MoveTurn
+    const gameOver = this.gameState === GameState.GameLost
 
-    const undoPossible = isNotFirstState
-      && lastTurn instanceof MoveTurn
-
+    const undoPossible = !isFirstState && previousTurnWasMove && !gameOver
     return undoPossible
+  }
+
+  @computed
+  public get redoEnabled(): boolean {
+    const isLastState = this.currentStateIndex === this.turns.length
+    return !isLastState
   }
 
   @computed
@@ -220,6 +225,10 @@ export class Game {
 
     const offset = positionedCard.cell.position.subtract(targetCell.position)
     return offset
+  }
+
+  public redo() {
+    this.setCurrentStateIndex(this.currentStateIndex + 1, true)
   }
 
   public replay() {
@@ -298,7 +307,7 @@ export class Game {
       return
     }
 
-    if (this.gameStatus === GameState.GameLost || this.gameStatus === GameState.GameWon) {
+    if (this.gameState === GameState.GameLost || this.gameState === GameState.GameWon) {
       this.gameSummary.addFinalStep({
         cardsInPlace: this.currentGridState.correctlyPositionedCards.length,
         moves: this.numberOfMoveTurns

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Button, TouchableOpacity } from 'react-native'
 import { Component } from 'react'
 // tslint:disable-next-line:no-implicit-dependencies
-import { Entypo } from '@expo/vector-icons'
+import { FontAwesome, Entypo } from '@expo/vector-icons'
 import { Modal } from 'react-native'
 import { observer } from 'mobx-react'
 import { Text } from 'react-native'
@@ -17,7 +17,7 @@ interface State {
   confirmModalVisible: boolean
 }
 
-enum ButtonState {
+enum TouchableState {
   Disabled,
   Enabled,
   Hidden
@@ -44,6 +44,7 @@ export class FooterView extends Component<{}, State> {
       <View
         style={{
           backgroundColor: Settings.instance.colors.mainBackgroundColor,
+          paddingBottom: 14, // TODO: Remove the need for this value. Tweaked manually to make it fit.
           paddingTop: 4
         }}
       >
@@ -54,12 +55,13 @@ export class FooterView extends Component<{}, State> {
             flexWrap: 'wrap'
           }}
         >
-          {this.renderButton('Restart', () => this.confirmUnlessGameOver(), true)}
-          {this.renderButton('Replay', () => Game.instance.replay(), this.replayEnabled())}
-          {this.renderIcon('shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
-          {this.renderIcon('shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
-          {this.renderIcon('shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
-          {this.renderButton('Undo', () => Game.instance.undo(), Game.instance.undoEnabled)}
+          {this.renderIcon('fontAwesome', 'fast-backward', () => this.confirmUnlessGameOver(), TouchableState.Enabled)}
+          {this.renderIcon('entypo', 'controller-fast-forward', () => Game.instance.replay(), this.replayEnabled() ? TouchableState.Enabled : TouchableState.Hidden)}
+          {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
+          {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
+          {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
+          {this.renderIcon('fontAwesome', 'step-backward', () => Game.instance.undo(), Game.instance.undoEnabled ? TouchableState.Enabled : TouchableState.Disabled)}
+          {this.renderIcon('fontAwesome', 'step-forward', () => Game.instance.redo(), Game.instance.redoEnabled ? TouchableState.Enabled : TouchableState.Disabled)}
         </View>
         <Modal
           animationType="slide"
@@ -85,8 +87,15 @@ export class FooterView extends Component<{}, State> {
     )
   }
 
-  private renderIcon(name: 'shuffle', handlePress: () => void, state: ButtonState) {
-    const color = state === ButtonState.Enabled ? '#99f' : '#ccc'
+  private renderIcon(
+    iconGroup: string,
+    iconName: string,
+    handlePress: () => void,
+    state: TouchableState
+  ) {
+    const color = state === TouchableState.Enabled ? '#9ff' : '#999'
+    const numberOfIcons = 7
+    const width = 1 / numberOfIcons * 100
 
     return (
       <View
@@ -94,47 +103,57 @@ export class FooterView extends Component<{}, State> {
           alignItems: 'center',
           alignSelf: 'center',
           backgroundColor: 'transparent',
-          width: '16.666%'
+          width: `${width}%`
         }}
       >
-        {state === ButtonState.Hidden
+        {state === TouchableState.Hidden
           ?
             undefined
           :
             <TouchableOpacity
               onPress={handlePress}
-              disabled={state === ButtonState.Disabled}
+              disabled={state === TouchableState.Disabled}
             >
-              <Entypo
-                color={color}
-                name={name}
-                size={20}
-              />
+             {this.renderIcon2(iconGroup, iconName, color)}
             </TouchableOpacity>
         }
       </View>
     )
   }
 
-  private renderButton(title: string, handlePress: () => void, enabled: boolean) {
-    return (
-      <View
-        style={{
-          backgroundColor: 'transparent',
-          width: '16.666%'
-        }}
-      >
-        <Button
-          onPress={handlePress}
-          disabled={!enabled}
-          title={title}
-        />
-      </View>
-    )
+  private renderIcon2(
+    iconGroup: string,
+    iconName: string,
+    color: string
+  ) {
+    const iconSize = 20
+
+    switch (iconGroup){
+      case 'entypo':
+        return (
+          <Entypo
+            color={color}
+            name={iconName}
+            size={iconSize}
+          />
+        )
+
+      case 'fontAwesome':
+        return (
+          <FontAwesome
+            color={color}
+            name={iconName}
+            size={iconSize}
+          />
+        )
+
+      default:
+        throw new Error(`The iconGroup '${iconGroup} is not supported.`)
+    }
   }
 
   private confirmUnlessGameOver() {
-    switch (Game.instance.gameStatus) {
+    switch (Game.instance.gameState) {
       case GameState.GameLost:
       case GameState.GameWon:
         Game.instance.startOver()
@@ -146,7 +165,7 @@ export class FooterView extends Component<{}, State> {
         break
 
       default:
-        throw new Error(`GameStatus ${Game.instance.gameStatus} is not supported.`)
+        throw new Error(`Game state ${Game.instance.gameState} is not supported.`)
     }
   }
 
@@ -158,7 +177,7 @@ export class FooterView extends Component<{}, State> {
 
   // TODO: Make computed?
   private replayEnabled(): boolean {
-    const enabled = Game.instance.gameStatus === GameState.GameWon
+    const enabled = Game.instance.gameState === GameState.GameWon
     return enabled
   }
 
@@ -168,19 +187,19 @@ export class FooterView extends Component<{}, State> {
     })
   }
 
-  private shuffleButtonEnabled(buttonNumber: number): ButtonState {
+  private shuffleButtonEnabled(buttonNumber: number): TouchableState {
     const buttonNumberToEnable = Game.instance.shuffles + 1
 
     if (buttonNumber < buttonNumberToEnable) {
-      return ButtonState.Hidden
+      return TouchableState.Hidden
     }
 
     if (buttonNumber === buttonNumberToEnable
-      && Game.instance.gameStatus === GameState.Stuck) {
-      return ButtonState.Enabled
+      && Game.instance.gameState === GameState.Stuck) {
+      return TouchableState.Enabled
     }
 
-    return ButtonState.Disabled
+    return TouchableState.Disabled
   }
 
   private startOver() {

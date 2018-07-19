@@ -13,7 +13,7 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 5. Open the project in the iOS simulator* or...
    1. Install the Expo client on a mobile device and scan the QR code revealed by the Share button.
 
-*  It also possible to run the app in Android simulator, but I have not tried that yet.
+* It also possible to run the app in Android simulator, but I have not tried that yet.
 
 ## TODO
 
