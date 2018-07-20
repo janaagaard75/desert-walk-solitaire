@@ -17,17 +17,25 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## TODO
 
-- Remove highlight of target cell when a draggable card is let go.
-- Animate the cards when they are dealt.
+- Allow a few pixels movement when registering card presses.
+- Do not register as a card press if the card as been moved too far away from the starting position.
+- Remove highlight of targetable cells when a draggable card is let go.
+- Don't allow undo if the game has been won.
+- Automatically play the rapid animation when the game is won. Is this good enough for as a 'game won screen'?
 - Game lost screen.
-- Game won screen.
-  - Display a reward for winning. A rapid animation of all previous moves when a game is won could be an option.
+- Glow on pressable icons.
+- Highlight the restart button more when the game has been won or lost.
+- Animate the cards when they are dealt.
 - Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
-- Numbers drawn using a custom font or SVGs to make sure it looks correct on both platforms.
-- More affordable buttons.
+- Draw the numbers on the cards using a custom font or SVGs to make sure they look alike on both platforms.
+- Redesign the cards?
+  - Remove the small suits and use the whole card for the number and the suit.
+  - Replace J, Q and K with symbols.
 - Splash screen.
-- Fix starting up the game while the phone is in landscape mode.
-- Remember game state when the Expo app has been closed for a long time.
+- Rmove the text from the 'confirm restart dialog', so that the game only contains icons.
+- Remember the game state even when the app has been closed for a long time.
+- A picture of a desert in the background of the cards.
+- Night mode.
 
 ## Logo
 
