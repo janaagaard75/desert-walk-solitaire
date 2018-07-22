@@ -39,7 +39,7 @@ export class PositionedCardView extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
-        const isPress = gestureState.dx === 0 && gestureState.dy === 0
+        const isPress = Math.abs(gestureState.dx) <= this.moveThreshold && Math.abs(gestureState.dy) <= this.moveThreshold
 
         const animationVector = isPress
           ? this.props.positionedCard.moveToTarget()
@@ -105,6 +105,7 @@ export class PositionedCardView extends Component<Props, State> {
   }
 
   private animatedPosition: Animated.ValueXY
+  private readonly moveThreshold = 1
   private panResponder: PanResponderInstance
 
   public componentWillReceiveProps(nextProps: Props) {

@@ -17,7 +17,6 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## TODO
 
-- Allow a few pixels movement when registering card presses.
 - Do not register as a card press if the card as been moved too far away from the starting position.
 - Remove highlight of targetable cells when a draggable card is let go.
 - Don't allow undo if the game has been won.
