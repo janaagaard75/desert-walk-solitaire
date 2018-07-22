@@ -18,7 +18,6 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 ## TODO
 
 - Remove highlight of targetable cells when a draggable card is let go.
-- Don't allow undo if the game has been won.
 - Automatically play the rapid animation when the game is won. Is this good enough for as a 'game won screen'?
 - Game lost screen.
 - Glow on pressable icons.
