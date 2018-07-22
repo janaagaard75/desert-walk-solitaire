@@ -17,7 +17,6 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## TODO
 
-- Do not register as a card press if the card as been moved too far away from the starting position.
 - Remove highlight of targetable cells when a draggable card is let go.
 - Don't allow undo if the game has been won.
 - Automatically play the rapid animation when the game is won. Is this good enough for as a 'game won screen'?
@@ -31,10 +30,11 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
   - Remove the small suits and use the whole card for the number and the suit.
   - Replace J, Q and K with symbols.
 - Splash screen.
-- Rmove the text from the 'confirm restart dialog', so that the game only contains icons.
+- Remove the text from the 'confirm restart dialog', so that the game only contains icons.
 - Remember the game state even when the app has been closed for a long time.
 - A picture of a desert in the background of the cards.
 - Night mode.
+- Consider: Do not register as a card press if the card as been moved too far away from the starting position.
 
 ## Logo
 
