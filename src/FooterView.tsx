@@ -55,13 +55,13 @@ export class FooterView extends Component<{}, State> {
             flexWrap: 'wrap'
           }}
         >
-          {this.renderIcon('fontAwesome', 'fast-backward', () => this.confirmUnlessGameOver(), TouchableState.Enabled)}
-          {this.renderIcon('entypo', 'controller-fast-forward', () => Game.instance.replay(), this.replayEnabled() ? TouchableState.Enabled : TouchableState.Hidden)}
-          {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
-          {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
-          {this.renderIcon('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
-          {this.renderIcon('fontAwesome', 'step-backward', () => Game.instance.undo(), Game.instance.undoEnabled ? TouchableState.Enabled : TouchableState.Disabled)}
-          {this.renderIcon('fontAwesome', 'step-forward', () => Game.instance.redo(), Game.instance.redoEnabled ? TouchableState.Enabled : TouchableState.Disabled)}
+          {this.renderIconWithTouch('fontAwesome', 'fast-backward', () => this.confirmUnlessGameOver(), TouchableState.Enabled)}
+          {this.renderIconWithTouch('entypo', 'controller-fast-forward', () => Game.instance.replay(), this.replayEnabled() ? TouchableState.Enabled : TouchableState.Hidden)}
+          {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
+          {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
+          {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
+          {this.renderIconWithTouch('fontAwesome', 'step-backward', () => Game.instance.undo(), Game.instance.undoEnabled ? TouchableState.Enabled : TouchableState.Disabled)}
+          {this.renderIconWithTouch('fontAwesome', 'step-forward', () => Game.instance.redo(), Game.instance.redoEnabled ? TouchableState.Enabled : TouchableState.Disabled)}
         </View>
         <Modal
           animationType="slide"
@@ -87,7 +87,7 @@ export class FooterView extends Component<{}, State> {
     )
   }
 
-  private renderIcon(
+  private renderIconWithTouch(
     iconGroup: string,
     iconName: string,
     handlePress: () => void,
@@ -114,14 +114,14 @@ export class FooterView extends Component<{}, State> {
               onPress={handlePress}
               disabled={state === TouchableState.Disabled}
             >
-             {this.renderIcon2(iconGroup, iconName, color)}
+             {this.renderIcon(iconGroup, iconName, color)}
             </TouchableOpacity>
         }
       </View>
     )
   }
 
-  private renderIcon2(
+  private renderIcon(
     iconGroup: string,
     iconName: string,
     color: string
