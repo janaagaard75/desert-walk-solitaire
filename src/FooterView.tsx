@@ -95,6 +95,7 @@ export class FooterView extends Component<{}, State> {
   ) {
     const color = state === TouchableState.Enabled ? '#9ff' : '#999'
     const numberOfIcons = 7
+    const shadowOpacity = state === TouchableState.Enabled ? 0.5 : 0
     const width = 1 / numberOfIcons * 100
 
     return (
@@ -103,6 +104,9 @@ export class FooterView extends Component<{}, State> {
           alignItems: 'center',
           alignSelf: 'center',
           backgroundColor: 'transparent',
+          shadowColor: 'white',
+          shadowOpacity: shadowOpacity,
+          shadowRadius: 5,
           width: `${width}%`
         }}
       >
