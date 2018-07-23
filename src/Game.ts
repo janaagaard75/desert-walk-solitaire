@@ -185,7 +185,8 @@ export class Game {
     this.draggedCardBoundary = fromCell.boundary
   }
 
-  /** Returns the offset from the droppable target, if the card was let go over a droppeable target. Otherwize returns undefined. */
+  /** Returns the offset from the droppable target, if the card was let go over a droppeable target. Otherwize returns undefined. As a side effect, `this.draggingFromCell` and `this.draggedCardBoundary` are both set to `undefined`. */
+  // TODO: Figure out how to avoid the side effect.
   public cardDropped(): Point | undefined {
     if (this.draggingFromCell === undefined) {
       throw new Error('draggedCard must be defined when handling a drop.')
@@ -197,10 +198,14 @@ export class Game {
 
     const targetCell = this.mostOverlappedTargetableCell
     if (targetCell === undefined) {
+      this.draggingFromCell = undefined
+      this.draggedCardBoundary = undefined
       return undefined
     }
 
     if (targetCell === this.draggingFromCell.cell) {
+      this.draggingFromCell = undefined
+      this.draggedCardBoundary = undefined
       return undefined
     }
 
@@ -213,7 +218,6 @@ export class Game {
 
     this.draggingFromCell = undefined
     this.draggedCardBoundary = undefined
-
     return dropOffset
   }
 
