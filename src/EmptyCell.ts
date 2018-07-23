@@ -47,8 +47,12 @@ export class EmptyCell extends GridCell {
       return EmptyCellState.MostOverlappedTargetableCell
     }
 
-    const draggingFromCell = Game.instance.draggingFromCell
-    if (this.droppableCards.some(card => card === draggingFromCell.card)) {
+    if (this.droppableCards.some(card => {
+      if (Game.instance.draggingFromCell === undefined) {
+        return false
+      }
+      return card === Game.instance.draggingFromCell.card
+    })) {
       return EmptyCellState.TargetableCellButNotMostOverlapped
     }
 
