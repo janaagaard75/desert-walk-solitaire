@@ -17,6 +17,7 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## TODO
 
+- Bigger click regions for the icons in the footer.
 - Automatically play the rapid animation when the game is won. Is this good enough for as a 'game won screen'?
 - Game lost screen.
 - Glow on pressable icons.
