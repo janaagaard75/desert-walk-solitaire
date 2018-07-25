@@ -18,10 +18,11 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 ## TODO
 
 - Bigger click regions for the icons in the footer.
+- Highlight icons with white.
 - Automatically play the rapid animation when the game is won. Is this good enough for as a 'game won screen'?
 - Game lost screen.
 - Glow on pressable icons.
-- Highlight the restart button more when the game has been won or lost.
+- Highlight the restart button more when the game has been won or lost. White, but without a shadow when it's just clickable?
 - Animate the cards when they are dealt.
 - Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
 - Draw the numbers on the cards using a custom font or SVGs to make sure they look alike on both platforms.
