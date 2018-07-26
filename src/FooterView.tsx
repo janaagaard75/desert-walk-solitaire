@@ -93,13 +93,22 @@ export class FooterView extends Component<{}, State> {
     handlePress: () => void,
     state: TouchableState
   ) {
-    const color = state === TouchableState.Enabled ? '#fff' : '#999'
     const numberOfIcons = 7
-    const shadowOpacity = state === TouchableState.Enabled ? 0.5 : 0
     const width = 1 / numberOfIcons * 100
 
+    if (state === TouchableState.Hidden) {
+      return (
+        <View style={{ width: `${width}%` }} />
+      )
+    }
+
+    const color = state === TouchableState.Enabled ? '#fff' : '#999'
+    const shadowOpacity = state === TouchableState.Enabled ? 0.5 : 0
+
     return (
-      <View
+      <TouchableOpacity
+        onPress={handlePress}
+        disabled={state === TouchableState.Disabled}
         style={{
           alignItems: 'center',
           alignSelf: 'center',
@@ -110,18 +119,8 @@ export class FooterView extends Component<{}, State> {
           width: `${width}%`
         }}
       >
-        {state === TouchableState.Hidden
-          ?
-            undefined
-          :
-            <TouchableOpacity
-              onPress={handlePress}
-              disabled={state === TouchableState.Disabled}
-            >
-             {this.renderIcon(iconGroup, iconName, color)}
-            </TouchableOpacity>
-        }
-      </View>
+        {this.renderIcon(iconGroup, iconName, color)}
+      </TouchableOpacity>
     )
   }
 
@@ -132,7 +131,7 @@ export class FooterView extends Component<{}, State> {
   ) {
     const iconSize = 20
 
-    switch (iconGroup){
+    switch (iconGroup) {
       case 'entypo':
         return (
           <Entypo
