@@ -159,6 +159,36 @@ export class Game {
     return this._currentStateIndex
   }
 
+  /** Returns the offset of the dragged card to the droppable target. Returns `undefined` if the dragged card is not hovering over a droppable target. */
+  @computed
+  private get dropOffset(): Point | undefined {
+    if (this.draggingFromCell === undefined) {
+      throw new Error('draggedCard must be defined when handling a drop.')
+    }
+
+    if (this.draggedCardBoundary === undefined) {
+      throw new Error('draggedCardBoundary must be defined when handling a drop.')
+    }
+
+    const targetCell = this.mostOverlappedTargetableCell
+    if (targetCell === undefined) {
+      return undefined
+    }
+
+    if (targetCell === this.draggingFromCell.cell) {
+      return undefined
+    }
+
+    this.performTurn(new MoveTurn(this.draggingFromCell.cell, targetCell))
+
+    const dropOffset = new Point(
+      this.draggedCardBoundary.x1 - targetCell.position.x,
+      this.draggedCardBoundary.y1 - targetCell.position.y
+    )
+
+    return dropOffset
+  }
+
   @computed
   private get targetCells(): Array<Cell> {
     if (this.draggingFromCell === undefined) {
@@ -185,37 +215,9 @@ export class Game {
     this.draggedCardBoundary = fromCell.boundary
   }
 
-  /** Returns the offset from the droppable target, if the card was let go over a droppeable target. Otherwize returns undefined. As a side effect, `this.draggingFromCell` and `this.draggedCardBoundary` are both set to `undefined`. */
-  // TODO: Figure out how to avoid the side effect.
+  /** Returns the offset from dragged card to the droppable target and sets `draggingFromCell` and `draggedCardBoundary` to `undefined`. Returns `undefined` if the dragged card is not hovering over a droppable target. */
   public cardDropped(): Point | undefined {
-    if (this.draggingFromCell === undefined) {
-      throw new Error('draggedCard must be defined when handling a drop.')
-    }
-
-    if (this.draggedCardBoundary === undefined) {
-      throw new Error('draggedCardBoundary must be defined when handling a drop.')
-    }
-
-    const targetCell = this.mostOverlappedTargetableCell
-    if (targetCell === undefined) {
-      this.draggingFromCell = undefined
-      this.draggedCardBoundary = undefined
-      return undefined
-    }
-
-    if (targetCell === this.draggingFromCell.cell) {
-      this.draggingFromCell = undefined
-      this.draggedCardBoundary = undefined
-      return undefined
-    }
-
-    this.performTurn(new MoveTurn(this.draggingFromCell.cell, targetCell))
-
-    const dropOffset = new Point(
-      this.draggedCardBoundary.x1 - targetCell.position.x,
-      this.draggedCardBoundary.y1 - targetCell.position.y
-    )
-
+    const dropOffset = this.dropOffset
     this.draggingFromCell = undefined
     this.draggedCardBoundary = undefined
     return dropOffset
