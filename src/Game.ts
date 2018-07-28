@@ -163,7 +163,7 @@ export class Game {
   @computed
   private get dropOffset(): Point | undefined {
     if (this.draggingFromCell === undefined) {
-      throw new Error('draggedCard must be defined when handling a drop.')
+      throw new Error('draggingFromCell must be defined when handling a drop.')
     }
 
     if (this.draggedCardBoundary === undefined) {
