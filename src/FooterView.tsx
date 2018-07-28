@@ -1,12 +1,16 @@
 import * as React from 'react'
-import { Button, TouchableOpacity } from 'react-native'
+import { Button } from 'react-native'
 import { Component } from 'react'
+import { computed } from 'mobx'
 // tslint:disable-next-line:no-implicit-dependencies
-import { FontAwesome, Entypo } from '@expo/vector-icons'
+import { Entypo } from '@expo/vector-icons'
+// tslint:disable-next-line:no-implicit-dependencies
+import { FontAwesome } from '@expo/vector-icons'
 import { Modal } from 'react-native'
 import { observer } from 'mobx-react'
 import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { View } from 'react-native'
 
 import { Game } from './Game'
@@ -56,7 +60,7 @@ export class FooterView extends Component<{}, State> {
           }}
         >
           {this.renderIconWithTouch('fontAwesome', 'fast-backward', () => this.confirmUnlessGameOver(), TouchableState.Enabled)}
-          {this.renderIconWithTouch('entypo', 'controller-fast-forward', () => Game.instance.replay(), this.replayEnabled() ? TouchableState.Enabled : TouchableState.Hidden)}
+          {this.renderIconWithTouch('entypo', 'controller-fast-forward', () => Game.instance.replay(), this.replayEnabled ? TouchableState.Enabled : TouchableState.Hidden)}
           {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
           {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
           {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
@@ -155,6 +159,12 @@ export class FooterView extends Component<{}, State> {
     }
   }
 
+  @computed
+  private get replayEnabled(): boolean {
+    const enabled = Game.instance.gameState === GameState.GameWon
+    return enabled
+  }
+
   private confirmUnlessGameOver() {
     switch (Game.instance.gameState) {
       case GameState.GameLost:
@@ -176,12 +186,6 @@ export class FooterView extends Component<{}, State> {
     this.setState({
       confirmModalVisible: false
     })
-  }
-
-  // TODO: Make computed?
-  private replayEnabled(): boolean {
-    const enabled = Game.instance.gameState === GameState.GameWon
-    return enabled
   }
 
   private showConfirmModal() {
