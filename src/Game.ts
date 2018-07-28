@@ -2,6 +2,7 @@ import { computed } from 'mobx'
 import { observable } from 'mobx'
 import * as firebase from 'firebase'
 
+import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
@@ -70,6 +71,15 @@ export class Game {
     }
 
     return this.gridStates[this.currentStateIndex]
+  }
+
+  @computed
+  public get draggedCard(): Card | undefined {
+    if (this.draggingFromCell === undefined) {
+      return undefined
+    }
+
+    return this.draggingFromCell.card
   }
 
   @computed
@@ -195,11 +205,8 @@ export class Game {
       return []
     }
 
-    // Shadow variable to satify the TypeScript compiler below.
-    const draggedCard = this.draggingFromCell.card
-
     const targetCells = this.currentGridState.emptyCells
-      .filter(emptyCell => emptyCell.droppableCards.some(card => card === draggedCard))
+      .filter(emptyCell => emptyCell.droppableCards.some(card => card === this.draggedCard))
       .map(emptyCell => emptyCell.cell)
       .concat(this.draggingFromCell.cell)
 

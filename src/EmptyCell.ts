@@ -51,7 +51,7 @@ export class EmptyCell extends GridCell {
       if (Game.instance.draggingFromCell === undefined) {
         return false
       }
-      return card === Game.instance.draggingFromCell.card
+      return card === Game.instance.draggedCard
     })) {
       return EmptyCellState.TargetableCellButNotMostOverlapped
     }
