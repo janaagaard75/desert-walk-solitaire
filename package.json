@@ -32,14 +32,14 @@
     "@types/expo__vector-icons": "6.2.2",
     "@types/fbemitter": "2.0.32",
     "@types/react": "16.3.18",
-    "@types/react-native": "0.55.28",
+    "@types/react-native": "0.56.4",
     "eslint": "^4.0.0",
-    "exp": "55.0.5",
+    "exp": "56.0.0",
     "prop-types": "15.6.2",
     "react-native-typescript-transformer": "1.2.10",
     "tslint": "5.11.0",
     "tslint-eslint-rules": "5.3.1",
     "tslint-react": "3.6.0",
-    "typescript": "2.9.2"
+    "typescript": "3.0.1"
   }
 }
