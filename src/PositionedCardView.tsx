@@ -7,10 +7,10 @@ import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
 
 import { CardView } from './CardView'
-import { Game } from './Game'
-import { Point } from './Point'
-import { PositionedCard } from './PositionedCard'
-import { Settings } from './Settings'
+import { Game } from './model/Game'
+import { Point } from './model/Point'
+import { PositionedCard } from './model/PositionedCard'
+import { Settings } from './model/Settings'
 
 interface Props {
   positionedCard: PositionedCard

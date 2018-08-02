@@ -13,9 +13,9 @@ import { TextStyle } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { View } from 'react-native'
 
-import { Game } from './Game'
-import { GameState } from './GameState'
-import { Settings } from './Settings'
+import { Game } from './model/Game'
+import { GameState } from './model/GameState'
+import { Settings } from './model/Settings'
 
 interface State {
   confirmModalVisible: boolean

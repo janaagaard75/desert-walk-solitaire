@@ -4,9 +4,9 @@ import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { EmptyCell } from './EmptyCell'
-import { EmptyCellState } from './EmptyCellState'
-import { Settings } from './Settings'
+import { EmptyCell } from './model/EmptyCell'
+import { EmptyCellState } from './model/EmptyCellState'
+import { Settings } from './model/Settings'
 
 interface Props {
   emptyCell: EmptyCell

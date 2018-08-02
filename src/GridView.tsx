@@ -4,9 +4,9 @@ import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { Settings } from './Settings'
+import { Settings } from './model/Settings'
 import { PositionedCardView } from './PositionedCardView'
-import { Game } from './Game'
+import { Game } from './model/Game'
 import { EmptyCellView } from './EmptyCellView'
 
 @observer

@@ -1,6 +1,6 @@
 import { computed } from 'mobx'
 
-import { CardView } from './CardView'
+import { CardView } from '../CardView'
 import { Cell } from './Cell'
 import { EmptyCell } from './EmptyCell'
 import { GridState } from './GridState'

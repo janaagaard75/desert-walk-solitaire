@@ -1,4 +1,4 @@
 node_modules/
 .expo/
 *.log
-src/firebaseConfig.json
+firebaseConfig.json

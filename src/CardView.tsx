@@ -6,11 +6,11 @@ import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
-import { Card } from './Card'
-import { Point } from './Point'
-import { Rectangle } from './Rectangle'
-import { Settings } from './Settings'
-import { Suit } from './Suit'
+import { Card } from './model/Card'
+import { Point } from './model/Point'
+import { Rectangle } from './model/Rectangle'
+import { Settings } from './model/Settings'
+import { Suit } from './model/Suit'
 import { SuitView } from './SuitView'
 
 interface Props {

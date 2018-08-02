@@ -12,7 +12,7 @@ import { ViewStyle } from 'react-native'
 import './ArrayExtensions'
 import { FooterView } from './FooterView'
 import { GridView } from './GridView'
-import { Settings } from './Settings'
+import { Settings } from './model/Settings'
 
 @observer
 export default class MainView extends Component {
