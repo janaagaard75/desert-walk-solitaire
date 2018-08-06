@@ -1,3 +1,4 @@
+import { autorun } from 'mobx'
 import { computed } from 'mobx'
 import { observable } from 'mobx'
 import * as firebase from 'firebase'
@@ -24,6 +25,7 @@ export class Game {
   private constructor() {
     this.startOver()
     firebase.initializeApp(firebaseConfig)
+    autorun(() => this.autorun())
   }
 
   private static _instance: Game | undefined
@@ -42,6 +44,7 @@ export class Game {
 
   @observable private _currentStateIndex: number = 0
   @observable private gridStates: Array<GridState> = []
+  @observable private replayShown: boolean = false
   @observable private turns: Array<Turn> = []
 
   private gameSummary: GameSummary | undefined
@@ -213,6 +216,15 @@ export class Game {
     return targetCells
   }
 
+  private autorun() {
+    if (this.gameState === GameState.GameWon && !this.replayShown) {
+      this.replayShown = true
+      // TODO: Only show the replay button once the automatic replay has been played.
+      const millisecondsDelayBeforeReplay = 1000
+      setTimeout(() => this.replay(), millisecondsDelayBeforeReplay)
+    }
+  }
+
   public cardDragged(boundary: Rectangle) {
     this.draggedCardBoundary = boundary
   }
@@ -275,9 +287,11 @@ export class Game {
       })
     }
 
+    // TODO: These values are also initialized when instantiating this class. Create a new class with these values to avoid duplicating this code (and simplifying this class)?
     this.gridStates = [new GridState(positions)]
     this.turns = []
     this.gameSummary = new GameSummary()
+    this.replayShown = false
     this.setCurrentStateIndex(0, false)
   }
 
