@@ -6,6 +6,11 @@
     "tslint:latest",
     "tslint-react"
   ],
+  "linterOptions": {
+    "exclude": [
+      "node_modules/**"
+    ]
+  },
   "rules": {
     "align": [
       false
@@ -68,13 +73,11 @@
       "check-type"
     ],
     // ESLint rules for TSLint (tslint-eslint-rules).
-    "array-bracket-spacing":
-    [
+    "array-bracket-spacing": [
       true,
       "never"
     ],
-    "block-spacing":
-    [
+    "block-spacing": [
       true,
       "always"
     ],
@@ -100,8 +103,7 @@
     "no-irregular-whitespace": true,
     "no-multi-spaces": true,
     "no-regex-spaces": true,
-    "object-curly-spacing":
-    [
+    "object-curly-spacing": [
       true,
       "always"
     ],
