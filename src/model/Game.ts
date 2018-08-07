@@ -224,8 +224,7 @@ export class Game {
 
   private autorun() {
     if (this.gameState === GameState.GameWon && !this.replayShown) {
-      const millisecondsDelayBeforeReplay = 1000
-      setTimeout(() => this.replay(), millisecondsDelayBeforeReplay)
+      setTimeout(() => this.replay(), Settings.instance.animation.replay.deplayBeforeAutoReplay)
     }
   }
 
