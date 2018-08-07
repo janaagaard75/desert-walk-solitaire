@@ -17,7 +17,6 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## TODO
 
-- Automatically play the rapid animation when the game is won. Is this good enough for as a 'game won screen'?
 - Game lost screen.
 - Glow on pressable icons.
 - Highlight the restart button more when the game has been won or lost. White, but without a shadow when it's just clickable?
