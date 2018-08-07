@@ -260,8 +260,8 @@ export class Game {
   }
 
   public replay() {
-    this.replayShown = true
     this.setCurrentStateIndex(0, false)
+    this.replayShown = true
 
     window.setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
   }
@@ -292,11 +292,12 @@ export class Game {
     }
 
     // TODO: These values are also initialized when instantiating this class. Create a new class with these values to avoid duplicating this code (and simplifying this class)?
+    // It's important to set the index to 0 before setting the array to an empty array.
+    this.setCurrentStateIndex(0, false)
     this.gridStates = [new GridState(positions)]
     this.turns = []
     this.gameSummary = new GameSummary()
     this.replayShown = false
-    this.setCurrentStateIndex(0, false)
   }
 
   public undo() {
