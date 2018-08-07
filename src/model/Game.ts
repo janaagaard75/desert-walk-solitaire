@@ -203,6 +203,12 @@ export class Game {
   }
 
   @computed
+  public get replayEnabled(): boolean {
+    const enabled = Game.instance.gameState === GameState.GameWon
+    return enabled
+  }
+
+  @computed
   private get targetCells(): Array<Cell> {
     if (this.draggingFromCell === undefined) {
       return []

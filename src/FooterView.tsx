@@ -60,7 +60,7 @@ export class FooterView extends Component<{}, State> {
           }}
         >
           {this.renderIconWithTouch('fontAwesome', 'fast-backward', () => this.confirmUnlessGameOver(), TouchableState.Enabled)}
-          {this.renderIconWithTouch('entypo', 'controller-fast-forward', () => Game.instance.replay(), this.replayEnabled ? TouchableState.Enabled : TouchableState.Hidden)}
+          {this.renderIconWithTouch('entypo', 'controller-fast-forward', () => Game.instance.replay(), Game.instance.replayEnabled ? TouchableState.Enabled : TouchableState.Hidden)}
           {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
           {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
           {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
@@ -157,12 +157,6 @@ export class FooterView extends Component<{}, State> {
       default:
         throw new Error(`The iconGroup '${iconGroup} is not supported.`)
     }
-  }
-
-  @computed
-  private get replayEnabled(): boolean {
-    const enabled = Game.instance.gameState === GameState.GameWon
-    return enabled
   }
 
   private confirmUnlessGameOver() {
