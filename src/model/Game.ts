@@ -204,7 +204,7 @@ export class Game {
 
   @computed
   public get replayEnabled(): boolean {
-    const enabled = Game.instance.gameState === GameState.GameWon
+    const enabled = Game.instance.gameState === GameState.GameWon && this.replayShown
     return enabled
   }
 
@@ -224,8 +224,6 @@ export class Game {
 
   private autorun() {
     if (this.gameState === GameState.GameWon && !this.replayShown) {
-      this.replayShown = true
-      // TODO: Only show the replay button once the automatic replay has been played.
       const millisecondsDelayBeforeReplay = 1000
       setTimeout(() => this.replay(), millisecondsDelayBeforeReplay)
     }
@@ -263,6 +261,7 @@ export class Game {
   }
 
   public replay() {
+    this.replayShown = true
     this.setCurrentStateIndex(0, false)
 
     window.setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
