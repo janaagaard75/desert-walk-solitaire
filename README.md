@@ -17,6 +17,9 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## TODO
 
+- Disable undo and redo button while showing the replay animation.
+- Switch to easy-mode, for testing purpose.
+- Include number of card values in send JSON.
 - Game lost screen.
 - Glow on pressable icons.
 - Highlight the restart button more when the game has been won or lost. White, but without a shadow when it's just clickable?
