@@ -33,8 +33,7 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
 - Remember the game state even when the app has been closed for a long time.
 - A picture of a desert in the background of the cards.
-- Night mode.
-- Consider: Do not register as a card press if the card as been moved too far away from the starting position.
+- Night mode / Dark by default.
 
 ## Logo
 
