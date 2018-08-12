@@ -17,7 +17,6 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## TODO
 
-- Disable undo and redo button while showing the replay animation.
 - Switch to easy-mode, for testing purpose.
 - Include number of card values in send JSON.
 - Game lost screen.
@@ -26,9 +25,9 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 - Animate the cards when they are dealt.
 - Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
 - Draw the numbers on the cards using a custom font or SVGs to make sure they look alike on both platforms.
-- Redesign the cards?
+- Redesign the cards.
   - Remove the small suits and use the whole card for the number and the suit.
-  - Replace J, Q and K with symbols.
+  - Replace J, Q and K with symbols?
 - Splash screen.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
 - Remember the game state even when the app has been closed for a long time.

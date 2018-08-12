@@ -17,6 +17,7 @@ import { PositionedCard } from './PositionedCard'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 import { ShuffleTurn } from './turn/ShuffleTurn'
+import { TouchableState } from './TouchableState'
 import { Turn } from './turn/Turn'
 
 import * as firebaseConfig from './firebaseConfig.json'
@@ -44,6 +45,7 @@ export class Game {
 
   @observable private _currentStateIndex: number = 0
   @observable private gridStates: Array<GridState> = []
+  @observable private replayPlaying: boolean = false
   @observable private replayShown: boolean = false
   @observable private turns: Array<Turn> = []
 
@@ -152,19 +154,35 @@ export class Game {
   }
 
   @computed
-  public get undoEnabled(): boolean {
+  public get undoState(): TouchableState {
+    if (this.replayPlaying) {
+      return TouchableState.Hidden
+    }
+
     const isFirstState = this.currentStateIndex === 0
     const previousTurnWasMove = this.turns[this.currentStateIndex - 1] instanceof MoveTurn
     const gameOver = this.gameState === GameState.GameLost || this.gameState === GameState.GameWon
 
-    const undoPossible = !isFirstState && previousTurnWasMove && !gameOver
-    return undoPossible
+    if (isFirstState || !previousTurnWasMove || gameOver) {
+      return TouchableState.Disabled
+    }
+
+    return TouchableState.Enabled
   }
 
   @computed
-  public get redoEnabled(): boolean {
+  public get redoState(): TouchableState {
+    if (this.replayPlaying) {
+      return TouchableState.Hidden
+    }
+
     const isLastState = this.currentStateIndex === this.turns.length
-    return !isLastState
+
+    if (isLastState) {
+      return TouchableState.Disabled
+    }
+
+    return TouchableState.Enabled
   }
 
   @computed
@@ -262,12 +280,14 @@ export class Game {
   public replay() {
     this.setCurrentStateIndex(0, false)
     this.replayShown = true
+    this.replayPlaying = true
 
     window.setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
   }
 
   private waitAndGoToNextStateIndex() {
     if (this.currentStateIndex === this.gridStates.length - 1) {
+      this.replayPlaying = false
       return
     }
 

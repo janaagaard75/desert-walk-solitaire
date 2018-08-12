@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Button } from 'react-native'
 import { Component } from 'react'
-import { computed } from 'mobx'
 // tslint:disable-next-line:no-implicit-dependencies
 import { Entypo } from '@expo/vector-icons'
 // tslint:disable-next-line:no-implicit-dependencies
@@ -16,15 +15,10 @@ import { View } from 'react-native'
 import { Game } from './model/Game'
 import { GameState } from './model/GameState'
 import { Settings } from './model/Settings'
+import { TouchableState } from './model/TouchableState'
 
 interface State {
   confirmModalVisible: boolean
-}
-
-enum TouchableState {
-  Disabled,
-  Enabled,
-  Hidden
 }
 
 @observer
@@ -64,8 +58,8 @@ export class FooterView extends Component<{}, State> {
           {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
           {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
           {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
-          {this.renderIconWithTouch('fontAwesome', 'step-backward', () => Game.instance.undo(), Game.instance.undoEnabled ? TouchableState.Enabled : TouchableState.Disabled)}
-          {this.renderIconWithTouch('fontAwesome', 'step-forward', () => Game.instance.redo(), Game.instance.redoEnabled ? TouchableState.Enabled : TouchableState.Disabled)}
+          {this.renderIconWithTouch('fontAwesome', 'step-backward', () => Game.instance.undo(), Game.instance.undoState)}
+          {this.renderIconWithTouch('fontAwesome', 'step-forward', () => Game.instance.redo(), Game.instance.redoState)}
         </View>
         <Modal
           animationType="slide"
