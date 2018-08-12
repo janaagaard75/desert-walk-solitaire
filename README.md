@@ -17,13 +17,10 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## TODO
 
-- Switch to easy-mode, for testing purpose.
+- Hidden switch to easy-mode, for testing purpose.
 - Include number of card values in send JSON.
 - Game lost screen.
-- Glow on pressable icons.
-- Highlight the restart button more when the game has been won or lost. White, but without a shadow when it's just clickable?
 - Animate the cards when they are dealt.
-- Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
 - Draw the numbers on the cards using a custom font or SVGs to make sure they look alike on both platforms.
 - Redesign the cards.
   - Remove the small suits and use the whole card for the number and the suit.
@@ -33,6 +30,8 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 - Remember the game state even when the app has been closed for a long time.
 - A picture of a desert in the background of the cards.
 - Night mode / Dark by default.
+- Highlight the restart button more when the game has been won or lost. White, but without a shadow when it's just clickable?
+- Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
 
 ## Logo
 
