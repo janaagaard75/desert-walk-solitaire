@@ -29,6 +29,8 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
 - Remember the game state even when the app has been closed for a long time.
 - A picture of a desert in the background of the cards.
+- Extract a class for handling sublitting to Firebase.
+- Use autorun to trigger saving.
 - Night mode / Dark by default.
 - Highlight the restart button more when the game has been won or lost. White, but without a shadow when it's just clickable?
 - Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
