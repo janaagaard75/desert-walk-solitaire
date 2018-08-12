@@ -105,7 +105,7 @@ export class PositionedCardView extends Component<Props, State> {
   }
 
   private animatedPosition: Animated.ValueXY
-  private readonly moveThreshold = 1
+  private readonly moveThreshold = 2
   private panResponder: PanResponderInstance
 
   public componentWillReceiveProps(nextProps: Props) {

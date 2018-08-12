@@ -1,3 +1,4 @@
+import { autorun } from 'mobx'
 import { computed } from 'mobx'
 import { observable } from 'mobx'
 import * as firebase from 'firebase'
@@ -16,6 +17,7 @@ import { PositionedCard } from './PositionedCard'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
 import { ShuffleTurn } from './turn/ShuffleTurn'
+import { TouchableState } from './TouchableState'
 import { Turn } from './turn/Turn'
 
 import * as firebaseConfig from './firebaseConfig.json'
@@ -24,6 +26,7 @@ export class Game {
   private constructor() {
     this.startOver()
     firebase.initializeApp(firebaseConfig)
+    autorun(() => this.autorun())
   }
 
   private static _instance: Game | undefined
@@ -42,6 +45,8 @@ export class Game {
 
   @observable private _currentStateIndex: number = 0
   @observable private gridStates: Array<GridState> = []
+  @observable private replayPlaying: boolean = false
+  @observable private replayShown: boolean = false
   @observable private turns: Array<Turn> = []
 
   private gameSummary: GameSummary | undefined
@@ -149,19 +154,35 @@ export class Game {
   }
 
   @computed
-  public get undoEnabled(): boolean {
+  public get undoState(): TouchableState {
+    if (this.replayPlaying) {
+      return TouchableState.Hidden
+    }
+
     const isFirstState = this.currentStateIndex === 0
     const previousTurnWasMove = this.turns[this.currentStateIndex - 1] instanceof MoveTurn
     const gameOver = this.gameState === GameState.GameLost || this.gameState === GameState.GameWon
 
-    const undoPossible = !isFirstState && previousTurnWasMove && !gameOver
-    return undoPossible
+    if (isFirstState || !previousTurnWasMove || gameOver) {
+      return TouchableState.Disabled
+    }
+
+    return TouchableState.Enabled
   }
 
   @computed
-  public get redoEnabled(): boolean {
+  public get redoState(): TouchableState {
+    if (this.replayPlaying) {
+      return TouchableState.Hidden
+    }
+
     const isLastState = this.currentStateIndex === this.turns.length
-    return !isLastState
+
+    if (isLastState) {
+      return TouchableState.Disabled
+    }
+
+    return TouchableState.Enabled
   }
 
   @computed
@@ -200,6 +221,12 @@ export class Game {
   }
 
   @computed
+  public get replayEnabled(): boolean {
+    const enabled = Game.instance.gameState === GameState.GameWon && this.replayShown
+    return enabled
+  }
+
+  @computed
   private get targetCells(): Array<Cell> {
     if (this.draggingFromCell === undefined) {
       return []
@@ -211,6 +238,12 @@ export class Game {
       .concat(this.draggingFromCell.cell)
 
     return targetCells
+  }
+
+  private autorun() {
+    if (this.gameState === GameState.GameWon && !this.replayShown) {
+      setTimeout(() => this.replay(), Settings.instance.animation.replay.deplayBeforeAutoReplay)
+    }
   }
 
   public cardDragged(boundary: Rectangle) {
@@ -246,12 +279,15 @@ export class Game {
 
   public replay() {
     this.setCurrentStateIndex(0, false)
+    this.replayShown = true
+    this.replayPlaying = true
 
     window.setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
   }
 
   private waitAndGoToNextStateIndex() {
     if (this.currentStateIndex === this.gridStates.length - 1) {
+      this.replayPlaying = false
       return
     }
 
@@ -275,10 +311,13 @@ export class Game {
       })
     }
 
+    // TODO: These values are also initialized when instantiating this class. Create a new class with these values to avoid duplicating this code (and simplifying this class)?
+    // It's important to set the index to 0 before setting the array to an empty array.
+    this.setCurrentStateIndex(0, false)
     this.gridStates = [new GridState(positions)]
     this.turns = []
     this.gameSummary = new GameSummary()
-    this.setCurrentStateIndex(0, false)
+    this.replayShown = false
   }
 
   public undo() {
