@@ -17,8 +17,9 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## TODO
 
-- Hidden switch to easy-mode, for testing purpose.
-- Include number of card values in send JSON.
+- Include number of card values in send JSON when the game is over.
+- Difficulty selector.
+  - How should the selector look? How would the icons for easy and hard look?
 - Game lost screen.
 - Animate the cards when they are dealt.
 - Draw the numbers on the cards using a custom font or SVGs to make sure they look alike on both platforms.
