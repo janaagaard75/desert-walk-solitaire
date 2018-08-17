@@ -282,7 +282,7 @@ export class Game {
     this.replayShown = true
     this.replayPlaying = true
 
-    window.setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
+    setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
   }
 
   private waitAndGoToNextStateIndex() {
@@ -292,7 +292,7 @@ export class Game {
     }
 
     this.setCurrentStateIndex(this.currentStateIndex + 1, true)
-    window.setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
+    setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
   }
 
   public shuffleCardsInIncorrectPosition() {
