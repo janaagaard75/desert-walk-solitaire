@@ -18,8 +18,18 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 ## TODO
 
 - Difficulty selector.
-  - How should the selector look? How would the icons for easy and hard look?
+  - Show the selector when starting a new game.
+  - Use the last selected difficulty by default.
+  - Slider with the cards laied out above it. Use the Footer for the slider. The restart button becomes a cancel button, and an OK button is placed in the lower right corner.
+  - Slider example: <https://facebook.github.io/react-native/docs/0.21/slider.html>.
+  - Select from 5 to 13 columns.
 - Avoid passing inline functions as props: https://itnext.io/how-we-boosted-the-performance-of-our-react-native-app-191b8d338347#e92b.
+- Disentangle the model.
+  - Use less inheritance.
+  - Cells and cards need to be separated, and only help together by the grid state.
+  - Positioned card should get a position, not a cell.
+  - A cell should not be able to get the card to the left of it.
+  - Move most of the stuff to the Game.instance. Deck.instance and Grid.instance and a lot of stuff in Settings now depends on `maxCardValue`.
 - Game lost screen.
 - Animate the cards when they are dealt.
 - Draw the numbers on the cards using a custom font or SVGs to make sure they look alike on both platforms.
