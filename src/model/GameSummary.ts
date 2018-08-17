@@ -1,3 +1,5 @@
+import { Settings } from './Settings'
+
 interface GameSummaryStep {
   cardsInPlace: number,
   moves: number
@@ -5,6 +7,7 @@ interface GameSummaryStep {
 
 export class GameSummary {
   public ended: number = -1
+  public maxCardValue: number = Settings.instance.maxCardValue
   public started: number = Date.now()
   public steps: Array<GameSummaryStep> = []
 

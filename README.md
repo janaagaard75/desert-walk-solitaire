@@ -17,7 +17,6 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## TODO
 
-- Include number of card values in send JSON when the game is over.
 - Difficulty selector.
   - How should the selector look? How would the icons for easy and hard look?
 - Game lost screen.
