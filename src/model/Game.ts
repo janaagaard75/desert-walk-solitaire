@@ -341,17 +341,14 @@ export class Game {
     this.storeSummaryIfGameOver()
   }
 
+  private get gameIsOver(): boolean {
+    const gameOver = this.gameState === GameState.GameLost || this.gameState === GameState.GameWon
+    return gameOver
+  }
+
   private setCurrentStateIndex(newIndex: number, animateNextTurn: boolean) {
     this.animateNextTurn = animateNextTurn
     this._currentStateIndex = newIndex
-  }
-
-  private storeGameSummary() {
-    if (firebase.database === undefined) {
-      throw new Error('firebase.database has to be defined.')
-    }
-
-    firebase.database().ref('gameSummaries').push(this.gameSummary)
   }
 
   private storeSummaryIfGameOver() {
@@ -359,13 +356,13 @@ export class Game {
       return
     }
 
-    if (this.gameState === GameState.GameLost || this.gameState === GameState.GameWon) {
+    if (this.gameIsOver) {
       this.gameSummary.addFinalStep({
         cardsInPlace: this.currentGridState.correctlyPositionedCards.length,
         moves: this.numberOfMoveTurns
       })
 
-      this.storeGameSummary()
+      this.gameSummary.storeGameSummary()
     }
   }
 }

@@ -1,3 +1,5 @@
+import * as firebase from 'firebase'
+
 import { Settings } from './Settings'
 
 interface GameSummaryStep {
@@ -18,5 +20,13 @@ export class GameSummary {
   public addFinalStep(step: GameSummaryStep) {
     this.addStep(step)
     this.ended = Date.now()
+  }
+
+  public storeGameSummary() {
+    if (firebase.database === undefined) {
+      throw new Error('firebase.database has to be defined.')
+    }
+
+    firebase.database().ref('gameSummaries').push(this)
   }
 }
