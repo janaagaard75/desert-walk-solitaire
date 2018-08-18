@@ -222,7 +222,7 @@ export class Game {
 
   @computed
   public get replayEnabled(): boolean {
-    const enabled = Game.instance.gameState === GameState.GameWon && this.replayShown
+    const enabled = this.gameState === GameState.GameWon && this.replayShown
     return enabled
   }
 
