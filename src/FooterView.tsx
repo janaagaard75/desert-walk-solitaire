@@ -1,16 +1,17 @@
 import * as React from 'react'
 import { Button } from 'react-native'
 import { Component } from 'react'
-// tslint:disable-next-line:no-implicit-dependencies
-import { Entypo } from '@expo/vector-icons'
-// tslint:disable-next-line:no-implicit-dependencies
-import { FontAwesome } from '@expo/vector-icons'
 import { Modal } from 'react-native'
 import { observer } from 'mobx-react'
 import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { View } from 'react-native'
+
+// tslint:disable:no-implicit-dependencies
+import { Entypo } from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons'
+// tslint:enable:no-implicit-dependencies
 
 import { Game } from './model/Game'
 import { GameState } from './model/GameState'
