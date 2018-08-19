@@ -3,6 +3,7 @@ import { Button } from 'react-native'
 import { Component } from 'react'
 import { Modal } from 'react-native'
 import { observer } from 'mobx-react'
+import { Slider } from 'react-native'
 import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
 import { TouchableOpacity } from 'react-native'
@@ -20,6 +21,7 @@ import { TouchableState } from './model/TouchableState'
 
 interface State {
   confirmModalVisible: boolean
+  value: number
 }
 
 @observer
@@ -28,7 +30,8 @@ export class FooterView extends Component<{}, State> {
     super(props, context)
 
     this.state = {
-      confirmModalVisible: false
+      confirmModalVisible: false,
+      value: 5
     }
   }
 
@@ -55,11 +58,24 @@ export class FooterView extends Component<{}, State> {
           }}
         >
           {this.renderIconWithTouch('fontAwesome', 'fast-backward', () => this.confirmUnlessGameOver(), TouchableState.Enabled)}
-          {this.renderIconWithTouch('entypo', 'controller-fast-forward', () => Game.instance.replay(), Game.instance.replayEnabled ? TouchableState.Enabled : TouchableState.Hidden)}
+          {/* {this.renderIconWithTouch('entypo', 'controller-fast-forward', () => Game.instance.replay(), Game.instance.replayEnabled ? TouchableState.Enabled : TouchableState.Hidden)}
           {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
           {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
           {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
-          {this.renderIconWithTouch('fontAwesome', 'step-backward', () => Game.instance.undo(), Game.instance.undoState)}
+          {this.renderIconWithTouch('fontAwesome', 'step-backward', () => Game.instance.undo(), Game.instance.undoState)} */}
+          <View
+            style={{
+              width: `${5 / 7 * 100}%`
+            }}
+          >
+            <Slider
+              step={1}
+              minimumValue={5}
+              maximumValue={13}
+              onValueChange={newValue => this.change(newValue)}
+              value={this.state.value}
+            />
+          </View>
           {this.renderIconWithTouch('fontAwesome', 'step-forward', () => Game.instance.redo(), Game.instance.redoState)}
         </View>
         <Modal
@@ -84,6 +100,12 @@ export class FooterView extends Component<{}, State> {
         </Modal>
       </View>
     )
+  }
+
+  private change(newValue: number) {
+    this.setState({
+      value: newValue
+    })
   }
 
   private renderIconWithTouch(
