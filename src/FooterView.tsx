@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Button } from 'react-native'
 import { Component } from 'react'
 import { Modal } from 'react-native'
+import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { Slider } from 'react-native'
 import { Text } from 'react-native'
@@ -21,7 +22,6 @@ import { TouchableState } from './model/TouchableState'
 
 interface State {
   confirmModalVisible: boolean
-  value: number
 }
 
 @observer
@@ -30,10 +30,11 @@ export class FooterView extends Component<{}, State> {
     super(props, context)
 
     this.state = {
-      confirmModalVisible: false,
-      value: 5
+      confirmModalVisible: false
     }
   }
+
+  @observable private value: number = 5
 
   public render() {
     const questionStyle: TextStyle = {
@@ -72,8 +73,8 @@ export class FooterView extends Component<{}, State> {
               step={1}
               minimumValue={5}
               maximumValue={13}
-              onValueChange={newValue => this.change(newValue)}
-              value={this.state.value}
+              onValueChange={newValue => this.value = newValue}
+              value={this.value}
             />
           </View>
           {this.renderIconWithTouch('fontAwesome', 'step-forward', () => Game.instance.redo(), Game.instance.redoState)}
@@ -100,12 +101,6 @@ export class FooterView extends Component<{}, State> {
         </Modal>
       </View>
     )
-  }
-
-  private change(newValue: number) {
-    this.setState({
-      value: newValue
-    })
   }
 
   private renderIconWithTouch(
