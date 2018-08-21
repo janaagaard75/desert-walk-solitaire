@@ -59,10 +59,10 @@ export class FooterView extends Component {
             }}
           >
             <Slider
-              step={1}
-              minimumValue={5}
               maximumValue={13}
+              minimumValue={5}
               onValueChange={newValue => this.value = newValue}
+              step={1}
               value={this.value}
             />
           </View>
