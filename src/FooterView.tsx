@@ -20,20 +20,9 @@ import { GameState } from './model/GameState'
 import { Settings } from './model/Settings'
 import { TouchableState } from './model/TouchableState'
 
-interface State {
-  confirmModalVisible: boolean
-}
-
 @observer
-export class FooterView extends Component<{}, State> {
-  constructor(props: {}, context?: any) {
-    super(props, context)
-
-    this.state = {
-      confirmModalVisible: false
-    }
-  }
-
+export class FooterView extends Component {
+  @observable private confirmModalVisible: boolean = false
   @observable private value: number = 5
 
   public render() {
@@ -83,7 +72,7 @@ export class FooterView extends Component<{}, State> {
           animationType="slide"
           supportedOrientations={['landscape']}
           transparent={false}
-          visible={this.state.confirmModalVisible}
+          visible={this.confirmModalVisible}
         >
           <View style={{ marginTop: 22 }}>
             <Text style={questionStyle}>
@@ -94,7 +83,7 @@ export class FooterView extends Component<{}, State> {
               title="Yes, start over"
             />
             <Button
-              onPress={() => this.hideConfirmModal()}
+              onPress={() => this.confirmModalVisible = false}
               title="No, let me continue this game"
             />
           </View>
@@ -180,24 +169,12 @@ export class FooterView extends Component<{}, State> {
 
       case GameState.MovePossible:
       case GameState.Stuck:
-        this.showConfirmModal()
+        this.confirmModalVisible = true
         break
 
       default:
         throw new Error(`Game state ${Game.instance.gameState} is not supported.`)
     }
-  }
-
-  private hideConfirmModal() {
-    this.setState({
-      confirmModalVisible: false
-    })
-  }
-
-  private showConfirmModal() {
-    this.setState({
-      confirmModalVisible: true
-    })
   }
 
   private shuffleButtonEnabled(buttonNumber: number): TouchableState {
@@ -216,7 +193,7 @@ export class FooterView extends Component<{}, State> {
   }
 
   private startOver() {
-    this.hideConfirmModal()
+    this.confirmModalVisible = false
     Game.instance.startOver()
   }
 }
