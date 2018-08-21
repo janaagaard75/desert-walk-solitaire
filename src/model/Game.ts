@@ -1,7 +1,6 @@
 import { autorun } from 'mobx'
 import { computed } from 'mobx'
 import { observable } from 'mobx'
-import * as firebase from 'firebase'
 
 import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
@@ -20,12 +19,9 @@ import { ShuffleTurn } from './turn/ShuffleTurn'
 import { TouchableState } from './TouchableState'
 import { Turn } from './turn/Turn'
 
-import * as firebaseConfig from './firebaseConfig.json'
-
 export class Game {
   private constructor() {
     this.startOver()
-    firebase.initializeApp(firebaseConfig)
     autorun(() => this.autorun())
   }
 
