@@ -6,7 +6,7 @@ import { Size } from './Size'
 export class Settings {
   private constructor() { }
 
-  public readonly maxCardValue = 13
+  @observable public maxCardValue = 13
   public readonly rows = 4
   public readonly numberOfShuffles = 3
   @observable public windowSize: Size = { height: 0, width: 0 }
@@ -54,8 +54,6 @@ export class Settings {
     return this._instance
   }
 
-  public readonly columns = this.maxCardValue + 1
-  public readonly numberOfCards = this.maxCardValue * this.rows
   public readonly cardShadowOpacity = 0.6
 
   private readonly cardSizeRatio = 3 / 2
@@ -140,6 +138,10 @@ export class Settings {
     return Math.round(1.22 * Settings.instance.cardSize.width)
   }
 
+  @computed public get columns() {
+    return this.maxCardValue + 1
+  }
+
   @computed
   public get gridSize(): Size {
     const width = this.cardSize.width * this.columns + this.gutterSize * (this.columns - 1)
@@ -159,6 +161,10 @@ export class Settings {
     else {
       return this.widthRestrictedGutterSize
     }
+  }
+
+  @computed public get numberOfCards() {
+    return this.maxCardValue * this.rows
   }
 
   @computed

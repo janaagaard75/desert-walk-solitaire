@@ -23,7 +23,6 @@ import { TouchableState } from './model/TouchableState'
 @observer
 export class FooterView extends Component {
   @observable private confirmModalVisible: boolean = false
-  @observable private value: number = 5
 
   public render() {
     const questionStyle: TextStyle = {
@@ -61,9 +60,9 @@ export class FooterView extends Component {
             <Slider
               maximumValue={13}
               minimumValue={5}
-              onValueChange={newValue => this.value = newValue}
+              onValueChange={newValue => Settings.instance.maxCardValue = newValue}
               step={1}
-              value={this.value}
+              value={Settings.instance.maxCardValue}
             />
           </View>
           {this.renderIconWithTouch('fontAwesome', 'step-forward', () => Game.instance.redo(), Game.instance.redoState)}
