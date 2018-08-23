@@ -7,17 +7,12 @@ import { observer } from 'mobx-react'
 import { Slider } from 'react-native'
 import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
-import { TouchableOpacity } from 'react-native'
 import { View } from 'react-native'
-
-// tslint:disable:no-implicit-dependencies
-import { Entypo } from '@expo/vector-icons'
-import { FontAwesome } from '@expo/vector-icons'
-// tslint:enable:no-implicit-dependencies
 
 import { Game } from './model/Game'
 import { GameState } from './model/GameState'
 import { Settings } from './model/Settings'
+import { TouchableIcon } from './TouchableIcon'
 import { TouchableState } from './model/TouchableState'
 
 @observer
@@ -46,12 +41,42 @@ export class FooterView extends Component {
             flexWrap: 'wrap'
           }}
         >
-          {this.renderIconWithTouch('fontAwesome', 'fast-backward', () => this.confirmUnlessGameOver(), TouchableState.Enabled)}
-          {/* {this.renderIconWithTouch('entypo', 'controller-fast-forward', () => Game.instance.replay(), Game.instance.replayEnabled ? TouchableState.Enabled : TouchableState.Hidden)}
-          {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
-          {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
-          {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
-          {this.renderIconWithTouch('fontAwesome', 'step-backward', () => Game.instance.undo(), Game.instance.undoState)} */}
+          <TouchableIcon
+            handlePress={() => this.confirmUnlessGameOver()}
+            iconGroup="fontAwesome"
+            iconName="fast-backward"
+            state={TouchableState.Enabled}
+          />
+          {/* <TouchableIcon
+            handlePress={() => Game.instance.replay()}
+            iconGroup="entypo"
+            iconName="controller-fast-forward"
+            state={Game.instance.replayEnabled ? TouchableState.Enabled : TouchableState.Hidden}
+          />
+          <TouchableIcon
+            handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
+            iconGroup="entypo"
+            iconName="shuffle"
+            state={this.shuffleButtonEnabled(1)}
+          />
+          <TouchableIcon
+            handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
+            iconGroup="entypo"
+            iconName="shuffle"
+            state={this.shuffleButtonEnabled(2)}
+          />
+          <TouchableIcon
+            handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
+            iconGroup="entypo"
+            iconName="shuffle"
+            state={this.shuffleButtonEnabled(3)}
+          />
+          <TouchableIcon
+            handlePress={() => Game.instance.undo()}
+            iconGroup="fontAwesome"
+            iconName="step-backward"
+            state={Game.instance.undoState}
+          /> */}
           <View
             style={{
               width: `${5 / 7 * 100}%`
@@ -65,7 +90,12 @@ export class FooterView extends Component {
               value={Settings.instance.maxCardValue}
             />
           </View>
-          {this.renderIconWithTouch('fontAwesome', 'step-forward', () => Game.instance.redo(), Game.instance.redoState)}
+          <TouchableIcon
+            handlePress={() => Game.instance.redo()}
+            iconGroup="fontAwesome"
+            iconName="step-forward"
+            state={Game.instance.redoState}
+          />
         </View>
         <Modal
           animationType="slide"
@@ -89,74 +119,6 @@ export class FooterView extends Component {
         </Modal>
       </View>
     )
-  }
-
-  private renderIconWithTouch(
-    iconGroup: string,
-    iconName: string,
-    handlePress: () => void,
-    state: TouchableState
-  ) {
-    const numberOfIcons = 7
-    const width = 1 / numberOfIcons * 100
-
-    if (state === TouchableState.Hidden) {
-      return (
-        <View style={{ width: `${width}%` }} />
-      )
-    }
-
-    const color = state === TouchableState.Enabled ? '#fff' : '#999'
-    const shadowOpacity = state === TouchableState.Enabled ? 0.5 : 0
-
-    return (
-      <TouchableOpacity
-        onPress={handlePress}
-        disabled={state === TouchableState.Disabled}
-        style={{
-          alignItems: 'center',
-          alignSelf: 'center',
-          backgroundColor: 'transparent',
-          shadowColor: '#fff',
-          shadowOpacity: shadowOpacity,
-          shadowRadius: 5,
-          width: `${width}%`
-        }}
-      >
-        {this.renderIcon(iconGroup, iconName, color)}
-      </TouchableOpacity>
-    )
-  }
-
-  private renderIcon(
-    iconGroup: string,
-    iconName: string,
-    color: string
-  ) {
-    const iconSize = 20
-
-    switch (iconGroup) {
-      case 'entypo':
-        return (
-          <Entypo
-            color={color}
-            name={iconName}
-            size={iconSize}
-          />
-        )
-
-      case 'fontAwesome':
-        return (
-          <FontAwesome
-            color={color}
-            name={iconName}
-            size={iconSize}
-          />
-        )
-
-      default:
-        throw new Error(`The iconGroup '${iconGroup} is not supported.`)
-    }
   }
 
   private confirmUnlessGameOver() {
