@@ -123,8 +123,8 @@ export class FooterView extends Component {
 
   private confirmUnlessGameOver() {
     switch (Game.instance.gameState) {
-      case GameState.GameLost:
-      case GameState.GameWon:
+      case GameState.Lost:
+      case GameState.Won:
         Game.instance.startOver()
         break
 

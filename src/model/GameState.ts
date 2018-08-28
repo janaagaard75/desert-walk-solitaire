@@ -1,6 +1,6 @@
 export enum GameState {
-  GameLost,
-  GameWon,
+  Lost,
   MovePossible,
-  Stuck
+  Stuck,
+  Won
 }

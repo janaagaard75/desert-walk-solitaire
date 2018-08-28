@@ -90,14 +90,14 @@ export class Game {
     }
 
     if (this.currentGridState.correctlyPositionedCards.length === Settings.instance.numberOfCards) {
-      return GameState.GameWon
+      return GameState.Won
     }
 
     if (this.shuffles < Settings.instance.numberOfShuffles) {
       return GameState.Stuck
     }
 
-    return GameState.GameLost
+    return GameState.Lost
   }
 
   @computed
@@ -157,7 +157,7 @@ export class Game {
 
     const isFirstState = this.currentStateIndex === 0
     const previousTurnWasMove = this.turns[this.currentStateIndex - 1] instanceof MoveTurn
-    const gameOver = this.gameState === GameState.GameLost || this.gameState === GameState.GameWon
+    const gameOver = this.gameState === GameState.Lost || this.gameState === GameState.Won
 
     if (isFirstState || !previousTurnWasMove || gameOver) {
       return TouchableState.Disabled
@@ -218,7 +218,7 @@ export class Game {
 
   @computed
   public get replayEnabled(): boolean {
-    const enabled = this.gameState === GameState.GameWon && this.replayShown
+    const enabled = this.gameState === GameState.Won && this.replayShown
     return enabled
   }
 
@@ -237,7 +237,7 @@ export class Game {
   }
 
   private autorun() {
-    if (this.gameState === GameState.GameWon && !this.replayShown) {
+    if (this.gameState === GameState.Won && !this.replayShown) {
       setTimeout(() => this.replay(), Settings.instance.animation.replay.deplayBeforeAutoReplay)
     }
   }
@@ -338,7 +338,7 @@ export class Game {
   }
 
   private get gameIsOver(): boolean {
-    const gameOver = this.gameState === GameState.GameLost || this.gameState === GameState.GameWon
+    const gameOver = this.gameState === GameState.Lost || this.gameState === GameState.Won
     return gameOver
   }
 
