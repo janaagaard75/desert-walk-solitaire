@@ -43,6 +43,7 @@ export class Game {
   @observable private gridStates: Array<GridState> = []
   @observable private replayPlaying: boolean = false
   @observable private replayShown: boolean = false
+  @observable private selectingLevel: boolean = false
   @observable private turns: Array<Turn> = []
 
   private gameSummary: GameSummary | undefined
@@ -85,6 +86,10 @@ export class Game {
 
   @computed
   public get gameState(): GameState {
+    if (this.selectingLevel) {
+      return GameState.SelectLevel
+    }
+
     if (this.currentGridState.draggableCards.length >= 1) {
       return GameState.MovePossible
     }
@@ -314,6 +319,7 @@ export class Game {
     this.turns = []
     this.gameSummary = new GameSummary()
     this.replayShown = false
+    this.selectingLevel = true
   }
 
   public undo() {

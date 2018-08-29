@@ -34,69 +34,91 @@ export class FooterView extends Component {
           paddingTop: 4
         }}
       >
-        <View
-          style={{
-            backgroundColor: Settings.instance.colors.mainBackgroundColor,
-            flexDirection: 'row',
-            flexWrap: 'wrap'
-          }}
-        >
-          <TouchableIcon
-            handlePress={() => this.confirmUnlessGameOver()}
-            iconGroup="fontAwesome"
-            iconName="fast-backward"
-            state={TouchableState.Enabled}
-          />
-          {/* <TouchableIcon
-            handlePress={() => Game.instance.replay()}
-            iconGroup="entypo"
-            iconName="controller-fast-forward"
-            state={Game.instance.replayEnabled ? TouchableState.Enabled : TouchableState.Hidden}
-          />
-          <TouchableIcon
-            handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
-            iconGroup="entypo"
-            iconName="shuffle"
-            state={this.shuffleButtonEnabled(1)}
-          />
-          <TouchableIcon
-            handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
-            iconGroup="entypo"
-            iconName="shuffle"
-            state={this.shuffleButtonEnabled(2)}
-          />
-          <TouchableIcon
-            handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
-            iconGroup="entypo"
-            iconName="shuffle"
-            state={this.shuffleButtonEnabled(3)}
-          />
-          <TouchableIcon
-            handlePress={() => Game.instance.undo()}
-            iconGroup="fontAwesome"
-            iconName="step-backward"
-            state={Game.instance.undoState}
-          /> */}
-          <View
-            style={{
-              width: `${5 / 7 * 100}%`
-            }}
-          >
-            <Slider
-              maximumValue={13}
-              minimumValue={5}
-              onValueChange={newValue => Settings.instance.maxCardValue = newValue}
-              step={1}
-              value={Settings.instance.maxCardValue}
-            />
-          </View>
-          <TouchableIcon
-            handlePress={() => Game.instance.redo()}
-            iconGroup="fontAwesome"
-            iconName="step-forward"
-            state={Game.instance.redoState}
-          />
-        </View>
+        {Game.instance.gameState === GameState.SelectLevel
+          ? (
+            // TODO: Put style in variable.
+            <View
+              style={{
+                backgroundColor: Settings.instance.colors.mainBackgroundColor,
+                flexDirection: 'row',
+                flexWrap: 'wrap'
+              }}
+            >
+              <View
+                style={{
+                  width: `${6 / 7 * 100}%`
+                }}
+              >
+                {/* TODO: Reduce the height of the slider. */}
+                <Slider
+                  maximumValue={13}
+                  minimumValue={5}
+                  onValueChange={newValue => Settings.instance.maxCardValue = newValue}
+                  step={1}
+                  value={Settings.instance.maxCardValue}
+                />
+              </View>
+              {/* TODO: Use another icon. */}
+              <TouchableIcon
+                handlePress={() => this.confirmUnlessGameOver()}
+                iconGroup="fontAwesome"
+                iconName="fast-backward"
+                state={TouchableState.Enabled}
+              />
+            </View>
+          ) : (
+            <View
+              style={{
+                backgroundColor: Settings.instance.colors.mainBackgroundColor,
+                flexDirection: 'row',
+                flexWrap: 'wrap'
+              }}
+            >
+              <TouchableIcon
+                handlePress={() => this.confirmUnlessGameOver()}
+                iconGroup="fontAwesome"
+                iconName="fast-backward"
+                state={TouchableState.Enabled}
+              />
+              <TouchableIcon
+                handlePress={() => Game.instance.replay()}
+                iconGroup="entypo"
+                iconName="controller-fast-forward"
+                state={Game.instance.replayEnabled ? TouchableState.Enabled : TouchableState.Hidden}
+              />
+              <TouchableIcon
+                handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
+                iconGroup="entypo"
+                iconName="shuffle"
+                state={this.shuffleButtonEnabled(1)}
+              />
+              <TouchableIcon
+                handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
+                iconGroup="entypo"
+                iconName="shuffle"
+                state={this.shuffleButtonEnabled(2)}
+              />
+              <TouchableIcon
+                handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
+                iconGroup="entypo"
+                iconName="shuffle"
+                state={this.shuffleButtonEnabled(3)}
+              />
+              <TouchableIcon
+                handlePress={() => Game.instance.undo()}
+                iconGroup="fontAwesome"
+                iconName="step-backward"
+                state={Game.instance.undoState}
+              />
+              <TouchableIcon
+                handlePress={() => Game.instance.redo()}
+                iconGroup="fontAwesome"
+                iconName="step-forward"
+                state={Game.instance.redoState}
+              />
+            </View>
+          )
+        }
         <Modal
           animationType="slide"
           supportedOrientations={['landscape']}
