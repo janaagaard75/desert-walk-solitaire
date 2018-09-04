@@ -8,6 +8,7 @@ import { Slider } from 'react-native'
 import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
 import { View } from 'react-native'
+import { ViewStyle } from 'react-native'
 
 import { Game } from './model/Game'
 import { GameState } from './model/GameState'
@@ -20,6 +21,12 @@ export class FooterView extends Component {
   @observable private confirmModalVisible: boolean = false
 
   public render() {
+    const buttonWrapperStyle: ViewStyle = {
+      backgroundColor: Settings.instance.colors.mainBackgroundColor,
+      flexDirection: 'row',
+      flexWrap: 'wrap'
+    }
+
     const questionStyle: TextStyle = {
       fontSize: 24,
       marginBottom: 10,
@@ -36,14 +43,7 @@ export class FooterView extends Component {
       >
         {Game.instance.gameState === GameState.SelectLevel
           ? (
-            // TODO: Put style in variable.
-            <View
-              style={{
-                backgroundColor: Settings.instance.colors.mainBackgroundColor,
-                flexDirection: 'row',
-                flexWrap: 'wrap'
-              }}
-            >
+            <View style={buttonWrapperStyle}>
               <View
                 style={{
                   width: `${6 / 7 * 100}%`
@@ -67,13 +67,7 @@ export class FooterView extends Component {
               />
             </View>
           ) : (
-            <View
-              style={{
-                backgroundColor: Settings.instance.colors.mainBackgroundColor,
-                flexDirection: 'row',
-                flexWrap: 'wrap'
-              }}
-            >
+            <View style={buttonWrapperStyle}>
               <TouchableIcon
                 handlePress={() => this.confirmUnlessGameOver()}
                 iconGroup="fontAwesome"
