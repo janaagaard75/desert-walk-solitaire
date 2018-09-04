@@ -55,8 +55,7 @@ export class FooterView extends Component {
                   onValueChange={newValue => Settings.instance.maxCardValue = newValue}
                   step={1}
                   style={{
-                    height: 1,
-                    top: 10
+                    height: 23 // Manually tweaked to match the height of the other icons.
                   }}
                   value={Settings.instance.maxCardValue}
                 />
