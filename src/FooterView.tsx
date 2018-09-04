@@ -62,7 +62,7 @@ export class FooterView extends Component {
                 />
               </View>
               <TouchableIcon
-                handlePress={() => this.confirmUnlessGameOver()}
+                handlePress={() => Game.instance.startGame()}
                 iconGroup="fontAwesome"
                 iconName="play"
                 state={TouchableState.Enabled}

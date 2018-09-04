@@ -300,6 +300,10 @@ export class Game {
     this.performTurn(new ShuffleTurn())
   }
 
+  public startGame() {
+    this.selectingLevel = false
+  }
+
   public startOver() {
     const shuffledCards = Deck.instance.cards.shuffle()
     const cellsExcludingFirstColumn = Grid.instance.cells.filter(cell => cell.columnIndex !== 0)
