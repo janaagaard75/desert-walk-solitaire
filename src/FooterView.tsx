@@ -61,11 +61,10 @@ export class FooterView extends Component {
                   value={Settings.instance.maxCardValue}
                 />
               </View>
-              {/* TODO: Use another icon. */}
               <TouchableIcon
                 handlePress={() => this.confirmUnlessGameOver()}
                 iconGroup="fontAwesome"
-                iconName="fast-backward"
+                iconName="play"
                 state={TouchableState.Enabled}
               />
             </View>
