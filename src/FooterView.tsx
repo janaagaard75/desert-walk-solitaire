@@ -49,12 +49,15 @@ export class FooterView extends Component {
                   width: `${6 / 7 * 100}%`
                 }}
               >
-                {/* TODO: Reduce the height of the slider. */}
                 <Slider
                   maximumValue={13}
                   minimumValue={5}
                   onValueChange={newValue => Settings.instance.maxCardValue = newValue}
                   step={1}
+                  style={{
+                    height: 1,
+                    top: 10
+                  }}
                   value={Settings.instance.maxCardValue}
                 />
               </View>
