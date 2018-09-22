@@ -8,6 +8,7 @@ import { Deck } from './Deck'
 import { EmptyCell } from './EmptyCell'
 import { Grid } from './Grid'
 import { PositionedCard } from './PositionedCard'
+import { Settings } from './Settings'
 import { Turn } from './turn/Turn'
 
 export class GridState {
@@ -103,5 +104,31 @@ export class GridState {
 
     const match = this.positionedCards.find(pair => pair.cell === cell)
     return match
+  }
+
+  @computed
+  public static get inOrder(): GridState {
+    const cardCellPairs: Array<CardCellPair> = []
+    for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
+      for (let columnIndex = 0; columnIndex < Settings.instance.columns; columnIndex++) {
+        if (columnIndex === 0) {
+          continue
+        }
+
+        const cellIndex = rowIndex * Settings.instance.columns + columnIndex
+
+        // The deck of cards has been initialized in reverse order.
+        const cardValue = Settings.instance.maxCardValue - columnIndex + 1
+        const cardIndex = rowIndex * Settings.instance.columns + cardValue - 1 - rowIndex
+
+        cardCellPairs.push({
+          card: Deck.instance.cards[cardIndex],
+          cell: Grid.instance.cells[cellIndex]
+        })
+      }
+    }
+
+    const gridState = new GridState(cardCellPairs)
+    return gridState
   }
 }
