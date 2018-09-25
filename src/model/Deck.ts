@@ -7,6 +7,20 @@ import { Suit } from './Suit'
 
 export class Deck {
   private constructor() {
+  }
+
+  private static _instance: Deck
+
+  public static get instance(): Deck {
+    if (this._instance === undefined) {
+      this._instance = new Deck()
+    }
+
+    return this._instance
+  }
+
+  @computed
+  public get cards(): ReadonlyArray<Card> {
     const cards: Array<Card> = []
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
       if (Suit.hasOwnProperty(suit)) {
@@ -20,20 +34,8 @@ export class Deck {
       }
     }
 
-    this.cards = cards
+    return cards
   }
-
-  private static _instance: Deck
-
-  public static get instance(): Deck {
-    if (this._instance === undefined) {
-      this._instance = new Deck()
-    }
-
-    return this._instance
-  }
-
-  public readonly cards: ReadonlyArray<Card>
 
   @computed
   public get theFourAces(): ReadonlyArray<Card> {
