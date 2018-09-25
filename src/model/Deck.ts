@@ -36,7 +36,7 @@ export class Deck {
   public readonly cards: ReadonlyArray<Card>
 
   @computed
-  public get theFourAces(): Array<Card> {
+  public get theFourAces(): ReadonlyArray<Card> {
     const theFourAces = this.cards.filter(card => card.value === 1)
     return theFourAces
   }
