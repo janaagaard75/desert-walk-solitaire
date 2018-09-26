@@ -125,6 +125,10 @@ export class GridState {
           card: Deck.instance.cards[cardIndex],
           cell: Grid.instance.cells[cellIndex]
         })
+
+        if (cardCellPairs[cardCellPairs.length - 1].card === undefined) {
+          throw new Error(`cardCellPair[${cardCellPairs.length - 1}].card is not defined.`)
+        }
       }
     }
 
