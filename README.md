@@ -19,7 +19,7 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 - Difficulty selector.
   - How should the selector look? How would the icons for easy and hard look?
-- Avoid possing line functions as props: https://itnext.io/how-we-boosted-the-performance-of-our-react-native-app-191b8d338347#e92b.
+- Avoid passing inline functions as props: https://itnext.io/how-we-boosted-the-performance-of-our-react-native-app-191b8d338347#e92b.
 - Game lost screen.
 - Animate the cards when they are dealt.
 - Draw the numbers on the cards using a custom font or SVGs to make sure they look alike on both platforms.
