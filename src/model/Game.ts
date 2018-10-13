@@ -301,10 +301,16 @@ export class Game {
   }
 
   public startGame() {
+    this.startGameOrStartOver()
     this.selectingLevel = false
   }
 
   public startOver() {
+    this.startGameOrStartOver()
+    this.selectingLevel = true
+  }
+
+  private startGameOrStartOver() {
     const shuffledCards = Deck.instance.cards.shuffle()
     const cellsExcludingFirstColumn = Grid.instance.cells.filter(cell => cell.columnIndex !== 0)
 
@@ -323,7 +329,6 @@ export class Game {
     this.turns = []
     this.gameSummary = new GameSummary()
     this.replayShown = false
-    this.selectingLevel = true
   }
 
   public undo() {
