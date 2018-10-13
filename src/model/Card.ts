@@ -1,12 +1,11 @@
 import { computed } from 'mobx'
 
-import { CardValue } from './CardValue'
 import { Suit } from './Suit'
 
 export class Card {
   constructor(
     public readonly suit: Suit,
-    public readonly value: CardValue,
+    public readonly value: number,
     public readonly next: Card | undefined
   ) { }
 
