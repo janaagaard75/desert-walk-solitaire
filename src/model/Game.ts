@@ -21,7 +21,7 @@ import { Turn } from './turn/Turn'
 
 export class Game {
   private constructor() {
-    this.startOver()
+    this.selectLevel()
     autorun(() => this.autorun())
   }
 
@@ -300,17 +300,17 @@ export class Game {
     this.performTurn(new ShuffleTurn())
   }
 
-  public startGame() {
-    this.startGameOrStartOver()
-    this.selectingLevel = false
-  }
-
-  public startOver() {
-    this.startGameOrStartOver()
+  public selectLevel() {
+    this.layOutCards()
     this.selectingLevel = true
   }
 
-  private startGameOrStartOver() {
+  public startGame() {
+    this.layOutCards()
+    this.selectingLevel = false
+  }
+
+  private layOutCards() {
     const shuffledCards = Deck.instance.cards.shuffle()
     const cellsExcludingFirstColumn = Grid.instance.cells.filter(cell => cell.columnIndex !== 0)
 

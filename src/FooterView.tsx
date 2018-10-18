@@ -125,7 +125,7 @@ export class FooterView extends Component {
               This game isn't over yet. Start over anyway?
             </Text>
             <Button
-              onPress={() => this.startOver()}
+              onPress={() => this.selectLevel()}
               title="Yes, start over"
             />
             <Button
@@ -142,7 +142,7 @@ export class FooterView extends Component {
     switch (Game.instance.gameState) {
       case GameState.Lost:
       case GameState.Won:
-        Game.instance.startOver()
+        Game.instance.selectLevel()
         break
 
       case GameState.MovePossible:
@@ -170,8 +170,8 @@ export class FooterView extends Component {
     return TouchableState.Disabled
   }
 
-  private startOver() {
+  private selectLevel() {
     this.confirmModalVisible = false
-    Game.instance.startOver()
+    Game.instance.selectLevel()
   }
 }
