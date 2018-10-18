@@ -125,11 +125,11 @@ export class FooterView extends Component {
               This game isn't over yet. Start over anyway?
             </Text>
             <Button
-              onPress={() => this.selectLevel()}
+              onPress={this.selectLevel}
               title="Yes, start over"
             />
             <Button
-              onPress={() => this.confirmModalVisible = false}
+              onPress={this.hideConfirmModal}
               title="No, let me continue this game"
             />
           </View>
@@ -170,8 +170,13 @@ export class FooterView extends Component {
     return TouchableState.Disabled
   }
 
-  private selectLevel() {
+  private hideConfirmModal = () => {
+    this.confirmModalVisible = false
+  }
+
+  private selectLevel = () => {
     this.confirmModalVisible = false
     Game.instance.selectLevel()
   }
+
 }

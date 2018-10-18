@@ -33,7 +33,7 @@ export class TouchableIcon extends Component<Props> {
 
     return (
       <TouchableOpacity
-        onPress={() => this.props.handlePress()}
+        onPress={this.handlePress}
         disabled={this.props.state === TouchableState.Disabled}
         style={{
           alignItems: 'center',
@@ -48,6 +48,10 @@ export class TouchableIcon extends Component<Props> {
         {this.renderIcon(this.props.iconGroup, this.props.iconName, color)}
       </TouchableOpacity>
     )
+  }
+
+  private handlePress = () => {
+    this.props.handlePress()
   }
 
   private renderIcon(
