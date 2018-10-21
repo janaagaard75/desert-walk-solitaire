@@ -2,12 +2,16 @@
 
 declare global {
   interface Array<T> {
+    /** Return a shallow copy of the array. */
     clone(): Array<T>
+    /** Return a shuffled shallow copy of the array. */
     shuffle(): Array<T>
   }
 
   interface ReadonlyArray<T> {
+    /** Return a shallow copy of the array. */
     clone(): ReadonlyArray<T>
+    /** Return a shuffled shallow copy of the array. */
     shuffle(): ReadonlyArray<T>
   }
 }
