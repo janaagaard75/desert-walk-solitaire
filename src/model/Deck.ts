@@ -22,14 +22,12 @@ export class Deck {
   public get cards(): ReadonlyArray<Card> {
     const cards: Array<Card> = []
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
-      if (Suit.hasOwnProperty(suit)) {
-        for (let value = Settings.instance.maxCardValue; value >= 1; value--) {
-          const nextCard = value === Settings.instance.maxCardValue
-            ? undefined
-            : cards[cards.length - 1]
+      for (let value = Settings.instance.maxCardValue; value >= 1; value--) {
+        const nextCard = value === Settings.instance.maxCardValue
+          ? undefined
+          : cards[cards.length - 1]
 
-          cards.push(new Card(suit, value, nextCard))
-        }
+        cards.push(new Card(suit, value, nextCard))
       }
     }
 
