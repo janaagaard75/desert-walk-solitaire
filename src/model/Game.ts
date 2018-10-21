@@ -5,11 +5,11 @@ import { observable } from 'mobx'
 import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
-import { Deck } from './Deck'
 import { GameState } from './GameState'
 import { GameSummary } from './GameSummary'
 import { Grid } from './Grid'
 import { GridState } from './GridState'
+import { Main } from './Main'
 import { MoveTurn } from './turn/MoveTurn'
 import { Point } from './Point'
 import { PositionedCard } from './PositionedCard'
@@ -311,7 +311,7 @@ export class Game {
   }
 
   private layOutCards() {
-    const shuffledCards = Deck.instance.cards.shuffle()
+    const shuffledCards = Main.instance.deck.shuffle()
     const cellsExcludingFirstColumn = Grid.instance.cells.filter(cell => cell.columnIndex !== 0)
 
     const positions: Array<CardCellPair> = []

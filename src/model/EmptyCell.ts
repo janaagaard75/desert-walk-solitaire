@@ -2,11 +2,11 @@ import { computed } from 'mobx'
 
 import { Card } from './Card'
 import { Cell } from './Cell'
-import { Deck } from './Deck'
 import { EmptyCellState } from './EmptyCellState'
 import { Game } from './Game'
 import { GridCell } from './GridCell'
 import { GridState } from './GridState'
+import { Main } from './Main'
 
 export class EmptyCell extends GridCell {
   constructor(
@@ -19,7 +19,7 @@ export class EmptyCell extends GridCell {
   @computed
   public get droppableCards(): ReadonlyArray<Card> {
     if (this.left === undefined) {
-      return Deck.instance.theFourAces
+      return Main.instance.theFourAces
     }
 
     if (this.left instanceof EmptyCell) {

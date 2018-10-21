@@ -4,22 +4,22 @@ import { Card } from './Card'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
 
-export class Deck {
+export class Main {
   private constructor() {
   }
 
-  private static _instance: Deck
+  private static _instance: Main | undefined
 
-  public static get instance(): Deck {
+  public static get instance(): Main {
     if (this._instance === undefined) {
-      this._instance = new Deck()
+      this._instance = new Main()
     }
 
     return this._instance
   }
 
   @computed
-  public get cards(): ReadonlyArray<Card> {
+  public get deck(): ReadonlyArray<Card> {
     const cards: Array<Card> = []
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
       for (let value = Settings.instance.maxCardValue; value >= 1; value--) {
@@ -36,7 +36,7 @@ export class Deck {
 
   @computed
   public get theFourAces(): ReadonlyArray<Card> {
-    const theFourAces = this.cards.filter(card => card.value === 1)
+    const theFourAces = this.deck.filter(card => card.value === 1)
     return theFourAces
   }
 }

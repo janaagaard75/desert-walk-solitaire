@@ -4,9 +4,9 @@ import { observable } from 'mobx'
 import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
-import { Deck } from './Deck'
 import { EmptyCell } from './EmptyCell'
 import { Grid } from './Grid'
+import { Main } from './Main'
 import { PositionedCard } from './PositionedCard'
 import { Settings } from './Settings'
 import { Turn } from './turn/Turn'
@@ -15,8 +15,8 @@ export class GridState {
   public constructor(
     cardCellPairs: Array<CardCellPair>
   ) {
-    if (cardCellPairs.length !== Deck.instance.cards.length) {
-      throw new Error(`Must supply ${Deck.instance.cards.length} card and cell pairs to the GridState constructor.`)
+    if (cardCellPairs.length !== Main.instance.deck.length) {
+      throw new Error(`Must supply ${Main.instance.deck.length} card and cell pairs to the GridState constructor.`)
     }
 
     cardCellPairs.forEach(pair => {
@@ -44,7 +44,7 @@ export class GridState {
       .filter((nextCard: Card | undefined): nextCard is Card => nextCard !== undefined)
 
     const draggableAces = this.positionedCards
-      .filter(positionedCard => Deck.instance.theFourAces.includes(positionedCard.card))
+      .filter(positionedCard => Main.instance.theFourAces.includes(positionedCard.card))
       .filter(cellWithAce => !cellWithAce.correctlyPlaced)
       .map(cellWithAce => cellWithAce.card)
 
@@ -122,7 +122,7 @@ export class GridState {
         const cardIndex = rowIndex * Settings.instance.columns + cardValue - 1 - rowIndex
 
         cardCellPairs.push({
-          card: Deck.instance.cards[cardIndex],
+          card: Main.instance.deck[cardIndex],
           cell: Grid.instance.cells[cellIndex]
         })
 
