@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Desert Walk",
-    "description": "A game of solitaire. Source code at https://github.com/janaagaard75/desert-walk",
+    "description": "A game of solitaire.",
     "slug": "desert-walk",
     "privacy": "public",
     "sdkVersion": "30.0.0",
@@ -26,6 +26,7 @@
     },
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "githubUrl": "https://github.com/janaagaard75/desert-walk"
   }
 }
