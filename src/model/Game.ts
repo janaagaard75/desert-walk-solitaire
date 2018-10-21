@@ -7,7 +7,6 @@ import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { GameState } from './GameState'
 import { GameSummary } from './GameSummary'
-import { Grid } from './Grid'
 import { GridState } from './GridState'
 import { Main } from './Main'
 import { MoveTurn } from './turn/MoveTurn'
@@ -312,7 +311,7 @@ export class Game {
 
   private layOutCards() {
     const shuffledCards = Main.instance.deck.shuffle()
-    const cellsExcludingFirstColumn = Grid.instance.cells.filter(cell => cell.columnIndex !== 0)
+    const cellsExcludingFirstColumn = Main.instance.cells.filter(cell => cell.columnIndex !== 0)
 
     const positions: Array<CardCellPair> = []
     for (let i = 0; i < shuffledCards.length; i++) {

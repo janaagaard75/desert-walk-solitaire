@@ -1,13 +1,11 @@
 import { computed } from 'mobx'
 
 import { Card } from './Card'
+import { Cell } from './Cell'
 import { Settings } from './Settings'
 import { Suit } from './Suit'
 
 export class Main {
-  private constructor() {
-  }
-
   private static _instance: Main | undefined
 
   public static get instance(): Main {
@@ -16,6 +14,27 @@ export class Main {
     }
 
     return this._instance
+  }
+
+  @computed
+  public get cells(): ReadonlyArray<Cell> {
+    const cells: Array<Cell> = []
+    for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
+      for (let columnIndex = 0; columnIndex < Settings.instance.columns; columnIndex++) {
+        let cellToTheLeft: Cell | undefined
+        if (columnIndex === 0) {
+          cellToTheLeft = undefined
+        }
+        else {
+          cellToTheLeft = cells[cells.length - 1]
+        }
+
+        const cell = new Cell(rowIndex, columnIndex, cellToTheLeft)
+        cells.push(cell)
+      }
+    }
+
+    return cells
   }
 
   @computed

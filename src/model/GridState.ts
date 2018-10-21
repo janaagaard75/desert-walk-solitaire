@@ -5,7 +5,6 @@ import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { EmptyCell } from './EmptyCell'
-import { Grid } from './Grid'
 import { Main } from './Main'
 import { PositionedCard } from './PositionedCard'
 import { Settings } from './Settings'
@@ -54,7 +53,7 @@ export class GridState {
 
   @computed
   public get emptyCells(): Array<EmptyCell> {
-    const emptyCells = Grid.instance.cells
+    const emptyCells = Main.instance.cells
       .filter(cell => this.getPositionedCardFromCell(cell) === undefined)
       .map(cell => new EmptyCell(cell, this))
 
@@ -123,7 +122,7 @@ export class GridState {
 
         cardCellPairs.push({
           card: Main.instance.deck[cardIndex],
-          cell: Grid.instance.cells[cellIndex]
+          cell: Main.instance.cells[cellIndex]
         })
 
         if (cardCellPairs[cardCellPairs.length - 1].card === undefined) {
