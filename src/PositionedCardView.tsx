@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Animated } from 'react-native'
 import { Component } from 'react'
 import { Easing } from 'react-native'
+import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { PanResponder } from 'react-native'
 import { PanResponderInstance } from 'react-native'
@@ -22,18 +23,10 @@ enum VisualState {
   Idle
 }
 
-interface State {
-  visualState: VisualState
-}
-
 @observer
-export class PositionedCardView extends Component<Props, State> {
+export class PositionedCardView extends Component<Props> {
   constructor(props: Props, context?: any) {
     super(props, context)
-
-    this.state = {
-      visualState: VisualState.Idle
-    }
 
     this.animatedPosition = new Animated.ValueXY()
 
@@ -53,9 +46,7 @@ export class PositionedCardView extends Component<Props, State> {
           this.animatedPosition.setValue(animationVector)
         }
 
-        this.setState({
-          visualState: VisualState.Animating
-        })
+        this.visualState = VisualState.Animating
 
         const animationTargetValue = {
           x: 0,
@@ -70,10 +61,8 @@ export class PositionedCardView extends Component<Props, State> {
             toValue: animationTargetValue
           }
         ).start(() => {
-          if (this.state.visualState !== VisualState.Dragging) {
-            this.setState({
-              visualState: VisualState.Idle
-            })
+          if (this.visualState !== VisualState.Dragging) {
+            this.visualState = VisualState.Idle
           }
         })
       },
@@ -91,9 +80,7 @@ export class PositionedCardView extends Component<Props, State> {
         ])(e, gestureEvent)
       },
       onPanResponderStart: (e, gestureState) => {
-        this.setState({
-          visualState: VisualState.Dragging
-        })
+        this.visualState = VisualState.Dragging
       },
       onStartShouldSetPanResponder: (e, gestureState) => true
     })
@@ -107,6 +94,7 @@ export class PositionedCardView extends Component<Props, State> {
   private animatedPosition: Animated.ValueXY
   private readonly moveThreshold = 2
   private panResponder: PanResponderInstance
+  @observable private visualState: VisualState = VisualState.Idle
 
   public componentWillReceiveProps(nextProps: Props) {
     if (Game.instance.animateNextTurn
@@ -115,10 +103,7 @@ export class PositionedCardView extends Component<Props, State> {
     ) {
       const animateFromOffset = this.props.positionedCard.position.subtract(nextProps.positionedCard.position)
       this.animatedPosition.setValue(animateFromOffset)
-
-      this.setState({
-        visualState: VisualState.Animating
-      })
+      this.visualState = VisualState.Animating
 
       Animated.timing(
         this.animatedPosition,
@@ -128,10 +113,8 @@ export class PositionedCardView extends Component<Props, State> {
           toValue: { x: 0, y: 0 }
         }
       ).start(() => {
-        if (this.state.visualState !== VisualState.Dragging) {
-          this.setState({
-            visualState: VisualState.Idle
-          })
+        if (this.visualState !== VisualState.Dragging) {
+          this.visualState = VisualState.Idle
         }
       })
     }
@@ -143,7 +126,7 @@ export class PositionedCardView extends Component<Props, State> {
     const style = {
       position: 'absolute',
       transform: this.animatedPosition.getTranslateTransform(),
-      zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
+      zIndex: this.visualState === VisualState.Idle ? 1 : 2
     }
 
     const panHandlers = this.props.positionedCard.draggable
@@ -159,7 +142,7 @@ export class PositionedCardView extends Component<Props, State> {
           card={this.props.positionedCard.card}
           correctlyPlaced={this.props.positionedCard.correctlyPlaced}
           draggable={this.props.positionedCard.draggable}
-          dragged={this.state.visualState !== VisualState.Idle}
+          dragged={this.visualState !== VisualState.Idle}
         />
       </Animated.View>
     )

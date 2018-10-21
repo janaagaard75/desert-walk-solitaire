@@ -1,37 +1,32 @@
 import * as React from 'react'
 import { Button } from 'react-native'
 import { Component } from 'react'
-// tslint:disable-next-line:no-implicit-dependencies
-import { Entypo } from '@expo/vector-icons'
-// tslint:disable-next-line:no-implicit-dependencies
-import { FontAwesome } from '@expo/vector-icons'
 import { Modal } from 'react-native'
+import { observable } from 'mobx'
 import { observer } from 'mobx-react'
+import { Slider } from 'react-native'
 import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
-import { TouchableOpacity } from 'react-native'
 import { View } from 'react-native'
+import { ViewStyle } from 'react-native'
 
 import { Game } from './model/Game'
 import { GameState } from './model/GameState'
 import { Settings } from './model/Settings'
+import { TouchableIcon } from './TouchableIcon'
 import { TouchableState } from './model/TouchableState'
 
-interface State {
-  confirmModalVisible: boolean
-}
-
 @observer
-export class FooterView extends Component<{}, State> {
-  constructor(props: {}, context?: any) {
-    super(props, context)
-
-    this.state = {
-      confirmModalVisible: false
-    }
-  }
+export class FooterView extends Component {
+  @observable private confirmModalVisible: boolean = false
 
   public render() {
+    const buttonWrapperStyle: ViewStyle = {
+      backgroundColor: Settings.instance.colors.mainBackgroundColor,
+      flexDirection: 'row',
+      flexWrap: 'wrap'
+    }
+
     const questionStyle: TextStyle = {
       fontSize: 24,
       marginBottom: 10,
@@ -46,37 +41,95 @@ export class FooterView extends Component<{}, State> {
           paddingTop: 4
         }}
       >
-        <View
-          style={{
-            backgroundColor: Settings.instance.colors.mainBackgroundColor,
-            flexDirection: 'row',
-            flexWrap: 'wrap'
-          }}
-        >
-          {this.renderIconWithTouch('fontAwesome', 'fast-backward', () => this.confirmUnlessGameOver(), TouchableState.Enabled)}
-          {this.renderIconWithTouch('entypo', 'controller-fast-forward', () => Game.instance.replay(), Game.instance.replayEnabled ? TouchableState.Enabled : TouchableState.Hidden)}
-          {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(1))}
-          {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(2))}
-          {this.renderIconWithTouch('entypo', 'shuffle', () => Game.instance.shuffleCardsInIncorrectPosition(), this.shuffleButtonEnabled(3))}
-          {this.renderIconWithTouch('fontAwesome', 'step-backward', () => Game.instance.undo(), Game.instance.undoState)}
-          {this.renderIconWithTouch('fontAwesome', 'step-forward', () => Game.instance.redo(), Game.instance.redoState)}
-        </View>
+        {Game.instance.gameState === GameState.SelectLevel
+          ? (
+            <View style={buttonWrapperStyle}>
+              <View
+                style={{
+                  width: `${6 / 7 * 100}%`
+                }}
+              >
+                <Slider
+                  maximumValue={13}
+                  minimumValue={5}
+                  onValueChange={newValue => Settings.instance.maxCardValue = newValue}
+                  step={1}
+                  style={{
+                    height: 23 // Manually tweaked to match the height of the other icons.
+                  }}
+                  value={Settings.instance.maxCardValue}
+                />
+              </View>
+              <TouchableIcon
+                handlePress={() => Game.instance.startGame()}
+                iconGroup="fontAwesome"
+                iconName="play"
+                state={TouchableState.Enabled}
+              />
+            </View>
+          ) : (
+            <View style={buttonWrapperStyle}>
+              <TouchableIcon
+                handlePress={() => this.confirmUnlessGameOver()}
+                iconGroup="fontAwesome"
+                iconName="fast-backward"
+                state={TouchableState.Enabled}
+              />
+              <TouchableIcon
+                handlePress={() => Game.instance.replay()}
+                iconGroup="entypo"
+                iconName="controller-fast-forward"
+                state={Game.instance.replayEnabled ? TouchableState.Enabled : TouchableState.Hidden}
+              />
+              <TouchableIcon
+                handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
+                iconGroup="entypo"
+                iconName="shuffle"
+                state={this.shuffleButtonEnabled(1)}
+              />
+              <TouchableIcon
+                handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
+                iconGroup="entypo"
+                iconName="shuffle"
+                state={this.shuffleButtonEnabled(2)}
+              />
+              <TouchableIcon
+                handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
+                iconGroup="entypo"
+                iconName="shuffle"
+                state={this.shuffleButtonEnabled(3)}
+              />
+              <TouchableIcon
+                handlePress={() => Game.instance.undo()}
+                iconGroup="fontAwesome"
+                iconName="step-backward"
+                state={Game.instance.undoState}
+              />
+              <TouchableIcon
+                handlePress={() => Game.instance.redo()}
+                iconGroup="fontAwesome"
+                iconName="step-forward"
+                state={Game.instance.redoState}
+              />
+            </View>
+          )
+        }
         <Modal
           animationType="slide"
           supportedOrientations={['landscape']}
           transparent={false}
-          visible={this.state.confirmModalVisible}
+          visible={this.confirmModalVisible}
         >
           <View style={{ marginTop: 22 }}>
             <Text style={questionStyle}>
               This game isn't over yet. Start over anyway?
             </Text>
             <Button
-              onPress={() => this.startOver()}
+              onPress={this.selectLevel}
               title="Yes, start over"
             />
             <Button
-              onPress={() => this.hideConfirmModal()}
+              onPress={this.hideConfirmModal}
               title="No, let me continue this game"
             />
           </View>
@@ -85,101 +138,21 @@ export class FooterView extends Component<{}, State> {
     )
   }
 
-  private renderIconWithTouch(
-    iconGroup: string,
-    iconName: string,
-    handlePress: () => void,
-    state: TouchableState
-  ) {
-    const numberOfIcons = 7
-    const width = 1 / numberOfIcons * 100
-
-    if (state === TouchableState.Hidden) {
-      return (
-        <View style={{ width: `${width}%` }} />
-      )
-    }
-
-    const color = state === TouchableState.Enabled ? '#fff' : '#999'
-    const shadowOpacity = state === TouchableState.Enabled ? 0.5 : 0
-
-    return (
-      <TouchableOpacity
-        onPress={handlePress}
-        disabled={state === TouchableState.Disabled}
-        style={{
-          alignItems: 'center',
-          alignSelf: 'center',
-          backgroundColor: 'transparent',
-          shadowColor: '#fff',
-          shadowOpacity: shadowOpacity,
-          shadowRadius: 5,
-          width: `${width}%`
-        }}
-      >
-        {this.renderIcon(iconGroup, iconName, color)}
-      </TouchableOpacity>
-    )
-  }
-
-  private renderIcon(
-    iconGroup: string,
-    iconName: string,
-    color: string
-  ) {
-    const iconSize = 20
-
-    switch (iconGroup) {
-      case 'entypo':
-        return (
-          <Entypo
-            color={color}
-            name={iconName}
-            size={iconSize}
-          />
-        )
-
-      case 'fontAwesome':
-        return (
-          <FontAwesome
-            color={color}
-            name={iconName}
-            size={iconSize}
-          />
-        )
-
-      default:
-        throw new Error(`The iconGroup '${iconGroup} is not supported.`)
-    }
-  }
-
   private confirmUnlessGameOver() {
     switch (Game.instance.gameState) {
-      case GameState.GameLost:
-      case GameState.GameWon:
-        Game.instance.startOver()
+      case GameState.Lost:
+      case GameState.Won:
+        Game.instance.selectLevel()
         break
 
       case GameState.MovePossible:
       case GameState.Stuck:
-        this.showConfirmModal()
+        this.confirmModalVisible = true
         break
 
       default:
         throw new Error(`Game state ${Game.instance.gameState} is not supported.`)
     }
-  }
-
-  private hideConfirmModal() {
-    this.setState({
-      confirmModalVisible: false
-    })
-  }
-
-  private showConfirmModal() {
-    this.setState({
-      confirmModalVisible: true
-    })
   }
 
   private shuffleButtonEnabled(buttonNumber: number): TouchableState {
@@ -197,8 +170,13 @@ export class FooterView extends Component<{}, State> {
     return TouchableState.Disabled
   }
 
-  private startOver() {
-    this.hideConfirmModal()
-    Game.instance.startOver()
+  private hideConfirmModal = () => {
+    this.confirmModalVisible = false
   }
+
+  private selectLevel = () => {
+    this.confirmModalVisible = false
+    Game.instance.selectLevel()
+  }
+
 }

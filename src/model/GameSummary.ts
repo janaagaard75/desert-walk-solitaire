@@ -1,6 +1,7 @@
 import * as firebase from 'firebase'
-
 import { Settings } from './Settings'
+
+import * as firebaseConfig from './firebaseConfig.json'
 
 interface GameSummaryStep {
   cardsInPlace: number,
@@ -8,6 +9,12 @@ interface GameSummaryStep {
 }
 
 export class GameSummary {
+  public GameSummary() {
+    if (firebase.apps.length === 0) {
+      firebase.initializeApp(firebaseConfig)
+    }
+  }
+
   public ended: number = -1
   public maxCardValue: number = Settings.instance.maxCardValue
   public started: number = Date.now()

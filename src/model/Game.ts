@@ -1,7 +1,6 @@
 import { autorun } from 'mobx'
 import { computed } from 'mobx'
 import { observable } from 'mobx'
-import * as firebase from 'firebase'
 
 import { Card } from './Card'
 import { CardCellPair } from './CardCellPair'
@@ -20,12 +19,9 @@ import { ShuffleTurn } from './turn/ShuffleTurn'
 import { TouchableState } from './TouchableState'
 import { Turn } from './turn/Turn'
 
-import * as firebaseConfig from './firebaseConfig.json'
-
 export class Game {
   private constructor() {
-    this.startOver()
-    firebase.initializeApp(firebaseConfig)
+    this.selectLevel()
     autorun(() => this.autorun())
   }
 
@@ -47,6 +43,7 @@ export class Game {
   @observable private gridStates: Array<GridState> = []
   @observable private replayPlaying: boolean = false
   @observable private replayShown: boolean = false
+  @observable private selectingLevel: boolean = false
   @observable private turns: Array<Turn> = []
 
   private gameSummary: GameSummary | undefined
@@ -89,19 +86,23 @@ export class Game {
 
   @computed
   public get gameState(): GameState {
+    if (this.selectingLevel) {
+      return GameState.SelectLevel
+    }
+
     if (this.currentGridState.draggableCards.length >= 1) {
       return GameState.MovePossible
     }
 
     if (this.currentGridState.correctlyPositionedCards.length === Settings.instance.numberOfCards) {
-      return GameState.GameWon
+      return GameState.Won
     }
 
     if (this.shuffles < Settings.instance.numberOfShuffles) {
       return GameState.Stuck
     }
 
-    return GameState.GameLost
+    return GameState.Lost
   }
 
   @computed
@@ -161,7 +162,7 @@ export class Game {
 
     const isFirstState = this.currentStateIndex === 0
     const previousTurnWasMove = this.turns[this.currentStateIndex - 1] instanceof MoveTurn
-    const gameOver = this.gameState === GameState.GameLost || this.gameState === GameState.GameWon
+    const gameOver = this.gameState === GameState.Lost || this.gameState === GameState.Won
 
     if (isFirstState || !previousTurnWasMove || gameOver) {
       return TouchableState.Disabled
@@ -222,7 +223,7 @@ export class Game {
 
   @computed
   public get replayEnabled(): boolean {
-    const enabled = Game.instance.gameState === GameState.GameWon && this.replayShown
+    const enabled = this.gameState === GameState.Won && this.replayShown
     return enabled
   }
 
@@ -241,7 +242,7 @@ export class Game {
   }
 
   private autorun() {
-    if (this.gameState === GameState.GameWon && !this.replayShown) {
+    if (this.gameState === GameState.Won && !this.replayShown) {
       setTimeout(() => this.replay(), Settings.instance.animation.replay.deplayBeforeAutoReplay)
     }
   }
@@ -282,7 +283,7 @@ export class Game {
     this.replayShown = true
     this.replayPlaying = true
 
-    window.setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
+    setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
   }
 
   private waitAndGoToNextStateIndex() {
@@ -292,14 +293,24 @@ export class Game {
     }
 
     this.setCurrentStateIndex(this.currentStateIndex + 1, true)
-    window.setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
+    setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
   }
 
   public shuffleCardsInIncorrectPosition() {
     this.performTurn(new ShuffleTurn())
   }
 
-  public startOver() {
+  public selectLevel() {
+    this.layOutCards()
+    this.selectingLevel = true
+  }
+
+  public startGame() {
+    this.layOutCards()
+    this.selectingLevel = false
+  }
+
+  private layOutCards() {
     const shuffledCards = Deck.instance.cards.shuffle()
     const cellsExcludingFirstColumn = Grid.instance.cells.filter(cell => cell.columnIndex !== 0)
 
@@ -342,7 +353,7 @@ export class Game {
   }
 
   private get gameIsOver(): boolean {
-    const gameOver = this.gameState === GameState.GameLost || this.gameState === GameState.GameWon
+    const gameOver = this.gameState === GameState.Lost || this.gameState === GameState.Won
     return gameOver
   }
 

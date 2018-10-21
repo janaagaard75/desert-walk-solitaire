@@ -13,33 +13,35 @@
     "preset": "jest-expo-ts"
   },
   "scripts": {
-    "start": "exp start --ios",
-    "validate": "tsc --noEmit"
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "lint": "tslint src/**/*.ts",
+    "start": "expo start",
+    "validate": "npm run lint && tsc --noEmit"
   },
   "dependencies": {
-    "expo": "29.0.0",
-    "firebase": "5.3.1",
-    "mobx": "5.0.3",
-    "mobx-react": "5.2.5",
+    "expo": "30.0.1",
+    "firebase": "5.5.5",
+    "mobx": "5.5.1",
+    "mobx-react": "5.3.4",
     "react": "16.3.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-29.0.0.tar.gz",
-    "react-native-iphone-x-helper": "1.0.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
+    "react-native-iphone-x-helper": "1.2.0",
     "tslib": "1.9.3"
   },
   "devDependencies": {
     "@firebase/app-types": "0.x",
-    "@types/expo": "27.0.7",
+    "@types/expo": "30.0.0",
     "@types/expo__vector-icons": "6.2.3",
     "@types/fbemitter": "2.0.32",
     "@types/react": "16.3.18",
-    "@types/react-native": "0.56.7",
+    "@types/react-native": "0.57.7",
     "eslint": "^4.0.0",
-    "exp": "56.0.0",
     "prop-types": "15.6.2",
     "react-native-typescript-transformer": "1.2.10",
     "tslint": "5.11.0",
-    "tslint-eslint-rules": "5.3.1",
+    "tslint-eslint-rules": "5.4.0",
     "tslint-react": "3.6.0",
-    "typescript": "3.0.1"
+    "typescript": "3.1.3"
   }
 }

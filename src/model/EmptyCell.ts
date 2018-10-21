@@ -17,7 +17,7 @@ export class EmptyCell extends GridCell {
   }
 
   @computed
-  public get droppableCards(): Array<Card> {
+  public get droppableCards(): ReadonlyArray<Card> {
     if (this.left === undefined) {
       return Deck.instance.theFourAces
     }
