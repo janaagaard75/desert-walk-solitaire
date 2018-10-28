@@ -35,6 +35,7 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 - A picture of a desert in the background of the cards?
 - Animate the cards when they are dealt.
 - Use autorun to trigger saving.
+- Enable portrait mode on tablets.
 - Night mode / Dark by default.
 - Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
 
