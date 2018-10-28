@@ -17,33 +17,25 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## TODO
 
-- Difficulty selector.
-  - Show the selector when starting a new game.
-  - Use the last selected difficulty by default.
-  - Slider with the cards laied out above it. Use the Footer for the slider. The restart button becomes a cancel button, and an OK button is placed in the lower right corner.
-  - Slider example: <https://facebook.github.io/react-native/docs/0.21/slider.html>.
-  - Select from 5 to 13 columns.
-- Avoid passing inline functions as props: https://itnext.io/how-we-boosted-the-performance-of-our-react-native-app-191b8d338347#e92b.
-- Disentangle the model.
-  - Use less inheritance.
-  - Cells and cards need to be separated, and only help together by the grid state.
-  - Positioned card should get a position, not a cell.
-  - A cell should not be able to get the card to the left of it.
-  - Move most of the stuff to the Game.instance. Deck.instance and Grid.instance and a lot of stuff in Settings now depends on `maxCardValue`.
+- Don't allow moving the cards while selecting the level.
+- Need something showing the selected level. A number?
+- Avoid passing inline functions as props: <https://itnext.io/how-we-boosted-the-performance-of-our-react-native-app-191b8d338347#e92b>.
 - Game lost screen.
-- Animate the cards when they are dealt.
 - Draw the numbers on the cards using a custom font or SVGs to make sure they look alike on both platforms.
 - Redesign the cards.
   - Remove the small suits and use the whole card for the number and the suit.
   - Replace J, Q and K with symbols?
 - Splash screen.
+- Use standard undo and redo icons.
+- Need a better icon for starting over the game.
+- The start over button is always clickable, but it should also be highlighted when the game is in game over mode. So that icon needs two states of highligh.
+- Make the icons look more like buttons.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
 - Remember the game state even when the app has been closed for a long time.
-- A picture of a desert in the background of the cards.
-- Extract a class for handling sublitting to Firebase.
+- A picture of a desert in the background of the cards?
+- Animate the cards when they are dealt.
 - Use autorun to trigger saving.
 - Night mode / Dark by default.
-- Highlight the restart button more when the game has been won or lost. White, but without a shadow when it's just clickable?
 - Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
 
 ## Logo
@@ -55,7 +47,7 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 - [Aceh Darusalam](http://www.dafont.com/aceh-darusalam.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+K+Q+J&fpp=100&l[]=10&l[]=1)
 - [XXII Arabian Onenightstand](http://www.dafont.com/xxii-arabian-onenightstand.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+J+Q+K)
 
-## Knowledge Gained
+## Learnings
 
 Adding undo/redo and cleaning up the datamodel was difficult. Having switched to a @computed based model simplified things. However there is still some code leftover from the previous model, meaning that the currently solution could be simplified and optimized.
 
@@ -73,11 +65,23 @@ Right now the models are separated from the views, but this actually not be a go
 
 It is probably wise to go all in on MobX and remove all setState calls from the application.
 
-Designing for the iPhone X is tricky for two reasons:
-1) it has rounded corners, so you can get buttons that are cut off
-2) it has a bar at the bottom of the screen to close the app.
+Designing for the iPhone X is tricky for two reasons: 1) it has rounded corners, so you can get buttons that are cut off and 2) it has a bar at the bottom of the screen to close the app. The design has to take account of both things manually.
 
-The design has to take account of both things manually.
+Using computed values everywhere is too much. The resuling code is that no methods take any arguments, and this is only possible because `Game` is a singleton. It does, however, lead to spaghetti code, since everything becomes available globally. Using `Game.instance` in the views is fine, but it is not in the model classes.
+
+It's very difficult to get the animation timings right. Clicking undo multiple times in a row should animate several cards at once.
+
+Having the undo button means that the game never ends.
+
+Now that it is possible to move cards by clicking on them, I am no longer dragging them. It's nice that's it's possible to do both, but allowing dragging of cards could definitely have been left out. The animation of the cards is very important to let the user know what is going on.
+
+Keep the interface simple. Keep removing until you can't remove any more.
+
+`PositionedCards` remain the same between moves. `EmptyCells` is a new array.
+
+It's a code smell that the `CardCellPair` interface is required. This may be because the inheritance in the model is wrong.
+
+The `Game` class has become too big. It might be possible to extract some of the code into a `Main` class and to move some of the code to `GridState`.
 
 ## Links
 
