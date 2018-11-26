@@ -4,7 +4,7 @@
     "description": "A game of solitaire.",
     "slug": "desert-walk",
     "privacy": "public",
-    "sdkVersion": "30.0.0",
+    "sdkVersion": "32.0.0",
     "version": "0.0.0",
     "orientation": "default",
     "primaryColor": "#464",
@@ -17,12 +17,7 @@
       "assetExts": [
         "mp4",
         "ttf"
-      ],
-      "sourceExts": [
-        "ts",
-        "tsx"
-      ],
-      "transformer": "node_modules/react-native-typescript-transformer/index.js"
+      ]
     },
     "ios": {
       "supportsTablet": true
