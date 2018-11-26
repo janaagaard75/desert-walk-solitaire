@@ -13,10 +13,10 @@
     "preset": "jest-expo-ts"
   },
   "scripts": {
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "lint": "tslint src/**/*.ts",
-    "start": "expo start",
+    "android": "yarn install && expo start --android",
+    "ios": "yarn install && expo start --ios",
+    "lint": "yarn install && tslint src/**/*.ts",
+    "start": "yarn install && expo start",
     "validate": "npm run lint && tsc --noEmit"
   },
   "dependencies": {
