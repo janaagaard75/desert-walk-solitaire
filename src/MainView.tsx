@@ -19,7 +19,7 @@ export default class MainView extends Component {
   constructor(props: {}, context?: any) {
     super(props, context)
 
-    ScreenOrientation.allow(ScreenOrientation.Orientation.LANDSCAPE)
+    ScreenOrientation.allowAsync(ScreenOrientation.Orientation.LANDSCAPE)
     this.updateWindowSize()
     Dimensions.addEventListener('change', () => {
       this.updateWindowSize()
