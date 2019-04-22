@@ -10,7 +10,7 @@ import { Card } from './model/Card'
 import { Point } from './model/Point'
 import { Rectangle } from './model/Rectangle'
 import { Settings } from './model/Settings'
-import { Suit } from './model/Suit'
+import { SuitHelper } from './model/SuitHelper'
 import { SuitView } from './SuitView'
 
 interface Props {
@@ -215,7 +215,7 @@ export class CardView extends Component<Props> {
 
   private getValueStyle(): TextStyle {
     return {
-      color: Suit.color(this.props.card.suit),
+      color: SuitHelper.getColor(this.props.card.suit),
       fontSize: Settings.instance.cardValueFontSize,
       fontWeight: '700',
       left: Settings.instance.cardValueLeft,

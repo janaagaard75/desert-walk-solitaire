@@ -1,6 +1,7 @@
 import { computed } from 'mobx'
 
 import { Suit } from './Suit'
+import { SuitHelper } from './SuitHelper'
 
 export class Card {
   constructor(
@@ -31,7 +32,7 @@ export class Card {
 
   @computed
   public get key(): string {
-    const key = this.displayValue + Suit.character(this.suit)
+    const key = this.displayValue + SuitHelper.getCharacter(this.suit)
     return key
   }
 }

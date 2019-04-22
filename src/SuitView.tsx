@@ -4,6 +4,7 @@ import { observer } from 'mobx-react'
 import { Svg } from 'expo'
 
 import { Suit } from './model/Suit'
+import { SuitHelper } from './model/SuitHelper'
 
 interface Props {
   size: number
@@ -22,7 +23,7 @@ export class SuitView extends Component<Props, {}> {
         <Svg.G>
           <Svg.Path
             d={SuitView.getPath(this.props.suit)}
-            fill={Suit.color(this.props.suit)}
+            fill={SuitHelper.getColor(this.props.suit)}
           />
         </Svg.G>
       </Svg>
