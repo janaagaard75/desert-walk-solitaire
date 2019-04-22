@@ -49,19 +49,18 @@ export default class MainView extends Component {
               width: Settings.instance.windowSize.width
             }}
           />
-          <GridView/>
+          <GridView />
         </View>
-        <FooterView/>
-        {isIphoneX()
-          ?
-            <View
-              style={{
-                height: 15
-              }}
-            />
-          :
-            undefined
-        }
+        <FooterView />
+        {isIphoneX() ? (
+          <View
+            style={{
+              height: 15
+            }}
+          />
+        ) : (
+          undefined
+        )}
       </View>
     )
   }

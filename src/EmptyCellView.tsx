@@ -29,14 +29,14 @@ export class EmptyCellView extends Component<Props> {
       width: Settings.instance.cardSize.width
     }
 
-    return (
-      <View
-        style={emptyCellStyle}
-      />
-    )
+    return <View style={emptyCellStyle} />
   }
 
-  private getBorderColorStyleAndWidth(): [string | undefined, 'solid' | 'dotted' | 'dashed' | undefined, number] {
+  private getBorderColorStyleAndWidth(): [
+    string | undefined,
+    'solid' | 'dotted' | 'dashed' | undefined,
+    number
+  ] {
     switch (this.props.emptyCell.status) {
       case EmptyCellState.Blocked:
         return [undefined, undefined, 0]

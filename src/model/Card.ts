@@ -8,7 +8,7 @@ export class Card {
     public readonly suit: Suit,
     public readonly value: number,
     public readonly next: Card | undefined
-  ) { }
+  ) {}
 
   @computed
   public get displayValue(): string {

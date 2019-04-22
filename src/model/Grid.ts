@@ -4,8 +4,7 @@ import { Cell } from './Cell'
 import { Settings } from './Settings'
 
 export class Grid {
-  private constructor() {
-  }
+  private constructor() {}
 
   private static _instance: Grid
 
@@ -21,12 +20,15 @@ export class Grid {
   public get cells(): ReadonlyArray<Cell> {
     const cells: Array<Cell> = []
     for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
-      for (let columnIndex = 0; columnIndex < Settings.instance.columns; columnIndex++) {
+      for (
+        let columnIndex = 0;
+        columnIndex < Settings.instance.columns;
+        columnIndex++
+      ) {
         let cellToTheLeft: Cell | undefined
         if (columnIndex === 0) {
           cellToTheLeft = undefined
-        }
-        else {
+        } else {
           cellToTheLeft = cells[cells.length - 1]
         }
 

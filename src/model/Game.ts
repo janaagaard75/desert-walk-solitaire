@@ -65,11 +65,18 @@ export class Game {
   @computed
   public get currentGridState(): GridState {
     if (this.gridStates.length === 0) {
-      throw new Error('The game hasn\'t been started yet.')
+      throw new Error("The game hasn't been started yet.")
     }
 
-    if (this.currentStateIndex < 0 || this.currentStateIndex > this.gridStates.length - 1) {
-      throw new Error(`Can't access state index ${this.currentStateIndex} when there are ${this.gridStates.length} states.`)
+    if (
+      this.currentStateIndex < 0 ||
+      this.currentStateIndex > this.gridStates.length - 1
+    ) {
+      throw new Error(
+        `Can't access state index ${this.currentStateIndex} when there are ${
+          this.gridStates.length
+        } states.`
+      )
     }
 
     return this.gridStates[this.currentStateIndex]
@@ -94,7 +101,10 @@ export class Game {
       return GameState.MovePossible
     }
 
-    if (this.currentGridState.correctlyPositionedCards.length === Settings.instance.numberOfCards) {
+    if (
+      this.currentGridState.correctlyPositionedCards.length ===
+      Settings.instance.numberOfCards
+    ) {
       return GameState.Won
     }
 
@@ -123,7 +133,11 @@ export class Game {
 
     const sortedByOverlappedPixels = this.targetCells
       .filter(cell => cell.draggedCardOverlappingPixels > 0)
-      .sort((cellA, cellB) => cellB.draggedCardOverlappingPixels - cellA.draggedCardOverlappingPixels)
+      .sort(
+        (cellA, cellB) =>
+          cellB.draggedCardOverlappingPixels -
+          cellA.draggedCardOverlappingPixels
+      )
 
     const mostOverlapped = sortedByOverlappedPixels[0]
     return mostOverlapped
@@ -150,7 +164,8 @@ export class Game {
 
   @computed
   public get shuffles(): number {
-    const shuffles = this.turns.filter(turn => turn instanceof ShuffleTurn).length
+    const shuffles = this.turns.filter(turn => turn instanceof ShuffleTurn)
+      .length
     return shuffles
   }
 
@@ -161,8 +176,10 @@ export class Game {
     }
 
     const isFirstState = this.currentStateIndex === 0
-    const previousTurnWasMove = this.turns[this.currentStateIndex - 1] instanceof MoveTurn
-    const gameOver = this.gameState === GameState.Lost || this.gameState === GameState.Won
+    const previousTurnWasMove =
+      this.turns[this.currentStateIndex - 1] instanceof MoveTurn
+    const gameOver =
+      this.gameState === GameState.Lost || this.gameState === GameState.Won
 
     if (isFirstState || !previousTurnWasMove || gameOver) {
       return TouchableState.Disabled
@@ -199,7 +216,9 @@ export class Game {
     }
 
     if (this.draggedCardBoundary === undefined) {
-      throw new Error('draggedCardBoundary must be defined when handling a drop.')
+      throw new Error(
+        'draggedCardBoundary must be defined when handling a drop.'
+      )
     }
 
     const targetCell = this.mostOverlappedTargetableCell
@@ -234,7 +253,9 @@ export class Game {
     }
 
     const targetCells = this.currentGridState.emptyCells
-      .filter(emptyCell => emptyCell.droppableCards.some(card => card === this.draggedCard))
+      .filter(emptyCell =>
+        emptyCell.droppableCards.some(card => card === this.draggedCard)
+      )
       .map(emptyCell => emptyCell.cell)
       .concat(this.draggingFromCell.cell)
 
@@ -243,7 +264,10 @@ export class Game {
 
   private autorun() {
     if (this.gameState === GameState.Won && !this.replayShown) {
-      setTimeout(() => this.replay(), Settings.instance.animation.replay.deplayBeforeAutoReplay)
+      setTimeout(
+        () => this.replay(),
+        Settings.instance.animation.replay.deplayBeforeAutoReplay
+      )
     }
   }
 
@@ -283,7 +307,10 @@ export class Game {
     this.replayShown = true
     this.replayPlaying = true
 
-    setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
+    setTimeout(
+      () => this.waitAndGoToNextStateIndex(),
+      Settings.instance.animation.replay.duration
+    )
   }
 
   private waitAndGoToNextStateIndex() {
@@ -293,7 +320,10 @@ export class Game {
     }
 
     this.setCurrentStateIndex(this.currentStateIndex + 1, true)
-    setTimeout(() => this.waitAndGoToNextStateIndex(), Settings.instance.animation.replay.duration)
+    setTimeout(
+      () => this.waitAndGoToNextStateIndex(),
+      Settings.instance.animation.replay.duration
+    )
   }
 
   public shuffleCardsInIncorrectPosition() {
@@ -312,7 +342,9 @@ export class Game {
 
   private layOutCards() {
     const shuffledCards = Deck.instance.cards.shuffle()
-    const cellsExcludingFirstColumn = Grid.instance.cells.filter(cell => cell.columnIndex !== 0)
+    const cellsExcludingFirstColumn = Grid.instance.cells.filter(
+      cell => cell.columnIndex !== 0
+    )
 
     const positions: Array<CardCellPair> = []
     for (let i = 0; i < shuffledCards.length; i++) {
@@ -339,7 +371,10 @@ export class Game {
     const maxStateIndex = this.gridStates.length - 1
     if (this.currentStateIndex < maxStateIndex) {
       const turnsToDiscard = maxStateIndex - this.currentStateIndex
-      this.gridStates = this.gridStates.slice(0, this.gridStates.length - turnsToDiscard)
+      this.gridStates = this.gridStates.slice(
+        0,
+        this.gridStates.length - turnsToDiscard
+      )
       this.turns = this.turns.slice(0, this.turns.length - turnsToDiscard)
     }
 
@@ -353,7 +388,8 @@ export class Game {
   }
 
   private get gameIsOver(): boolean {
-    const gameOver = this.gameState === GameState.Lost || this.gameState === GameState.Won
+    const gameOver =
+      this.gameState === GameState.Lost || this.gameState === GameState.Won
     return gameOver
   }
 

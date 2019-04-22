@@ -4,7 +4,7 @@ import { Settings } from './Settings'
 import * as firebaseConfig from './firebaseConfig.json'
 
 interface GameSummaryStep {
-  cardsInPlace: number,
+  cardsInPlace: number
   moves: number
 }
 
@@ -34,6 +34,9 @@ export class GameSummary {
       throw new Error('firebase.database has to be defined.')
     }
 
-    firebase.database().ref('gameSummaries').push(this)
+    firebase
+      .database()
+      .ref('gameSummaries')
+      .push(this)
   }
 }

@@ -34,7 +34,7 @@ export class CardView extends Component<Props> {
           </View>
           {this.getSmallSuits()}
         </View>
-        <View style={this.getOverlayStyle()}/>
+        <View style={this.getOverlayStyle()} />
       </View>
     )
   }
@@ -170,18 +170,17 @@ export class CardView extends Component<Props> {
       ]
     }
 
-    return (
-      [0, 1, 2, 3].map(y =>
-        [0, 1, 2, 3].map(x => {
-          if (smallSuits[this.props.card.value] !== undefined
-            && smallSuits[this.props.card.value][x][y]
-          ) {
-            return this.getSmallSuit(x, y)
-          }
+    return [0, 1, 2, 3].map(y =>
+      [0, 1, 2, 3].map(x => {
+        if (
+          smallSuits[this.props.card.value] !== undefined &&
+          smallSuits[this.props.card.value][x][y]
+        ) {
+          return this.getSmallSuit(x, y)
+        }
 
-          return undefined
-        })
-      )
+        return undefined
+      })
     )
   }
 
@@ -228,11 +227,6 @@ export class CardView extends Component<Props> {
   }
 
   private suit(size: number): JSX.Element {
-    return (
-      <SuitView
-        size={size}
-        suit={this.props.card.suit}
-      />
-    )
+    return <SuitView size={size} suit={this.props.card.suit} />
   }
 }

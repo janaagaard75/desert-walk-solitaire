@@ -5,8 +5,7 @@ import { Settings } from './Settings'
 import { Suit } from './Suit'
 
 export class Deck {
-  private constructor() {
-  }
+  private constructor() {}
 
   private static _instance: Deck
 
@@ -23,9 +22,10 @@ export class Deck {
     const cards: Array<Card> = []
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
       for (let value = Settings.instance.maxCardValue; value >= 1; value--) {
-        const nextCard = value === Settings.instance.maxCardValue
-          ? undefined
-          : cards[cards.length - 1]
+        const nextCard =
+          value === Settings.instance.maxCardValue
+            ? undefined
+            : cards[cards.length - 1]
 
         cards.push(new Card(suit, value, nextCard))
       }

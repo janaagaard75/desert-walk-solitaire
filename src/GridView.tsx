@@ -23,30 +23,27 @@ export class GridView extends Component {
     if (Game.instance.gameState === GameState.SelectLevel) {
       return (
         <View style={gridViewStyle}>
-          {GridState.inOrder.positionedCards.map(positionedCard =>
+          {GridState.inOrder.positionedCards.map(positionedCard => (
             <PositionedCardView
               key={positionedCard.card.key}
               positionedCard={positionedCard}
             />
-          )}
+          ))}
         </View>
       )
     }
 
     return (
       <View style={gridViewStyle}>
-        {Game.instance.currentGridState.positionedCards.map(positionedCard =>
+        {Game.instance.currentGridState.positionedCards.map(positionedCard => (
           <PositionedCardView
             key={positionedCard.card.key}
             positionedCard={positionedCard}
           />
-        )}
-        {Game.instance.currentGridState.emptyCells.map(emptyCell =>
-          <EmptyCellView
-            emptyCell={emptyCell}
-            key={emptyCell.cell.key}
-          />
-        )}
+        ))}
+        {Game.instance.currentGridState.emptyCells.map(emptyCell => (
+          <EmptyCellView emptyCell={emptyCell} key={emptyCell.cell.key} />
+        ))}
       </View>
     )
   }

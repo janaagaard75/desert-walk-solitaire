@@ -32,7 +32,9 @@ export class PositionedCardView extends Component<Props> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (e, gestureState) => {
-        const isPress = Math.abs(gestureState.dx) <= this.moveThreshold && Math.abs(gestureState.dy) <= this.moveThreshold
+        const isPress =
+          Math.abs(gestureState.dx) <= this.moveThreshold &&
+          Math.abs(gestureState.dy) <= this.moveThreshold
 
         const animationVector = isPress
           ? this.props.positionedCard.moveToTarget()
@@ -53,14 +55,11 @@ export class PositionedCardView extends Component<Props> {
           y: 0
         }
 
-        Animated.timing(
-          this.animatedPosition,
-          {
-            duration: duration,
-            easing: Easing.elastic(Settings.instance.animation.snap.elasticity),
-            toValue: animationTargetValue
-          }
-        ).start(() => {
+        Animated.timing(this.animatedPosition, {
+          duration: duration,
+          easing: Easing.elastic(Settings.instance.animation.snap.elasticity),
+          toValue: animationTargetValue
+        }).start(() => {
           if (this.visualState !== VisualState.Dragging) {
             this.visualState = VisualState.Idle
           }
@@ -97,22 +96,24 @@ export class PositionedCardView extends Component<Props> {
   @observable private visualState: VisualState = VisualState.Idle
 
   public componentWillReceiveProps(nextProps: Props) {
-    if (Game.instance.animateNextTurn
-      && Game.instance.animateFromPreviousPosition
-      && !this.props.positionedCard.position.equals(nextProps.positionedCard.position)
+    if (
+      Game.instance.animateNextTurn &&
+      Game.instance.animateFromPreviousPosition &&
+      !this.props.positionedCard.position.equals(
+        nextProps.positionedCard.position
+      )
     ) {
-      const animateFromOffset = this.props.positionedCard.position.subtract(nextProps.positionedCard.position)
+      const animateFromOffset = this.props.positionedCard.position.subtract(
+        nextProps.positionedCard.position
+      )
       this.animatedPosition.setValue(animateFromOffset)
       this.visualState = VisualState.Animating
 
-      Animated.timing(
-        this.animatedPosition,
-        {
-          duration: Settings.instance.animation.turn.duration,
-          easing: Easing.elastic(Settings.instance.animation.turn.elasticity),
-          toValue: { x: 0, y: 0 }
-        }
-      ).start(() => {
+      Animated.timing(this.animatedPosition, {
+        duration: Settings.instance.animation.turn.duration,
+        easing: Easing.elastic(Settings.instance.animation.turn.elasticity),
+        toValue: { x: 0, y: 0 }
+      }).start(() => {
         if (this.visualState !== VisualState.Dragging) {
           this.visualState = VisualState.Idle
         }
@@ -134,10 +135,7 @@ export class PositionedCardView extends Component<Props> {
       : undefined
 
     return (
-      <Animated.View
-        style={style}
-        {...panHandlers}
-      >
+      <Animated.View style={style} {...panHandlers}>
         <CardView
           card={this.props.positionedCard.card}
           correctlyPlaced={this.props.positionedCard.correctlyPlaced}
