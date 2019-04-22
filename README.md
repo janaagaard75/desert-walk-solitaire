@@ -17,26 +17,31 @@ Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
 
 ## TODO
 
-- Don't allow moving the cards while selecting the level.
-- Need something showing the selected level. A number?
+- Remove the level selector including the now unused code.
+- Remove Firebase and associated tracking code.
 - Avoid passing inline functions as props: <https://itnext.io/how-we-boosted-the-performance-of-our-react-native-app-191b8d338347#e92b>.
 - Game lost screen.
-- Draw the numbers on the cards using a custom font or SVGs to make sure they look alike on both platforms.
 - Redesign the cards.
   - Remove the small suits and use the whole card for the number and the suit.
   - Replace J, Q and K with symbols?
+- Better colors. Dark mode by default?
+- Draw the numbers on the cards using a custom font or SVGs.
 - Splash screen.
+- Make sure everything looks alike on both platforms.
 - Use standard undo and redo icons.
 - Need a better icon for starting over the game.
-- The start over button is always clickable, but it should also be highlighted when the game is in game over mode. So that icon needs two states of highligh.
+- The start over button is always clickable, but it should also be highlighted when the game is in game over mode. So that icon needs two states of highlight.
 - Make the icons look more like buttons.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
 - Remember the game state even when the app has been closed for a long time.
 - A picture of a desert in the background of the cards?
-- Animate the cards when they are dealt.
-- Use autorun to trigger saving.
 - Enable portrait mode on tablets.
-- Night mode / Dark by default.
+- Publish on iOS.
+- Publish on Android.
+
+### Later
+
+- Animate the cards when they are dealt.
 - Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
 
 ## Logo
