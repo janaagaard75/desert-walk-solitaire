@@ -9,10 +9,7 @@ import { GridCell } from './GridCell'
 import { GridState } from './GridState'
 
 export class EmptyCell extends GridCell {
-  constructor(
-    cell: Cell,
-    gridState: GridState
-  ) {
+  constructor(cell: Cell, gridState: GridState) {
     super(cell, gridState)
   }
 
@@ -47,12 +44,14 @@ export class EmptyCell extends GridCell {
       return EmptyCellState.MostOverlappedTargetableCell
     }
 
-    if (this.droppableCards.some(card => {
-      if (Game.instance.draggingFromCell === undefined) {
-        return false
-      }
-      return card === Game.instance.draggedCard
-    })) {
+    if (
+      this.droppableCards.some(card => {
+        if (Game.instance.draggingFromCell === undefined) {
+          return false
+        }
+        return card === Game.instance.draggedCard
+      })
+    ) {
       return EmptyCellState.TargetableCellButNotMostOverlapped
     }
 

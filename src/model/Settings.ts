@@ -4,7 +4,7 @@ import { observable } from 'mobx'
 import { Size } from './Size'
 
 export class Settings {
-  private constructor() { }
+  private constructor() {}
 
   @observable public maxCardValue = 13
   public readonly rows = 4
@@ -92,15 +92,14 @@ export class Settings {
   public get cardSize(): Size {
     if (this.restrictedBy === 'height') {
       return this.heightRestrictedCardSize
-    }
-    else {
+    } else {
       return this.widthRestrictedCardSize
     }
   }
 
   @computed
   public get cardSuitSize(): number {
-    return Math.round(Settings.instance.cardSize.width / 40 * 18)
+    return Math.round((Settings.instance.cardSize.width / 40) * 18)
   }
 
   @computed
@@ -120,7 +119,7 @@ export class Settings {
 
   @computed
   public get cardValueLeft(): number {
-    return -Math.round(Settings.instance.cardSize.width / 40 * 16)
+    return -Math.round((Settings.instance.cardSize.width / 40) * 16)
   }
 
   @computed
@@ -130,7 +129,7 @@ export class Settings {
 
   @computed
   public get cardValueTop(): number {
-    return -Math.round(Settings.instance.cardSize.width / 40 * 3)
+    return -Math.round((Settings.instance.cardSize.width / 40) * 3)
   }
 
   @computed
@@ -144,8 +143,10 @@ export class Settings {
 
   @computed
   public get gridSize(): Size {
-    const width = this.cardSize.width * this.columns + this.gutterSize * (this.columns - 1)
-    const height = this.cardSize.height * this.rows + this.gutterSize * (this.rows - 1)
+    const width =
+      this.cardSize.width * this.columns + this.gutterSize * (this.columns - 1)
+    const height =
+      this.cardSize.height * this.rows + this.gutterSize * (this.rows - 1)
 
     return {
       height: height,
@@ -157,8 +158,7 @@ export class Settings {
   public get gutterSize(): number {
     if (this.restrictedBy === 'height') {
       return this.heightRestrictedGutterSize
-    }
-    else {
+    } else {
       return this.widthRestrictedGutterSize
     }
   }
@@ -169,10 +169,12 @@ export class Settings {
 
   @computed
   private get restrictedBy(): 'height' | 'width' {
-    if (this.heightRestrictedPlayingFieldSize.width <= this.widthRestrictedPlayingFieldSize.width) {
+    if (
+      this.heightRestrictedPlayingFieldSize.width <=
+      this.widthRestrictedPlayingFieldSize.width
+    ) {
       return 'height'
-    }
-    else {
+    } else {
       return 'width'
     }
   }
@@ -211,11 +213,8 @@ export class Settings {
     // cw <= ah gr / (r (sr gr + 1) + 1)
 
     const cardWidth = Math.floor(
-      (
-        this.availablePlayingFieldSize.height * this.cardWidthToGutterRatio
-      ) / (
-        this.rows * (this.cardSizeRatio * this.cardWidthToGutterRatio + 1) + 1
-      )
+      (this.availablePlayingFieldSize.height * this.cardWidthToGutterRatio) /
+        (this.rows * (this.cardSizeRatio * this.cardWidthToGutterRatio + 1) + 1)
     )
 
     const cardHeight = Math.floor(cardWidth * this.cardSizeRatio)
@@ -229,9 +228,9 @@ export class Settings {
   @computed
   private get heightRestrictedGutterSize(): number {
     const gutterSize = Math.floor(
-      (
-        this.availablePlayingFieldSize.height - this.rows * this.heightRestrictedCardSize.height
-      ) / this.rows
+      (this.availablePlayingFieldSize.height -
+        this.rows * this.heightRestrictedCardSize.height) /
+        this.rows
     )
 
     return gutterSize
@@ -239,10 +238,12 @@ export class Settings {
 
   @computed
   private get heightRestrictedPlayingFieldSize(): Size {
-    const height = this.rows * this.heightRestrictedCardSize.height
-      + (this.rows + 1) * this.heightRestrictedGutterSize
-    const width = this.columns * this.heightRestrictedCardSize.width
-      + (this.columns + 1) * this.heightRestrictedGutterSize
+    const height =
+      this.rows * this.heightRestrictedCardSize.height +
+      (this.rows + 1) * this.heightRestrictedGutterSize
+    const width =
+      this.columns * this.heightRestrictedCardSize.width +
+      (this.columns + 1) * this.heightRestrictedGutterSize
 
     return {
       height: height,
@@ -272,11 +273,8 @@ export class Settings {
     // cw <= aw gr / (c (gr + 1) + 1)
 
     const cardWidth = Math.floor(
-      (
-        this.availablePlayingFieldSize.width * this.cardWidthToGutterRatio
-      ) / (
-        this.columns * (this.cardWidthToGutterRatio + 1) + 1
-      )
+      (this.availablePlayingFieldSize.width * this.cardWidthToGutterRatio) /
+        (this.columns * (this.cardWidthToGutterRatio + 1) + 1)
     )
 
     const cardHeight = Math.floor(cardWidth * this.cardSizeRatio)
@@ -290,9 +288,9 @@ export class Settings {
   @computed
   private get widthRestrictedGutterSize(): number {
     const gutterSize = Math.floor(
-      (
-        this.availablePlayingFieldSize.width - this.columns * this.widthRestrictedCardSize.width
-      ) / this.columns
+      (this.availablePlayingFieldSize.width -
+        this.columns * this.widthRestrictedCardSize.width) /
+        this.columns
     )
 
     return gutterSize
@@ -300,10 +298,12 @@ export class Settings {
 
   @computed
   private get widthRestrictedPlayingFieldSize(): Size {
-    const height = this.rows * this.widthRestrictedCardSize.height
-      + (this.rows + 1) * this.widthRestrictedGutterSize
-    const width = this.columns * this.widthRestrictedCardSize.width
-      + (this.columns + 1) * this.widthRestrictedGutterSize
+    const height =
+      this.rows * this.widthRestrictedCardSize.height +
+      (this.rows + 1) * this.widthRestrictedGutterSize
+    const width =
+      this.columns * this.widthRestrictedCardSize.width +
+      (this.columns + 1) * this.widthRestrictedGutterSize
 
     return {
       height: height,

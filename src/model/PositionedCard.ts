@@ -10,11 +10,7 @@ import { GridState } from './GridState'
 import { Point } from './Point'
 
 export class PositionedCard extends GridCell implements CardCellPair {
-  constructor(
-    cell: Cell,
-    gridState: GridState,
-    public card: Card
-  ) {
+  constructor(cell: Cell, gridState: GridState, public card: Card) {
     super(cell, gridState)
 
     if (card === undefined) {
@@ -37,13 +33,16 @@ export class PositionedCard extends GridCell implements CardCellPair {
       return false
     }
 
-    const followsCardToTheLeft = this.left.correctlyPlaced && this.left.card.next === this.card
+    const followsCardToTheLeft =
+      this.left.correctlyPlaced && this.left.card.next === this.card
     return followsCardToTheLeft
   }
 
   @computed
   public get draggable(): boolean {
-    const draggable = Game.instance.currentGridState.draggableCards.some(card => card === this.card)
+    const draggable = Game.instance.currentGridState.draggableCards.some(
+      card => card === this.card
+    )
     return draggable
   }
 

@@ -9,10 +9,7 @@ import { PositionedCard } from './PositionedCard'
 import { Rectangle } from './Rectangle'
 
 export abstract class GridCell {
-  constructor(
-    public cell: Cell,
-    protected gridState: GridState
-  ) { }
+  constructor(public cell: Cell, protected gridState: GridState) {}
 
   @computed
   public get boundary(): Rectangle {

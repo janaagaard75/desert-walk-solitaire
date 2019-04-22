@@ -1,13 +1,17 @@
 import { Settings } from './Settings'
 import { Suit } from './Suit'
 
-export class SuitHelper{
+export class SuitHelper {
   public static getCharacter(suit: Suit): string {
     switch (suit) {
-      case Suit.Clubs: return '♣'
-      case Suit.Diamonds: return '♦'
-      case Suit.Hearts: return '♥'
-      case Suit.Spades: return '♠'
+      case Suit.Clubs:
+        return '♣'
+      case Suit.Diamonds:
+        return '♦'
+      case Suit.Hearts:
+        return '♥'
+      case Suit.Spades:
+        return '♠'
     }
   }
 

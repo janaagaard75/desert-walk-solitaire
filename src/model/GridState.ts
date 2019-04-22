@@ -12,11 +12,13 @@ import { Settings } from './Settings'
 import { Turn } from './turn/Turn'
 
 export class GridState {
-  public constructor(
-    cardCellPairs: Array<CardCellPair>
-  ) {
+  public constructor(cardCellPairs: Array<CardCellPair>) {
     if (cardCellPairs.length !== Deck.instance.cards.length) {
-      throw new Error(`Must supply ${Deck.instance.cards.length} card and cell pairs to the GridState constructor.`)
+      throw new Error(
+        `Must supply ${
+          Deck.instance.cards.length
+        } card and cell pairs to the GridState constructor.`
+      )
     }
 
     cardCellPairs.forEach(pair => {
@@ -29,8 +31,9 @@ export class GridState {
 
   @computed
   public get correctlyPositionedCards(): Array<PositionedCard> {
-    const correctlyPositionedCards = this.positionedCards
-      .filter(pair => pair.correctlyPlaced)
+    const correctlyPositionedCards = this.positionedCards.filter(
+      pair => pair.correctlyPlaced
+    )
     return correctlyPositionedCards
   }
 
@@ -39,12 +42,18 @@ export class GridState {
     const draggableNonAces = this.emptyCells
       .map(emptyCell => emptyCell.cell.cellToTheLeft)
       .map(cellToTheLeft => this.getPositionedCardFromCell(cellToTheLeft))
-      .map(positionedCard => positionedCard === undefined ? undefined : positionedCard.card)
-      .map(card => card === undefined ? undefined : card.next)
-      .filter((nextCard: Card | undefined): nextCard is Card => nextCard !== undefined)
+      .map(positionedCard =>
+        positionedCard === undefined ? undefined : positionedCard.card
+      )
+      .map(card => (card === undefined ? undefined : card.next))
+      .filter(
+        (nextCard: Card | undefined): nextCard is Card => nextCard !== undefined
+      )
 
     const draggableAces = this.positionedCards
-      .filter(positionedCard => Deck.instance.theFourAces.includes(positionedCard.card))
+      .filter(positionedCard =>
+        Deck.instance.theFourAces.includes(positionedCard.card)
+      )
       .filter(cellWithAce => !cellWithAce.correctlyPlaced)
       .map(cellWithAce => cellWithAce.card)
 
@@ -63,8 +72,9 @@ export class GridState {
 
   @computed
   public get incorrectlyPositionedCards(): Array<PositionedCard> {
-    const incorrectlyPositionedCards = this.positionedCards
-      .filter(pair => !pair.correctlyPlaced)
+    const incorrectlyPositionedCards = this.positionedCards.filter(
+      pair => !pair.correctlyPlaced
+    )
     return incorrectlyPositionedCards
   }
 
@@ -97,7 +107,9 @@ export class GridState {
     return match
   }
 
-  public getPositionedCardFromCell(cell: Cell | undefined): PositionedCard | undefined {
+  public getPositionedCardFromCell(
+    cell: Cell | undefined
+  ): PositionedCard | undefined {
     if (cell === undefined) {
       return undefined
     }
@@ -110,7 +122,11 @@ export class GridState {
   public static get inOrder(): GridState {
     const cardCellPairs: Array<CardCellPair> = []
     for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
-      for (let columnIndex = 0; columnIndex < Settings.instance.columns; columnIndex++) {
+      for (
+        let columnIndex = 0;
+        columnIndex < Settings.instance.columns;
+        columnIndex++
+      ) {
         if (columnIndex === 0) {
           continue
         }
@@ -119,7 +135,8 @@ export class GridState {
 
         // The deck of cards has been initialized in reverse order.
         const cardValue = Settings.instance.maxCardValue - columnIndex + 1
-        const cardIndex = rowIndex * Settings.instance.columns + cardValue - 1 - rowIndex
+        const cardIndex =
+          rowIndex * Settings.instance.columns + cardValue - 1 - rowIndex
 
         cardCellPairs.push({
           card: Deck.instance.cards[cardIndex],
@@ -127,7 +144,9 @@ export class GridState {
         })
 
         if (cardCellPairs[cardCellPairs.length - 1].card === undefined) {
-          throw new Error(`cardCellPair[${cardCellPairs.length - 1}].card is not defined.`)
+          throw new Error(
+            `cardCellPair[${cardCellPairs.length - 1}].card is not defined.`
+          )
         }
       }
     }

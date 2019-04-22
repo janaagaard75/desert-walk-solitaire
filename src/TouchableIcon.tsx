@@ -20,12 +20,10 @@ interface Props {
 export class TouchableIcon extends Component<Props> {
   public render() {
     const numberOfIcons = 7
-    const width = 1 / numberOfIcons * 100
+    const width = (1 / numberOfIcons) * 100
 
     if (this.props.state === TouchableState.Hidden) {
-      return (
-        <View style={{ width: `${width}%` }} />
-      )
+      return <View style={{ width: `${width}%` }} />
     }
 
     const color = this.props.state === TouchableState.Enabled ? '#fff' : '#999'
@@ -54,31 +52,15 @@ export class TouchableIcon extends Component<Props> {
     this.props.handlePress()
   }
 
-  private renderIcon(
-    iconGroup: string,
-    iconName: string,
-    color: string
-  ) {
+  private renderIcon(iconGroup: string, iconName: string, color: string) {
     const iconSize = 20
 
     switch (iconGroup) {
       case 'entypo':
-        return (
-          <Entypo
-            color={color}
-            name={iconName}
-            size={iconSize}
-          />
-        )
+        return <Entypo color={color} name={iconName} size={iconSize} />
 
       case 'fontAwesome':
-        return (
-          <FontAwesome
-            color={color}
-            name={iconName}
-            size={iconSize}
-          />
-        )
+        return <FontAwesome color={color} name={iconName} size={iconSize} />
 
       default:
         throw new Error(`The iconGroup '${iconGroup} is not supported.`)

@@ -41,79 +41,89 @@ export class FooterView extends Component {
           paddingTop: 4
         }}
       >
-        {Game.instance.gameState === GameState.SelectLevel
-          ? (
-            <View style={buttonWrapperStyle}>
-              <View
+        {Game.instance.gameState === GameState.SelectLevel ? (
+          <View style={buttonWrapperStyle}>
+            <View
+              style={{
+                width: `${(6 / 7) * 100}%`
+              }}
+            >
+              <Slider
+                maximumValue={13}
+                minimumValue={5}
+                onValueChange={newValue =>
+                  (Settings.instance.maxCardValue = newValue)
+                }
+                step={1}
                 style={{
-                  width: `${6 / 7 * 100}%`
+                  height: 23 // Manually tweaked to match the height of the other icons.
                 }}
-              >
-                <Slider
-                  maximumValue={13}
-                  minimumValue={5}
-                  onValueChange={newValue => Settings.instance.maxCardValue = newValue}
-                  step={1}
-                  style={{
-                    height: 23 // Manually tweaked to match the height of the other icons.
-                  }}
-                  value={Settings.instance.maxCardValue}
-                />
-              </View>
-              <TouchableIcon
-                handlePress={() => Game.instance.startGame()}
-                iconGroup="fontAwesome"
-                iconName="play"
-                state={TouchableState.Enabled}
+                value={Settings.instance.maxCardValue}
               />
             </View>
-          ) : (
-            <View style={buttonWrapperStyle}>
-              <TouchableIcon
-                handlePress={() => this.confirmUnlessGameOver()}
-                iconGroup="fontAwesome"
-                iconName="fast-backward"
-                state={TouchableState.Enabled}
-              />
-              <TouchableIcon
-                handlePress={() => Game.instance.replay()}
-                iconGroup="entypo"
-                iconName="controller-fast-forward"
-                state={Game.instance.replayEnabled ? TouchableState.Enabled : TouchableState.Hidden}
-              />
-              <TouchableIcon
-                handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
-                iconGroup="entypo"
-                iconName="shuffle"
-                state={this.shuffleButtonEnabled(1)}
-              />
-              <TouchableIcon
-                handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
-                iconGroup="entypo"
-                iconName="shuffle"
-                state={this.shuffleButtonEnabled(2)}
-              />
-              <TouchableIcon
-                handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
-                iconGroup="entypo"
-                iconName="shuffle"
-                state={this.shuffleButtonEnabled(3)}
-              />
-              <TouchableIcon
-                handlePress={() => Game.instance.undo()}
-                iconGroup="fontAwesome"
-                iconName="step-backward"
-                state={Game.instance.undoState}
-              />
-              <TouchableIcon
-                handlePress={() => Game.instance.redo()}
-                iconGroup="fontAwesome"
-                iconName="step-forward"
-                state={Game.instance.redoState}
-              />
-            </View>
-          )
-        }
+            <TouchableIcon
+              handlePress={() => Game.instance.startGame()}
+              iconGroup="fontAwesome"
+              iconName="play"
+              state={TouchableState.Enabled}
+            />
+          </View>
+        ) : (
+          <View style={buttonWrapperStyle}>
+            <TouchableIcon
+              handlePress={() => this.confirmUnlessGameOver()}
+              iconGroup="fontAwesome"
+              iconName="fast-backward"
+              state={TouchableState.Enabled}
+            />
+            <TouchableIcon
+              handlePress={() => Game.instance.replay()}
+              iconGroup="entypo"
+              iconName="controller-fast-forward"
+              state={
+                Game.instance.replayEnabled
+                  ? TouchableState.Enabled
+                  : TouchableState.Hidden
+              }
+            />
+            <TouchableIcon
+              handlePress={() =>
+                Game.instance.shuffleCardsInIncorrectPosition()
+              }
+              iconGroup="entypo"
+              iconName="shuffle"
+              state={this.shuffleButtonEnabled(1)}
+            />
+            <TouchableIcon
+              handlePress={() =>
+                Game.instance.shuffleCardsInIncorrectPosition()
+              }
+              iconGroup="entypo"
+              iconName="shuffle"
+              state={this.shuffleButtonEnabled(2)}
+            />
+            <TouchableIcon
+              handlePress={() =>
+                Game.instance.shuffleCardsInIncorrectPosition()
+              }
+              iconGroup="entypo"
+              iconName="shuffle"
+              state={this.shuffleButtonEnabled(3)}
+            />
+            <TouchableIcon
+              handlePress={() => Game.instance.undo()}
+              iconGroup="fontAwesome"
+              iconName="step-backward"
+              state={Game.instance.undoState}
+            />
+            <TouchableIcon
+              handlePress={() => Game.instance.redo()}
+              iconGroup="fontAwesome"
+              iconName="step-forward"
+              state={Game.instance.redoState}
+            />
+          </View>
+        )}
         <Modal
           animationType="slide"
           supportedOrientations={['landscape']}
@@ -124,10 +134,7 @@ export class FooterView extends Component {
             <Text style={questionStyle}>
               This game isn't over yet. Start over anyway?
             </Text>
-            <Button
-              onPress={this.selectLevel}
-              title="Yes, start over"
-            />
+            <Button onPress={this.selectLevel} title="Yes, start over" />
             <Button
               onPress={this.hideConfirmModal}
               title="No, let me continue this game"
@@ -151,7 +158,9 @@ export class FooterView extends Component {
         break
 
       default:
-        throw new Error(`Game state ${Game.instance.gameState} is not supported.`)
+        throw new Error(
+          `Game state ${Game.instance.gameState} is not supported.`
+        )
     }
   }
 
@@ -162,8 +171,10 @@ export class FooterView extends Component {
       return TouchableState.Hidden
     }
 
-    if (buttonNumber === buttonNumberToEnable
-      && Game.instance.gameState === GameState.Stuck) {
+    if (
+      buttonNumber === buttonNumberToEnable &&
+      Game.instance.gameState === GameState.Stuck
+    ) {
       return TouchableState.Enabled
     }
 
@@ -178,5 +189,4 @@ export class FooterView extends Component {
     this.confirmModalVisible = false
     Game.instance.selectLevel()
   }
-
 }

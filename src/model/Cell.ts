@@ -34,15 +34,19 @@ export class Cell {
       return 0
     }
 
-    const overlappingPixels = this.boundary.overlappingPixels(Game.instance.draggedCardBoundary)
+    const overlappingPixels = this.boundary.overlappingPixels(
+      Game.instance.draggedCardBoundary
+    )
     return overlappingPixels
   }
 
   @computed
   public get position(): Point {
     const position = new Point(
-      this.columnIndex * (Settings.instance.cardSize.width + Settings.instance.gutterSize),
-      this.rowIndex * (Settings.instance.cardSize.height + Settings.instance.gutterSize)
+      this.columnIndex *
+        (Settings.instance.cardSize.width + Settings.instance.gutterSize),
+      this.rowIndex *
+        (Settings.instance.cardSize.height + Settings.instance.gutterSize)
     )
 
     return position
