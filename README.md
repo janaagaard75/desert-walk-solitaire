@@ -2,8 +2,6 @@
 
 Solitaire implemented in React Native and written in TypeScript.
 
-Published through Expo: <https://expo.io/@janaagaard75/desert-walk>.
-
 ## Running the App Locally
 
 1. Fetch the repo and install packages with `yarn install` (or `npm install`).
