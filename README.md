@@ -15,7 +15,6 @@ Solitaire implemented in React Native and written in TypeScript.
 
 ## TODO
 
-- Remove the level selector including the now unused code.
 - Remove Firebase and associated tracking code.
 - Avoid passing inline functions as props: <https://itnext.io/how-we-boosted-the-performance-of-our-react-native-app-191b8d338347#e92b>.
 - Game lost screen.
