@@ -230,8 +230,6 @@ export class Game {
       return undefined
     }
 
-    this.performTurn(new MoveTurn(this.draggingFromCell.cell, targetCell))
-
     const dropOffset = new Point(
       this.draggedCardBoundary.x1 - targetCell.position.x,
       this.draggedCardBoundary.y1 - targetCell.position.y
@@ -283,8 +281,22 @@ export class Game {
   /** Returns the offset from dragged card to the droppable target and sets `draggingFromCell` and `draggedCardBoundary` to `undefined`. Returns `undefined` if the dragged card is not hovering over a droppable target. */
   public cardDropped(): Point | undefined {
     const dropOffset = this.dropOffset
+
+    if (
+      this.draggingFromCell !== undefined &&
+      this.mostOverlappedTargetableCell !== undefined
+    ) {
+      this.performTurn(
+        new MoveTurn(
+          this.draggingFromCell.cell,
+          this.mostOverlappedTargetableCell
+        )
+      )
+    }
+
     this.draggingFromCell = undefined
     this.draggedCardBoundary = undefined
+
     return dropOffset
   }
 
