@@ -6,7 +6,7 @@ import { Size } from './Size'
 export class Settings {
   private constructor() {}
 
-  @observable public maxCardValue = 13
+  public readonly maxCardValue = 13
   public readonly rows = 4
   public readonly numberOfShuffles = 3
   @observable public windowSize: Size = { height: 0, width: 0 }
