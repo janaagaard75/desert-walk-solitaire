@@ -16,7 +16,7 @@
     "android": "yarn install && expo start --android",
     "format": "prettier --write \"**/*.ts\" \"**/*.tsx\"",
     "ios": "yarn install && expo start --ios",
-    "lint": "yarn install && tslint src/**/*.ts",
+    "lint": "yarn install && tslint src/**/*.ts src/**/*.tsx",
     "start": "yarn install && expo start",
     "validate": "yarn run lint && tsc --noEmit"
   },
