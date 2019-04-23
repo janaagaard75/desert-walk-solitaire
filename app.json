@@ -9,15 +9,12 @@
     "orientation": "default",
     "primaryColor": "#464",
     "icon": "./assets/icon.png",
-    "loading": {
+    "splash": {
       "image": "./assets/splash.png",
       "hideExponentText": false
     },
     "packagerOpts": {
-      "assetExts": [
-        "mp4",
-        "ttf"
-      ]
+      "assetExts": ["mp4", "ttf"]
     },
     "ios": {
       "supportsTablet": true

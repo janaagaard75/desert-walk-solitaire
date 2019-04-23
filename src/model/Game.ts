@@ -21,7 +21,7 @@ import { Turn } from './turn/Turn'
 
 export class Game {
   private constructor() {
-    this.selectLevel()
+    this.startOver()
     autorun(() => this.autorun())
   }
 
@@ -43,7 +43,6 @@ export class Game {
   @observable private gridStates: Array<GridState> = []
   @observable private replayPlaying: boolean = false
   @observable private replayShown: boolean = false
-  @observable private selectingLevel: boolean = false
   @observable private turns: Array<Turn> = []
 
   private gameSummary: GameSummary | undefined
@@ -65,6 +64,7 @@ export class Game {
   @computed
   public get currentGridState(): GridState {
     if (this.gridStates.length === 0) {
+      // this.startOver()
       throw new Error("The game hasn't been started yet.")
     }
 
@@ -93,10 +93,6 @@ export class Game {
 
   @computed
   public get gameState(): GameState {
-    if (this.selectingLevel) {
-      return GameState.SelectLevel
-    }
-
     if (this.currentGridState.draggableCards.length >= 1) {
       return GameState.MovePossible
     }
@@ -230,8 +226,6 @@ export class Game {
       return undefined
     }
 
-    this.performTurn(new MoveTurn(this.draggingFromCell.cell, targetCell))
-
     const dropOffset = new Point(
       this.draggedCardBoundary.x1 - targetCell.position.x,
       this.draggedCardBoundary.y1 - targetCell.position.y
@@ -283,8 +277,22 @@ export class Game {
   /** Returns the offset from dragged card to the droppable target and sets `draggingFromCell` and `draggedCardBoundary` to `undefined`. Returns `undefined` if the dragged card is not hovering over a droppable target. */
   public cardDropped(): Point | undefined {
     const dropOffset = this.dropOffset
+
+    if (
+      this.draggingFromCell !== undefined &&
+      this.mostOverlappedTargetableCell !== undefined
+    ) {
+      this.performTurn(
+        new MoveTurn(
+          this.draggingFromCell.cell,
+          this.mostOverlappedTargetableCell
+        )
+      )
+    }
+
     this.draggingFromCell = undefined
     this.draggedCardBoundary = undefined
+
     return dropOffset
   }
 
@@ -330,17 +338,7 @@ export class Game {
     this.performTurn(new ShuffleTurn())
   }
 
-  public selectLevel() {
-    this.layOutCards()
-    this.selectingLevel = true
-  }
-
-  public startGame() {
-    this.layOutCards()
-    this.selectingLevel = false
-  }
-
-  private layOutCards() {
+  public startOver() {
     const shuffledCards = Deck.instance.cards.shuffle()
     const cellsExcludingFirstColumn = Grid.instance.cells.filter(
       cell => cell.columnIndex !== 0
