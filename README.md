@@ -32,6 +32,8 @@ Solitaire implemented in React Native and written in TypeScript.
 - Remember the game state even when the app has been closed for a long time.
 - A picture of a desert in the background of the cards?
 - Enable portrait mode on tablets.
+- Higher resolution splash screen.
+- Take account of the notch on the iPhone XR.
 - Publish on iOS.
 - Publish on Android.
 
