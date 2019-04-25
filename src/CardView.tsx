@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Component } from 'react'
+import { computed } from 'mobx'
 import { observer } from 'mobx-react'
 import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
@@ -22,6 +23,46 @@ interface Props {
 
 @observer
 export class CardView extends Component<Props> {
+  @computed
+  private get cardSuitLeft(): number {
+    return Math.round(Settings.instance.cardSize.width / 40)
+  }
+
+  @computed
+  private get cardSuitSize(): number {
+    return Math.round((Settings.instance.cardSize.width / 40) * 18)
+  }
+
+  @computed
+  private get cardSuitTop(): number {
+    return Math.round(Settings.instance.cardSize.width / 2)
+  }
+
+  @computed
+  private get cardValueFontSize(): number {
+    return Math.round(Settings.instance.cardSize.width / 2)
+  }
+
+  @computed
+  private get cardValueLeft(): number {
+    return -Math.round((Settings.instance.cardSize.width / 40) * 16)
+  }
+
+  @computed
+  private get cardValueLetterSpacing(): number {
+    return -Math.round(Settings.instance.cardSize.width / 15)
+  }
+
+  @computed
+  private get cardValueTop(): number {
+    return -Math.round((Settings.instance.cardSize.width / 40) * 3)
+  }
+
+  @computed
+  private get cardValueWidth(): number {
+    return Math.round(1.22 * Settings.instance.cardSize.width)
+  }
+
   public render() {
     return (
       <View style={this.getShadowStyle()}>
@@ -30,7 +71,7 @@ export class CardView extends Component<Props> {
             {this.props.card.displayValue}
           </Text>
           <View style={this.getSuitStyle()}>
-            {this.suit(Settings.instance.cardSuitSize)}
+            {this.suit(this.cardSuitSize)}
           </View>
         </View>
         <View style={this.getOverlayStyle()} />
@@ -107,23 +148,23 @@ export class CardView extends Component<Props> {
 
   private getSuitStyle(): ViewStyle {
     return {
-      left: Settings.instance.cardSuitLeft,
+      left: this.cardSuitLeft,
       position: 'absolute',
-      top: Settings.instance.cardSuitTop
+      top: this.cardSuitTop
     }
   }
 
   private getValueStyle(): TextStyle {
     return {
       color: SuitHelper.getColor(this.props.card.suit),
-      fontSize: Settings.instance.cardValueFontSize,
+      fontSize: this.cardValueFontSize,
       fontWeight: '700',
-      left: Settings.instance.cardValueLeft,
-      letterSpacing: Settings.instance.cardValueLetterSpacing,
+      left: this.cardValueLeft,
+      letterSpacing: this.cardValueLetterSpacing,
       position: 'absolute',
       textAlign: 'center',
-      top: Settings.instance.cardValueTop,
-      width: Settings.instance.cardValueWidth // Make space for the two digits in '10'.
+      top: this.cardValueTop,
+      width: this.cardValueWidth // Make space for the two digits in '10'.
     }
   }
 
