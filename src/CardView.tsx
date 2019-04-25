@@ -33,46 +33,6 @@ export class CardView extends Component<Props> {
   @observable
   private fontLoaded: boolean = false
 
-  @computed
-  private get cardSuitLeft(): number {
-    return Math.round(Settings.instance.cardSize.width / 40)
-  }
-
-  @computed
-  private get cardSuitSize(): number {
-    return Math.round((Settings.instance.cardSize.width / 40) * 18)
-  }
-
-  @computed
-  private get cardSuitTop(): number {
-    return Math.round(Settings.instance.cardSize.width / 2)
-  }
-
-  @computed
-  private get cardValueFontSize(): number {
-    return Math.round(Settings.instance.cardSize.width / 2)
-  }
-
-  @computed
-  private get cardValueLeft(): number {
-    return -Math.round((Settings.instance.cardSize.width / 40) * 16)
-  }
-
-  @computed
-  private get cardValueLetterSpacing(): number {
-    return -Math.round(Settings.instance.cardSize.width / 15)
-  }
-
-  @computed
-  private get cardValueTop(): number {
-    return -Math.round((Settings.instance.cardSize.width / 40) * 3)
-  }
-
-  @computed
-  private get cardValueWidth(): number {
-    return Math.round(1.22 * Settings.instance.cardSize.width)
-  }
-
   public render() {
     if (!this.fontLoaded) {
       return <View />
@@ -85,7 +45,9 @@ export class CardView extends Component<Props> {
             {this.props.card.displayValue}
           </Text>
           <View style={this.getSuitStyle()}>
-            {this.suit(this.cardSuitSize)}
+            {this.suit(
+              Math.round((Settings.instance.cardSize.width / 40) * 18)
+            )}
           </View>
         </View>
         <View style={this.getOverlayStyle()} />
@@ -170,9 +132,9 @@ export class CardView extends Component<Props> {
 
   private getSuitStyle(): ViewStyle {
     return {
-      left: this.cardSuitLeft,
+      left: Math.round(Settings.instance.cardSize.width / 40),
       position: 'absolute',
-      top: this.cardSuitTop
+      top: Math.round(Settings.instance.cardSize.width / 2)
     }
   }
 
@@ -180,14 +142,14 @@ export class CardView extends Component<Props> {
     return {
       color: SuitHelper.getColor(this.props.card.suit),
       fontFamily: 'Heebo-Bold',
-      fontSize: this.cardValueFontSize,
+      fontSize: Math.round(Settings.instance.cardSize.width / 2),
       fontWeight: '700',
-      left: this.cardValueLeft,
-      letterSpacing: this.cardValueLetterSpacing,
+      left: -Math.round((Settings.instance.cardSize.width / 40) * 16),
+      letterSpacing: -Math.round(Settings.instance.cardSize.width / 15),
       position: 'absolute',
       textAlign: 'center',
-      top: this.cardValueTop,
-      width: this.cardValueWidth // Make space for the two digits in '10'.
+      top: -Math.round((Settings.instance.cardSize.width / 40) * 3),
+      width: Math.round(1.22 * Settings.instance.cardSize.width) // Make space for the two digits in '10'.
     }
   }
 
