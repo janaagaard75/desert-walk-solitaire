@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Component } from 'react'
-import { computed } from 'mobx'
 import { Font } from 'expo'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
@@ -45,9 +44,7 @@ export class CardView extends Component<Props> {
             {this.props.card.displayValue}
           </Text>
           <View style={this.getSuitStyle()}>
-            {this.suit(
-              Math.round((Settings.instance.cardSize.width / 40) * 18)
-            )}
+            {this.suit(Math.round(0.55 * Settings.instance.cardSize.width))}
           </View>
         </View>
         <View style={this.getOverlayStyle()} />
@@ -132,9 +129,9 @@ export class CardView extends Component<Props> {
 
   private getSuitStyle(): ViewStyle {
     return {
-      left: Math.round(Settings.instance.cardSize.width / 40),
+      bottom: Math.round(0.1 * Settings.instance.cardSize.width),
       position: 'absolute',
-      top: Math.round(Settings.instance.cardSize.width / 2)
+      right: Math.round(0.025 * Settings.instance.cardSize.width)
     }
   }
 
@@ -142,13 +139,13 @@ export class CardView extends Component<Props> {
     return {
       color: SuitHelper.getColor(this.props.card.suit),
       fontFamily: 'Heebo-Bold',
-      fontSize: Math.round(Settings.instance.cardSize.width / 2),
+      fontSize: Math.round(0.7 * Settings.instance.cardSize.width),
       fontWeight: '700',
-      left: -Math.round((Settings.instance.cardSize.width / 40) * 16),
-      letterSpacing: -Math.round(Settings.instance.cardSize.width / 15),
+      left: Math.round(0.025 * Settings.instance.cardSize.width),
+      letterSpacing: -Math.round(0.07 * Settings.instance.cardSize.width),
       position: 'absolute',
-      textAlign: 'center',
-      top: -Math.round((Settings.instance.cardSize.width / 40) * 3),
+      textAlign: 'left',
+      top: -Math.round(0.15 * Settings.instance.cardSize.width),
       width: Math.round(1.22 * Settings.instance.cardSize.width) // Make space for the two digits in '10'.
     }
   }
