@@ -15,27 +15,26 @@ Solitaire implemented in React Native and written in TypeScript.
 
 ## TODO
 
-- Fix crash error.
-- Better colors. Dark mode by default?
 - Game lost screen.
-- Splash screen.
-- Make sure everything looks alike on both platforms.
+- Higher resolution splash screen.
 - Use standard undo and redo icons.
 - Find a better icon for starting over the game.
+- Better colors. Dark mode by default?
 - The start over button is always clickable, but it should also be highlighted when the game is in game over mode. So that icon needs two states of highlight.
-- Make the icons look more like buttons.
-- Remove the text from the 'confirm restart dialog', so that the game only contains icons.
-- Remember the game state even when the app has been closed for a long time.
-- A picture of a desert in the background of the cards?
-- Enable portrait mode on tablets.
-- Higher resolution splash screen.
 - Take account of the notch on the iPhone XR.
+- Remember the game state even when the app has been closed for a long time.
+- Remove the text from the 'confirm restart dialog', so that the game only contains icons.
+- Enable portrait mode on tablets.
+- Make sure everything looks alike on both platforms.
+- Fix crash error.
 - Publish on iOS.
 - Publish on Android.
 
 ### Later
 
 - Animate the cards when they are dealt.
+- A picture of a desert in the background of the cards?
+- Make the icons look more like buttons.
 - Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
 - Avoid passing inline functions as props: <https://itnext.io/how-we-boosted-the-performance-of-our-react-native-app-191b8d338347#e92b>.
 
