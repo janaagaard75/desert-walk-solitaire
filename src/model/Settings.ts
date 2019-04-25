@@ -97,46 +97,6 @@ export class Settings {
     }
   }
 
-  @computed
-  public get cardSuitSize(): number {
-    return Math.round((Settings.instance.cardSize.width / 40) * 18)
-  }
-
-  @computed
-  public get cardSuitLeft(): number {
-    return Math.round(Settings.instance.cardSize.width / 40)
-  }
-
-  @computed
-  public get cardSuitTop(): number {
-    return Math.round(Settings.instance.cardSize.width / 2)
-  }
-
-  @computed
-  public get cardValueFontSize(): number {
-    return Math.round(Settings.instance.cardSize.width / 2)
-  }
-
-  @computed
-  public get cardValueLeft(): number {
-    return -Math.round((Settings.instance.cardSize.width / 40) * 16)
-  }
-
-  @computed
-  public get cardValueLetterSpacing(): number {
-    return -Math.round(Settings.instance.cardSize.width / 15)
-  }
-
-  @computed
-  public get cardValueTop(): number {
-    return -Math.round((Settings.instance.cardSize.width / 40) * 3)
-  }
-
-  @computed
-  public get cardValueWidth(): number {
-    return Math.round(1.22 * Settings.instance.cardSize.width)
-  }
-
   @computed public get columns() {
     return this.maxCardValue + 1
   }
