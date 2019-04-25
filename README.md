@@ -15,10 +15,6 @@ Solitaire implemented in React Native and written in TypeScript.
 
 ## TODO
 
-- Redesign the cards.
-  - Remove the small suits and use the whole card for the number and the suit.
-  - Replace J, Q and K with symbols?
-  - Draw the numbers on the cards using a custom font or SVGs.
 - Fix crash error.
 - Better colors. Dark mode by default?
 - Game lost screen.
