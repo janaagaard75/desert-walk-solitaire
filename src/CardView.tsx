@@ -32,7 +32,6 @@ export class CardView extends Component<Props> {
           <View style={this.getSuitStyle()}>
             {this.suit(Settings.instance.cardSuitSize)}
           </View>
-          {this.getSmallSuits()}
         </View>
         <View style={this.getOverlayStyle()} />
       </View>
@@ -104,104 +103,6 @@ export class CardView extends Component<Props> {
     }
 
     return shadowStyle
-  }
-
-  private getSmallSuits() {
-    const smallSuits: { [index: number]: Array<Array<boolean>> } = {
-      1: [
-        [false, false, false, false],
-        [false, false, false, false],
-        [false, false, false, false],
-        [false, false, false, true]
-      ],
-      2: [
-        [false, false, false, false],
-        [false, false, false, false],
-        [false, false, false, true],
-        [false, false, true, false]
-      ],
-      3: [
-        [false, false, false, false],
-        [false, false, false, true],
-        [false, false, true, false],
-        [false, true, false, false]
-      ],
-      4: [
-        [false, false, false, false],
-        [false, false, false, true],
-        [false, false, true, false],
-        [false, true, false, true]
-      ],
-      5: [
-        [false, false, false, false],
-        [false, false, false, true],
-        [false, false, true, true],
-        [false, true, true, false]
-      ],
-      6: [
-        [false, false, false, false],
-        [false, false, false, true],
-        [false, false, true, true],
-        [false, true, true, true]
-      ],
-      7: [
-        [false, false, false, true],
-        [false, false, true, false],
-        [false, true, false, true],
-        [true, false, true, true]
-      ],
-      8: [
-        [false, false, false, true],
-        [false, false, true, true],
-        [false, true, true, false],
-        [true, true, false, true]
-      ],
-      9: [
-        [false, false, false, true],
-        [false, false, true, true],
-        [false, true, true, true],
-        [true, true, true, false]
-      ],
-      10: [
-        [false, false, false, true],
-        [false, false, true, true],
-        [false, true, true, true],
-        [true, true, true, true]
-      ]
-    }
-
-    return [0, 1, 2, 3].map(y =>
-      [0, 1, 2, 3].map(x => {
-        if (
-          smallSuits[this.props.card.value] !== undefined &&
-          smallSuits[this.props.card.value][x][y]
-        ) {
-          return this.getSmallSuit(x, y)
-        }
-
-        return undefined
-      })
-    )
-  }
-
-  private getSmallSuit(x: number, y: number): JSX.Element {
-    const margin = Math.round(Settings.instance.cardSize.width / 18)
-    const gridSize = 4 - 1
-    const gridSpace = Math.round(Settings.instance.cardSuitSize / 3)
-    const suitSize = Math.round(Settings.instance.cardSuitSize / 4)
-
-    return (
-      <View
-        key={`${x}${y}`}
-        style={{
-          bottom: gridSize * gridSpace - x * gridSpace + margin, // size * gridSize - x * gridSize + margin,
-          position: 'absolute',
-          right: gridSize * gridSpace - y * gridSpace + margin
-        }}
-      >
-        {this.suit(suitSize)}
-      </View>
-    )
   }
 
   private getSuitStyle(): ViewStyle {
