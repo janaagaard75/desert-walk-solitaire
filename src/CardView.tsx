@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Component } from 'react'
 import { computed } from 'mobx'
+import { Font } from 'expo'
+import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
@@ -23,6 +25,14 @@ interface Props {
 
 @observer
 export class CardView extends Component<Props> {
+  constructor(props: Props, context?: any) {
+    super(props, context)
+    this.loadFont()
+  }
+
+  @observable
+  private fontLoaded: boolean = false
+
   @computed
   private get cardSuitLeft(): number {
     return Math.round(Settings.instance.cardSize.width / 40)
@@ -64,6 +74,10 @@ export class CardView extends Component<Props> {
   }
 
   public render() {
+    if (!this.fontLoaded) {
+      return <View />
+    }
+
     return (
       <View style={this.getShadowStyle()}>
         <View style={this.getCardStyle()}>
@@ -88,6 +102,14 @@ export class CardView extends Component<Props> {
     )
 
     return boundary
+  }
+
+  private async loadFont() {
+    await Font.loadAsync({
+      'Heebo-Bold': require('../assets/Heebo/Heebo-Bold.ttf')
+    })
+
+    this.fontLoaded = true
   }
 
   private overlayOpacity(): number {
@@ -157,6 +179,7 @@ export class CardView extends Component<Props> {
   private getValueStyle(): TextStyle {
     return {
       color: SuitHelper.getColor(this.props.card.suit),
+      fontFamily: 'Heebo-Bold',
       fontSize: this.cardValueFontSize,
       fontWeight: '700',
       left: this.cardValueLeft,
