@@ -15,7 +15,6 @@ Solitaire implemented in React Native and written in TypeScript.
 
 ## TODO
 
-- Remove Firebase and associated tracking code.
 - Avoid passing inline functions as props: <https://itnext.io/how-we-boosted-the-performance-of-our-react-native-app-191b8d338347#e92b>.
 - Game lost screen.
 - Redesign the cards.
@@ -33,6 +32,8 @@ Solitaire implemented in React Native and written in TypeScript.
 - Remember the game state even when the app has been closed for a long time.
 - A picture of a desert in the background of the cards?
 - Enable portrait mode on tablets.
+- Higher resolution splash screen.
+- Take account of the notch on the iPhone XR.
 - Publish on iOS.
 - Publish on Android.
 

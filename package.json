@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "expo": "32.0.6",
-    "firebase": "5.10.0",
     "mobx": "5.9.4",
     "mobx-react": "5.4.3",
     "react": "16.5.0",
@@ -31,7 +30,6 @@
     "tslib": "1.9.3"
   },
   "devDependencies": {
-    "@firebase/app-types": "0.x",
     "@types/expo": "32.0.11",
     "@types/expo__vector-icons": "9.0.1",
     "@types/react": "16.8.14",

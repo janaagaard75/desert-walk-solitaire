@@ -7,7 +7,6 @@ import { CardCellPair } from './CardCellPair'
 import { Cell } from './Cell'
 import { Deck } from './Deck'
 import { GameState } from './GameState'
-import { GameSummary } from './GameSummary'
 import { Grid } from './Grid'
 import { GridState } from './GridState'
 import { MoveTurn } from './turn/MoveTurn'
@@ -44,8 +43,6 @@ export class Game {
   @observable private replayPlaying: boolean = false
   @observable private replayShown: boolean = false
   @observable private turns: Array<Turn> = []
-
-  private gameSummary: GameSummary | undefined
 
   @computed
   public get animateFromPreviousPosition(): boolean {
@@ -357,7 +354,6 @@ export class Game {
     this.setCurrentStateIndex(0, false)
     this.gridStates = [new GridState(positions)]
     this.turns = []
-    this.gameSummary = new GameSummary()
     this.replayShown = false
   }
 
@@ -382,32 +378,10 @@ export class Game {
     this.gridStates.push(newGridState)
 
     this.setCurrentStateIndex(this.currentStateIndex + 1, true)
-    this.storeSummaryIfGameOver()
-  }
-
-  private get gameIsOver(): boolean {
-    const gameOver =
-      this.gameState === GameState.Lost || this.gameState === GameState.Won
-    return gameOver
   }
 
   private setCurrentStateIndex(newIndex: number, animateNextTurn: boolean) {
     this.animateNextTurn = animateNextTurn
     this._currentStateIndex = newIndex
-  }
-
-  private storeSummaryIfGameOver() {
-    if (this.gameSummary === undefined) {
-      return
-    }
-
-    if (this.gameIsOver) {
-      this.gameSummary.addFinalStep({
-        cardsInPlace: this.currentGridState.correctlyPositionedCards.length,
-        moves: this.numberOfMoveTurns
-      })
-
-      this.gameSummary.storeGameSummary()
-    }
   }
 }
