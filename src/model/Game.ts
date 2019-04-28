@@ -237,6 +237,7 @@ export class Game {
     return enabled
   }
 
+  /** Returns the list of cells that the current card can be dragged to. The cell currently being moved from is also considered a targetable cell in order to make the calculations for the most overlapped tagetable cell correct.  */
   @computed
   private get targetCells(): Array<Cell> {
     if (this.draggingFromCell === undefined) {
@@ -277,7 +278,8 @@ export class Game {
 
     if (
       this.draggingFromCell !== undefined &&
-      this.mostOverlappedTargetableCell !== undefined
+      this.mostOverlappedTargetableCell !== undefined &&
+      this.mostOverlappedTargetableCell !== this.draggingFromCell.cell
     ) {
       this.performTurn(
         new MoveTurn(

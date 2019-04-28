@@ -15,7 +15,6 @@ Solitaire implemented in React Native and written in TypeScript.
 
 ## TODO
 
-- Fix crash error when dragging a card and letting it go when hovering the original cell.
 - Game lost screen.
 - Higher resolution splash screen.
 - Use standard undo and redo icons.
