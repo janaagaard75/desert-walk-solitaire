@@ -23,12 +23,12 @@ Solitaire implemented in React Native and written in TypeScript.
 - Take account of the notch on the iPhone XR.
 - Remember the game state even when the app has been closed for a long time.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
-- Make sure everything looks alike on both platforms.
 - Publish on iOS.
-- Publish on Android.
 
 ### Later
 
+- Make sure everything looks alight on Android.
+- Publish on Android.
 - Enable portrait mode on tablets.
 - Animate the cards when they are dealt.
 - A picture of a desert in the background of the cards?
