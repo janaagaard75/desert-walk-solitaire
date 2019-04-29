@@ -33,20 +33,6 @@ export default class MainView extends Component {
   @observable
   private fontLoaded: boolean = false
 
-  private async loadFont() {
-    await Font.loadAsync({
-      'Heebo-Bold': require('../assets/Heebo/Heebo-Bold.ttf')
-    })
-  }
-
-  private updateWindowSize() {
-    const windowSize = Dimensions.get('window')
-    Settings.instance.windowSize = {
-      height: windowSize.height,
-      width: windowSize.width
-    }
-  }
-
   public render() {
     if (!this.fontLoaded) {
       return (
@@ -102,6 +88,20 @@ export default class MainView extends Component {
       backgroundColor: Settings.instance.colors.mainBackgroundColor,
       flex: 1,
       flexDirection: 'column'
+    }
+  }
+
+  private async loadFont() {
+    await Font.loadAsync({
+      'Heebo-Bold': require('../assets/Heebo/Heebo-Bold.ttf')
+    })
+  }
+
+  private updateWindowSize() {
+    const windowSize = Dimensions.get('window')
+    Settings.instance.windowSize = {
+      height: windowSize.height,
+      width: windowSize.width
     }
   }
 }
