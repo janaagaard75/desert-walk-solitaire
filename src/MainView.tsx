@@ -1,8 +1,10 @@
 import * as React from 'react'
 import { Component } from 'react'
 import { Dimensions } from 'react-native'
+import { Font } from 'expo'
 import { Image } from 'react-native'
 import { isIphoneX } from 'react-native-iphone-x-helper'
+import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { ScreenOrientation } from 'expo'
 import { StatusBar } from 'react-native'
@@ -24,6 +26,18 @@ export default class MainView extends Component {
     Dimensions.addEventListener('change', () => {
       this.updateWindowSize()
     })
+    this.loadFont()
+  }
+
+  @observable
+  private fontLoaded: boolean = false
+
+  private async loadFont() {
+    await Font.loadAsync({
+      'Heebo-Bold': require('../assets/Heebo/Heebo-Bold.ttf')
+    })
+
+    this.fontLoaded = true
   }
 
   private updateWindowSize() {
@@ -35,6 +49,10 @@ export default class MainView extends Component {
   }
 
   public render() {
+    if (!this.fontLoaded) {
+      return <View />
+    }
+
     return (
       <View style={this.getMainStyle()}>
         <StatusBar hidden={true} />
