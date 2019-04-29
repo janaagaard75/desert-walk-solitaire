@@ -202,14 +202,16 @@ export class Game {
     return this._currentStateIndex
   }
 
-  /** Returns the list of cells that the current card can be dropped on. This includes the cell being dragged from. */
+  /** Returns the list of cells that the current card can be dropped on. This includes the cell being dragged from. See `tagetableCells`. */
   @computed
   private get droppableCells(): Array<Cell> {
     if (this.draggingFromCell === undefined) {
       return []
     }
 
-    const droppableCells = this.targetCells.concat(this.draggingFromCell.cell)
+    const droppableCells = this.targetableCells.concat(
+      this.draggingFromCell.cell
+    )
     return droppableCells
   }
 
@@ -249,21 +251,20 @@ export class Game {
     return enabled
   }
 
-  // TODO: Rename to targetableCells.
-  /** Returns the list of cells that the current card can be moved to. */
+  /** Returns the list of cells that the current card can be moved to. This does not include the cell being currently moved from. See `droppableCells`. */
   @computed
-  private get targetCells(): Array<Cell> {
+  private get targetableCells(): Array<Cell> {
     if (this.draggingFromCell === undefined) {
       return []
     }
 
-    const targetCells = this.currentGridState.emptyCells
+    const targetableCells = this.currentGridState.emptyCells
       .filter(emptyCell =>
         emptyCell.droppableCards.some(card => card === this.draggedCard)
       )
       .map(emptyCell => emptyCell.cell)
 
-    return targetCells
+    return targetableCells
   }
 
   private autorun() {
@@ -309,7 +310,7 @@ export class Game {
 
   /** Returns a vector pointing from the source cell to the target cell, used to animate the move. */
   public moveCardToTarget(positionedCard: PositionedCard): Point {
-    const targetCell = this.targetCells[0]
+    const targetCell = this.targetableCells[0]
     const moveTurn = new MoveTurn(positionedCard.cell, targetCell)
     this.performTurn(moveTurn)
 
