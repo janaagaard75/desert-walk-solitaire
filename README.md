@@ -81,6 +81,14 @@ It's a code smell that the `CardCellPair` interface is required. This may be bec
 
 The `Game` class has become too big. It might be possible to extract some of the code into a `Main` class and to move some of the code to `GridState`.
 
+It's okay to have observable values inside views. Too many things has been stored in Settings.
+
+The syntax for observable variables is heavy.
+
+Naming things is important as ever. A bug was created because `targetableCells` included in the cell being moved from to get the overlap calculations correct, but the name had not been updated.
+
+MobX now checks for side effects inside observables.
+
 ## Links
 
 <https://blog.cloudboost.io/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e>
