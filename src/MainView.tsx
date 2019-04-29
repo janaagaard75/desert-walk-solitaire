@@ -1,8 +1,11 @@
 import * as React from 'react'
+import { AppLoading } from 'expo'
 import { Component } from 'react'
 import { Dimensions } from 'react-native'
+import { Font } from 'expo'
 import { Image } from 'react-native'
 import { isIphoneX } from 'react-native-iphone-x-helper'
+import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { ScreenOrientation } from 'expo'
 import { StatusBar } from 'react-native'
@@ -24,17 +27,24 @@ export default class MainView extends Component {
     Dimensions.addEventListener('change', () => {
       this.updateWindowSize()
     })
+    this.loadFont()
   }
 
-  private updateWindowSize() {
-    const windowSize = Dimensions.get('window')
-    Settings.instance.windowSize = {
-      height: windowSize.height,
-      width: windowSize.width
-    }
-  }
+  @observable
+  private fontLoaded: boolean = false
 
   public render() {
+    if (!this.fontLoaded) {
+      return (
+        <AppLoading
+          startAsync={() => this.loadFont()}
+          onFinish={() => {
+            this.fontLoaded = true
+          }}
+        />
+      )
+    }
+
     return (
       <View style={this.getMainStyle()}>
         <StatusBar hidden={true} />
@@ -78,6 +88,20 @@ export default class MainView extends Component {
       backgroundColor: Settings.instance.colors.mainBackgroundColor,
       flex: 1,
       flexDirection: 'column'
+    }
+  }
+
+  private async loadFont() {
+    await Font.loadAsync({
+      'Heebo-Bold': require('../assets/Heebo/Heebo-Bold.ttf')
+    })
+  }
+
+  private updateWindowSize() {
+    const windowSize = Dimensions.get('window')
+    Settings.instance.windowSize = {
+      height: windowSize.height,
+      width: windowSize.width
     }
   }
 }
