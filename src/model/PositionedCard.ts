@@ -48,6 +48,6 @@ export class PositionedCard extends GridCell implements CardCellPair {
 
   /** Moves the card to the first availble target. This is only called on cards that are draggable. Returns the vector used for the animating the move. */
   public moveToTarget(): Point {
-    return Game.instance.moveCardToTarget(this)
+    return Game.instance.moveCardToFirstTarget(this)
   }
 }

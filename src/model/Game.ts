@@ -309,7 +309,7 @@ export class Game {
   }
 
   /** Returns a vector pointing from the source cell to the target cell, used to animate the move. */
-  public moveCardToTarget(positionedCard: PositionedCard): Point {
+  public moveCardToFirstTarget(positionedCard: PositionedCard): Point {
     const targetCell = this.targetableCells[0]
     const moveTurn = new MoveTurn(positionedCard.cell, targetCell)
     this.performTurn(moveTurn)
