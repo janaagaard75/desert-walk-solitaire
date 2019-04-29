@@ -10,22 +10,16 @@
     "primaryColor": "#464",
     "icon": "./assets/app-icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash-screen.png",
       "hideExponentText": false
     },
     "packagerOpts": {
-      "assetExts": [
-        "mp4",
-        "ttf"
-      ]
+      "assetExts": ["mp4", "ttf"]
     },
     "ios": {
       "supportsTablet": true
     },
     "githubUrl": "https://github.com/janaagaard75/desert-walk",
-    "platforms": [
-      "android",
-      "ios"
-    ]
+    "platforms": ["android", "ios"]
   }
 }

@@ -16,7 +16,6 @@ Solitaire implemented in React Native and written in TypeScript.
 ## TODO
 
 - Game lost screen.
-- Higher resolution splash screen.
 - Use standard undo and redo icons.
 - Find a better icon for starting over the game.
 - Better colors. Dark mode by default?
