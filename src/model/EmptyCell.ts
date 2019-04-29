@@ -40,7 +40,8 @@ export class EmptyCell extends GridCell {
       return EmptyCellState.DropAllowedButNoCardIsBeingDragged
     }
 
-    if (Game.instance.mostOverlappedTargetableCell === this.cell) {
+    // Don't have to take account of the cell currently being dragged from because this cell isn't considered empty until.
+    if (Game.instance.mostOverlappedDroppableCell === this.cell) {
       return EmptyCellState.MostOverlappedTargetableCell
     }
 

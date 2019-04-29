@@ -118,9 +118,8 @@ export class Game {
     return latestTurn
   }
 
-  // TODO: Rename to mostOverlappedDroppableCell
   @computed
-  public get mostOverlappedTargetableCell(): Cell | undefined {
+  public get mostOverlappedDroppableCell(): Cell | undefined {
     if (this.droppableCells.length === 0) {
       return undefined
     }
@@ -149,8 +148,8 @@ export class Game {
       throw new Error('No cell to snap to since currently not dragging a card.')
     }
 
-    if (this.mostOverlappedTargetableCell !== undefined) {
-      return this.mostOverlappedTargetableCell
+    if (this.mostOverlappedDroppableCell !== undefined) {
+      return this.mostOverlappedDroppableCell
     }
 
     return this.draggingFromCell.cell
@@ -228,7 +227,7 @@ export class Game {
       )
     }
 
-    const targetCell = this.mostOverlappedTargetableCell
+    const targetCell = this.mostOverlappedDroppableCell
     if (targetCell === undefined) {
       return undefined
     }
@@ -291,13 +290,13 @@ export class Game {
 
     if (
       this.draggingFromCell !== undefined &&
-      this.mostOverlappedTargetableCell !== undefined &&
-      this.mostOverlappedTargetableCell !== this.draggingFromCell.cell
+      this.mostOverlappedDroppableCell !== undefined &&
+      this.mostOverlappedDroppableCell !== this.draggingFromCell.cell
     ) {
       this.performTurn(
         new MoveTurn(
           this.draggingFromCell.cell,
-          this.mostOverlappedTargetableCell
+          this.mostOverlappedDroppableCell
         )
       )
     }
