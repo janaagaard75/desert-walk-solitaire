@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { AppLoading } from 'expo'
 import { Component } from 'react'
 import { Dimensions } from 'react-native'
 import { Font } from 'expo'
@@ -36,8 +37,6 @@ export default class MainView extends Component {
     await Font.loadAsync({
       'Heebo-Bold': require('../assets/Heebo/Heebo-Bold.ttf')
     })
-
-    this.fontLoaded = true
   }
 
   private updateWindowSize() {
@@ -50,7 +49,14 @@ export default class MainView extends Component {
 
   public render() {
     if (!this.fontLoaded) {
-      return <View />
+      return (
+        <AppLoading
+          startAsync={() => this.loadFont()}
+          onFinish={() => {
+            this.fontLoaded = true
+          }}
+        />
+      )
     }
 
     return (
