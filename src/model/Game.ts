@@ -118,13 +118,14 @@ export class Game {
     return latestTurn
   }
 
+  // TODO: Rename to mostOverlappedDroppableCell
   @computed
   public get mostOverlappedTargetableCell(): Cell | undefined {
-    if (this.targetCells.length === 0) {
+    if (this.droppableCells.length === 0) {
       return undefined
     }
 
-    const sortedByOverlappedPixels = this.targetCells
+    const sortedByOverlappedPixels = this.droppableCells
       .filter(cell => cell.draggedCardOverlappingPixels > 0)
       .sort(
         (cellA, cellB) =>
@@ -201,6 +202,17 @@ export class Game {
     return this._currentStateIndex
   }
 
+  /** Returns the list of cells that the current card can be dropped on. This includes the cell being dragged from. */
+  @computed
+  private get droppableCells(): Array<Cell> {
+    if (this.draggingFromCell === undefined) {
+      return []
+    }
+
+    const droppableCells = this.targetCells.concat(this.draggingFromCell.cell)
+    return droppableCells
+  }
+
   /** Returns the offset of the dragged card to the droppable target. Returns `undefined` if the dragged card is not hovering over a droppable target. */
   @computed
   private get dropOffset(): Point | undefined {
@@ -237,7 +249,8 @@ export class Game {
     return enabled
   }
 
-  /** Returns the list of cells that the current card can be dragged to. The cell currently being moved from is also considered a targetable cell in order to make the calculations for the most overlapped tagetable cell correct.  */
+  // TODO: Rename to targetableCells.
+  /** Returns the list of cells that the current card can be moved to. */
   @computed
   private get targetCells(): Array<Cell> {
     if (this.draggingFromCell === undefined) {
@@ -249,7 +262,6 @@ export class Game {
         emptyCell.droppableCards.some(card => card === this.draggedCard)
       )
       .map(emptyCell => emptyCell.cell)
-      .concat(this.draggingFromCell.cell)
 
     return targetCells
   }
