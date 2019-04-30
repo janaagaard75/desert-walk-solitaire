@@ -14,12 +14,12 @@
   },
   "scripts": {
     "android": "yarn install && expo start --android",
-    "check-types": "tsc --noEmit",
+    "check-types": "tsc",
     "format": "prettier --write \"**/*.ts\" \"**/*.tsx\"",
     "ios": "yarn install && expo start --ios",
     "lint": "tslint src/**/*.ts src/**/*.tsx",
     "start": "yarn install && expo start",
-    "validate": "yarn install && yarn run lint && yarn run check-typest"
+    "validate": "yarn install && yarn run lint && yarn run check-types"
   },
   "dependencies": {
     "expo": "32.0.6",

@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "jsx": "react-native",
-    "module": "es2015",
     "moduleResolution": "node",
-    "noEmitHelpers": true,
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "outDir": "build/dist",
-    "skipLibCheck": true, // Temporarely needed by @types/react-native 0.52.22. See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/24573
-    "sourceMap": false,
+    "skipLibCheck": true,
     "strict": true,
     "strictFunctionTypes": false,
     "target": "es2018",
