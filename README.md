@@ -2,16 +2,19 @@
 
 Solitaire implemented in React Native and written in TypeScript.
 
+## Prerequisites
+
+- [Node.js](https://nodejs.org/en/)
+- [Yarn](https://yarnpkg.com/en/)
+- Recommended: iOS Simulator, part of [Xcode](https://developer.apple.com/xcode/).
+
 ## Running the App Locally
 
-1. Fetch the repo and install packages with `yarn install` (or `npm install`).
-2. Download and install the [Expo XDE](https://expo.io/tools).
-3. (Not sure if this is mandatory: Install XCode on Mac. The iOS Simulator is part of XCode.)
-4. Open the project in Expo XDE. This should compile everything.
-5. Open the project in the iOS simulator\* or...
-6. ...Install the Expo client on a mobile device and scan the QR code revealed by the Share button.
+Just type `yarn start` to install the Node modules and start the app.
 
-\*) It also possible to run the app in Android simulator, but I have not tried that yet.
+This opens a browser window where you can select 'Start iOS Simulator'.
+
+You can also install the [Expo Client](https://expo.io/tools#client) on your devices and run the app through that app.
 
 ## TODO
 
