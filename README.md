@@ -23,7 +23,6 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 - Find a better icon for starting over the game.
 - Better colors. Dark mode by default?
 - The start over button is always clickable, but it should also be highlighted when the game is in game over mode. So that icon needs two states of highlight.
-- Take account of the notch on the iPhone XR.
 - Remember the game state even when the app has been closed for a long time.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
 - Use an Arabic looking font.

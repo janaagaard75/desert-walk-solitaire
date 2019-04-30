@@ -1,4 +1,5 @@
 import { computed } from 'mobx'
+import { isIphoneX } from 'react-native-iphone-x-helper'
 import { observable } from 'mobx'
 
 import { Size } from './Size'
@@ -141,9 +142,15 @@ export class Settings {
 
   @computed
   private get availablePlayingFieldSize(): Size {
+    let availableWidth = this.windowSize.width
+    if (isIphoneX()) {
+      const notchHeight = 40
+      availableWidth -= 2 * notchHeight
+    }
+
     return {
       height: this.windowSize.height - this.footerHeight,
-      width: this.windowSize.width
+      width: availableWidth
     }
   }
 
