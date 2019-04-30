@@ -23,6 +23,7 @@ Solitaire implemented in React Native and written in TypeScript.
 - Take account of the notch on the iPhone XR.
 - Remember the game state even when the app has been closed for a long time.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
+- Use an Arabic looking font.
 - Publish on iOS.
 
 ### Later
