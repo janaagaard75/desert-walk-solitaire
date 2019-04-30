@@ -4,8 +4,8 @@ Solitaire implemented in React Native and written in TypeScript.
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/)
-- [Yarn](https://yarnpkg.com/en/)
+- [Node.js](https://nodejs.org/en/).
+- [Yarn](https://yarnpkg.com/en/).
 - Recommended: iOS Simulator, part of [Xcode](https://developer.apple.com/xcode/).
 
 ## Running the App Locally
