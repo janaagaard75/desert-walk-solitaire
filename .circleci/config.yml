@@ -26,5 +26,9 @@ jobs:
             - ./cache/node_modules
 
       - run:
-          name: Validate
-          command: yarn run validate
+          name: Check types
+          command: yarn run check-types
+
+      - run:
+          name: Lint
+          command: yarn run lint
