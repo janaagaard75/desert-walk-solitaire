@@ -32,3 +32,8 @@ jobs:
       - run:
           name: Lint
           command: yarn run lint
+
+      - run:
+          name: Sign in to Expo
+          # expo_password is defined as an environment variable in CircleCI.
+          command: yarn expo login --username janaagaard75 --password $expo_password
