@@ -18,6 +18,7 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 ## TODO
 
+- Fix game orientation after showing the confirm dialog.
 - Game lost screen.
 - Find a better icon for starting over the game.
 - Better colors. Dark mode by default?
