@@ -19,7 +19,6 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 ## TODO
 
 - Game lost screen.
-- Use standard undo and redo icons.
 - Find a better icon for starting over the game.
 - Better colors. Dark mode by default?
 - The start over button is always clickable, but it should also be highlighted when the game is in game over mode. So that icon needs two states of highlight.

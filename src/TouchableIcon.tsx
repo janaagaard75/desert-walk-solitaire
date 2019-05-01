@@ -6,6 +6,7 @@ import { View } from 'react-native'
 // tslint:disable:no-implicit-dependencies
 import { Entypo } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 // tslint:enable:no-implicit-dependencies
 
 import { TouchableState } from './model/TouchableState'
@@ -61,6 +62,9 @@ export class TouchableIcon extends Component<Props> {
 
       case 'fontAwesome':
         return <FontAwesome color={color} name={iconName} size={iconSize} />
+
+      case 'ionicons':
+        return <Ionicons color={color} name={iconName} size={iconSize} />
 
       default:
         throw new Error(`The iconGroup '${iconGroup} is not supported.`)

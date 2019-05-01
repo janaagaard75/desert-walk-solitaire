@@ -77,14 +77,14 @@ export class FooterView extends Component {
           />
           <TouchableIcon
             handlePress={() => Game.instance.undo()}
-            iconGroup="fontAwesome"
-            iconName="step-backward"
+            iconGroup="ionicons"
+            iconName="md-undo"
             state={Game.instance.undoState}
           />
           <TouchableIcon
             handlePress={() => Game.instance.redo()}
-            iconGroup="fontAwesome"
-            iconName="step-forward"
+            iconGroup="ionicons"
+            iconName="md-redo"
             state={Game.instance.redoState}
           />
         </View>
