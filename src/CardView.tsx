@@ -127,11 +127,11 @@ export class CardView extends Component<Props> {
       fontFamily: 'Arabian-onenightstand',
       fontSize: Math.round(0.7 * Settings.instance.cardSize.width),
       fontWeight: '700',
-      left: Math.round(0.025 * Settings.instance.cardSize.width),
+      left: Math.round(0.04 * Settings.instance.cardSize.width),
       letterSpacing: -Math.round(0.07 * Settings.instance.cardSize.width),
       position: 'absolute',
       textAlign: 'left',
-      top: -Math.round(0.15 * Settings.instance.cardSize.width),
+      top: -Math.round(0.08 * Settings.instance.cardSize.width),
       width: Math.round(1.22 * Settings.instance.cardSize.width) // Make space for the two digits in '10'.
     }
   }
