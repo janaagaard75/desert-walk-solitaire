@@ -18,16 +18,16 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 ## TODO
 
-- Fix game orientation after showing the confirm dialog.
+- Fix screen orientation after showing the confirm dialog.
 - Find a better icon for starting over the game.
-- Better colors. Dark mode by default?
-- The start over button is always clickable, but it should also be highlighted when the game is in game over mode. So that icon needs two states of highlight.
-- Remember the game state even when the app has been closed for a long time.
+- The start over button is always clickable. It should also be highlighted when the game is in game over mode. So that icon needs two states of highlight.
+- Remember the game state when the app is restarted.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
 - Publish on iOS.
 
 ### Later
 
+- Better colors. Dark mode by default?
 - Game lost screen. How should it work, since it's always possible to undo a move?
 - Make sure everything looks alight on Android.
 - Publish on Android.
