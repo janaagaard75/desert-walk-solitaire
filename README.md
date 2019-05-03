@@ -20,7 +20,6 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 - Fix screen orientation after showing the confirm dialog.
 - Find a better icon for starting over the game.
-- The start over button is always clickable. It should also be highlighted when the game is in game over mode. So that icon needs two states of highlight.
 - Remember the game state when the app is restarted.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
 - Publish on iOS.
