@@ -31,12 +31,12 @@
     "tslib": "1.9.3"
   },
   "devDependencies": {
-    "@types/expo": "32.0.12",
+    "@types/expo": "32.0.13",
     "@types/expo__vector-icons": "9.0.1",
     "@types/react": "16.8.15",
     "@types/react-native": "0.57.51",
     "babel-preset-expo": "5.1.1",
-    "expo-cli": "2.15.4",
+    "expo-cli": "2.16.1",
     "prettier": "1.17.0",
     "tslint": "5.16.0",
     "tslint-config-prettier": "1.18.0",
