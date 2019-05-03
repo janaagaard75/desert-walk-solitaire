@@ -19,7 +19,6 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 ## TODO
 
 - Fix game orientation after showing the confirm dialog.
-- Game lost screen.
 - Find a better icon for starting over the game.
 - Better colors. Dark mode by default?
 - The start over button is always clickable, but it should also be highlighted when the game is in game over mode. So that icon needs two states of highlight.
@@ -30,6 +29,7 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 ### Later
 
+- Game lost screen. How should it work, since it's always possible to undo a move?
 - Make sure everything looks alight on Android.
 - Publish on Android.
 - Enable portrait mode on tablets.
