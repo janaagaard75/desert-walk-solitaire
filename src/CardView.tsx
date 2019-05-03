@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Component } from 'react'
+import { computed } from 'mobx'
 import { observer } from 'mobx-react'
 import { Text } from 'react-native'
 import { TextStyle } from 'react-native'
@@ -28,16 +29,14 @@ export class CardView extends Component<Props> {
 
   public render() {
     return (
-      <View style={this.getShadowStyle()}>
-        <View style={this.getCardStyle()}>
-          <Text style={this.getValueStyle()}>
-            {this.props.card.displayValue}
-          </Text>
-          <View style={this.getSuitStyle()}>
-            {this.suit(Math.round(0.55 * Settings.instance.cardSize.width))}
+      <View style={this.shadowStyle}>
+        <View style={this.cardStyle}>
+          <Text style={this.valueStyle}>{this.props.card.displayValue}</Text>
+          <View style={this.suitStyle}>
+            {this.getSuit(Math.round(0.55 * Settings.instance.cardSize.width))}
           </View>
         </View>
-        <View style={this.getOverlayStyle()} />
+        <View style={this.overlayStyle} />
       </View>
     )
   }
@@ -65,7 +64,8 @@ export class CardView extends Component<Props> {
     return 0.3
   }
 
-  private getCardStyle(): ViewStyle {
+  @computed
+  private get cardStyle(): ViewStyle {
     return {
       alignItems: 'center',
       backgroundColor: Settings.instance.colors.card.background,
@@ -80,7 +80,8 @@ export class CardView extends Component<Props> {
     }
   }
 
-  private getOverlayStyle(): ViewStyle {
+  @computed
+  private get overlayStyle(): ViewStyle {
     return {
       backgroundColor: '#000',
       borderRadius: Settings.instance.borderRadius,
@@ -91,7 +92,8 @@ export class CardView extends Component<Props> {
     }
   }
 
-  private getShadowStyle(): ViewStyle {
+  @computed
+  private get shadowStyle(): ViewStyle {
     const shadowStyle: ViewStyle = {
       borderRadius: Settings.instance.borderRadius,
       height: Settings.instance.cardSize.height,
@@ -109,7 +111,8 @@ export class CardView extends Component<Props> {
     return shadowStyle
   }
 
-  private getSuitStyle(): ViewStyle {
+  @computed
+  private get suitStyle(): ViewStyle {
     return {
       bottom: Math.round(0.1 * Settings.instance.cardSize.width),
       position: 'absolute',
@@ -117,22 +120,23 @@ export class CardView extends Component<Props> {
     }
   }
 
-  private getValueStyle(): TextStyle {
+  @computed
+  private get valueStyle(): TextStyle {
     return {
       color: SuitHelper.getColor(this.props.card.suit),
-      fontFamily: 'Heebo-Bold',
+      fontFamily: 'Arabian-onenightstand',
       fontSize: Math.round(0.7 * Settings.instance.cardSize.width),
       fontWeight: '700',
-      left: Math.round(0.025 * Settings.instance.cardSize.width),
+      left: Math.round(0.04 * Settings.instance.cardSize.width),
       letterSpacing: -Math.round(0.07 * Settings.instance.cardSize.width),
       position: 'absolute',
       textAlign: 'left',
-      top: -Math.round(0.15 * Settings.instance.cardSize.width),
+      top: -Math.round(0.08 * Settings.instance.cardSize.width),
       width: Math.round(1.22 * Settings.instance.cardSize.width) // Make space for the two digits in '10'.
     }
   }
 
-  private suit(size: number): JSX.Element {
+  private getSuit(size: number): JSX.Element {
     return <SuitView size={size} suit={this.props.card.suit} />
   }
 }

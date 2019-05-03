@@ -93,7 +93,7 @@ export default class MainView extends Component {
 
   private async loadFont() {
     await Font.loadAsync({
-      'Heebo-Bold': require('../assets/Heebo/Heebo-Bold.ttf')
+      'Arabian-onenightstand': require('../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf')
     })
   }
 
