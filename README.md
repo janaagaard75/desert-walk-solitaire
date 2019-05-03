@@ -91,6 +91,8 @@ Naming things is important as ever. A bug was created because `targetableCells` 
 
 MobX now checks for side effects inside observables.
 
+The UI of a game is complicated because everything is custom made.
+
 ## Links
 
 <https://blog.cloudboost.io/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e>
