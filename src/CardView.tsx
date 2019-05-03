@@ -120,7 +120,7 @@ export class CardView extends Component<Props> {
   private getValueStyle(): TextStyle {
     return {
       color: SuitHelper.getColor(this.props.card.suit),
-      fontFamily: 'Heebo-Bold',
+      fontFamily: 'Arabian-onenightstand',
       fontSize: Math.round(0.7 * Settings.instance.cardSize.width),
       fontWeight: '700',
       left: Math.round(0.025 * Settings.instance.cardSize.width),
