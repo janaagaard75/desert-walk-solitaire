@@ -24,7 +24,6 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 - The start over button is always clickable, but it should also be highlighted when the game is in game over mode. So that icon needs two states of highlight.
 - Remember the game state even when the app has been closed for a long time.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
-- Use an Arabic looking font.
 - Publish on iOS.
 
 ### Later
