@@ -23,6 +23,7 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 ### Later
 
+- Replace `react-native-iphone-x-helper` with [SafeAreaView](https://docs.expo.io/versions/v32.0.0/react-native/safeareaview/).
 - Make sure everything looks alight on Android.
 - Publish on Android.
 - Taller footer on tablets.
