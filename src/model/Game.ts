@@ -306,7 +306,7 @@ export class Game {
     return dropOffset
   }
 
-  /** Returns a vector pointing from the source cell to the target cell, used to animate the move. */
+  /** Moves a card to the first targetable cell. Aces are the only cards that can have multiple targets. Returns a vector pointing from the source cell to the target cell, used to animate the move. */
   public moveCardToFirstTarget(positionedCard: PositionedCard): Point {
     const targetCell = this.targetableCells[0]
     const moveTurn = new MoveTurn(positionedCard.cell, targetCell)
