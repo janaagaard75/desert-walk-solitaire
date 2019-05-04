@@ -18,7 +18,7 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 ## TODO
 
-- Fix screen orientation after showing the confirm dialog.
+- Fix issue with highlighted target cell after moving an Ace with a click (i.e. not by dragging).
 - Remember the game state when the app is restarted.
 - Publish on iOS.
 
