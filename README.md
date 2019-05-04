@@ -19,17 +19,16 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 ## TODO
 
 - Fix screen orientation after showing the confirm dialog.
-- Find a better icon for starting over the game.
 - Remember the game state when the app is restarted.
-- Remove the text from the 'confirm restart dialog', so that the game only contains icons.
 - Publish on iOS.
 
 ### Later
 
-- Better colors. Dark mode by default?
-- Game lost screen. How should it work, since it's always possible to undo a move?
 - Make sure everything looks alight on Android.
 - Publish on Android.
+- Remove the text from the 'confirm restart dialog', so that the game only contains icons.
+- Better colors. Dark mode by default?
+- Game lost screen. How should it work, since it's always possible to undo a move?
 - Enable portrait mode on tablets.
 - Animate the cards when they are dealt.
 - A picture of a desert in the background of the cards?
