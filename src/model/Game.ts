@@ -391,6 +391,7 @@ export class Game {
     this.gridStates.push(newGridState)
 
     this.setCurrentStateIndex(this.currentStateIndex + 1, true)
+    this.draggingFromCell = undefined
   }
 
   private setCurrentStateIndex(newIndex: number, animateNextTurn: boolean) {
