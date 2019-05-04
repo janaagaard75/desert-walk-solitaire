@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Alert } from 'react-native'
 import { Component } from 'react'
 import { observer } from 'mobx-react'
-import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
