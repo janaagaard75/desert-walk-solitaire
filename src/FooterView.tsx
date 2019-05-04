@@ -1,11 +1,7 @@
 import * as React from 'react'
-import { Button } from 'react-native'
+import { Alert } from 'react-native'
 import { Component } from 'react'
-import { Modal } from 'react-native'
-import { observable } from 'mobx'
 import { observer } from 'mobx-react'
-import { Text } from 'react-native'
-import { TextStyle } from 'react-native'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
@@ -17,19 +13,11 @@ import { TouchableState } from './model/TouchableState'
 
 @observer
 export class FooterView extends Component {
-  @observable private confirmModalVisible: boolean = false
-
   public render() {
     const buttonWrapperStyle: ViewStyle = {
       backgroundColor: Settings.instance.colors.mainBackgroundColor,
       flexDirection: 'row',
       flexWrap: 'wrap'
-    }
-
-    const questionStyle: TextStyle = {
-      fontSize: 24,
-      marginBottom: 10,
-      textAlign: 'center'
     }
 
     return (
@@ -88,23 +76,6 @@ export class FooterView extends Component {
             state={Game.instance.redoState}
           />
         </View>
-        <Modal
-          animationType="slide"
-          supportedOrientations={['landscape']}
-          transparent={false}
-          visible={this.confirmModalVisible}
-        >
-          <View style={{ marginTop: 22 }}>
-            <Text style={questionStyle}>
-              This game isn't over yet. Start over anyway?
-            </Text>
-            <Button onPress={this.startOver} title="Yes, start over" />
-            <Button
-              onPress={this.continueGame}
-              title="No, let me continue this game"
-            />
-          </View>
-        </Modal>
       </View>
     )
   }
@@ -118,14 +89,33 @@ export class FooterView extends Component {
 
       case GameState.MovePossible:
       case GameState.Stuck:
-        this.confirmModalVisible = true
+        this.confirmRestart()
         break
 
       default:
         throw new Error(
-          `Game state ${Game.instance.gameState} is not supported.`
+          `The game state ${Game.instance.gameState} is not supported.`
         )
     }
+  }
+
+  private confirmRestart() {
+    Alert.alert(
+      'Start over?',
+      "This game isn't over yet. Start over anyway?",
+      [
+        {
+          style: 'cancel',
+          text: 'No, let me continue this game'
+        },
+        {
+          onPress: () => Game.instance.startOver(),
+          style: 'destructive',
+          text: 'Yes, start over'
+        }
+      ],
+      { cancelable: false }
+    )
   }
 
   private shuffleButtonEnabled(buttonNumber: number): TouchableState {
@@ -143,18 +133,5 @@ export class FooterView extends Component {
     }
 
     return TouchableState.Disabled
-  }
-
-  private continueGame = () => {
-    this.hideConfirmModal()
-  }
-
-  private startOver = () => {
-    this.hideConfirmModal()
-    Game.instance.startOver()
-  }
-
-  private hideConfirmModal() {
-    this.confirmModalVisible = false
   }
 }

@@ -18,7 +18,6 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 ## TODO
 
-- Fix screen orientation after showing the confirm dialog.
 - Remember the game state when the app is restarted.
 - Publish on iOS.
 

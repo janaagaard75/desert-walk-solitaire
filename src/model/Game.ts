@@ -61,7 +61,6 @@ export class Game {
   @computed
   public get currentGridState(): GridState {
     if (this.gridStates.length === 0) {
-      // this.startOver()
       throw new Error("The game hasn't been started yet.")
     }
 
@@ -307,7 +306,7 @@ export class Game {
     return dropOffset
   }
 
-  /** Returns a vector pointing from the source cell to the target cell, used to animate the move. */
+  /** Moves a card to the first targetable cell. Aces are the only cards that can have multiple targets. Returns a vector pointing from the source cell to the target cell, used to animate the move. */
   public moveCardToFirstTarget(positionedCard: PositionedCard): Point {
     const targetCell = this.targetableCells[0]
     const moveTurn = new MoveTurn(positionedCard.cell, targetCell)
@@ -386,12 +385,12 @@ export class Game {
       this.turns = this.turns.slice(0, this.turns.length - turnsToDiscard)
     }
 
-    this.turns.push(turn)
-
     const newGridState = turn.performTurn(this.currentGridState)
-    this.gridStates.push(newGridState)
 
+    this.turns.push(turn)
+    this.gridStates.push(newGridState)
     this.setCurrentStateIndex(this.currentStateIndex + 1, true)
+    this.draggingFromCell = undefined
   }
 
   private setCurrentStateIndex(newIndex: number, animateNextTurn: boolean) {
