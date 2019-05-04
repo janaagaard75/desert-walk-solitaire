@@ -385,11 +385,10 @@ export class Game {
       this.turns = this.turns.slice(0, this.turns.length - turnsToDiscard)
     }
 
-    this.turns.push(turn)
-
     const newGridState = turn.performTurn(this.currentGridState)
-    this.gridStates.push(newGridState)
 
+    this.turns.push(turn)
+    this.gridStates.push(newGridState)
     this.setCurrentStateIndex(this.currentStateIndex + 1, true)
     this.draggingFromCell = undefined
   }
