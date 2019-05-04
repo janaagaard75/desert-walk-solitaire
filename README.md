@@ -26,6 +26,7 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 - Make sure everything looks alight on Android.
 - Publish on Android.
+- Taller footer on tablets.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
 - Better colors. Dark mode by default?
 - Game lost screen. How should it work, since it's always possible to undo a move?
