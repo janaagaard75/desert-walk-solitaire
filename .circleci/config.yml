@@ -9,21 +9,19 @@ jobs:
       - checkout
 
       - restore_cache:
-          name: Restore cached Node modules
+          name: Restore Yarn packages cache
           keys:
-            - node-modules-{{ checksum "yarn.lock" }}
-            # Fallback to using the latest cache if no exact match is found.
-            - node-modules-
+            - yarn-packages-{{ checksum "yarn.lock" }}
 
       - run:
-          name: Install Node modules
+          name: Install dependencies
           command: yarn install --frozen-lockfile
 
       - save_cache:
-          name: Cache Node modules
-          key: node-modules-{{ checksum "yarn.lock" }}
+          name: Save Yarn packages cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - ./cache/node_modules
+            - ~/.cache/yarn
 
       - run:
           name: Check types
