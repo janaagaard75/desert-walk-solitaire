@@ -9,21 +9,19 @@ jobs:
       - checkout
 
       - restore_cache:
-          name: Restore cached Node modules
+          name: Restore Yarn packages cache
           keys:
-            - node-modules-{{ checksum "yarn.lock" }}
-            # Fallback to using the latest cache if no exact match is found.
-            - node-modules-
+            - yarn-packages-{{ checksum "yarn.lock" }}
 
       - run:
-          name: Install Node modules
+          name: Install dependencies
           command: yarn install --frozen-lockfile
 
       - save_cache:
-          name: Cache Node modules
-          key: node-modules-{{ checksum "yarn.lock" }}
+          name: Save Yarn packages cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - ./cache/node_modules
+            - ~/.cache/yarn
 
       - run:
           name: Check types
@@ -36,14 +34,13 @@ jobs:
       - run:
           name: Sign in to Expo
           # expo_password is defined as an environment variable in CircleCI.
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              yarn expo login --username janaagaard75 --password $expo_password
-            fi
+          command: yarn expo login --username janaagaard75 --password $expo_password
 
       - run:
-          name: Publish to expo
+          name: Publish to Expo
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               yarn expo publish --quiet
+            else
+              yarn expo publish --quiet --release-channel "${CIRCLE_BRANCH}"
             fi
