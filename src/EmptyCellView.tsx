@@ -1,11 +1,13 @@
 import * as React from 'react'
 import { Component } from 'react'
+import { computed } from 'mobx'
 import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { ViewStyle } from 'react-native'
 
 import { EmptyCell } from './model/EmptyCell'
 import { EmptyCellState } from './model/EmptyCellState'
+import { Game } from './model/Game'
 import { Settings } from './model/Settings'
 
 interface Props {
@@ -14,6 +16,37 @@ interface Props {
 
 @observer
 export class EmptyCellView extends Component<Props> {
+  @computed
+  private get status(): EmptyCellState {
+    if (this.props.emptyCell.droppableCards.length === 0) {
+      return EmptyCellState.Blocked
+    }
+
+    if (Game.instance.draggingFromCell === undefined) {
+      return EmptyCellState.DropAllowedButNoCardIsBeingDragged
+    }
+
+    // Don't have to take account of the cell currently being dragged from because this cell isn't considered empty until.
+    if (
+      Game.instance.mostOverlappedDroppableCell === this.props.emptyCell.cell
+    ) {
+      return EmptyCellState.MostOverlappedTargetableCell
+    }
+
+    if (
+      this.props.emptyCell.droppableCards.some(card => {
+        if (Game.instance.draggingFromCell === undefined) {
+          return false
+        }
+        return card === Game.instance.draggedCard
+      })
+    ) {
+      return EmptyCellState.TargetableCellButNotMostOverlapped
+    }
+
+    return EmptyCellState.DropAllowedButNotTargetableCell
+  }
+
   public render() {
     const [color, style, width] = this.getBorderColorStyleAndWidth()
 
@@ -37,7 +70,7 @@ export class EmptyCellView extends Component<Props> {
     'solid' | 'dotted' | 'dashed' | undefined,
     number
   ] {
-    switch (this.props.emptyCell.status) {
+    switch (this.status) {
       case EmptyCellState.Blocked:
         return [undefined, undefined, 0]
 
