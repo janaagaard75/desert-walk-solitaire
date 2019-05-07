@@ -1,6 +1,5 @@
 import { computed } from 'mobx'
 
-import { Game } from './Game'
 import { Point } from './Point'
 import { Rectangle } from './Rectangle'
 import { Settings } from './Settings'
@@ -29,18 +28,6 @@ export class Cell {
   }
 
   @computed
-  public get draggedCardOverlappingPixels(): number {
-    if (Game.instance.draggedCardBoundary === undefined) {
-      return 0
-    }
-
-    const overlappingPixels = this.boundary.overlappingPixels(
-      Game.instance.draggedCardBoundary
-    )
-    return overlappingPixels
-  }
-
-  @computed
   public get position(): Point {
     const position = new Point(
       this.columnIndex *
@@ -50,5 +37,14 @@ export class Cell {
     )
 
     return position
+  }
+
+  public getOverlappingPixels(boundary: Rectangle | undefined): number {
+    if (boundary === undefined) {
+      return 0
+    }
+
+    const overlappingPixels = this.boundary.overlappingPixels(boundary)
+    return overlappingPixels
   }
 }
