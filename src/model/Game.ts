@@ -124,11 +124,11 @@ export class Game {
     }
 
     const sortedByOverlappedPixels = this.droppableCells
-      .filter(cell => cell.draggedCardOverlappingPixels > 0)
+      .filter(cell => cell.getOverlappingPixels(this.draggedCardBoundary) > 0)
       .sort(
         (cellA, cellB) =>
-          cellB.draggedCardOverlappingPixels -
-          cellA.draggedCardOverlappingPixels
+          cellB.getOverlappingPixels(this.draggedCardBoundary) -
+          cellA.getOverlappingPixels(this.draggedCardBoundary)
       )
 
     const mostOverlapped = sortedByOverlappedPixels[0]

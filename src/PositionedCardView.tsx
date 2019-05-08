@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Animated } from 'react-native'
 import { Component } from 'react'
+import { computed } from 'mobx'
 import { Easing } from 'react-native'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
@@ -37,7 +38,7 @@ export class PositionedCardView extends Component<Props> {
           Math.abs(gestureState.dy) <= this.moveThreshold
 
         const animationVector = isPress
-          ? this.props.positionedCard.moveToTarget()
+          ? this.moveToTarget()
           : Game.instance.cardDropped()
 
         const duration = isPress
@@ -130,7 +131,7 @@ export class PositionedCardView extends Component<Props> {
       zIndex: this.visualState === VisualState.Idle ? 1 : 2
     }
 
-    const panHandlers = this.props.positionedCard.draggable
+    const panHandlers = this.draggable
       ? this.panResponder.panHandlers
       : undefined
 
@@ -139,10 +140,23 @@ export class PositionedCardView extends Component<Props> {
         <CardView
           card={this.props.positionedCard.card}
           correctlyPlaced={this.props.positionedCard.correctlyPlaced}
-          draggable={this.props.positionedCard.draggable}
+          draggable={this.draggable}
           dragged={this.visualState !== VisualState.Idle}
         />
       </Animated.View>
     )
+  }
+
+  @computed
+  private get draggable(): boolean {
+    const draggable = Game.instance.currentGridState.draggableCards.some(
+      card => card === this.props.positionedCard.card
+    )
+    return draggable
+  }
+
+  /** Moves the card to the first availble target. This is only called on cards that are draggable. Returns the vector used for the animating the move. */
+  private moveToTarget(): Point {
+    return Game.instance.moveCardToFirstTarget(this.props.positionedCard)
   }
 }
