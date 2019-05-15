@@ -18,12 +18,13 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 ## TODO
 
-- Remember the game state when the app is restarted.
+- Create an app page, a la <https://bank.skoleglæde.nu/>. English only is fine.
 - Publish on iOS.
 
 ### Later
 
 - Replace `react-native-iphone-x-helper` with [SafeAreaView](https://docs.expo.io/versions/v32.0.0/react-native/safeareaview/).
+- Remember the game state when the app is restarted.
 - Make sure everything looks alight on Android.
 - Publish on Android.
 - Taller footer on tablets.
