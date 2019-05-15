@@ -34,13 +34,14 @@ jobs:
       - run:
           name: Sign in to Expo
           # expo_password is defined as an environment variable in CircleCI.
-          command: yarn expo login --username janaagaard75 --password $expo_password
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              yarn expo login --username janaagaard75 --password $expo_password
+            fi
 
       - run:
           name: Publish to Expo
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               yarn expo publish --quiet
-            else
-              yarn expo publish --quiet --release-channel "${CIRCLE_BRANCH}"
             fi
