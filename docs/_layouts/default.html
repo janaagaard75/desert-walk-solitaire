@@ -2,7 +2,7 @@
 <!-- https://github.com/pages-themes/primer -->
 <html lang="{{ site.lang | default: "en-US" }}">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% seo %}
@@ -13,7 +13,7 @@
     <header>
       <div class="container-md px-3 py-5 markdown-body">
         {% if site.title and site.title != page.title %}
-          <h1 class="cursive"><a href="{{ "/" | absolute_url }}">{{ site.title }}</a></h1>
+          <h1><a href="{{ "/" | absolute_url }}">{{ site.title }}</a></h1>
         {% endif %}
         {% if site.description %}
           <p>{{ site.description }}</p>
