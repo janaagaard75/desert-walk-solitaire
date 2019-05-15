@@ -12,7 +12,7 @@
   <body>
     <header>
       <div class="container-md px-3 py-5 markdown-body">
-        {% if site.title and site.title != page.title %}
+        {% if site.title %}
           <h1><a href="{{ "/" | absolute_url }}">{{ site.title }}</a></h1>
         {% endif %}
         {% if site.description %}
