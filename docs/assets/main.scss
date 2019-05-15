@@ -1,0 +1,39 @@
+---
+---
+
+@import '{{ site.theme }}';
+
+header {
+  background-color: #67b387;
+  color: white;
+
+  a {
+    color: white;
+  }
+}
+
+.cursive {
+  -webkit-font-feature-settings: 'liga' 1;
+  font-family: 'Lobster Two', cursive;
+  font-feature-settings: 'liga';
+  font-style: italic;
+  font-weight: normal;
+}
+
+.markdown-body {
+  font-family: 'Raleway', -apple-system, 'Segoe UI', Helvetica, Arial,
+    sans-serif;
+
+  h1,
+  h2 {
+    border-bottom: none;
+  }
+
+  h1 {
+    margin-bottom: 0;
+
+    &.cursive {
+      font-size: 2.5em;
+    }
+  }
+}
