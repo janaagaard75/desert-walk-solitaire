@@ -1,5 +1,7 @@
 # Desert Walk
 
+![Screen shot](./screen-shot.png)
+
 ## TODO
 
 - Create and link to a privacy policy.
