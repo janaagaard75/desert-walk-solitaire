@@ -1,6 +1,6 @@
 {
   "name": "desert-walk",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Solitaire game for iOS and Android using React Native, Expo, MobX and TypeScript.",
   "author": {
     "email": "jan@aagaard.net",
