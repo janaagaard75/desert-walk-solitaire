@@ -1,12 +1,12 @@
 {
   "expo": {
     "name": "Desert Walk",
-    "description": "Card solitaire game.",
+    "description": "Solitaire card game.",
     "slug": "desert-walk",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "version": "1.0.0",
-    "orientation": "default",
+    "orientation": "landscape",
     "primaryColor": "#464",
     "icon": "./assets/app-icon.png",
     "splash": {
@@ -17,10 +17,15 @@
     "packagerOpts": {
       "assetExts": ["mp4", "ttf"]
     },
-    "ios": {
-      "supportsTablet": true
-    },
     "githubUrl": "https://github.com/janaagaard75/desert-walk",
-    "platforms": ["android", "ios"]
+    "platforms": ["android", "ios"],
+    "ios": {
+      "bundleIdentifier": "com.janaagaard.desertwalk",
+      "supportsTablet": true,
+      "usesIcloudStorage": false
+    },
+    "android": {
+      "package": "com.janagaard.desertwalk"
+    }
   }
 }
