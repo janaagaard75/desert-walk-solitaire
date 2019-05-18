@@ -18,8 +18,8 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 ## TODO
 
-- Create an app page, a la <https://bank.skoleglæde.nu/>. English only is fine.
 - Publish on iOS.
+- Link to the app from the app page.
 
 ### Later
 
