@@ -1,6 +1,6 @@
 # Desert Walk
 
-Solitaire implemented in React Native and written in TypeScript.
+Solitaire card game implemented in React Native and written in TypeScript.
 
 ## Prerequisites
 
