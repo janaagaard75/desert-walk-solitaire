@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Desert Walk",
-    "description": "A game of solitaire.",
+    "description": "Card solitaire game.",
     "slug": "desert-walk",
     "privacy": "public",
     "sdkVersion": "32.0.0",
