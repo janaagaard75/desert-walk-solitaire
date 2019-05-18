@@ -1,4 +1,4 @@
-## Privacy policy
+## Privacy Policy
 
 The app Desert Walk is built by and owned by Jan Aagaard.
 
