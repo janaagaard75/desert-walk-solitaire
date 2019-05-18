@@ -40,6 +40,8 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 ## Logo
 
+Photo used as background in the icon: [Photo by Carl Larson from Pexels](https://www.pexels.com/photo/saraha-desert-1123567/).
+
 [Free Arabic looking fonts](http://www.dafont.com/theme.php?cat=202&text=Desert+Walk+1234567890+AKQJ&l[]=10&l[]=1). Top candidates:
 
 - [Tafakur](http://www.dafont.com/tafakur.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+K+Q+J&fpp=100&l[]=10&l[]=1)
