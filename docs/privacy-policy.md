@@ -10,4 +10,4 @@ The app does not track usage and does not collect any data about the users.
 
 ### Contact
 
-If you have any questions or suggestions about this Privacy Policy, do not hesitate to contact me at [jan@aagaar.net](mailto:jan@aagaard.net).
+If you have any questions or suggestions about this Privacy Policy, do not hesitate to contact me at [jan@aagaard.net](mailto:jan@aagaard.net).
