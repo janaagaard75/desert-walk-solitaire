@@ -27,7 +27,6 @@ export default class MainView extends Component {
     Dimensions.addEventListener('change', () => {
       this.updateWindowSize()
     })
-    this.loadFont()
   }
 
   @observable
