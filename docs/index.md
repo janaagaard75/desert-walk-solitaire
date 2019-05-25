@@ -1,6 +1,6 @@
 ![Screen shot](./screen-shot.png)
 
-<img alt="Download on the App Store" src="./assets/app-store-badge.svg" style="height: 40px; margin-bottom: 10px">
+<a href="https://itunes.apple.com/dk/app/desert-walk-solitaire/id1464386586"><img alt="Download on the App Store" src="./assets/app-store-badge.svg" style="height: 40px; margin-bottom: 10px"></a>
 
 My grandmother taught me this solitaire card game. I got tired of laying out the cards, so this was a great excuse to learn how to create an app.
 
