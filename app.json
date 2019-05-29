@@ -14,9 +14,6 @@
       "hideExponentText": false
     },
     "assetBundlePatterns": ["assets/**/*"],
-    "packagerOpts": {
-      "assetExts": ["mp4", "ttf"]
-    },
     "githubUrl": "https://github.com/janaagaard75/desert-walk",
     "platforms": ["android", "ios"],
     "ios": {
