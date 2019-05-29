@@ -13,7 +13,7 @@
       "image": "./assets/splash-screen.png",
       "hideExponentText": false
     },
-    "assetBundlePatterns": ["assets/*"],
+    "assetBundlePatterns": ["assets/**/*"],
     "packagerOpts": {
       "assetExts": ["mp4", "ttf"]
     },
