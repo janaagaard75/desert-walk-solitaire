@@ -21,7 +21,7 @@
     "docs-update": "(cd docs; bundle update)",
     "format": "prettier --write \"**/*.ts\" \"**/*.tsx\"",
     "ios": "yarn install --frozen-lockfile && expo start --ios",
-    "lint": "tslint src/**/*.ts src/**/*.tsx",
+    "lint": "tslint --project tsconfig.json",
     "start": "yarn install --frozen-lockfile && expo start",
     "validate": "yarn install --frozen-lockfile && yarn run lint && yarn run check-types"
   },
