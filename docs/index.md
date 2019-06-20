@@ -1,6 +1,6 @@
 ![Screen shot](./screen-shot.png)
 
-<a href="https://itunes.apple.com/dk/app/desert-walk-solitaire/id1464386586"><img alt="Download on the App Store" src="./assets/app-store-badge.svg" style="height: 40px; margin-bottom: 10px"></a> <a href='https://play.google.com/store/apps/details?id=com.janagaard.desertwalk&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' style="height: 60px"/></a>
+<a href="https://itunes.apple.com/dk/app/desert-walk-solitaire/id1464386586"><img alt="Download on the App Store" src="./assets/app-store-badge.svg" style="height: 40px; margin-bottom: 10px"></a> <a href='https://play.google.com/store/apps/details?id=com.janagaard.desertwalk&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' style="height: 59px; margin-bottom: 1px"/></a>
 
 My grandmother taught me this solitaire card game. I got tired of laying out the cards, so this was a great excuse to learn how to create an app.
 
