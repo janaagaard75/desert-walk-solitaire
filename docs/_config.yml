@@ -3,3 +3,5 @@ lang: en-US
 sass:
   style: :compressed
 url: "https://desertwalk.janaagaard.com"
+plugins:
+  - jekyll-sitemap # /sitemap.xml
