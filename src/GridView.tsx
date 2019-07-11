@@ -1,22 +1,22 @@
-import * as React from 'react'
-import { Component } from 'react'
-import { observer } from 'mobx-react'
-import { View } from 'react-native'
-import { ViewStyle } from 'react-native'
+import * as React from "react";
+import { Component } from "react";
+import { observer } from "mobx-react";
+import { View } from "react-native";
+import { ViewStyle } from "react-native";
 
-import { EmptyCellView } from './EmptyCellView'
-import { Game } from './model/Game'
-import { PositionedCardView } from './PositionedCardView'
-import { Settings } from './model/Settings'
+import { EmptyCellView } from "./EmptyCellView";
+import { Game } from "./model/Game";
+import { PositionedCardView } from "./PositionedCardView";
+import { Settings } from "./model/Settings";
 
 @observer
 export class GridView extends Component {
   public render() {
     const gridViewStyle: ViewStyle = {
       height: Settings.instance.gridSize.height,
-      position: 'relative',
+      position: "relative",
       width: Settings.instance.gridSize.width
-    }
+    };
 
     return (
       <View style={gridViewStyle}>
@@ -30,6 +30,6 @@ export class GridView extends Component {
           <EmptyCellView emptyCell={emptyCell} key={emptyCell.cell.key} />
         ))}
       </View>
-    )
+    );
   }
 }

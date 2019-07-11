@@ -1,24 +1,24 @@
-import * as React from 'react'
-import { Alert } from 'react-native'
-import { Component } from 'react'
-import { observer } from 'mobx-react'
-import { View } from 'react-native'
-import { ViewStyle } from 'react-native'
+import * as React from "react";
+import { Alert } from "react-native";
+import { Component } from "react";
+import { observer } from "mobx-react";
+import { View } from "react-native";
+import { ViewStyle } from "react-native";
 
-import { Game } from './model/Game'
-import { GameState } from './model/GameState'
-import { Settings } from './model/Settings'
-import { TouchableIcon } from './TouchableIcon'
-import { TouchableState } from './model/TouchableState'
+import { Game } from "./model/Game";
+import { GameState } from "./model/GameState";
+import { Settings } from "./model/Settings";
+import { TouchableIcon } from "./TouchableIcon";
+import { TouchableState } from "./model/TouchableState";
 
 @observer
 export class FooterView extends Component {
   public render() {
     const buttonWrapperStyle: ViewStyle = {
       backgroundColor: Settings.instance.colors.mainBackgroundColor,
-      flexDirection: 'row',
-      flexWrap: 'wrap'
-    }
+      flexDirection: "row",
+      flexWrap: "wrap"
+    };
 
     return (
       <View
@@ -77,61 +77,61 @@ export class FooterView extends Component {
           />
         </View>
       </View>
-    )
+    );
   }
 
   private confirmUnlessGameOver() {
     switch (Game.instance.gameState) {
       case GameState.Lost:
       case GameState.Won:
-        Game.instance.startOver()
-        break
+        Game.instance.startOver();
+        break;
 
       case GameState.MovePossible:
       case GameState.Stuck:
-        this.confirmRestart()
-        break
+        this.confirmRestart();
+        break;
 
       default:
         throw new Error(
           `The game state ${Game.instance.gameState} is not supported.`
-        )
+        );
     }
   }
 
   private confirmRestart() {
     Alert.alert(
-      'Start over?',
+      "Start over?",
       "This game isn't over yet. Start over anyway?",
       [
         {
-          style: 'cancel',
-          text: 'No, let me continue this game'
+          style: "cancel",
+          text: "No, let me continue this game"
         },
         {
           onPress: () => Game.instance.startOver(),
-          style: 'destructive',
-          text: 'Yes, start over'
+          style: "destructive",
+          text: "Yes, start over"
         }
       ],
       { cancelable: false }
-    )
+    );
   }
 
   private shuffleButtonEnabled(buttonNumber: number): TouchableState {
-    const buttonNumberToEnable = Game.instance.shuffles + 1
+    const buttonNumberToEnable = Game.instance.shuffles + 1;
 
     if (buttonNumber < buttonNumberToEnable) {
-      return TouchableState.Hidden
+      return TouchableState.Hidden;
     }
 
     if (
       buttonNumber === buttonNumberToEnable &&
       Game.instance.gameState === GameState.Stuck
     ) {
-      return TouchableState.Enabled
+      return TouchableState.Enabled;
     }
 
-    return TouchableState.Disabled
+    return TouchableState.Disabled;
   }
 }
