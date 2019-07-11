@@ -4,7 +4,7 @@
     "description": "Solitaire card game.",
     "slug": "desert-walk",
     "privacy": "public",
-    "sdkVersion": "32.0.0",
+    "sdkVersion": "33.0.0",
     "version": "1.0.1",
     "orientation": "landscape",
     "primaryColor": "#464",
