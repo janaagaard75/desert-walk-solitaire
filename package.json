@@ -22,6 +22,7 @@
     "format": "prettier --write \"**/*.ts\" \"**/*.tsx\"",
     "ios": "yarn install --frozen-lockfile && expo start --ios",
     "lint": "tslint --project tsconfig.json",
+    "publish": "expo publish",
     "start": "yarn install --frozen-lockfile && expo start",
     "validate": "yarn install --frozen-lockfile && yarn run lint && yarn run check-types"
   },
