@@ -92,7 +92,7 @@ export class PositionedCardView extends Component<Props> {
   }
 
   private animatedPosition: Animated.ValueXY;
-  private readonly moveThreshold = 2;
+  private readonly moveThreshold = 4;
   private panResponder: PanResponderInstance;
   @observable private visualState: VisualState = VisualState.Idle;
 
