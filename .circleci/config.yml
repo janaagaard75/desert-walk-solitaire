@@ -24,14 +24,14 @@ jobs:
           name: Lint
           command: yarn run lint
       - run:
-          name: Sign in to Expo
+          name: Sign in to Expo, if master branch
           # expo_password is defined as an environment variable in CircleCI.
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               yarn expo login --username janaagaard75 --password $expo_password
             fi
       - run:
-          name: Publish to Expo
+          name: Publish to Expo, if master branch
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               yarn expo publish --quiet
