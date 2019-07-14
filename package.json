@@ -36,6 +36,7 @@
     "tslib": "1.10.0"
   },
   "devDependencies": {
+    "@babel/core": "7.5.4",
     "@types/expo__vector-icons": "9.0.1",
     "@types/react": "16.8.23",
     "@types/react-native": "0.60.0",
