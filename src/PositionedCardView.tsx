@@ -26,7 +26,7 @@ enum VisualState {
 
 @observer
 export class PositionedCardView extends Component<Props> {
-  constructor(props: Props, context?: any) {
+  public constructor(props: Props, context?: any) {
     super(props, context);
 
     this.animatedPosition = new Animated.ValueXY();
@@ -96,30 +96,37 @@ export class PositionedCardView extends Component<Props> {
   private panResponder: PanResponderInstance;
   @observable private visualState: VisualState = VisualState.Idle;
 
-  public componentWillReceiveProps(nextProps: Props) {
-    if (
-      Game.instance.animateNextTurn &&
-      Game.instance.animateFromPreviousPosition &&
+  // TODO: Replace with componentDidUpdate. See https://reactjs.org/docs/react-component.html#componentdidupdate.
+  public UNSAFE_componentWillReceiveProps(nextProps: Props) {
+    if (!this.animate) {
+      return;
+    }
+
+    const animateFromOffset = this.props.positionedCard.position.subtract(
+      nextProps.positionedCard.position
+    );
+    this.animatedPosition.setValue(animateFromOffset);
+    this.visualState = VisualState.Animating;
+
+    Animated.timing(this.animatedPosition, {
+      duration: Settings.instance.animation.turn.duration,
+      easing: Easing.elastic(Settings.instance.animation.turn.elasticity),
+      toValue: { x: 0, y: 0 }
+    }).start(() => {
+      if (this.visualState !== VisualState.Dragging) {
+        this.visualState = VisualState.Idle;
+      }
+    });
+  }
+
+  private animate(nextProps: Props): boolean {
+    return (
+      Game.instance.animateNextTurn ||
+      Game.instance.animateFromPreviousPosition ||
       !this.props.positionedCard.position.equals(
         nextProps.positionedCard.position
       )
-    ) {
-      const animateFromOffset = this.props.positionedCard.position.subtract(
-        nextProps.positionedCard.position
-      );
-      this.animatedPosition.setValue(animateFromOffset);
-      this.visualState = VisualState.Animating;
-
-      Animated.timing(this.animatedPosition, {
-        duration: Settings.instance.animation.turn.duration,
-        easing: Easing.elastic(Settings.instance.animation.turn.elasticity),
-        toValue: { x: 0, y: 0 }
-      }).start(() => {
-        if (this.visualState !== VisualState.Dragging) {
-          this.visualState = VisualState.Idle;
-        }
-      });
-    }
+    );
   }
 
   public render() {

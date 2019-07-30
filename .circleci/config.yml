@@ -34,5 +34,5 @@ jobs:
           name: Publish to Expo, if master branch
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              yarn expo publish --quiet
+              yarn publish-to-expo --quiet
             fi

@@ -19,7 +19,7 @@ import { Settings } from "./model/Settings";
 
 @observer
 export default class MainView extends Component {
-  constructor(props: {}, context?: any) {
+  public constructor(props: {}, context?: any) {
     super(props, context);
 
     ScreenOrientation.allowAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
