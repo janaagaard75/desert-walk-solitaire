@@ -21,7 +21,7 @@
     "docs-update": "(cd docs; bundle update)",
     "format": "prettier --write \"**/*.ts\" \"**/*.tsx\"",
     "ios": "yarn install --frozen-lockfile && expo start --ios",
-    "lint": "tslint --project tsconfig.json",
+    "lint": "eslint \"**/src/*.ts\" \"**/src/*.tsx\"",
     "publish": "expo publish",
     "start": "yarn install --frozen-lockfile && expo start",
     "validate": "yarn install --frozen-lockfile && yarn run lint && yarn run check-types"
@@ -40,13 +40,15 @@
     "@types/expo__vector-icons": "9.0.1",
     "@types/react": "16.8.23",
     "@types/react-native": "0.60.2",
+    "@typescript-eslint/eslint-plugin": "1.13.0",
+    "@typescript-eslint/parser": "1.13.0",
     "babel-preset-expo": "5.2.0",
+    "eslint": "6.1.0",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-plugin-prettier": "3.1.0",
+    "eslint-plugin-react": "7.14.3",
     "expo-cli": "3.0.6",
     "prettier": "1.18.2",
-    "tslint": "5.18.0",
-    "tslint-config-prettier": "1.18.0",
-    "tslint-eslint-rules": "5.4.0",
-    "tslint-react": "4.0.0",
     "typescript": "3.5.3"
   }
 }

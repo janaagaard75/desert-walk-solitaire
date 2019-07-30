@@ -23,7 +23,7 @@ interface Props {
 
 @observer
 export class CardView extends Component<Props> {
-  constructor(props: Props, context?: any) {
+  public constructor(props: Props, context?: any) {
     super(props, context);
   }
 

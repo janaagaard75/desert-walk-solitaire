@@ -26,7 +26,7 @@ enum VisualState {
 
 @observer
 export class PositionedCardView extends Component<Props> {
-  constructor(props: Props, context?: any) {
+  public constructor(props: Props, context?: any) {
     super(props, context);
 
     this.animatedPosition = new Animated.ValueXY();
@@ -96,7 +96,8 @@ export class PositionedCardView extends Component<Props> {
   private panResponder: PanResponderInstance;
   @observable private visualState: VisualState = VisualState.Idle;
 
-  public componentWillReceiveProps(nextProps: Props) {
+  // TODO: Replace with componentDidUpdate. See https://reactjs.org/docs/react-component.html#componentdidupdate.
+  public UNSAFE_componentWillReceiveProps(nextProps: Props) {
     if (
       Game.instance.animateNextTurn &&
       Game.instance.animateFromPreviousPosition &&
