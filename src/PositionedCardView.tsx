@@ -98,13 +98,7 @@ export class PositionedCardView extends Component<Props> {
 
   // TODO: Replace with componentDidUpdate. See https://reactjs.org/docs/react-component.html#componentdidupdate.
   public UNSAFE_componentWillReceiveProps(nextProps: Props) {
-    if (
-      !Game.instance.animateNextTurn ||
-      !Game.instance.animateFromPreviousPosition ||
-      this.props.positionedCard.position.equals(
-        nextProps.positionedCard.position
-      )
-    ) {
+    if (!this.animate) {
       return;
     }
 
@@ -123,6 +117,16 @@ export class PositionedCardView extends Component<Props> {
         this.visualState = VisualState.Idle;
       }
     });
+  }
+
+  private animate(nextProps: Props): boolean {
+    return (
+      Game.instance.animateNextTurn ||
+      Game.instance.animateFromPreviousPosition ||
+      !this.props.positionedCard.position.equals(
+        nextProps.positionedCard.position
+      )
+    );
   }
 
   public render() {
