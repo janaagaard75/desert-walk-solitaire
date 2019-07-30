@@ -15,6 +15,7 @@
   "scripts": {
     "android": "yarn install --frozen-lockfile && expo start --android",
     "build-android": "expo build:android -t app-bundle",
+    "build-ios": "expo build:ios",
     "check-types": "tsc",
     "docs-clean": "rm -rf docs/_site",
     "docs-install": "(cd docs; bundle install)",
