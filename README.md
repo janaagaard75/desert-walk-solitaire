@@ -2,6 +2,8 @@
 
 Solitaire card game implemented in React Native and written in TypeScript.
 
+[desertwalk.janaagaard.com](https://desertwalk.janaagaard.com/)
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/en/).
@@ -16,17 +18,11 @@ This opens a browser window where you can select 'Start iOS Simulator'.
 
 You can also install the [Expo Client](https://expo.io/tools#client) on your devices and run the app through that app.
 
-## TODO
-
-- Publish on iOS.
-- Link to the app from the app page.
-
 ### Later
 
 - Replace `react-native-iphone-x-helper` with [SafeAreaView](https://docs.expo.io/versions/v32.0.0/react-native/safeareaview/).
 - Remember the game state when the app is restarted.
-- Make sure everything looks alight on Android.
-- Publish on Android.
+- Make sure everything looks alright on Android.
 - Taller footer on tablets.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
 - Better colors. Dark mode by default?
@@ -42,12 +38,7 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 Photo used as background in the icon: [Photo by Carl Larson from Pexels](https://www.pexels.com/photo/saraha-desert-1123567/).
 
-[Free Arabic looking fonts](http://www.dafont.com/theme.php?cat=202&text=Desert+Walk+1234567890+AKQJ&l[]=10&l[]=1). Top candidates:
-
-- [Tafakur](http://www.dafont.com/tafakur.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+K+Q+J&fpp=100&l[]=10&l[]=1)
-- [Nurkholis](http://www.dafont.com/nurkholis.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+K+Q+J&fpp=100&l[]=10&l[]=1)
-- [Aceh Darusalam](http://www.dafont.com/aceh-darusalam.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+K+Q+J&fpp=100&l[]=10&l[]=1)
-- [XXII Arabian Onenightstand](http://www.dafont.com/xxii-arabian-onenightstand.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+J+Q+K)
+Font: [XXII Arabian Onenightstand](http://www.dafont.com/xxii-arabian-onenightstand.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+J+Q+K).
 
 ## Learnings
 
