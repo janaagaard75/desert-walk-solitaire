@@ -22,7 +22,7 @@ export default class MainView extends Component {
   public constructor(props: {}, context?: any) {
     super(props, context);
 
-    ScreenOrientation.allowAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
     this.updateWindowSize();
     Dimensions.addEventListener("change", () => {
       this.updateWindowSize();
