@@ -23,7 +23,7 @@
     },
     "android": {
       "package": "com.janagaard.desertwalk",
-      "versionCode": 2
+      "versionCode": 3
     }
   }
 }
