@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Component } from "react";
+import { G } from "react-native-svg";
 import { observer } from "mobx-react";
-import { Svg } from "expo";
+import { Path } from "react-native-svg";
+import Svg from "react-native-svg";
 
 import { Suit } from "./model/Suit";
 import { SuitHelper } from "./model/SuitHelper";
@@ -16,12 +18,12 @@ export class SuitView extends Component<Props, {}> {
   public render() {
     return (
       <Svg height={this.props.size} viewBox="0 0 60 60" width={this.props.size}>
-        <Svg.G>
-          <Svg.Path
+        <G>
+          <Path
             d={SuitView.getPath(this.props.suit)}
             fill={SuitHelper.getColor(this.props.suit)}
           />
-        </Svg.G>
+        </G>
       </Svg>
     );
   }

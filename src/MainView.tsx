@@ -1,8 +1,8 @@
+import * as Font from "expo-font";
 import * as React from "react";
 import { AppLoading } from "expo";
 import { Component } from "react";
 import { Dimensions } from "react-native";
-import { Font } from "expo";
 import { Image } from "react-native";
 import { isIphoneX } from "react-native-iphone-x-helper";
 import { observable } from "mobx";

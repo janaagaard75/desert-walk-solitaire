@@ -30,11 +30,13 @@
   },
   "dependencies": {
     "expo": "34.0.3",
+    "expo-font": "6.0.1",
     "mobx": "5.13.0",
     "mobx-react": "6.1.1",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
     "react-native-iphone-x-helper": "1.2.1",
+    "react-native-svg": "9.6.2",
     "tslib": "1.10.0"
   },
   "devDependencies": {
