@@ -1,30 +1,30 @@
-import * as React from "react";
-import { Component } from "react";
-import { computed } from "mobx";
-import { observer } from "mobx-react";
-import { Text } from "react-native";
-import { TextStyle } from "react-native";
-import { View } from "react-native";
-import { ViewStyle } from "react-native";
+import * as React from "react"
+import { Component } from "react"
+import { computed } from "mobx"
+import { observer } from "mobx-react"
+import { Text } from "react-native"
+import { TextStyle } from "react-native"
+import { View } from "react-native"
+import { ViewStyle } from "react-native"
 
-import { Card } from "./model/Card";
-import { Point } from "./model/Point";
-import { Rectangle } from "./model/Rectangle";
-import { Settings } from "./model/Settings";
-import { SuitHelper } from "./model/SuitHelper";
-import { SuitView } from "./SuitView";
+import { Card } from "./model/Card"
+import { Point } from "./model/Point"
+import { Rectangle } from "./model/Rectangle"
+import { Settings } from "./model/Settings"
+import { SuitHelper } from "./model/SuitHelper"
+import { SuitView } from "./SuitView"
 
 interface Props {
-  card: Card;
-  correctlyPlaced: boolean;
-  draggable: boolean;
-  dragged: boolean;
+  card: Card
+  correctlyPlaced: boolean
+  draggable: boolean
+  dragged: boolean
 }
 
 @observer
 export class CardView extends Component<Props> {
   public constructor(props: Props, context?: any) {
-    super(props, context);
+    super(props, context)
   }
 
   public render() {
@@ -38,7 +38,7 @@ export class CardView extends Component<Props> {
         </View>
         <View style={this.overlayStyle} />
       </View>
-    );
+    )
   }
 
   public static getBoundary(position: Point): Rectangle {
@@ -47,21 +47,21 @@ export class CardView extends Component<Props> {
       position.x + Settings.instance.cardSize.width,
       position.y,
       position.y + Settings.instance.cardSize.height
-    );
+    )
 
-    return boundary;
+    return boundary
   }
 
   private overlayOpacity(): number {
     if (this.props.draggable) {
-      return 0;
+      return 0
     }
 
     if (this.props.correctlyPlaced) {
-      return 0.5;
+      return 0.5
     }
 
-    return 0.3;
+    return 0.3
   }
 
   @computed
@@ -77,7 +77,7 @@ export class CardView extends Component<Props> {
       overflow: "hidden",
       padding: Settings.instance.cardPadding,
       width: Settings.instance.cardSize.width
-    };
+    }
   }
 
   @computed
@@ -89,7 +89,7 @@ export class CardView extends Component<Props> {
       opacity: this.overlayOpacity(),
       position: "absolute",
       width: Settings.instance.cardSize.width
-    };
+    }
   }
 
   @computed
@@ -98,17 +98,17 @@ export class CardView extends Component<Props> {
       borderRadius: Settings.instance.borderRadius,
       height: Settings.instance.cardSize.height,
       width: Settings.instance.cardSize.width
-    };
+    }
     if (this.props.dragged) {
       Object.assign(shadowStyle, {
         shadowColor: Settings.instance.colors.card.shadowColor,
         shadowOffset: Settings.instance.cardShadowOffset,
         shadowOpacity: Settings.instance.cardShadowOpacity,
         shadowRadius: Settings.instance.cardShadowRadius
-      });
+      })
     }
 
-    return shadowStyle;
+    return shadowStyle
   }
 
   @computed
@@ -117,7 +117,7 @@ export class CardView extends Component<Props> {
       bottom: Math.round(0.1 * Settings.instance.cardSize.width),
       position: "absolute",
       right: Math.round(0.025 * Settings.instance.cardSize.width)
-    };
+    }
   }
 
   @computed
@@ -133,10 +133,10 @@ export class CardView extends Component<Props> {
       textAlign: "left",
       top: -Math.round(0.08 * Settings.instance.cardSize.width),
       width: Math.round(1.22 * Settings.instance.cardSize.width) // Make space for the two digits in '10'.
-    };
+    }
   }
 
   private getSuit(size: number): JSX.Element {
-    return <SuitView size={size} suit={this.props.card.suit} />;
+    return <SuitView size={size} suit={this.props.card.suit} />
   }
 }

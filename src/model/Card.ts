@@ -1,7 +1,7 @@
-import { computed } from "mobx";
+import { computed } from "mobx"
 
-import { Suit } from "./Suit";
-import { SuitHelper } from "./SuitHelper";
+import { Suit } from "./Suit"
+import { SuitHelper } from "./SuitHelper"
 
 export class Card {
   constructor(
@@ -14,25 +14,25 @@ export class Card {
   public get displayValue(): string {
     switch (this.value) {
       case 1:
-        return "A";
+        return "A"
 
       case 11:
-        return "J";
+        return "J"
 
       case 12:
-        return "Q";
+        return "Q"
 
       case 13:
-        return "K";
+        return "K"
 
       default:
-        return this.value.toString();
+        return this.value.toString()
     }
   }
 
   @computed
   public get key(): string {
-    const key = this.displayValue + SuitHelper.getCharacter(this.suit);
-    return key;
+    const key = this.displayValue + SuitHelper.getCharacter(this.suit)
+    return key
   }
 }

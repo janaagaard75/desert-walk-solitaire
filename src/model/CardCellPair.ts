@@ -1,7 +1,7 @@
-import { Card } from "./Card";
-import { Cell } from "./Cell";
+import { Card } from "./Card"
+import { Cell } from "./Cell"
 
 export interface CardCellPair {
-  card: Card;
-  cell: Cell;
+  card: Card
+  cell: Cell
 }

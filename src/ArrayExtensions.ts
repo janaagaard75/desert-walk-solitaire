@@ -3,16 +3,16 @@
 declare global {
   interface Array<T> {
     /** Return a shallow copy of the array. */
-    clone(): Array<T>;
+    clone(): Array<T>
     /** Return a shuffled shallow copy of the array. */
-    shuffle(): Array<T>;
+    shuffle(): Array<T>
   }
 
   interface ReadonlyArray<T> {
     /** Return a shallow copy of the array. */
-    clone(): ReadonlyArray<T>;
+    clone(): ReadonlyArray<T>
     /** Return a shuffled shallow copy of the array. */
-    shuffle(): ReadonlyArray<T>;
+    shuffle(): ReadonlyArray<T>
   }
 }
 
@@ -20,28 +20,28 @@ declare global {
 
 if (!Array.prototype.clone) {
   Array.prototype.clone = function<T>(): Array<T> {
-    return this.slice(0);
-  };
+    return this.slice(0)
+  }
 }
 
 if (!Array.prototype.shuffle) {
   Array.prototype.shuffle = function<T>(): Array<T> {
-    const clone = this.clone();
-    shuffleInPlace(clone);
-    return clone;
-  };
+    const clone = this.clone()
+    shuffleInPlace(clone)
+    return clone
+  }
 }
 
 function shuffleInPlace<T>(array: Array<T>): void {
-  let top = array.length;
+  let top = array.length
   if (top >= 0) {
     while (--top) {
-      const current = Math.floor(Math.random() * (top + 1));
-      const temporaryElement = array[current];
-      array[current] = array[top];
-      array[top] = temporaryElement;
+      const current = Math.floor(Math.random() * (top + 1))
+      const temporaryElement = array[current]
+      array[current] = array[top]
+      array[top] = temporaryElement
     }
   }
 }
 
-export {};
+export {}

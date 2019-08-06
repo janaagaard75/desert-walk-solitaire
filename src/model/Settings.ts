@@ -1,19 +1,19 @@
-import { computed } from "mobx";
-import { isIphoneX } from "react-native-iphone-x-helper";
-import { observable } from "mobx";
+import { computed } from "mobx"
+import { isIphoneX } from "react-native-iphone-x-helper"
+import { observable } from "mobx"
 
-import { Size } from "./Size";
+import { Size } from "./Size"
 
 export class Settings {
   private constructor() {}
 
-  public readonly maxCardValue = 13;
-  public readonly rows = 4;
-  public readonly numberOfShuffles = 3;
-  @observable public windowSize: Size = { height: 0, width: 0 };
+  public readonly maxCardValue = 13
+  public readonly rows = 4
+  public readonly numberOfShuffles = 3
+  @observable public windowSize: Size = { height: 0, width: 0 }
 
   // Manually tweaked value.
-  private readonly footerHeight = 66;
+  private readonly footerHeight = 66
 
   public readonly animation = {
     replay: {
@@ -28,7 +28,7 @@ export class Settings {
       duration: 400,
       elasticity: 0.5
     }
-  };
+  }
 
   public readonly colors = {
     card: {
@@ -42,37 +42,37 @@ export class Settings {
     },
     gridBackgroundColor: "#464",
     mainBackgroundColor: "#333"
-  };
+  }
 
   // It's necessary to use the singleton pattern, because @computed doesn't work on static fields. See https://github.com/mobxjs/mobx/issues/351#issuecomment-228304310. It's also necessary to use an _instance private member and a getter instead of simply making instance a public static field - don't know why, though.
-  private static _instance: Settings;
+  private static _instance: Settings
 
   public static get instance() {
     if (this._instance === undefined) {
-      this._instance = new Settings();
+      this._instance = new Settings()
     }
 
-    return this._instance;
+    return this._instance
   }
 
-  public readonly cardShadowOpacity = 0.6;
+  public readonly cardShadowOpacity = 0.6
 
-  private readonly cardSizeRatio = 3 / 2;
-  private readonly cardWidthToGutterRatio = 7 / 1;
+  private readonly cardSizeRatio = 3 / 2
+  private readonly cardWidthToGutterRatio = 7 / 1
 
   @computed
   public get borderRadius(): number {
-    return Math.round(this.cardSize.width / 8);
+    return Math.round(this.cardSize.width / 8)
   }
 
   @computed
   public get borderWidth(): number {
-    return Math.round(this.cardSize.width / 20);
+    return Math.round(this.cardSize.width / 20)
   }
 
   @computed
   public get cardPadding(): number {
-    return Math.floor(Settings.instance.cardSize.width / 20);
+    return Math.floor(Settings.instance.cardSize.width / 20)
   }
 
   @computed
@@ -80,52 +80,52 @@ export class Settings {
     const offset = {
       height: Math.round(Settings.instance.cardSize.width / 20),
       width: Math.round(Settings.instance.cardSize.width / 50)
-    };
-    return offset;
+    }
+    return offset
   }
 
   @computed
   public get cardShadowRadius() {
-    return Math.round(Settings.instance.cardSize.width / 10);
+    return Math.round(Settings.instance.cardSize.width / 10)
   }
 
   @computed
   public get cardSize(): Size {
     if (this.restrictedBy === "height") {
-      return this.heightRestrictedCardSize;
+      return this.heightRestrictedCardSize
     } else {
-      return this.widthRestrictedCardSize;
+      return this.widthRestrictedCardSize
     }
   }
 
   @computed public get columns() {
-    return this.maxCardValue + 1;
+    return this.maxCardValue + 1
   }
 
   @computed
   public get gridSize(): Size {
     const width =
-      this.cardSize.width * this.columns + this.gutterSize * (this.columns - 1);
+      this.cardSize.width * this.columns + this.gutterSize * (this.columns - 1)
     const height =
-      this.cardSize.height * this.rows + this.gutterSize * (this.rows - 1);
+      this.cardSize.height * this.rows + this.gutterSize * (this.rows - 1)
 
     return {
       height: height,
       width: width
-    };
+    }
   }
 
   @computed
   public get gutterSize(): number {
     if (this.restrictedBy === "height") {
-      return this.heightRestrictedGutterSize;
+      return this.heightRestrictedGutterSize
     } else {
-      return this.widthRestrictedGutterSize;
+      return this.widthRestrictedGutterSize
     }
   }
 
   @computed public get numberOfCards() {
-    return this.maxCardValue * this.rows;
+    return this.maxCardValue * this.rows
   }
 
   @computed
@@ -134,24 +134,24 @@ export class Settings {
       this.heightRestrictedPlayingFieldSize.width <=
       this.widthRestrictedPlayingFieldSize.width
     ) {
-      return "height";
+      return "height"
     } else {
-      return "width";
+      return "width"
     }
   }
 
   @computed
   private get availablePlayingFieldSize(): Size {
-    let availableWidth = this.windowSize.width;
+    let availableWidth = this.windowSize.width
     if (isIphoneX()) {
-      const notchHeight = 40;
-      availableWidth -= 2 * notchHeight;
+      const notchHeight = 40
+      availableWidth -= 2 * notchHeight
     }
 
     return {
       height: this.windowSize.height - this.footerHeight,
       width: availableWidth
-    };
+    }
   }
 
   @computed
@@ -182,14 +182,14 @@ export class Settings {
     const cardWidth = Math.floor(
       (this.availablePlayingFieldSize.height * this.cardWidthToGutterRatio) /
         (this.rows * (this.cardSizeRatio * this.cardWidthToGutterRatio + 1) + 1)
-    );
+    )
 
-    const cardHeight = Math.floor(cardWidth * this.cardSizeRatio);
+    const cardHeight = Math.floor(cardWidth * this.cardSizeRatio)
 
     return {
       height: cardHeight,
       width: cardWidth
-    };
+    }
   }
 
   @computed
@@ -198,24 +198,24 @@ export class Settings {
       (this.availablePlayingFieldSize.height -
         this.rows * this.heightRestrictedCardSize.height) /
         this.rows
-    );
+    )
 
-    return gutterSize;
+    return gutterSize
   }
 
   @computed
   private get heightRestrictedPlayingFieldSize(): Size {
     const height =
       this.rows * this.heightRestrictedCardSize.height +
-      (this.rows + 1) * this.heightRestrictedGutterSize;
+      (this.rows + 1) * this.heightRestrictedGutterSize
     const width =
       this.columns * this.heightRestrictedCardSize.width +
-      (this.columns + 1) * this.heightRestrictedGutterSize;
+      (this.columns + 1) * this.heightRestrictedGutterSize
 
     return {
       height: height,
       width: width
-    };
+    }
   }
 
   @computed
@@ -242,14 +242,14 @@ export class Settings {
     const cardWidth = Math.floor(
       (this.availablePlayingFieldSize.width * this.cardWidthToGutterRatio) /
         (this.columns * (this.cardWidthToGutterRatio + 1) + 1)
-    );
+    )
 
-    const cardHeight = Math.floor(cardWidth * this.cardSizeRatio);
+    const cardHeight = Math.floor(cardWidth * this.cardSizeRatio)
 
     return {
       height: cardHeight,
       width: cardWidth
-    };
+    }
   }
 
   @computed
@@ -258,23 +258,23 @@ export class Settings {
       (this.availablePlayingFieldSize.width -
         this.columns * this.widthRestrictedCardSize.width) /
         this.columns
-    );
+    )
 
-    return gutterSize;
+    return gutterSize
   }
 
   @computed
   private get widthRestrictedPlayingFieldSize(): Size {
     const height =
       this.rows * this.widthRestrictedCardSize.height +
-      (this.rows + 1) * this.widthRestrictedGutterSize;
+      (this.rows + 1) * this.widthRestrictedGutterSize
     const width =
       this.columns * this.widthRestrictedCardSize.width +
-      (this.columns + 1) * this.widthRestrictedGutterSize;
+      (this.columns + 1) * this.widthRestrictedGutterSize
 
     return {
       height: height,
       width: width
-    };
+    }
   }
 }

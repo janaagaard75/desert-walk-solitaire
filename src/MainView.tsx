@@ -1,36 +1,36 @@
-import * as Font from "expo-font";
-import * as React from "react";
-import { AppLoading } from "expo";
-import { Component } from "react";
-import { Dimensions } from "react-native";
-import { Image } from "react-native";
-import { isIphoneX } from "react-native-iphone-x-helper";
-import { observable } from "mobx";
-import { observer } from "mobx-react";
-import { ScreenOrientation } from "expo";
-import { StatusBar } from "react-native";
-import { View } from "react-native";
-import { ViewStyle } from "react-native";
+import * as Font from "expo-font"
+import * as React from "react"
+import { AppLoading } from "expo"
+import { Component } from "react"
+import { Dimensions } from "react-native"
+import { Image } from "react-native"
+import { isIphoneX } from "react-native-iphone-x-helper"
+import { observable } from "mobx"
+import { observer } from "mobx-react"
+import { ScreenOrientation } from "expo"
+import { StatusBar } from "react-native"
+import { View } from "react-native"
+import { ViewStyle } from "react-native"
 
-import "./ArrayExtensions";
-import { FooterView } from "./FooterView";
-import { GridView } from "./GridView";
-import { Settings } from "./model/Settings";
+import "./ArrayExtensions"
+import { FooterView } from "./FooterView"
+import { GridView } from "./GridView"
+import { Settings } from "./model/Settings"
 
 @observer
 export default class MainView extends Component {
   public constructor(props: {}, context?: any) {
-    super(props, context);
+    super(props, context)
 
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
-    this.updateWindowSize();
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
+    this.updateWindowSize()
     Dimensions.addEventListener("change", () => {
-      this.updateWindowSize();
-    });
+      this.updateWindowSize()
+    })
   }
 
   @observable
-  private fontLoaded: boolean = false;
+  private fontLoaded: boolean = false
 
   public render() {
     if (!this.fontLoaded) {
@@ -38,10 +38,10 @@ export default class MainView extends Component {
         <AppLoading
           startAsync={() => this.loadFont()}
           onFinish={() => {
-            this.fontLoaded = true;
+            this.fontLoaded = true
           }}
         />
-      );
+      )
     }
 
     return (
@@ -71,7 +71,7 @@ export default class MainView extends Component {
           undefined
         )}
       </View>
-    );
+    )
   }
 
   private getGridWrapperStyle(): ViewStyle {
@@ -79,7 +79,7 @@ export default class MainView extends Component {
       alignItems: "center",
       flex: 1,
       justifyContent: "center"
-    };
+    }
   }
 
   private getMainStyle(): ViewStyle {
@@ -87,20 +87,20 @@ export default class MainView extends Component {
       backgroundColor: Settings.instance.colors.mainBackgroundColor,
       flex: 1,
       flexDirection: "column"
-    };
+    }
   }
 
   private async loadFont() {
     await Font.loadAsync({
       "Arabian-onenightstand": require("../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf")
-    });
+    })
   }
 
   private updateWindowSize() {
-    const windowSize = Dimensions.get("window");
+    const windowSize = Dimensions.get("window")
     Settings.instance.windowSize = {
       height: windowSize.height,
       width: windowSize.width
-    };
+    }
   }
 }
