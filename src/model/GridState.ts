@@ -121,14 +121,10 @@ export class GridState {
     const cardCellPairs: Array<CardCellPair> = []
     for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
       for (
-        let columnIndex = 0;
+        let columnIndex = 1;
         columnIndex < Settings.instance.columns;
         columnIndex++
       ) {
-        if (columnIndex === 0) {
-          continue
-        }
-
         const cellIndex = rowIndex * Settings.instance.columns + columnIndex
 
         // The deck of cards has been initialized in reverse order.
