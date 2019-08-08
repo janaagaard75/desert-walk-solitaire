@@ -1,6 +1,6 @@
 {
   "name": "desert-walk",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Solitaire card game for iOS and Android using React Native, Expo, MobX and TypeScript.",
   "author": {
     "email": "jan@aagaard.net",
@@ -13,6 +13,7 @@
     "preset": "jest-expo-ts"
   },
   "scripts": {
+    "add-version-number": "ts-node add-version-number.ts",
     "android": "yarn install --frozen-lockfile && expo start --android",
     "build-android": "yarn install --frozen-lockfile && expo build:android -t app-bundle",
     "build-ios": "yarn install --frozen-lockfile && expo build:ios",
@@ -52,7 +53,9 @@
     "eslint-plugin-prettier": "3.1.0",
     "eslint-plugin-react": "7.14.3",
     "expo-cli": "3.0.9",
+    "jimp": "0.6.4",
     "prettier": "1.18.2",
+    "ts-node": "8.3.0",
     "typescript": "3.5.3"
   }
 }
