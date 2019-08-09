@@ -8,6 +8,7 @@ import { isIphoneX } from "react-native-iphone-x-helper"
 import { observable } from "mobx"
 import { observer } from "mobx-react"
 import { ScreenOrientation } from "expo"
+import { Text } from "react-native"
 import { View } from "react-native"
 import { ViewStyle } from "react-native"
 
@@ -15,6 +16,7 @@ import "./ArrayExtensions"
 import { FooterView } from "./FooterView"
 import { GridView } from "./GridView"
 import { Settings } from "./model/Settings"
+import appJson from "../app.json"
 
 @observer
 export default class MainView extends Component {
@@ -28,8 +30,8 @@ export default class MainView extends Component {
     })
   }
 
-  @observable
-  private fontLoaded: boolean = false
+  @observable private fontLoaded: boolean = false
+  @observable private showVersionNumber: boolean = false
 
   public render() {
     if (!this.fontLoaded) {
@@ -45,7 +47,10 @@ export default class MainView extends Component {
 
     return (
       <View style={this.getMainStyle()}>
-        <TouchableWithoutFeedback onLongPress={() => this.showVersionNumber()}>
+        <TouchableWithoutFeedback
+          delayLongPress={5 * 1000}
+          onLongPress={() => (this.showVersionNumber = true)}
+        >
           <View style={this.getGridWrapperStyle()}>
             <Image
               source={require("./50713-transparent.png")}
@@ -70,11 +75,25 @@ export default class MainView extends Component {
         ) : (
           undefined
         )}
+        <Text
+          style={{
+            color: "#fff",
+            display: this.showVersionNumber ? "flex" : "none",
+            fontSize: 9,
+            right: 30,
+            position: "absolute",
+            top: 2
+          }}
+        >
+          Version: {this.versionNumber}
+        </Text>
       </View>
     )
   }
 
-  private showVersionNumber(): void {}
+  private get versionNumber(): string {
+    return appJson.expo.version
+  }
 
   private getGridWrapperStyle(): ViewStyle {
     return {
@@ -88,7 +107,8 @@ export default class MainView extends Component {
     return {
       backgroundColor: Settings.instance.colors.mainBackgroundColor,
       flex: 1,
-      flexDirection: "column"
+      flexDirection: "column",
+      position: "relative"
     }
   }
 
