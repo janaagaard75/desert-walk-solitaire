@@ -2,7 +2,7 @@ import * as Font from "expo-font"
 import * as React from "react"
 import { AppLoading } from "expo"
 import { Component } from "react"
-import { Dimensions } from "react-native"
+import { Dimensions, TouchableWithoutFeedback } from "react-native"
 import { Image } from "react-native"
 import { isIphoneX } from "react-native-iphone-x-helper"
 import { observable } from "mobx"
@@ -45,19 +45,21 @@ export default class MainView extends Component {
 
     return (
       <View style={this.getMainStyle()}>
-        <View style={this.getGridWrapperStyle()}>
-          <Image
-            source={require("./50713-transparent.png")}
-            style={{
-              backgroundColor: Settings.instance.colors.gridBackgroundColor,
-              height: Settings.instance.windowSize.height,
-              position: "absolute",
-              resizeMode: "repeat",
-              width: Settings.instance.windowSize.width
-            }}
-          />
-          <GridView />
-        </View>
+        <TouchableWithoutFeedback onLongPress={() => this.showVersionNumber()}>
+          <View style={this.getGridWrapperStyle()}>
+            <Image
+              source={require("./50713-transparent.png")}
+              style={{
+                backgroundColor: Settings.instance.colors.gridBackgroundColor,
+                height: Settings.instance.windowSize.height,
+                position: "absolute",
+                resizeMode: "repeat",
+                width: Settings.instance.windowSize.width
+              }}
+            />
+            <GridView />
+          </View>
+        </TouchableWithoutFeedback>
         <FooterView />
         {isIphoneX() ? (
           <View
@@ -71,6 +73,8 @@ export default class MainView extends Component {
       </View>
     )
   }
+
+  private showVersionNumber(): void {}
 
   private getGridWrapperStyle(): ViewStyle {
     return {
