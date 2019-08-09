@@ -8,7 +8,6 @@ import { isIphoneX } from "react-native-iphone-x-helper"
 import { observable } from "mobx"
 import { observer } from "mobx-react"
 import { ScreenOrientation } from "expo"
-import { StatusBar } from "react-native"
 import { View } from "react-native"
 import { ViewStyle } from "react-native"
 
@@ -46,7 +45,6 @@ export default class MainView extends Component {
 
     return (
       <View style={this.getMainStyle()}>
-        <StatusBar hidden={true} />
         <View style={this.getGridWrapperStyle()}>
           <Image
             source={require("./50713-transparent.png")}
