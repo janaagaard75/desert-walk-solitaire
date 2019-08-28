@@ -31,8 +31,8 @@ export default class MainView extends Component {
     })
   }
 
-  @observable private fontLoaded: boolean = false
-  @observable private showVersionNumber: boolean = false
+  @observable private fontLoaded = false
+  @observable private showVersionNumber = false
 
   public render() {
     if (!this.fontLoaded) {
