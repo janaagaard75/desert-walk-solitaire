@@ -36,7 +36,7 @@
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
     "react-native-iphone-x-helper": "1.2.1",
-    "react-native-svg": "9.6.2",
+    "react-native-svg": "9.5.1",
     "tslib": "1.10.0"
   },
   "devDependencies": {
