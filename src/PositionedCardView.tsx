@@ -26,8 +26,8 @@ enum VisualState {
 
 @observer
 export class PositionedCardView extends Component<Props> {
-  public constructor(props: Props, context?: any) {
-    super(props, context)
+  public constructor(props: Props) {
+    super(props)
 
     this.animatedPosition = new Animated.ValueXY()
 
@@ -72,7 +72,7 @@ export class PositionedCardView extends Component<Props> {
       onPanResponderMove: (e, gestureEvent) => {
         Animated.event([
           // tslint:disable-next-line:no-null-keyword
-          null as any,
+          null,
           {
             dx: this.animatedPosition.x,
             dy: this.animatedPosition.y

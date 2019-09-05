@@ -21,8 +21,8 @@ import appJson from "../app.json"
 
 @observer
 export default class MainView extends Component {
-  public constructor(props: {}, context?: any) {
-    super(props, context)
+  public constructor(props: {}) {
+    super(props)
 
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
     this.updateWindowSize()
