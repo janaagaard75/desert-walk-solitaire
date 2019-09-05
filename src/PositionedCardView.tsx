@@ -32,7 +32,7 @@ export class PositionedCardView extends Component<Props> {
     this.animatedPosition = new Animated.ValueXY()
 
     this.panResponder = PanResponder.create({
-      onPanResponderEnd: (e, gestureState) => {
+      onPanResponderEnd: (_e, gestureState) => {
         const isPress =
           Math.abs(gestureState.dx) <= this.moveThreshold &&
           Math.abs(gestureState.dy) <= this.moveThreshold
@@ -66,7 +66,7 @@ export class PositionedCardView extends Component<Props> {
           }
         })
       },
-      onPanResponderGrant: (e, gestureState) => {
+      onPanResponderGrant: (_e, _gestureState) => {
         Game.instance.cardDragStarted(this.props.positionedCard)
       },
       onPanResponderMove: (e, gestureEvent) => {
@@ -79,10 +79,10 @@ export class PositionedCardView extends Component<Props> {
           }
         ])(e, gestureEvent)
       },
-      onPanResponderStart: (e, gestureState) => {
+      onPanResponderStart: (_e, _gestureState) => {
         this.visualState = VisualState.Dragging
       },
-      onStartShouldSetPanResponder: (e, gestureState) => true
+      onStartShouldSetPanResponder: (_e, _gestureState) => true
     })
 
     this.animatedPosition.addListener(position => {
