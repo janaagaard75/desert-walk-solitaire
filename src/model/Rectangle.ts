@@ -1,5 +1,5 @@
 export class Rectangle {
-  constructor(
+  public constructor(
     public readonly x1: number,
     public readonly x2: number,
     public readonly y1: number,

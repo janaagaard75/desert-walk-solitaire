@@ -4,7 +4,7 @@ import { Turn } from "./Turn"
 
 /** Move a card from one cell to another. */
 export class MoveTurn extends Turn {
-  constructor(private from: Cell, private to: Cell) {
+  public constructor(private from: Cell, private to: Cell) {
     super()
   }
 
