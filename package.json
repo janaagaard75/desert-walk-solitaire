@@ -23,7 +23,7 @@
     "docs-update": "(cd docs; bundle update)",
     "format": "yarn install --frozen-lockfile && prettier --write \"**/*.ts\" \"**/*.tsx\" \"*.js\" \"*.json\" \"*.ts\"",
     "ios": "yarn install --frozen-lockfile && expo start --ios",
-    "lint": "eslint --format codeframe \"**/src/*.ts\" \"**/src/*.tsx\"",
+    "lint": "eslint --format codeframe \"**/*.ts\" \"**/*.tsx\"",
     "publish-to-expo": "expo publish",
     "start": "yarn install --frozen-lockfile && expo start",
     "validate": "yarn install --frozen-lockfile && yarn run lint && yarn run check-types"
