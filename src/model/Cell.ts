@@ -5,7 +5,7 @@ import { Rectangle } from "./Rectangle"
 import { Settings } from "./Settings"
 
 export class Cell {
-  constructor(
+  public constructor(
     public readonly rowIndex: number,
     public readonly columnIndex: number,
     public readonly cellToTheLeft: Cell | undefined

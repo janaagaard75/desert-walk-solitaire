@@ -1,5 +1,22 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+  "cSpell.words": [
+    "Aagaard",
+    "Entypo",
+    "Ionicons",
+    "autorun",
+    "codeframe",
+    "droppable",
+    "esnext",
+    "interop",
+    "iphone",
+    "lockfile",
+    "mobx",
+    "onenightstand",
+    "readonly",
+    "targetable",
+    "tslib"
+  ],
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "eslint.validate": [

@@ -7,7 +7,7 @@ import { GridCell } from "./GridCell"
 import { GridState } from "./GridState"
 
 export class EmptyCell extends GridCell {
-  constructor(cell: Cell, gridState: GridState) {
+  public constructor(cell: Cell, gridState: GridState) {
     super(cell, gridState)
   }
 

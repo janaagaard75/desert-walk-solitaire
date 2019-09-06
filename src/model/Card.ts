@@ -4,7 +4,7 @@ import { Suit } from "./Suit"
 import { SuitHelper } from "./SuitHelper"
 
 export class Card {
-  constructor(
+  public constructor(
     public readonly suit: Suit,
     public readonly value: number,
     public readonly next: Card | undefined

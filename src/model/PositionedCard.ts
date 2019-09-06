@@ -8,7 +8,7 @@ import { GridCell } from "./GridCell"
 import { GridState } from "./GridState"
 
 export class PositionedCard extends GridCell implements CardCellPair {
-  constructor(cell: Cell, gridState: GridState, public card: Card) {
+  public constructor(cell: Cell, gridState: GridState, public card: Card) {
     super(cell, gridState)
 
     if (card === undefined) {

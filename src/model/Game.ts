@@ -34,14 +34,14 @@ export class Game {
     return this._instance
   }
 
-  @observable public animateNextTurn: boolean = true
+  @observable public animateNextTurn = true
   @observable public draggedCardBoundary: Rectangle | undefined
   @observable public draggingFromCell: PositionedCard | undefined
 
-  @observable private _currentStateIndex: number = 0
+  @observable private _currentStateIndex = 0
   @observable private gridStates: Array<GridState> = []
-  @observable private replayPlaying: boolean = false
-  @observable private replayShown: boolean = false
+  @observable private replayPlaying = false
+  @observable private replayShown = false
   @observable private turns: Array<Turn> = []
 
   @computed

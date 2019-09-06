@@ -26,13 +26,13 @@ enum VisualState {
 
 @observer
 export class PositionedCardView extends Component<Props> {
-  public constructor(props: Props, context?: any) {
-    super(props, context)
+  public constructor(props: Props) {
+    super(props)
 
     this.animatedPosition = new Animated.ValueXY()
 
     this.panResponder = PanResponder.create({
-      onPanResponderEnd: (e, gestureState) => {
+      onPanResponderEnd: (_e, gestureState) => {
         const isPress =
           Math.abs(gestureState.dx) <= this.moveThreshold &&
           Math.abs(gestureState.dy) <= this.moveThreshold
@@ -66,23 +66,23 @@ export class PositionedCardView extends Component<Props> {
           }
         })
       },
-      onPanResponderGrant: (e, gestureState) => {
+      onPanResponderGrant: (_e, _gestureState) => {
         Game.instance.cardDragStarted(this.props.positionedCard)
       },
       onPanResponderMove: (e, gestureEvent) => {
         Animated.event([
           // tslint:disable-next-line:no-null-keyword
-          null as any,
+          null,
           {
             dx: this.animatedPosition.x,
             dy: this.animatedPosition.y
           }
         ])(e, gestureEvent)
       },
-      onPanResponderStart: (e, gestureState) => {
+      onPanResponderStart: (_e, _gestureState) => {
         this.visualState = VisualState.Dragging
       },
-      onStartShouldSetPanResponder: (e, gestureState) => true
+      onStartShouldSetPanResponder: (_e, _gestureState) => true
     })
 
     this.animatedPosition.addListener(position => {
@@ -129,7 +129,7 @@ export class PositionedCardView extends Component<Props> {
     return draggable
   }
 
-  /** Moves the card to the first availble target. This is only called on cards that are draggable. Returns the vector used for the animating the move. */
+  /** Moves the card to the first available target. This is only called on cards that are draggable. Returns the vector used for the animating the move. */
   private moveToTarget(): Point {
     return Game.instance.moveCardToFirstTarget(this.props.positionedCard)
   }
