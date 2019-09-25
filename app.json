@@ -22,7 +22,7 @@
       "usesIcloudStorage": false
     },
     "android": {
-      "package": "com.janagaard.desertwalk",
+      "package": "com.janaagaard.desertwalk",
       "versionCode": 4
     }
   }
