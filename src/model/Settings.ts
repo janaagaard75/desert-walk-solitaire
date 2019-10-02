@@ -17,7 +17,7 @@ export class Settings {
 
   public readonly animation = {
     replay: {
-      deplayBeforeAutoReplay: 500,
+      delayBeforeAutoReplay: 500,
       duration: 100
     },
     snap: {

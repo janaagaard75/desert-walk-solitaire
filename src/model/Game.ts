@@ -267,7 +267,7 @@ export class Game {
     if (this.gameState === GameState.Won && !this.replayShown) {
       setTimeout(
         () => this.replay(),
-        Settings.instance.animation.replay.deplayBeforeAutoReplay
+        Settings.instance.animation.replay.delayBeforeAutoReplay
       )
     }
   }
