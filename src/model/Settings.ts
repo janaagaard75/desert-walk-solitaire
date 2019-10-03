@@ -1,5 +1,7 @@
 import { computed, observable } from "mobx"
 import { isIphoneX } from "react-native-iphone-x-helper"
+import { Point } from "./Point"
+import { Rectangle } from "./Rectangle"
 import { Size } from "./Size"
 
 export class Settings {
@@ -274,5 +276,17 @@ export class Settings {
       height: height,
       width: width
     }
+  }
+
+  // TODO: Does this method belong here?
+  public getCardBoundary(position: Point): Rectangle {
+    const boundary = new Rectangle(
+      position.x,
+      position.x + this.cardSize.width,
+      position.y,
+      position.y + this.cardSize.height
+    )
+
+    return boundary
   }
 }

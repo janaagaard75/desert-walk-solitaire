@@ -13,8 +13,10 @@ import { Game } from "./model/Game"
 import { Point } from "./model/Point"
 import { PositionedCard } from "./model/PositionedCard"
 import { Settings } from "./model/Settings"
+import { Size } from "./model/Size"
 
 interface Props {
+  cardSize: Size
   positionedCard: PositionedCard
 }
 
@@ -86,7 +88,9 @@ export class PositionedCardView extends Component<Props> {
     })
 
     this.animatedPosition.addListener(position => {
-      const boundary = CardView.getBoundary(new Point(position.x, position.y))
+      const boundary = Settings.instance.getCardBoundary(
+        new Point(position.x, position.y)
+      )
       Game.instance.cardDragged(boundary)
     })
   }
@@ -113,6 +117,7 @@ export class PositionedCardView extends Component<Props> {
       <Animated.View style={style} {...panHandlers}>
         <CardView
           card={this.props.positionedCard.card}
+          cardSize={this.props.cardSize}
           correctlyPlaced={this.props.positionedCard.correctlyPlaced}
           draggable={this.draggable}
           dragged={this.visualState !== VisualState.Idle}

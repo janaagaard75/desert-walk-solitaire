@@ -21,6 +21,7 @@ export class GridView extends Component {
         {Game.instance.currentGridState.positionedCards.map(positionedCard => (
           <PositionedCardView
             key={positionedCard.card.key}
+            cardSize={Settings.instance.cardSize}
             positionedCard={positionedCard}
           />
         ))}
