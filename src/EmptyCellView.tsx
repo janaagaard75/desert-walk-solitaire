@@ -1,10 +1,8 @@
-import * as React from "react"
-import { Component } from "react"
 import { computed } from "mobx"
 import { observer } from "mobx-react"
-import { View } from "react-native"
-import { ViewStyle } from "react-native"
-
+import * as React from "react"
+import { Component } from "react"
+import { View, ViewStyle } from "react-native"
 import { EmptyCell } from "./model/EmptyCell"
 import { EmptyCellState } from "./model/EmptyCellState"
 import { Game } from "./model/Game"

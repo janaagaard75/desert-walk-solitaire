@@ -1,23 +1,23 @@
+import { AppLoading, ScreenOrientation } from "expo"
 import * as Font from "expo-font"
-import * as React from "react"
-import { AppLoading } from "expo"
-import { Component } from "react"
-import { Dimensions } from "react-native"
-import { Image } from "react-native"
-import { isIphoneX } from "react-native-iphone-x-helper"
 import { observable } from "mobx"
 import { observer } from "mobx-react"
-import { ScreenOrientation } from "expo"
-import { Text } from "react-native"
-import { TouchableWithoutFeedback } from "react-native"
-import { View } from "react-native"
-import { ViewStyle } from "react-native"
-
+import * as React from "react"
+import { Component } from "react"
+import {
+  Dimensions,
+  Image,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+  ViewStyle
+} from "react-native"
+import { isIphoneX } from "react-native-iphone-x-helper"
+import appJson from "../app.json"
 import "./ArrayExtensions"
 import { FooterView } from "./FooterView"
 import { GridView } from "./GridView"
 import { Settings } from "./model/Settings"
-import appJson from "../app.json"
 
 @observer
 export default class MainView extends Component {

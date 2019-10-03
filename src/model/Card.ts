@@ -1,5 +1,4 @@
 import { computed } from "mobx"
-
 import { Suit } from "./Suit"
 import { SuitHelper } from "./SuitHelper"
 

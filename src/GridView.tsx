@@ -1,13 +1,11 @@
+import { observer } from "mobx-react"
 import * as React from "react"
 import { Component } from "react"
-import { observer } from "mobx-react"
-import { View } from "react-native"
-import { ViewStyle } from "react-native"
-
+import { View, ViewStyle } from "react-native"
 import { EmptyCellView } from "./EmptyCellView"
 import { Game } from "./model/Game"
-import { PositionedCardView } from "./PositionedCardView"
 import { Settings } from "./model/Settings"
+import { PositionedCardView } from "./PositionedCardView"
 
 @observer
 export class GridView extends Component {

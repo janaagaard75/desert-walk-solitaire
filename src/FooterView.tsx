@@ -1,15 +1,12 @@
-import * as React from "react"
-import { Alert } from "react-native"
-import { Component } from "react"
 import { observer } from "mobx-react"
-import { View } from "react-native"
-import { ViewStyle } from "react-native"
-
+import * as React from "react"
+import { Component } from "react"
+import { Alert, View, ViewStyle } from "react-native"
 import { Game } from "./model/Game"
 import { GameState } from "./model/GameState"
 import { Settings } from "./model/Settings"
-import { TouchableIcon } from "./TouchableIcon"
 import { TouchableState } from "./model/TouchableState"
+import { TouchableIcon } from "./TouchableIcon"
 
 @observer
 export class FooterView extends Component {
