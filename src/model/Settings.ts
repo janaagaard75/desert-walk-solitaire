@@ -4,6 +4,7 @@ import { Point } from "./Point"
 import { Rectangle } from "./Rectangle"
 import { Size } from "./Size"
 
+// TODO: Distinguish between constants and computed values. AbsoluteConstants and ComputedConstants?
 export class Settings {
   private constructor() {}
 
