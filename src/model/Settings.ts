@@ -1,7 +1,5 @@
-import { computed } from "mobx"
+import { computed, observable } from "mobx"
 import { isIphoneX } from "react-native-iphone-x-helper"
-import { observable } from "mobx"
-
 import { Size } from "./Size"
 
 export class Settings {
@@ -17,7 +15,7 @@ export class Settings {
 
   public readonly animation = {
     replay: {
-      deplayBeforeAutoReplay: 500,
+      delayBeforeAutoReplay: 500,
       duration: 100
     },
     snap: {

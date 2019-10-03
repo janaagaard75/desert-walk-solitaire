@@ -1,13 +1,13 @@
-import * as React from "react"
-import { Animated } from "react-native"
-import { Component } from "react"
-import { computed } from "mobx"
-import { Easing } from "react-native"
-import { observable } from "mobx"
+import { computed, observable } from "mobx"
 import { observer } from "mobx-react"
-import { PanResponder } from "react-native"
-import { PanResponderInstance } from "react-native"
-
+import * as React from "react"
+import { Component } from "react"
+import {
+  Animated,
+  Easing,
+  PanResponder,
+  PanResponderInstance
+} from "react-native"
 import { CardView } from "./CardView"
 import { Game } from "./model/Game"
 import { Point } from "./model/Point"

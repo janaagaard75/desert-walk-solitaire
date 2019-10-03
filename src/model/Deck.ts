@@ -1,5 +1,4 @@
 import { computed } from "mobx"
-
 import { Card } from "./Card"
 import { Settings } from "./Settings"
 import { Suit } from "./Suit"

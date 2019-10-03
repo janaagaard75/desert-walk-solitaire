@@ -1,5 +1,4 @@
 import { computed } from "mobx"
-
 import { Card } from "./Card"
 import { CardCellPair } from "./CardCellPair"
 import { Cell } from "./Cell"

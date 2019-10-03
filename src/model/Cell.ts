@@ -1,5 +1,4 @@
 import { computed } from "mobx"
-
 import { Point } from "./Point"
 import { Rectangle } from "./Rectangle"
 import { Settings } from "./Settings"

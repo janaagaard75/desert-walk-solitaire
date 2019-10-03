@@ -1,5 +1,4 @@
 import { computed } from "mobx"
-
 import { Cell } from "./Cell"
 import { Settings } from "./Settings"
 

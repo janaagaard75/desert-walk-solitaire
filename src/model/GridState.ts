@@ -1,6 +1,4 @@
-import { computed } from "mobx"
-import { observable } from "mobx"
-
+import { computed, observable } from "mobx"
 import { Card } from "./Card"
 import { CardCellPair } from "./CardCellPair"
 import { Cell } from "./Cell"
