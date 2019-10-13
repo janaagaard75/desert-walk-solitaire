@@ -1,2 +1,2 @@
-import MainView from "./src/MainView"
+import { MainView } from "./src/MainView"
 export default MainView

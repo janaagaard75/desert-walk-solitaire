@@ -20,7 +20,7 @@ import { GridView } from "./GridView"
 import { Settings } from "./model/Settings"
 
 @observer
-export default class MainView extends Component {
+export class MainView extends Component {
   public constructor(props: {}) {
     super(props)
 
