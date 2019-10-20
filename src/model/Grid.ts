@@ -1,9 +1,10 @@
-import { computed } from "mobx"
 import { Cell } from "./Cell"
 import { Settings } from "./Settings"
 
 export class Grid {
-  private constructor() {}
+  private constructor() {
+    this.cells = this.getCells()
+  }
 
   private static _instance: Grid
 
@@ -15,8 +16,9 @@ export class Grid {
     return this._instance
   }
 
-  @computed
-  public get cells(): ReadonlyArray<Cell> {
+  public cells: ReadonlyArray<Cell>
+
+  private getCells(): Array<Cell> {
     const cells: Array<Cell> = []
     for (let rowIndex = 0; rowIndex < Settings.rows; rowIndex++) {
       for (let columnIndex = 0; columnIndex < Settings.columns; columnIndex++) {
