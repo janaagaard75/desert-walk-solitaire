@@ -1,10 +1,23 @@
-import { computed } from "mobx"
 import { Card } from "./Card"
 import { Settings } from "./Settings"
 import { Suit } from "./Suit"
 
 export class Deck {
-  private constructor() {}
+  private constructor() {
+    this._cards = []
+    for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
+      for (let value = Settings.maxCardValue; value >= 1; value--) {
+        const nextCard =
+          value === Settings.maxCardValue
+            ? undefined
+            : this._cards[this._cards.length - 1]
+
+        this._cards.push(new Card(suit, value, nextCard))
+      }
+    }
+
+    this._theFourAces = this.cards.filter(card => card.value === 1)
+  }
 
   private static _instance: Deck
 
@@ -16,24 +29,14 @@ export class Deck {
     return this._instance
   }
 
-  @computed
+  private _cards: Array<Card>
+  private _theFourAces: Array<Card>
+
   public get cards(): ReadonlyArray<Card> {
-    const cards: Array<Card> = []
-    for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
-      for (let value = Settings.maxCardValue; value >= 1; value--) {
-        const nextCard =
-          value === Settings.maxCardValue ? undefined : cards[cards.length - 1]
-
-        cards.push(new Card(suit, value, nextCard))
-      }
-    }
-
-    return cards
+    return this._cards
   }
 
-  @computed
   public get theFourAces(): ReadonlyArray<Card> {
-    const theFourAces = this.cards.filter(card => card.value === 1)
-    return theFourAces
+    return this._theFourAces
   }
 }
