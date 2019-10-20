@@ -1,18 +1,18 @@
 import { computed } from "mobx"
 import { Cell } from "./Cell"
+import { ComputedSettings } from "./ComputedSettings"
 import { EmptyCell } from "./EmptyCell"
 import { GridState } from "./GridState"
 import { Point } from "./Point"
 import { PositionedCard } from "./PositionedCard"
 import { Rectangle } from "./Rectangle"
-import { Settings } from "./Settings"
 
 export abstract class GridCell {
   public constructor(public cell: Cell, protected gridState: GridState) {}
 
   @computed
   public get boundary(): Rectangle {
-    const boundary = Settings.instance.getCardBoundary(this.position)
+    const boundary = ComputedSettings.instance.getCardBoundary(this.position)
     return boundary
   }
 

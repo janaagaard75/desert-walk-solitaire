@@ -18,12 +18,8 @@ export class Grid {
   @computed
   public get cells(): ReadonlyArray<Cell> {
     const cells: Array<Cell> = []
-    for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
-      for (
-        let columnIndex = 0;
-        columnIndex < Settings.instance.columns;
-        columnIndex++
-      ) {
+    for (let rowIndex = 0; rowIndex < Settings.rows; rowIndex++) {
+      for (let columnIndex = 0; columnIndex < Settings.columns; columnIndex++) {
         let cellToTheLeft: Cell | undefined
         if (columnIndex === 0) {
           cellToTheLeft = undefined

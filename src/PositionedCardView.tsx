@@ -9,6 +9,7 @@ import {
   PanResponderInstance
 } from "react-native"
 import { CardView } from "./CardView"
+import { ComputedSettings } from "./model/ComputedSettings"
 import { Game } from "./model/Game"
 import { Point } from "./model/Point"
 import { PositionedCard } from "./model/PositionedCard"
@@ -44,8 +45,8 @@ export class PositionedCardView extends Component<Props> {
           : Game.instance.cardDropped()
 
         const duration = isPress
-          ? Settings.instance.animation.turn.duration
-          : Settings.instance.animation.snap.duration
+          ? Settings.animation.turn.duration
+          : Settings.animation.snap.duration
 
         if (animationVector !== undefined) {
           this.animatedPosition.setValue(animationVector)
@@ -60,7 +61,7 @@ export class PositionedCardView extends Component<Props> {
 
         Animated.timing(this.animatedPosition, {
           duration: duration,
-          easing: Easing.elastic(Settings.instance.animation.snap.elasticity),
+          easing: Easing.elastic(Settings.animation.snap.elasticity),
           toValue: animationTargetValue
         }).start(() => {
           if (this.visualState !== VisualState.Dragging) {
@@ -88,7 +89,7 @@ export class PositionedCardView extends Component<Props> {
     })
 
     this.animatedPosition.addListener(position => {
-      const boundary = Settings.instance.getCardBoundary(
+      const boundary = ComputedSettings.instance.getCardBoundary(
         new Point(position.x, position.y)
       )
       Game.instance.cardDragged(boundary)

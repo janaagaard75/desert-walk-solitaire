@@ -117,18 +117,13 @@ export class GridState {
   @computed
   public static get inOrder(): GridState {
     const cardCellPairs: Array<CardCellPair> = []
-    for (let rowIndex = 0; rowIndex < Settings.instance.rows; rowIndex++) {
-      for (
-        let columnIndex = 1;
-        columnIndex < Settings.instance.columns;
-        columnIndex++
-      ) {
-        const cellIndex = rowIndex * Settings.instance.columns + columnIndex
+    for (let rowIndex = 0; rowIndex < Settings.rows; rowIndex++) {
+      for (let columnIndex = 1; columnIndex < Settings.columns; columnIndex++) {
+        const cellIndex = rowIndex * Settings.columns + columnIndex
 
         // The deck of cards has been initialized in reverse order.
-        const cardValue = Settings.instance.maxCardValue - columnIndex + 1
-        const cardIndex =
-          rowIndex * Settings.instance.columns + cardValue - 1 - rowIndex
+        const cardValue = Settings.maxCardValue - columnIndex + 1
+        const cardIndex = rowIndex * Settings.columns + cardValue - 1 - rowIndex
 
         cardCellPairs.push({
           card: Deck.instance.cards[cardIndex],

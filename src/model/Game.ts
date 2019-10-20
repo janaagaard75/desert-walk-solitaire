@@ -90,12 +90,12 @@ export class Game {
 
     if (
       this.currentGridState.correctlyPositionedCards.length ===
-      Settings.instance.numberOfCards
+      Settings.numberOfCards
     ) {
       return GameState.Won
     }
 
-    if (this.shuffles < Settings.instance.numberOfShuffles) {
+    if (this.shuffles < Settings.numberOfShuffles) {
       return GameState.Stuck
     }
 
@@ -195,7 +195,7 @@ export class Game {
     return this._currentStateIndex
   }
 
-  /** Returns the list of cells that the current card can be dropped on. This includes the cell being dragged from. See `tagetableCells`. */
+  /** Returns the list of cells that the current card can be dropped on. This includes the cell being dragged from. See `targetableCells`. */
   @computed
   private get droppableCells(): Array<Cell> {
     if (this.draggingFromCell === undefined) {
@@ -264,7 +264,7 @@ export class Game {
     if (this.gameState === GameState.Won && !this.replayShown) {
       setTimeout(
         () => this.replay(),
-        Settings.instance.animation.replay.delayBeforeAutoReplay
+        Settings.animation.replay.delayBeforeAutoReplay
       )
     }
   }
@@ -322,7 +322,7 @@ export class Game {
 
     setTimeout(
       () => this.waitAndGoToNextStateIndex(),
-      Settings.instance.animation.replay.duration
+      Settings.animation.replay.duration
     )
   }
 
@@ -335,7 +335,7 @@ export class Game {
     this.setCurrentStateIndex(this.currentStateIndex + 1, true)
     setTimeout(
       () => this.waitAndGoToNextStateIndex(),
-      Settings.instance.animation.replay.duration
+      Settings.animation.replay.duration
     )
   }
 

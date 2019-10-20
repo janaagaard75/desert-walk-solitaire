@@ -4,6 +4,7 @@ import * as React from "react"
 import { Component } from "react"
 import { Text, TextStyle, View, ViewStyle } from "react-native"
 import { Card } from "./model/Card"
+import { ComputedSettings } from "./model/ComputedSettings"
 import { Settings } from "./model/Settings"
 import { Size } from "./model/Size"
 import { SuitHelper } from "./model/SuitHelper"
@@ -53,14 +54,14 @@ export class CardView extends Component<Props> {
   private get cardStyle(): ViewStyle {
     return {
       alignItems: "center",
-      backgroundColor: Settings.instance.colors.card.background,
-      borderColor: Settings.instance.colors.card.border,
-      borderRadius: Settings.instance.borderRadius,
+      backgroundColor: Settings.colors.card.background,
+      borderColor: Settings.colors.card.border,
+      borderRadius: ComputedSettings.instance.borderRadius,
       borderStyle: "solid",
-      borderWidth: Settings.instance.borderWidth,
+      borderWidth: ComputedSettings.instance.borderWidth,
       height: this.props.cardSize.height,
       overflow: "hidden",
-      padding: Settings.instance.cardPadding,
+      padding: ComputedSettings.instance.cardPadding,
       width: this.props.cardSize.width
     }
   }
@@ -69,7 +70,7 @@ export class CardView extends Component<Props> {
   private get overlayStyle(): ViewStyle {
     return {
       backgroundColor: "#000",
-      borderRadius: Settings.instance.borderRadius,
+      borderRadius: ComputedSettings.instance.borderRadius,
       height: this.props.cardSize.height,
       opacity: this.overlayOpacity(),
       position: "absolute",
@@ -80,16 +81,16 @@ export class CardView extends Component<Props> {
   @computed
   private get shadowStyle(): ViewStyle {
     const shadowStyle: ViewStyle = {
-      borderRadius: Settings.instance.borderRadius,
+      borderRadius: ComputedSettings.instance.borderRadius,
       height: this.props.cardSize.height,
       width: this.props.cardSize.width
     }
     if (this.props.dragged) {
       Object.assign(shadowStyle, {
-        shadowColor: Settings.instance.colors.card.shadowColor,
-        shadowOffset: Settings.instance.cardShadowOffset,
-        shadowOpacity: Settings.instance.cardShadowOpacity,
-        shadowRadius: Settings.instance.cardShadowRadius
+        shadowColor: Settings.colors.card.shadowColor,
+        shadowOffset: ComputedSettings.instance.cardShadowOffset,
+        shadowOpacity: Settings.cardShadowOpacity,
+        shadowRadius: ComputedSettings.instance.cardShadowRadius
       })
     }
 

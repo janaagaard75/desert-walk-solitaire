@@ -17,6 +17,7 @@ import appJson from "../app.json"
 import "./ArrayExtensions"
 import { FooterView } from "./FooterView"
 import { GridView } from "./GridView"
+import { ComputedSettings } from "./model/ComputedSettings.js"
 import { Settings } from "./model/Settings"
 
 @observer
@@ -56,11 +57,11 @@ export default class MainView extends Component {
             <Image
               source={require("./50713-transparent.png")}
               style={{
-                backgroundColor: Settings.instance.colors.gridBackgroundColor,
-                height: Settings.instance.windowSize.height,
+                backgroundColor: Settings.colors.gridBackgroundColor,
+                height: ComputedSettings.instance.windowSize.height,
                 position: "absolute",
                 resizeMode: "repeat",
-                width: Settings.instance.windowSize.width
+                width: ComputedSettings.instance.windowSize.width
               }}
             />
             <GridView />
@@ -106,7 +107,7 @@ export default class MainView extends Component {
 
   private getMainStyle(): ViewStyle {
     return {
-      backgroundColor: Settings.instance.colors.mainBackgroundColor,
+      backgroundColor: Settings.colors.mainBackgroundColor,
       flex: 1,
       flexDirection: "column",
       position: "relative"
@@ -121,7 +122,7 @@ export default class MainView extends Component {
 
   private updateWindowSize() {
     const windowSize = Dimensions.get("window")
-    Settings.instance.windowSize = {
+    ComputedSettings.instance.windowSize = {
       height: windowSize.height,
       width: windowSize.width
     }
