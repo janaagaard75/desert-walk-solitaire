@@ -1,4 +1,3 @@
-import { computed } from "mobx"
 import { Suit } from "./Suit"
 import { SuitHelper } from "./SuitHelper"
 
@@ -7,10 +6,15 @@ export class Card {
     public readonly suit: Suit,
     public readonly value: number,
     public readonly next: Card | undefined
-  ) {}
+  ) {
+    this.displayValue = this.getDisplayValue()
+    this.key = this.getKey()
+  }
 
-  @computed
-  public get displayValue(): string {
+  public readonly displayValue: string
+  public readonly key: string
+
+  private getDisplayValue(): string {
     switch (this.value) {
       case 1:
         return "A"
@@ -29,8 +33,7 @@ export class Card {
     }
   }
 
-  @computed
-  public get key(): string {
+  private getKey(): string {
     const key = this.displayValue + SuitHelper.getCharacter(this.suit)
     return key
   }
