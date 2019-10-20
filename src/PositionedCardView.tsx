@@ -27,6 +27,7 @@ enum VisualState {
   Idle
 }
 
+// TODO: Split up into PositionedCardView and DraggableCardView.
 @observer
 export class PositionedCardView extends Component<Props> {
   public constructor(props: Props) {
