@@ -4,19 +4,8 @@ import { Suit } from "./Suit"
 
 export class Deck {
   private constructor() {
-    this._cards = []
-    for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
-      for (let value = Settings.maxCardValue; value >= 1; value--) {
-        const nextCard =
-          value === Settings.maxCardValue
-            ? undefined
-            : this._cards[this._cards.length - 1]
-
-        this._cards.push(new Card(suit, value, nextCard))
-      }
-    }
-
-    this._theFourAces = this.cards.filter(card => card.value === 1)
+    this.cards = this.getCards()
+    this.theFourAces = this.cards.filter(card => card.value === 1)
   }
 
   private static _instance: Deck
@@ -29,14 +18,20 @@ export class Deck {
     return this._instance
   }
 
-  private _cards: Array<Card>
-  private _theFourAces: Array<Card>
+  public cards: ReadonlyArray<Card>
+  public theFourAces: ReadonlyArray<Card>
 
-  public get cards(): ReadonlyArray<Card> {
-    return this._cards
-  }
+  private getCards(): ReadonlyArray<Card> {
+    const cards: Array<Card> = []
+    for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
+      for (let value = Settings.maxCardValue; value >= 1; value--) {
+        const nextCard =
+          value === Settings.maxCardValue ? undefined : cards[cards.length - 1]
 
-  public get theFourAces(): ReadonlyArray<Card> {
-    return this._theFourAces
+        cards.push(new Card(suit, value, nextCard))
+      }
+    }
+
+    return cards
   }
 }
