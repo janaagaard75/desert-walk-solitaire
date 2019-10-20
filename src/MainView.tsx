@@ -17,7 +17,7 @@ import appJson from "../app.json"
 import "./ArrayExtensions"
 import { FooterView } from "./FooterView"
 import { GridView } from "./GridView"
-import { ComputedSettings } from "./model/ComputedSettings.js"
+import { ComputedSettings } from "./model/ComputedSettings"
 import { Settings } from "./model/Settings"
 
 @observer
