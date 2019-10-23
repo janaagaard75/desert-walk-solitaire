@@ -8,6 +8,7 @@ import { Game } from "./model/Game"
 import { Point } from "./model/Point"
 import { PositionedCard } from "./model/PositionedCard"
 import { Size } from "./model/Size"
+import { VisualState } from "./VisualState"
 
 interface Props {
   cardSize: Size
@@ -16,7 +17,7 @@ interface Props {
 
 interface State {
   animatedPosition: Animated.ValueXY
-  animating: boolean
+  visualState: VisualState
 }
 
 @observer
@@ -26,7 +27,7 @@ export class PositionedCardView extends Component<Props, State> {
 
     this.state = {
       animatedPosition: new Animated.ValueXY(),
-      animating: false
+      visualState: VisualState.Idle
     }
 
     this.state.animatedPosition.addListener(position => {
@@ -76,13 +77,19 @@ export class PositionedCardView extends Component<Props, State> {
       <Animated.View
         style={{
           position: "absolute",
-          transform: this.state.animatedPosition.getTranslateTransform()
+          transform: this.state.animatedPosition.getTranslateTransform(),
+          zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
         }}
       >
         <DraggableCardView
-          animating={this.state.animating}
           cardSize={this.props.cardSize}
           positionedCard={this.props.positionedCard}
+          setVisualState={newState =>
+            this.setState({
+              visualState: newState
+            })
+          }
+          visualState={this.state.visualState}
         />
       </Animated.View>
     )

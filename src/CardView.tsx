@@ -15,7 +15,7 @@ interface Props {
   cardSize: Size
   correctlyPlaced: boolean
   draggable: boolean
-  dragged: boolean
+  dragging: boolean
 }
 
 @observer
@@ -85,7 +85,7 @@ export class CardView extends Component<Props> {
       height: this.props.cardSize.height,
       width: this.props.cardSize.width
     }
-    if (this.props.dragged) {
+    if (this.props.dragging) {
       Object.assign(shadowStyle, {
         shadowColor: Settings.colors.card.shadowColor,
         shadowOffset: ComputedSettings.instance.cardShadowOffset,

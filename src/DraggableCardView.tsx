@@ -12,22 +12,17 @@ import { Point } from "./model/Point"
 import { PositionedCard } from "./model/PositionedCard"
 import { Settings } from "./model/Settings"
 import { Size } from "./model/Size"
-
-enum VisualState {
-  Animating,
-  Dragging,
-  Idle
-}
+import { VisualState } from "./VisualState"
 
 interface Props {
-  animating: boolean
   cardSize: Size
   positionedCard: PositionedCard
+  setVisualState: (newState: VisualState) => void
+  visualState: VisualState
 }
 
 interface State {
   animatedPosition: Animated.ValueXY
-  visualState: VisualState
 }
 
 export class DraggableCardView extends Component<Props, State> {
@@ -35,8 +30,7 @@ export class DraggableCardView extends Component<Props, State> {
     super(props)
 
     this.state = {
-      animatedPosition: new Animated.ValueXY(),
-      visualState: VisualState.Idle
+      animatedPosition: new Animated.ValueXY()
     }
 
     this.panResponder = PanResponder.create({
@@ -57,9 +51,7 @@ export class DraggableCardView extends Component<Props, State> {
           this.state.animatedPosition.setValue(animationVector)
         }
 
-        this.setState({
-          visualState: VisualState.Animating
-        })
+        this.props.setVisualState(VisualState.Animating)
 
         const animationTargetValue = {
           x: 0,
@@ -71,10 +63,8 @@ export class DraggableCardView extends Component<Props, State> {
           easing: Easing.elastic(Settings.animation.snap.elasticity),
           toValue: animationTargetValue
         }).start(() => {
-          if (this.state.visualState !== VisualState.Dragging) {
-            this.setState({
-              visualState: VisualState.Idle
-            })
+          if (this.props.visualState !== VisualState.Dragging) {
+            this.props.setVisualState(VisualState.Idle)
           }
         })
       },
@@ -92,9 +82,7 @@ export class DraggableCardView extends Component<Props, State> {
         ])(e, gestureEvent)
       },
       onPanResponderStart: (_e, _gestureState) => {
-        this.setState({
-          visualState: VisualState.Dragging
-        })
+        this.props.setVisualState(VisualState.Dragging)
       },
       onStartShouldSetPanResponder: (_e, _gestureState) => true
     })
@@ -107,9 +95,7 @@ export class DraggableCardView extends Component<Props, State> {
     return (
       <Animated.View
         style={{
-          transform: this.state.animatedPosition.getTranslateTransform(),
-          // TODO: Fix z-index.
-          zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
+          transform: this.state.animatedPosition.getTranslateTransform()
         }}
         {...this.panResponder.panHandlers}
       >
@@ -118,7 +104,7 @@ export class DraggableCardView extends Component<Props, State> {
           cardSize={this.props.cardSize}
           correctlyPlaced={this.props.positionedCard.correctlyPlaced}
           draggable={this.isDraggable()}
-          dragged={this.state.visualState !== VisualState.Idle}
+          dragging={this.props.visualState === VisualState.Dragging}
         />
       </Animated.View>
     )
