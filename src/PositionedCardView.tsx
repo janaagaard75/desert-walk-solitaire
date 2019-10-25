@@ -22,8 +22,11 @@ export class PositionedCardView extends Component<Props, State> {
   public constructor(props: Props) {
     super(props)
 
+    // TODO: Setting an initial value instead of using the offset doesn't work, but why not?
     this.state = {
-      animatedPosition: new Animated.ValueXY(),
+      animatedPosition: new Animated.ValueXY(
+        this.props.positionedCard.position
+      ),
       visualState: VisualState.Idle
     }
   }
@@ -60,9 +63,33 @@ export class PositionedCardView extends Component<Props, State> {
   //   )
   // }
 
-  public render() {
-    this.state.animatedPosition.setOffset(this.props.positionedCard.position)
+  // TODO: Turn on animation.
+  // TODO: Turning this on probably also requires a listener on animatedPosition to know when the animation is done.
+  // public componentDidUpdate(prevProps: Props, _prevState: State) {
+  //   if (
+  //     this.props.positionedCard.position.equals(
+  //       prevProps.positionedCard.position
+  //     )
+  //   ) {
+  //     return
+  //   }
 
+  //   const animateFromOffset = prevProps.positionedCard.position.subtract(
+  //     this.props.positionedCard.position
+  //   )
+  //   this.state.animatedPosition.setValue(animateFromOffset)
+
+  //   this.setState({
+  //     visualState: VisualState.Animating
+  //   })
+
+  //   Animated.spring(this.state.animatedPosition, {
+  //     toValue: this.props.positionedCard.position,
+  //     useNativeDriver: true
+  //   }).start()
+  // }
+
+  public render() {
     return (
       <Animated.View
         style={{
