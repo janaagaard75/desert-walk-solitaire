@@ -89,7 +89,6 @@ export class DraggableCardView extends Component<Props, State> {
       onStartShouldSetPanResponder: (_e, _gestureState) => true
     })
 
-    // TODO: Avoid having to import ComputedSettings.
     this.state.animatedPosition.addListener(position => {
       const absolutePosition = this.props.positionedCard.position.add(position)
       const boundary = ComputedSettings.instance.getCardBoundary(
