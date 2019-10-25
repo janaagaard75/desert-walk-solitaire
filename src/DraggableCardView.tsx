@@ -7,6 +7,7 @@ import {
   PanResponderInstance
 } from "react-native"
 import { CardView } from "./CardView"
+import { ComputedSettings } from "./model/ComputedSettings"
 import { Game } from "./model/Game"
 import { Point } from "./model/Point"
 import { PositionedCard } from "./model/PositionedCard"
@@ -35,6 +36,7 @@ export class DraggableCardView extends Component<Props, State> {
 
     this.panResponder = PanResponder.create({
       onPanResponderEnd: (_e, gestureState) => {
+        // TODO: If the card has been dragged too far away, then never consider it a 'press'.
         const isPress =
           Math.abs(gestureState.dx) <= this.moveThreshold &&
           Math.abs(gestureState.dy) <= this.moveThreshold
@@ -85,6 +87,15 @@ export class DraggableCardView extends Component<Props, State> {
         this.props.setVisualState(VisualState.Dragging)
       },
       onStartShouldSetPanResponder: (_e, _gestureState) => true
+    })
+
+    // TODO: This doesn't work.
+    // TODO: Avoid having to import ComputedSettings.
+    this.state.animatedPosition.addListener(position => {
+      const boundary = ComputedSettings.instance.getCardBoundary(
+        new Point(position.x, position.y)
+      )
+      Game.instance.cardDragged(boundary)
     })
   }
 

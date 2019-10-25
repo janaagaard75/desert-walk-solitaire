@@ -3,9 +3,6 @@ import * as React from "react"
 import { Component } from "react"
 import { Animated } from "react-native"
 import { DraggableCardView } from "./DraggableCardView"
-import { ComputedSettings } from "./model/ComputedSettings"
-import { Game } from "./model/Game"
-import { Point } from "./model/Point"
 import { PositionedCard } from "./model/PositionedCard"
 import { Size } from "./model/Size"
 import { VisualState } from "./VisualState"
@@ -29,13 +26,6 @@ export class PositionedCardView extends Component<Props, State> {
       animatedPosition: new Animated.ValueXY(),
       visualState: VisualState.Idle
     }
-
-    this.state.animatedPosition.addListener(position => {
-      const boundary = ComputedSettings.instance.getCardBoundary(
-        new Point(position.x, position.y)
-      )
-      Game.instance.cardDragged(boundary)
-    })
   }
 
   // public UNSAFE_componentWillReceiveProps(nextProps: Props) {
