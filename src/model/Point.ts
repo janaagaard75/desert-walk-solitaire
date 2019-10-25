@@ -1,9 +1,18 @@
-export class Point {
+interface PointLike {
+  x: number
+  y: number
+}
+
+export class Point implements PointLike {
   public constructor(public x: number, public y: number) {}
 
-  public subtract(other: Point): Point {
-    const diff = new Point(this.x - other.x, this.y - other.y)
+  public add(other: PointLike): Point {
+    const sum = new Point(this.x + other.x, this.y + other.y)
+    return sum
+  }
 
+  public subtract(other: PointLike): Point {
+    const diff = new Point(this.x - other.x, this.y - other.y)
     return diff
   }
 
