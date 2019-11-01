@@ -75,7 +75,6 @@ export class DraggableCardView extends Component<Props, State> {
       },
       onPanResponderMove: (e, gestureEvent) => {
         Animated.event([
-          // tslint:disable-next-line:no-null-keyword
           null,
           {
             dx: this.state.animatedPosition.x,

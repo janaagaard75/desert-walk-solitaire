@@ -1,9 +1,7 @@
-// tslint:disable:no-implicit-dependencies
 import { Entypo, FontAwesome, Ionicons } from "@expo/vector-icons"
 import * as React from "react"
 import { Component } from "react"
 import { TouchableOpacity, View } from "react-native"
-// tslint:enable:no-implicit-dependencies
 import { TouchableState } from "./model/TouchableState"
 
 interface Props {
