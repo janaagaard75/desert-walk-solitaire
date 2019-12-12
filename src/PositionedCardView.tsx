@@ -42,7 +42,6 @@ export class PositionedCardView extends Component<Props, State> {
       onStartShouldSetPanResponder: (_e, _gestureState) => true,
       onPanResponderGrant: (_e, _gestureState) => {
         Game.instance.cardDragStarted(this.props.positionedCard)
-        // TODO: The card isn't positioned above the cards that have already been moved.
         this.setState({
           visualState: VisualState.Dragging
         })
@@ -85,8 +84,6 @@ export class PositionedCardView extends Component<Props, State> {
   private panResponder: PanResponderInstance
   private readonly moveThreshold = 4
 
-  // TODO: Turn on animation.
-  // TODO: Turning this on probably also requires a listener on animatedPosition to know when the animation is done.
   public componentDidUpdate(prevProps: Props, _prevState: State) {
     if (
       this.props.positionedCard.position.equals(
@@ -96,11 +93,6 @@ export class PositionedCardView extends Component<Props, State> {
       return
     }
 
-    // const animateFromOffset = prevProps.positionedCard.position.subtract(
-    //   this.props.positionedCard.position
-    // )
-    // this.state.animatedPosition.setValue(animateFromOffset)
-
     this.setState({
       visualState: VisualState.Animating
     })
@@ -108,7 +100,11 @@ export class PositionedCardView extends Component<Props, State> {
     Animated.spring(this.animatedPosition, {
       toValue: this.props.positionedCard.position,
       useNativeDriver: true
-    }).start()
+    }).start(() => {
+      this.setState({
+        visualState: VisualState.Idle
+      })
+    })
   }
 
   public render() {
