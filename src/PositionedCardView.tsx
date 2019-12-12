@@ -21,7 +21,6 @@ interface Props {
 }
 
 interface State {
-  animatedPosition: Animated.ValueXY
   visualState: VisualState
 }
 
@@ -32,11 +31,12 @@ export class PositionedCardView extends Component<Props, State> {
 
     // TODO: Setting an initial value instead of using the offset doesn't work, but why not?
     this.state = {
-      animatedPosition: new Animated.ValueXY(
-        this.props.positionedCard.position
-      ),
       visualState: VisualState.Idle
     }
+
+    this.animatedPosition = new Animated.ValueXY(
+      this.props.positionedCard.position
+    )
 
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (_e, _gestureState) => true,
@@ -47,7 +47,7 @@ export class PositionedCardView extends Component<Props, State> {
         })
       },
       onPanResponderMove: (_e, gestureState) => {
-        this.state.animatedPosition.setValue({
+        this.animatedPosition.setValue({
           x: this.props.positionedCard.position.x + gestureState.dx,
           y: this.props.positionedCard.position.y + gestureState.dy
         })
@@ -63,7 +63,7 @@ export class PositionedCardView extends Component<Props, State> {
           return
         }
 
-        Animated.timing(this.state.animatedPosition, {
+        Animated.timing(this.animatedPosition, {
           duration: Settings.animation.snap.duration,
           easing: Easing.elastic(Settings.animation.snap.elasticity),
           toValue: {
@@ -79,6 +79,7 @@ export class PositionedCardView extends Component<Props, State> {
     })
   }
 
+  private animatedPosition: Animated.ValueXY
   private panResponder: PanResponderInstance
   private readonly moveThreshold = 4
 
@@ -102,7 +103,7 @@ export class PositionedCardView extends Component<Props, State> {
       visualState: VisualState.Animating
     })
 
-    Animated.spring(this.state.animatedPosition, {
+    Animated.spring(this.animatedPosition, {
       toValue: this.props.positionedCard.position,
       useNativeDriver: true
     }).start()
@@ -113,7 +114,7 @@ export class PositionedCardView extends Component<Props, State> {
       <Animated.View
         style={{
           position: "absolute",
-          transform: this.state.animatedPosition.getTranslateTransform(),
+          transform: this.animatedPosition.getTranslateTransform(),
           zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
         }}
         // TODO: Only add panHandlers if isDraggable is true.
