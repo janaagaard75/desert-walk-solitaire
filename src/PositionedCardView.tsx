@@ -20,6 +20,7 @@ interface Props {
   positionedCard: PositionedCard
 }
 
+// TODO: Consider moving this value back to MobX.
 interface State {
   visualState: VisualState
 }
