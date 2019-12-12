@@ -116,6 +116,7 @@ export class PositionedCardView extends Component<Props, State> {
           transform: this.state.animatedPosition.getTranslateTransform(),
           zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
         }}
+        // TODO: Only add panHandlers if isDraggable is true.
         {...this.panResponder.panHandlers}
       >
         <CardView
