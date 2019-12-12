@@ -42,8 +42,6 @@ export class PositionedCardView extends Component<Props, State> {
       onStartShouldSetPanResponder: (_e, _gestureState) => true,
       onPanResponderGrant: (_e, _gestureState) => {
         Game.instance.cardDragStarted(this.props.positionedCard)
-      },
-      onPanResponderStart: (_e, _gestureState) => {
         this.setState({
           visualState: VisualState.Dragging
         })
@@ -73,11 +71,9 @@ export class PositionedCardView extends Component<Props, State> {
             y: this.props.positionedCard.position.y
           }
         }).start(() => {
-          if (this.state.visualState !== VisualState.Dragging) {
-            this.setState({
-              visualState: VisualState.Idle
-            })
-          }
+          this.setState({
+            visualState: VisualState.Idle
+          })
         })
       }
     })
