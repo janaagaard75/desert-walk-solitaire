@@ -39,8 +39,23 @@ export class PositionedCardView extends Component<Props, State> {
     }
 
     this.panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: (_e, _gestureState) => true,
+      onPanResponderGrant: (_e, _gestureState) => {
+        Game.instance.cardDragStarted(this.props.positionedCard)
+      },
+      onPanResponderStart: (_e, _gestureState) => {
+        this.setState({
+          visualState: VisualState.Dragging
+        })
+      },
+      onPanResponderMove: (_e, gestureState) => {
+        this.state.animatedPosition.setValue({
+          x: this.props.positionedCard.position.x + gestureState.dx,
+          y: this.props.positionedCard.position.y + gestureState.dy
+        })
+      },
       onPanResponderEnd: (_e, gestureState) => {
-        // TODO: If the card has been dragged too far away, then never consider it a 'press'.
+        // TODO: If the card has been dragged too far away, then never consider it a 'press' even if it's dropped close to the starting position.
         const isPress =
           Math.abs(gestureState.dx) <= this.moveThreshold &&
           Math.abs(gestureState.dy) <= this.moveThreshold
@@ -77,25 +92,7 @@ export class PositionedCardView extends Component<Props, State> {
             })
           }
         })
-      },
-      onPanResponderGrant: (_e, _gestureState) => {
-        Game.instance.cardDragStarted(this.props.positionedCard)
-      },
-      onPanResponderMove: (e, gestureEvent) => {
-        Animated.event([
-          null,
-          {
-            dx: this.state.animatedPosition.x,
-            dy: this.state.animatedPosition.y
-          }
-        ])(e, gestureEvent)
-      },
-      onPanResponderStart: (_e, _gestureState) => {
-        this.setState({
-          visualState: VisualState.Dragging
-        })
-      },
-      onStartShouldSetPanResponder: (_e, _gestureState) => true
+      }
     })
   }
 
