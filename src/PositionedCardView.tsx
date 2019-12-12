@@ -42,6 +42,7 @@ export class PositionedCardView extends Component<Props, State> {
       onStartShouldSetPanResponder: (_e, _gestureState) => true,
       onPanResponderGrant: (_e, _gestureState) => {
         Game.instance.cardDragStarted(this.props.positionedCard)
+        // TODO: The card isn't positioned above the cards that have already been moved.
         this.setState({
           visualState: VisualState.Dragging
         })
@@ -70,6 +71,7 @@ export class PositionedCardView extends Component<Props, State> {
             x: this.props.positionedCard.position.x,
             y: this.props.positionedCard.position.y
           }
+          // TODO: Consider using 'useNativeDriver: true'.
         }).start(() => {
           this.setState({
             visualState: VisualState.Idle
