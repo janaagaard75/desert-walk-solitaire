@@ -76,6 +76,8 @@ export class PositionedCardView extends Component<Props, State> {
             visualState: VisualState.Idle
           })
         })
+
+        // TODO: The app sometimes crashes when letting go of a card.
       }
     })
   }
