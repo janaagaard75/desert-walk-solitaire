@@ -55,36 +55,23 @@ export class PositionedCardView extends Component<Props, State> {
         })
       },
       onPanResponderEnd: (_e, gestureState) => {
-        // TODO: If the card has been dragged too far away, then never consider it a 'press' even if it's dropped close to the starting position.
+        // TODO: The isPress logic does not take into account that the card might have been dragged away and the back to the original position, when letting go. If that has happened, this is not a 'press'.
         const isPress =
           Math.abs(gestureState.dx) <= this.moveThreshold &&
           Math.abs(gestureState.dy) <= this.moveThreshold
 
-        const animationVector = isPress
-          ? this.moveToTarget()
-          : Game.instance.cardDropped()
-
-        const duration = isPress
-          ? Settings.animation.turn.duration
-          : Settings.animation.snap.duration
-
-        if (animationVector !== undefined) {
-          this.state.animatedPosition.setValue(animationVector)
-        }
-
-        this.setState({
-          visualState: VisualState.Animating
-        })
-
-        const animationTargetValue = {
-          x: 0,
-          y: 0
+        if (isPress) {
+          this.moveToTarget()
+          return
         }
 
         Animated.timing(this.state.animatedPosition, {
-          duration: duration,
+          duration: Settings.animation.snap.duration,
           easing: Easing.elastic(Settings.animation.snap.elasticity),
-          toValue: animationTargetValue
+          toValue: {
+            x: this.props.positionedCard.position.x,
+            y: this.props.positionedCard.position.y
+          }
         }).start(() => {
           if (this.state.visualState !== VisualState.Dragging) {
             this.setState({
