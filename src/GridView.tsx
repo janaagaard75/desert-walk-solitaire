@@ -23,7 +23,7 @@ export class GridView extends Component {
           <PositionedCardView
             key={positionedCard.card.key}
             cardSize={ComputedSettings.instance.cardSize}
-            draggable={this.isDraggable(positionedCard.card)}
+            draggable={GridView.isDraggable(positionedCard.card)}
             positionedCard={positionedCard}
           />
         ))}
@@ -34,7 +34,7 @@ export class GridView extends Component {
     )
   }
 
-  private isDraggable(card: Card): boolean {
+  private static isDraggable(card: Card): boolean {
     const draggable = Game.instance.currentGridState.draggableCards.includes(
       card
     )
