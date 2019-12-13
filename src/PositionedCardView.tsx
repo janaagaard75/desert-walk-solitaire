@@ -1,4 +1,3 @@
-import { observer } from "mobx-react"
 import * as React from "react"
 import { Component } from "react"
 import {
@@ -17,15 +16,14 @@ import { VisualState } from "./VisualState"
 
 interface Props {
   cardSize: Size
+  draggable: boolean
   positionedCard: PositionedCard
 }
 
-// TODO: Consider moving this value back to MobX.
 interface State {
   visualState: VisualState
 }
 
-@observer
 export class PositionedCardView extends Component<Props, State> {
   public constructor(props: Props) {
     super(props)
@@ -39,7 +37,7 @@ export class PositionedCardView extends Component<Props, State> {
       this.props.positionedCard.position
     )
 
-    this.panResponder = this.isDraggable()
+    this.panResponder = this.props.draggable
       ? PanResponder.create({
           onStartShouldSetPanResponder: (_e, _gestureState) => true,
           onPanResponderGrant: (_e, _gestureState) => {
@@ -129,19 +127,11 @@ export class PositionedCardView extends Component<Props, State> {
           card={this.props.positionedCard.card}
           cardSize={this.props.cardSize}
           correctlyPlaced={this.props.positionedCard.correctlyPlaced}
-          draggable={this.isDraggable()}
+          draggable={this.props.draggable}
           dragging={this.state.visualState === VisualState.Dragging}
         />
       </Animated.View>
     )
-  }
-
-  // TODO: This isn't updated as it should be.
-  private isDraggable(): boolean {
-    const draggable = Game.instance.currentGridState.draggableCards.some(
-      card => card === this.props.positionedCard.card
-    )
-    return draggable
   }
 
   /** Moves the card to the first available target. This is only called on cards that are draggable. Returns the vector used for the animating the move. */
