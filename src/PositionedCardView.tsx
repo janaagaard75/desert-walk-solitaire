@@ -70,8 +70,8 @@ export class PositionedCardView extends Component<Props, State> {
           toValue: {
             x: this.props.positionedCard.position.x,
             y: this.props.positionedCard.position.y
-          }
-          // TODO: Consider using 'useNativeDriver: true'.
+          },
+          useNativeDriver: true
         }).start(() => {
           this.setState({
             visualState: VisualState.Idle
