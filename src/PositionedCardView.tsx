@@ -39,52 +39,54 @@ export class PositionedCardView extends Component<Props, State> {
       this.props.positionedCard.position
     )
 
-    this.panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: (_e, _gestureState) => true,
-      onPanResponderGrant: (_e, _gestureState) => {
-        Game.instance.cardDragStarted(this.props.positionedCard)
-        this.setState({
-          visualState: VisualState.Dragging
-        })
-      },
-      onPanResponderMove: (_e, gestureState) => {
-        this.animatedPosition.setValue({
-          x: this.props.positionedCard.position.x + gestureState.dx,
-          y: this.props.positionedCard.position.y + gestureState.dy
-        })
-      },
-      onPanResponderEnd: (_e, gestureState) => {
-        // TODO: The isPress logic does not take into account that the card might have been dragged away and the back to the original position, when letting go. If that has happened, this is not a 'press'.
-        const isPress =
-          Math.abs(gestureState.dx) <= this.moveThreshold &&
-          Math.abs(gestureState.dy) <= this.moveThreshold
-
-        if (isPress) {
-          this.moveToTarget()
-          return
-        }
-
-        Animated.timing(this.animatedPosition, {
-          duration: Settings.animation.snap.duration,
-          easing: Easing.elastic(Settings.animation.snap.elasticity),
-          toValue: {
-            x: this.props.positionedCard.position.x,
-            y: this.props.positionedCard.position.y
+    this.panResponder = this.isDraggable()
+      ? PanResponder.create({
+          onStartShouldSetPanResponder: (_e, _gestureState) => true,
+          onPanResponderGrant: (_e, _gestureState) => {
+            Game.instance.cardDragStarted(this.props.positionedCard)
+            this.setState({
+              visualState: VisualState.Dragging
+            })
           },
-          useNativeDriver: true
-        }).start(() => {
-          this.setState({
-            visualState: VisualState.Idle
-          })
-        })
+          onPanResponderMove: (_e, gestureState) => {
+            this.animatedPosition.setValue({
+              x: this.props.positionedCard.position.x + gestureState.dx,
+              y: this.props.positionedCard.position.y + gestureState.dy
+            })
+          },
+          onPanResponderEnd: (_e, gestureState) => {
+            // TODO: The isPress logic does not take into account that the card might have been dragged away and the back to the original position, when letting go. If that has happened, this is not a 'press'.
+            const isPress =
+              Math.abs(gestureState.dx) <= this.moveThreshold &&
+              Math.abs(gestureState.dy) <= this.moveThreshold
 
-        // TODO: The app sometimes crashes when letting go of a card.
-      }
-    })
+            if (isPress) {
+              this.moveToTarget()
+              return
+            }
+
+            Animated.timing(this.animatedPosition, {
+              duration: Settings.animation.snap.duration,
+              easing: Easing.elastic(Settings.animation.snap.elasticity),
+              toValue: {
+                x: this.props.positionedCard.position.x,
+                y: this.props.positionedCard.position.y
+              },
+              useNativeDriver: true
+            }).start(() => {
+              this.setState({
+                visualState: VisualState.Idle
+              })
+            })
+
+            // TODO: The app sometimes crashes when letting go of a card.
+          }
+        })
+      : undefined
   }
 
   private animatedPosition: Animated.ValueXY
-  private panResponder: PanResponderInstance
+  private panResponder: PanResponderInstance | undefined
   private readonly moveThreshold = 4
 
   public componentDidUpdate(prevProps: Props, _prevState: State) {
@@ -119,7 +121,9 @@ export class PositionedCardView extends Component<Props, State> {
           zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
         }}
         // TODO: Only add panHandlers if isDraggable is true.
-        {...this.panResponder.panHandlers}
+        {...(this.panResponder === undefined
+          ? undefined
+          : this.panResponder.panHandlers)}
       >
         <CardView
           card={this.props.positionedCard.card}
@@ -132,6 +136,7 @@ export class PositionedCardView extends Component<Props, State> {
     )
   }
 
+  // TODO: This isn't updated as it should be.
   private isDraggable(): boolean {
     const draggable = Game.instance.currentGridState.draggableCards.some(
       card => card === this.props.positionedCard.card
