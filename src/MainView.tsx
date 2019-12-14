@@ -68,6 +68,7 @@ export class MainView extends Component {
           </View>
         </TouchableWithoutFeedback>
         <FooterView />
+        {/* TODO: Bigger gutter if iPhone X or iPad Pro. */}
         {isIphoneX() ? (
           <View
             style={{
