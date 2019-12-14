@@ -3,7 +3,6 @@ import * as React from "react"
 import { Component } from "react"
 import { View, ViewStyle } from "react-native"
 import { EmptyCellView } from "./EmptyCellView"
-import { Card } from "./model/Card"
 import { ComputedSettings } from "./model/ComputedSettings"
 import { Game } from "./model/Game"
 import { PositionedCardView } from "./PositionedCardView"
@@ -23,7 +22,6 @@ export class GridView extends Component {
           <PositionedCardView
             key={positionedCard.card.key}
             cardSize={ComputedSettings.instance.cardSize}
-            draggable={GridView.isDraggable(positionedCard.card)}
             positionedCard={positionedCard}
           />
         ))}
@@ -32,12 +30,5 @@ export class GridView extends Component {
         ))}
       </View>
     )
-  }
-
-  private static isDraggable(card: Card): boolean {
-    const draggable = Game.instance.currentGridState.draggableCards.includes(
-      card
-    )
-    return draggable
   }
 }
