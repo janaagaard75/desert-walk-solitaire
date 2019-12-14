@@ -85,6 +85,7 @@ export class PositionedCardView extends Component<Props> {
 
   private animatedPosition: Animated.ValueXY
   private panResponder: PanResponderInstance
+  // TODO: Bigger threshold, perhaps mainly on bigger screens?
   private readonly moveThreshold = 4
   @observable private visualState: VisualState
 
