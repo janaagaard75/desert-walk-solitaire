@@ -1,17 +1,14 @@
-interface PointLike {
-  x: number
-  y: number
-}
+import { PointInterface } from "./PointInterface"
 
-export class Point implements PointLike {
+export class Point implements PointInterface {
   public constructor(public x: number, public y: number) {}
 
-  public add(other: PointLike): Point {
+  public add(other: PointInterface): Point {
     const sum = new Point(this.x + other.x, this.y + other.y)
     return sum
   }
 
-  public subtract(other: PointLike): Point {
+  public subtract(other: PointInterface): Point {
     const diff = new Point(this.x - other.x, this.y - other.y)
     return diff
   }

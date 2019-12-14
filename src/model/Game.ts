@@ -278,10 +278,8 @@ export class Game {
     this.draggedCardBoundary = fromCell.boundary
   }
 
-  /** Returns the offset from dragged card to the droppable target and sets `draggingFromCell` and `draggedCardBoundary` to `undefined`. Returns `undefined` if the dragged card is not hovering over a droppable target. */
-  public cardDropped(): Point | undefined {
-    const dropOffset = this.dropOffset
-
+  /** Called when a drag is ended. If the card is hovering over a droppable target a move turn is performed. `draggingFromCell` and `draggedCardBoundary` are always reset to `undefined`. Returns true if dropped over a droppable target. */
+  public cardDropped(): boolean {
     if (
       this.draggingFromCell !== undefined &&
       this.mostOverlappedDroppableCell !== undefined &&
@@ -293,12 +291,15 @@ export class Game {
           this.mostOverlappedDroppableCell
         )
       )
+
+      this.draggingFromCell = undefined
+      this.draggedCardBoundary = undefined
+      return true
     }
 
     this.draggingFromCell = undefined
     this.draggedCardBoundary = undefined
-
-    return dropOffset
+    return false
   }
 
   /** Moves a card to the first targetable cell. Aces are the only cards that can have multiple targets. Returns a vector pointing from the source cell to the target cell, used to animate the move. */

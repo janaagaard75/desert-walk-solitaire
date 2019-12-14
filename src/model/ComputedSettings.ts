@@ -1,6 +1,6 @@
 import { computed, observable } from "mobx"
 import { isIphoneX } from "react-native-iphone-x-helper"
-import { Point } from "./Point"
+import { PointInterface } from "./PointInterface"
 import { Rectangle } from "./Rectangle"
 import { Settings } from "./Settings"
 import { Size } from "./Size"
@@ -238,8 +238,8 @@ export class ComputedSettings {
     }
   }
 
-  // TODO: Move this method to somewhere else, more appropriate.
-  public getCardBoundary(position: Point): Rectangle {
+  // TODO: Move this method to somewhere else, more appropriate. static method on PositionedCard?
+  public getCardBoundary(position: PointInterface): Rectangle {
     const boundary = new Rectangle(
       position.x,
       position.x + this.cardSize.width,

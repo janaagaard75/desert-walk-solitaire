@@ -9,6 +9,7 @@ import {
   PanResponderInstance
 } from "react-native"
 import { CardView } from "./CardView"
+import { ComputedSettings } from "./model/ComputedSettings"
 import { Game } from "./model/Game"
 import { Point } from "./model/Point"
 import { PositionedCard } from "./model/PositionedCard"
@@ -30,7 +31,6 @@ export class PositionedCardView extends Component<Props, State> {
   public constructor(props: Props) {
     super(props)
 
-    // TODO: Setting an initial value instead of using the offset doesn't work, but why not?
     this.state = {
       visualState: VisualState.Idle
     }
@@ -38,6 +38,11 @@ export class PositionedCardView extends Component<Props, State> {
     this.animatedPosition = new Animated.ValueXY(
       this.props.positionedCard.position
     )
+
+    this.animatedPosition.addListener(position => {
+      const boundary = ComputedSettings.instance.getCardBoundary(position)
+      Game.instance.cardDragged(boundary)
+    })
 
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (_e, _gestureState) => true,
@@ -61,6 +66,10 @@ export class PositionedCardView extends Component<Props, State> {
 
         if (isPress) {
           this.moveToTarget()
+          return
+        }
+
+        if (Game.instance.cardDropped()) {
           return
         }
 
