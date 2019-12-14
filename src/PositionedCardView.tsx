@@ -9,19 +9,20 @@ import {
   PanResponderInstance
 } from "react-native"
 import { CardView } from "./CardView"
+import { ComputedSettings } from "./model/ComputedSettings"
 import { Game } from "./model/Game"
-import { Point } from "./model/Point"
 import { PositionedCard } from "./model/PositionedCard"
 import { Settings } from "./model/Settings"
+import { Size } from "./model/Size"
+import { VisualState } from "./VisualState"
 
 interface Props {
+  cardSize: Size
   positionedCard: PositionedCard
 }
 
-enum VisualState {
-  Animating,
-  Dragging,
-  Idle
+interface State {
+  visualState: VisualState
 }
 
 @observer
@@ -29,93 +30,99 @@ export class PositionedCardView extends Component<Props> {
   public constructor(props: Props) {
     super(props)
 
-    this.animatedPosition = new Animated.ValueXY()
+    this.visualState = VisualState.Idle
+
+    this.animatedPosition = new Animated.ValueXY(
+      this.props.positionedCard.position
+    )
+
+    this.animatedPosition.addListener(position => {
+      const boundary = ComputedSettings.instance.getCardBoundary(position)
+      Game.instance.cardDragged(boundary)
+    })
 
     this.panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: (_e, _gestureState) => true,
+      onPanResponderGrant: (_e, _gestureState) => {
+        Game.instance.cardDragStarted(this.props.positionedCard)
+        this.visualState = VisualState.Dragging
+      },
+      onPanResponderMove: (_e, gestureState) => {
+        this.animatedPosition.setValue({
+          x: this.props.positionedCard.position.x + gestureState.dx,
+          y: this.props.positionedCard.position.y + gestureState.dy
+        })
+      },
       onPanResponderEnd: (_e, gestureState) => {
+        // TODO: The isPress logic does not take into account that the card might have been dragged away and the back to the original position, when letting go. If that has happened, this is not a 'press'.
         const isPress =
           Math.abs(gestureState.dx) <= this.moveThreshold &&
           Math.abs(gestureState.dy) <= this.moveThreshold
 
-        const animationVector = isPress
-          ? this.moveToTarget()
-          : Game.instance.cardDropped()
-
-        const duration = isPress
-          ? Settings.instance.animation.turn.duration
-          : Settings.instance.animation.snap.duration
-
-        if (animationVector !== undefined) {
-          this.animatedPosition.setValue(animationVector)
+        if (isPress) {
+          this.moveToTarget()
+          return
         }
 
-        this.visualState = VisualState.Animating
-
-        const animationTargetValue = {
-          x: 0,
-          y: 0
+        if (Game.instance.cardDropped()) {
+          return
         }
 
         Animated.timing(this.animatedPosition, {
-          duration: duration,
-          easing: Easing.elastic(Settings.instance.animation.snap.elasticity),
-          toValue: animationTargetValue
+          duration: Settings.animation.snap.duration,
+          easing: Easing.elastic(Settings.animation.snap.elasticity),
+          toValue: {
+            x: this.props.positionedCard.position.x,
+            y: this.props.positionedCard.position.y
+          },
+          useNativeDriver: true
         }).start(() => {
-          if (this.visualState !== VisualState.Dragging) {
-            this.visualState = VisualState.Idle
-          }
+          this.visualState = VisualState.Idle
         })
-      },
-      onPanResponderGrant: (_e, _gestureState) => {
-        Game.instance.cardDragStarted(this.props.positionedCard)
-      },
-      onPanResponderMove: (e, gestureEvent) => {
-        Animated.event([
-          // tslint:disable-next-line:no-null-keyword
-          null,
-          {
-            dx: this.animatedPosition.x,
-            dy: this.animatedPosition.y
-          }
-        ])(e, gestureEvent)
-      },
-      onPanResponderStart: (_e, _gestureState) => {
-        this.visualState = VisualState.Dragging
-      },
-      onStartShouldSetPanResponder: (_e, _gestureState) => true
-    })
-
-    this.animatedPosition.addListener(position => {
-      const boundary = CardView.getBoundary(new Point(position.x, position.y))
-      Game.instance.cardDragged(boundary)
+      }
     })
   }
 
   private animatedPosition: Animated.ValueXY
-  private readonly moveThreshold = 4
   private panResponder: PanResponderInstance
-  @observable private visualState: VisualState = VisualState.Idle
+  private readonly moveThreshold = 4
+  @observable private visualState: VisualState
 
-  public render() {
-    this.animatedPosition.setOffset(this.props.positionedCard.position)
-
-    const style = {
-      position: "absolute",
-      transform: this.animatedPosition.getTranslateTransform(),
-      zIndex: this.visualState === VisualState.Idle ? 1 : 2
+  public componentDidUpdate(prevProps: Props, _prevState: State) {
+    if (
+      this.props.positionedCard.position.equals(
+        prevProps.positionedCard.position
+      )
+    ) {
+      return
     }
 
-    const panHandlers = this.draggable
-      ? this.panResponder.panHandlers
-      : undefined
+    this.visualState = VisualState.Animating
 
+    Animated.spring(this.animatedPosition, {
+      toValue: this.props.positionedCard.position,
+      useNativeDriver: true
+    }).start(() => {
+      this.visualState = VisualState.Idle
+    })
+  }
+
+  public render() {
     return (
-      <Animated.View style={style} {...panHandlers}>
+      <Animated.View
+        style={{
+          position: "absolute",
+          transform: this.animatedPosition.getTranslateTransform(),
+          zIndex: this.visualState === VisualState.Idle ? 1 : 2
+        }}
+        {...(this.draggable ? this.panResponder.panHandlers : undefined)}
+      >
         <CardView
           card={this.props.positionedCard.card}
+          cardSize={this.props.cardSize}
           correctlyPlaced={this.props.positionedCard.correctlyPlaced}
           draggable={this.draggable}
-          dragged={this.visualState !== VisualState.Idle}
+          dragging={this.visualState === VisualState.Dragging}
         />
       </Animated.View>
     )
@@ -123,14 +130,14 @@ export class PositionedCardView extends Component<Props> {
 
   @computed
   private get draggable(): boolean {
-    const draggable = Game.instance.currentGridState.draggableCards.some(
-      card => card === this.props.positionedCard.card
+    const draggable = Game.instance.currentGridState.draggableCards.includes(
+      this.props.positionedCard.card
     )
     return draggable
   }
 
   /** Moves the card to the first available target. This is only called on cards that are draggable. Returns the vector used for the animating the move. */
-  private moveToTarget(): Point {
-    return Game.instance.moveCardToFirstTarget(this.props.positionedCard)
+  private moveToTarget(): void {
+    Game.instance.moveCardToFirstTarget(this.props.positionedCard)
   }
 }

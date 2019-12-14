@@ -3,17 +3,17 @@ import * as React from "react"
 import { Component } from "react"
 import { View, ViewStyle } from "react-native"
 import { EmptyCellView } from "./EmptyCellView"
+import { ComputedSettings } from "./model/ComputedSettings"
 import { Game } from "./model/Game"
-import { Settings } from "./model/Settings"
 import { PositionedCardView } from "./PositionedCardView"
 
 @observer
 export class GridView extends Component {
   public render() {
     const gridViewStyle: ViewStyle = {
-      height: Settings.instance.gridSize.height,
+      height: ComputedSettings.instance.gridSize.height,
       position: "relative",
-      width: Settings.instance.gridSize.width
+      width: ComputedSettings.instance.gridSize.width
     }
 
     return (
@@ -21,6 +21,7 @@ export class GridView extends Component {
         {Game.instance.currentGridState.positionedCards.map(positionedCard => (
           <PositionedCardView
             key={positionedCard.card.key}
+            cardSize={ComputedSettings.instance.cardSize}
             positionedCard={positionedCard}
           />
         ))}

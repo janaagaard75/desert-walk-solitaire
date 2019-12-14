@@ -3,10 +3,10 @@ import { observer } from "mobx-react"
 import * as React from "react"
 import { Component } from "react"
 import { View, ViewStyle } from "react-native"
+import { ComputedSettings } from "./model/ComputedSettings"
 import { EmptyCell } from "./model/EmptyCell"
 import { EmptyCellState } from "./model/EmptyCellState"
 import { Game } from "./model/Game"
-import { Settings } from "./model/Settings"
 
 interface Props {
   emptyCell: EmptyCell
@@ -50,14 +50,14 @@ export class EmptyCellView extends Component<Props> {
 
     const emptyCellStyle: ViewStyle = {
       borderColor: color,
-      borderRadius: Settings.instance.borderRadius,
+      borderRadius: ComputedSettings.instance.borderRadius,
       borderStyle: style,
       borderWidth: width,
-      height: Settings.instance.cardSize.height,
+      height: ComputedSettings.instance.cardSize.height,
       left: this.props.emptyCell.cell.position.x,
       position: "absolute",
       top: this.props.emptyCell.cell.position.y,
-      width: Settings.instance.cardSize.width
+      width: ComputedSettings.instance.cardSize.width
     }
 
     return <View style={emptyCellStyle} />
@@ -73,14 +73,14 @@ export class EmptyCellView extends Component<Props> {
         return [undefined, undefined, 0]
 
       case EmptyCellState.TargetableCellButNotMostOverlapped:
-        return ["white", "dashed", Settings.instance.borderWidth]
+        return ["white", "dashed", ComputedSettings.instance.borderWidth]
 
       case EmptyCellState.DropAllowedButNoCardIsBeingDragged:
       case EmptyCellState.DropAllowedButNotTargetableCell:
-        return ["black", "dashed", Settings.instance.borderWidth]
+        return ["black", "dashed", ComputedSettings.instance.borderWidth]
 
       case EmptyCellState.MostOverlappedTargetableCell:
-        return ["white", "solid", Settings.instance.borderWidth]
+        return ["white", "solid", ComputedSettings.instance.borderWidth]
     }
   }
 }

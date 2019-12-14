@@ -1,10 +1,12 @@
-import { computed } from "mobx"
 import { Card } from "./Card"
 import { Settings } from "./Settings"
 import { Suit } from "./Suit"
 
 export class Deck {
-  private constructor() {}
+  private constructor() {
+    this.cards = this.getCards()
+    this.theFourAces = this.cards.filter(card => card.value === 1)
+  }
 
   private static _instance: Deck
 
@@ -16,26 +18,20 @@ export class Deck {
     return this._instance
   }
 
-  @computed
-  public get cards(): ReadonlyArray<Card> {
+  public cards: ReadonlyArray<Card>
+  public theFourAces: ReadonlyArray<Card>
+
+  private getCards(): ReadonlyArray<Card> {
     const cards: Array<Card> = []
     for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
-      for (let value = Settings.instance.maxCardValue; value >= 1; value--) {
+      for (let value = Settings.maxCardValue; value >= 1; value--) {
         const nextCard =
-          value === Settings.instance.maxCardValue
-            ? undefined
-            : cards[cards.length - 1]
+          value === Settings.maxCardValue ? undefined : cards[cards.length - 1]
 
         cards.push(new Card(suit, value, nextCard))
       }
     }
 
     return cards
-  }
-
-  @computed
-  public get theFourAces(): ReadonlyArray<Card> {
-    const theFourAces = this.cards.filter(card => card.value === 1)
-    return theFourAces
   }
 }

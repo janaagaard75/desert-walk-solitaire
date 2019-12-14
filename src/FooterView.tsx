@@ -12,7 +12,7 @@ import { TouchableIcon } from "./TouchableIcon"
 export class FooterView extends Component {
   public render() {
     const buttonWrapperStyle: ViewStyle = {
-      backgroundColor: Settings.instance.colors.mainBackgroundColor,
+      backgroundColor: Settings.colors.mainBackgroundColor,
       flexDirection: "row",
       flexWrap: "wrap"
     }
@@ -20,7 +20,7 @@ export class FooterView extends Component {
     return (
       <View
         style={{
-          backgroundColor: Settings.instance.colors.mainBackgroundColor,
+          backgroundColor: Settings.colors.mainBackgroundColor,
           paddingBottom: 14, // TODO: Remove the need for this value. Tweaked manually to make it fit.
           paddingTop: 4
         }}

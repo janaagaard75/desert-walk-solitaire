@@ -1,6 +1,6 @@
 import { computed } from "mobx"
-import { CardView } from "../CardView"
 import { Cell } from "./Cell"
+import { ComputedSettings } from "./ComputedSettings"
 import { EmptyCell } from "./EmptyCell"
 import { GridState } from "./GridState"
 import { Point } from "./Point"
@@ -12,7 +12,7 @@ export abstract class GridCell {
 
   @computed
   public get boundary(): Rectangle {
-    const boundary = CardView.getBoundary(this.position)
+    const boundary = ComputedSettings.instance.getCardBoundary(this.position)
     return boundary
   }
 

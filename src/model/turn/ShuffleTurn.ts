@@ -13,7 +13,7 @@ export class ShuffleTurn extends Turn {
     const cellsExcludingLastColumn = gridState.incorrectlyPositionedCards
       .map(pair => pair.cell)
       .concat(gridState.emptyCells.map(emptyCell => emptyCell.cell))
-      .filter(cell => cell.columnIndex !== Settings.instance.columns - 1)
+      .filter(cell => cell.columnIndex !== Settings.columns - 1)
 
     if (shuffledCards.length !== cellsExcludingLastColumn.length) {
       throw new Error(

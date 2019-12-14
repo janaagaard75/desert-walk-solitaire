@@ -6,7 +6,6 @@ import { Deck } from "./Deck"
 import { GameState } from "./GameState"
 import { Grid } from "./Grid"
 import { GridState } from "./GridState"
-import { Point } from "./Point"
 import { PositionedCard } from "./PositionedCard"
 import { Rectangle } from "./Rectangle"
 import { Settings } from "./Settings"
@@ -90,12 +89,12 @@ export class Game {
 
     if (
       this.currentGridState.correctlyPositionedCards.length ===
-      Settings.instance.numberOfCards
+      Settings.numberOfCards
     ) {
       return GameState.Won
     }
 
-    if (this.shuffles < Settings.instance.numberOfShuffles) {
+    if (this.shuffles < Settings.numberOfShuffles) {
       return GameState.Stuck
     }
 
@@ -195,7 +194,7 @@ export class Game {
     return this._currentStateIndex
   }
 
-  /** Returns the list of cells that the current card can be dropped on. This includes the cell being dragged from. See `tagetableCells`. */
+  /** Returns the list of cells that the current card can be dropped on. This includes the cell being dragged from. See `targetableCells`. */
   @computed
   private get droppableCells(): Array<Cell> {
     if (this.draggingFromCell === undefined) {
@@ -206,36 +205,6 @@ export class Game {
       this.draggingFromCell.cell
     )
     return droppableCells
-  }
-
-  /** Returns the offset of the dragged card to the droppable target. Returns `undefined` if the dragged card is not hovering over a droppable target. */
-  @computed
-  private get dropOffset(): Point | undefined {
-    if (this.draggingFromCell === undefined) {
-      throw new Error("draggingFromCell must be defined when handling a drop.")
-    }
-
-    if (this.draggedCardBoundary === undefined) {
-      throw new Error(
-        "draggedCardBoundary must be defined when handling a drop."
-      )
-    }
-
-    const targetCell = this.mostOverlappedDroppableCell
-    if (targetCell === undefined) {
-      return undefined
-    }
-
-    if (targetCell === this.draggingFromCell.cell) {
-      return undefined
-    }
-
-    const dropOffset = new Point(
-      this.draggedCardBoundary.x1 - targetCell.position.x,
-      this.draggedCardBoundary.y1 - targetCell.position.y
-    )
-
-    return dropOffset
   }
 
   @computed
@@ -264,7 +233,7 @@ export class Game {
     if (this.gameState === GameState.Won && !this.replayShown) {
       setTimeout(
         () => this.replay(),
-        Settings.instance.animation.replay.delayBeforeAutoReplay
+        Settings.animation.replay.delayBeforeAutoReplay
       )
     }
   }
@@ -278,10 +247,8 @@ export class Game {
     this.draggedCardBoundary = fromCell.boundary
   }
 
-  /** Returns the offset from dragged card to the droppable target and sets `draggingFromCell` and `draggedCardBoundary` to `undefined`. Returns `undefined` if the dragged card is not hovering over a droppable target. */
-  public cardDropped(): Point | undefined {
-    const dropOffset = this.dropOffset
-
+  /** Called when a drag is ended. If the card is hovering over a droppable target a move turn is performed. `draggingFromCell` and `draggedCardBoundary` are always reset to `undefined`. Returns true if dropped over a droppable target. */
+  public cardDropped(): boolean {
     if (
       this.draggingFromCell !== undefined &&
       this.mostOverlappedDroppableCell !== undefined &&
@@ -293,22 +260,19 @@ export class Game {
           this.mostOverlappedDroppableCell
         )
       )
+      return true
     }
 
     this.draggingFromCell = undefined
     this.draggedCardBoundary = undefined
-
-    return dropOffset
+    return false
   }
 
-  /** Moves a card to the first targetable cell. Aces are the only cards that can have multiple targets. Returns a vector pointing from the source cell to the target cell, used to animate the move. */
-  public moveCardToFirstTarget(positionedCard: PositionedCard): Point {
+  /** Moves a card to the first targetable cell. Aces are the only cards that can have multiple targets. */
+  public moveCardToFirstTarget(positionedCard: PositionedCard): void {
     const targetCell = this.targetableCells[0]
     const moveTurn = new MoveTurn(positionedCard.cell, targetCell)
     this.performTurn(moveTurn)
-
-    const offset = positionedCard.cell.position.subtract(targetCell.position)
-    return offset
   }
 
   public redo() {
@@ -322,7 +286,7 @@ export class Game {
 
     setTimeout(
       () => this.waitAndGoToNextStateIndex(),
-      Settings.instance.animation.replay.duration
+      Settings.animation.replay.duration
     )
   }
 
@@ -335,7 +299,7 @@ export class Game {
     this.setCurrentStateIndex(this.currentStateIndex + 1, true)
     setTimeout(
       () => this.waitAndGoToNextStateIndex(),
-      Settings.instance.animation.replay.duration
+      Settings.animation.replay.duration
     )
   }
 
@@ -386,6 +350,7 @@ export class Game {
     this.gridStates.push(newGridState)
     this.setCurrentStateIndex(this.currentStateIndex + 1, true)
     this.draggingFromCell = undefined
+    this.draggedCardBoundary = undefined
   }
 
   private setCurrentStateIndex(newIndex: number, animateNextTurn: boolean) {

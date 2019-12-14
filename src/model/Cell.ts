@@ -1,4 +1,5 @@
 import { computed } from "mobx"
+import { ComputedSettings } from "./ComputedSettings"
 import { Point } from "./Point"
 import { Rectangle } from "./Rectangle"
 import { Settings } from "./Settings"
@@ -9,7 +10,7 @@ export class Cell {
     public readonly columnIndex: number,
     public readonly cellToTheLeft: Cell | undefined
   ) {
-    this.key = this.rowIndex * Settings.instance.columns + this.columnIndex + 1
+    this.key = this.rowIndex * Settings.columns + this.columnIndex + 1
   }
 
   public readonly key: number
@@ -18,9 +19,9 @@ export class Cell {
   public get boundary(): Rectangle {
     const boundary = new Rectangle(
       this.position.x,
-      this.position.x + Settings.instance.cardSize.width,
+      this.position.x + ComputedSettings.instance.cardSize.width,
       this.position.y,
-      this.position.y + Settings.instance.cardSize.height
+      this.position.y + ComputedSettings.instance.cardSize.height
     )
 
     return boundary
@@ -30,9 +31,11 @@ export class Cell {
   public get position(): Point {
     const position = new Point(
       this.columnIndex *
-        (Settings.instance.cardSize.width + Settings.instance.gutterSize),
+        (ComputedSettings.instance.cardSize.width +
+          ComputedSettings.instance.gutterSize),
       this.rowIndex *
-        (Settings.instance.cardSize.height + Settings.instance.gutterSize)
+        (ComputedSettings.instance.cardSize.height +
+          ComputedSettings.instance.gutterSize)
     )
 
     return position
