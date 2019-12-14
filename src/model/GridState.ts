@@ -57,7 +57,6 @@ export class GridState {
     return draggableCards
   }
 
-  // TODO: The game crashes if two empty cells are next to each other.
   @computed
   public get emptyCells(): Array<EmptyCell> {
     const emptyCells = Grid.instance.cells
