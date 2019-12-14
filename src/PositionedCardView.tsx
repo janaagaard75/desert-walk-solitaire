@@ -150,7 +150,6 @@ export class PositionedCardView extends Component<Props, State> {
 
   /** Moves the card to the first available target. This is only called on cards that are draggable. Returns the vector used for the animating the move. */
   private moveToTarget(): Point {
-    // TODO: Fix dragging a card.
     return Game.instance.moveCardToFirstTarget(this.props.positionedCard)
   }
 }
