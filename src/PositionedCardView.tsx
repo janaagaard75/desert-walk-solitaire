@@ -1,4 +1,4 @@
-import { computed } from "mobx"
+import { computed, observable } from "mobx"
 import { observer } from "mobx-react"
 import * as React from "react"
 import { Component } from "react"
@@ -26,13 +26,11 @@ interface State {
 }
 
 @observer
-export class PositionedCardView extends Component<Props, State> {
+export class PositionedCardView extends Component<Props> {
   public constructor(props: Props) {
     super(props)
 
-    this.state = {
-      visualState: VisualState.Idle
-    }
+    this.visualState = VisualState.Idle
 
     this.animatedPosition = new Animated.ValueXY(
       this.props.positionedCard.position
@@ -47,9 +45,7 @@ export class PositionedCardView extends Component<Props, State> {
       onStartShouldSetPanResponder: (_e, _gestureState) => true,
       onPanResponderGrant: (_e, _gestureState) => {
         Game.instance.cardDragStarted(this.props.positionedCard)
-        this.setState({
-          visualState: VisualState.Dragging
-        })
+        this.visualState = VisualState.Dragging
       },
       onPanResponderMove: (_e, gestureState) => {
         this.animatedPosition.setValue({
@@ -81,9 +77,7 @@ export class PositionedCardView extends Component<Props, State> {
           },
           useNativeDriver: true
         }).start(() => {
-          this.setState({
-            visualState: VisualState.Idle
-          })
+          this.visualState = VisualState.Idle
         })
       }
     })
@@ -92,6 +86,7 @@ export class PositionedCardView extends Component<Props, State> {
   private animatedPosition: Animated.ValueXY
   private panResponder: PanResponderInstance
   private readonly moveThreshold = 4
+  @observable private visualState: VisualState
 
   public componentDidUpdate(prevProps: Props, _prevState: State) {
     if (
@@ -102,17 +97,13 @@ export class PositionedCardView extends Component<Props, State> {
       return
     }
 
-    this.setState({
-      visualState: VisualState.Animating
-    })
+    this.visualState = VisualState.Animating
 
     Animated.spring(this.animatedPosition, {
       toValue: this.props.positionedCard.position,
       useNativeDriver: true
     }).start(() => {
-      this.setState({
-        visualState: VisualState.Idle
-      })
+      this.visualState = VisualState.Idle
     })
   }
 
@@ -122,7 +113,7 @@ export class PositionedCardView extends Component<Props, State> {
         style={{
           position: "absolute",
           transform: this.animatedPosition.getTranslateTransform(),
-          zIndex: this.state.visualState === VisualState.Idle ? 1 : 2
+          zIndex: this.visualState === VisualState.Idle ? 1 : 2
         }}
         {...(this.draggable ? this.panResponder.panHandlers : undefined)}
       >
@@ -131,7 +122,7 @@ export class PositionedCardView extends Component<Props, State> {
           cardSize={this.props.cardSize}
           correctlyPlaced={this.props.positionedCard.correctlyPlaced}
           draggable={this.draggable}
-          dragging={this.state.visualState === VisualState.Dragging}
+          dragging={this.visualState === VisualState.Dragging}
         />
       </Animated.View>
     )
