@@ -6,7 +6,6 @@ import { Deck } from "./Deck"
 import { GameState } from "./GameState"
 import { Grid } from "./Grid"
 import { GridState } from "./GridState"
-import { Point } from "./Point"
 import { PositionedCard } from "./PositionedCard"
 import { Rectangle } from "./Rectangle"
 import { Settings } from "./Settings"
@@ -208,36 +207,6 @@ export class Game {
     return droppableCells
   }
 
-  /** Returns the offset of the dragged card to the droppable target. Returns `undefined` if the dragged card is not hovering over a droppable target. */
-  @computed
-  private get dropOffset(): Point | undefined {
-    if (this.draggingFromCell === undefined) {
-      throw new Error("draggingFromCell must be defined when handling a drop.")
-    }
-
-    if (this.draggedCardBoundary === undefined) {
-      throw new Error(
-        "draggedCardBoundary must be defined when handling a drop."
-      )
-    }
-
-    const targetCell = this.mostOverlappedDroppableCell
-    if (targetCell === undefined) {
-      return undefined
-    }
-
-    if (targetCell === this.draggingFromCell.cell) {
-      return undefined
-    }
-
-    const dropOffset = new Point(
-      this.draggedCardBoundary.x1 - targetCell.position.x,
-      this.draggedCardBoundary.y1 - targetCell.position.y
-    )
-
-    return dropOffset
-  }
-
   @computed
   public get replayEnabled(): boolean {
     const enabled = this.gameState === GameState.Won && this.replayShown
@@ -291,9 +260,6 @@ export class Game {
           this.mostOverlappedDroppableCell
         )
       )
-
-      this.draggingFromCell = undefined
-      this.draggedCardBoundary = undefined
       return true
     }
 
@@ -302,14 +268,11 @@ export class Game {
     return false
   }
 
-  /** Moves a card to the first targetable cell. Aces are the only cards that can have multiple targets. Returns a vector pointing from the source cell to the target cell, used to animate the move. */
-  public moveCardToFirstTarget(positionedCard: PositionedCard): Point {
+  /** Moves a card to the first targetable cell. Aces are the only cards that can have multiple targets. */
+  public moveCardToFirstTarget(positionedCard: PositionedCard): void {
     const targetCell = this.targetableCells[0]
     const moveTurn = new MoveTurn(positionedCard.cell, targetCell)
     this.performTurn(moveTurn)
-
-    const offset = positionedCard.cell.position.subtract(targetCell.position)
-    return offset
   }
 
   public redo() {
@@ -387,6 +350,7 @@ export class Game {
     this.gridStates.push(newGridState)
     this.setCurrentStateIndex(this.currentStateIndex + 1, true)
     this.draggingFromCell = undefined
+    this.draggedCardBoundary = undefined
   }
 
   private setCurrentStateIndex(newIndex: number, animateNextTurn: boolean) {

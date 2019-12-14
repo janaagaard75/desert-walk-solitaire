@@ -11,7 +11,6 @@ import {
 import { CardView } from "./CardView"
 import { ComputedSettings } from "./model/ComputedSettings"
 import { Game } from "./model/Game"
-import { Point } from "./model/Point"
 import { PositionedCard } from "./model/PositionedCard"
 import { Settings } from "./model/Settings"
 import { Size } from "./model/Size"
@@ -149,7 +148,7 @@ export class PositionedCardView extends Component<Props, State> {
   }
 
   /** Moves the card to the first available target. This is only called on cards that are draggable. Returns the vector used for the animating the move. */
-  private moveToTarget(): Point {
-    return Game.instance.moveCardToFirstTarget(this.props.positionedCard)
+  private moveToTarget(): void {
+    Game.instance.moveCardToFirstTarget(this.props.positionedCard)
   }
 }
