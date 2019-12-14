@@ -238,7 +238,6 @@ export class ComputedSettings {
     }
   }
 
-  // TODO: Move this method to somewhere else, more appropriate. static method on PositionedCard?
   public getCardBoundary(position: PointInterface): Rectangle {
     const boundary = new Rectangle(
       position.x,
