@@ -24,7 +24,9 @@ export class MainView extends Component {
   public constructor(props: {}) {
     super(props)
 
+    // TODO: Why is this only respected in on an Iphone and not an iPad?
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
+
     this.updateWindowSize()
     Dimensions.addEventListener("change", () => {
       this.updateWindowSize()
@@ -115,6 +117,8 @@ export class MainView extends Component {
     })
   }
 
+  // TODO: When replaying a finished game, the animation pauses a bit after replaying a shuffle turn.
+  // TODO: Fix resizing when rotating the iPad.
   private updateWindowSize() {
     const windowSize = Dimensions.get("window")
     ComputedSettings.instance.windowSize = {
