@@ -12,7 +12,6 @@ import {
   View,
   ViewStyle
 } from "react-native"
-import { isIphoneX } from "react-native-iphone-x-helper"
 import appJson from "../app.json"
 import "./ArrayExtensions"
 import { FooterView } from "./FooterView"
@@ -81,8 +80,7 @@ export class MainView extends Component {
           </View>
         </TouchableWithoutFeedback>
         <FooterView />
-        {/* TODO: Bigger gutter if iPhone X or iPad Pro. */}
-        {isIphoneX() ? (
+        {ComputedSettings.isIosWithoutHomeButton() ? (
           <View
             style={{
               height: 15

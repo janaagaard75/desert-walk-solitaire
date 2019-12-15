@@ -35,7 +35,6 @@
     "mobx-react": "6.1.4",
     "react": "16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
-    "react-native-iphone-x-helper": "1.2.1",
     "react-native-svg": "9.13.3",
     "tslib": "1.10.0"
   },
