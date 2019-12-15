@@ -18,16 +18,15 @@ This opens a browser window where you can select 'Start iOS Simulator'.
 
 You can also install the [Expo Client](https://expo.io/tools#client) on your devices and run the app through that app.
 
-### Later
+## To Do
 
+- Fix the link to the privacy policy.
 - Replace `react-native-iphone-x-helper` with [SafeAreaView](https://docs.expo.io/versions/v32.0.0/react-native/safeareaview/).
 - Remember the game state when the app is restarted.
-- Make sure everything looks alright on Android.
-- Taller footer on tablets.
+- Make sure everything looks alright in all resolutions.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
 - Better colors. Dark mode by default?
 - Game lost screen. How should it work, since it's always possible to undo a move?
-- Enable portrait mode on tablets.
 - Animate the cards when they are dealt.
 - A picture of a desert in the background of the cards?
 - Make the icons look more like buttons.
