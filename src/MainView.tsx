@@ -35,6 +35,19 @@ export class MainView extends Component {
   @observable private fontLoaded = false
   @observable private showVersionNumber = false
 
+  private mainViewStyle: ViewStyle = {
+    backgroundColor: Settings.colors.mainBackgroundColor,
+    flex: 1,
+    flexDirection: "column",
+    position: "relative"
+  }
+
+  private gridWrapperStyle: ViewStyle = {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center"
+  }
+
   public render() {
     if (!this.fontLoaded) {
       return (
@@ -48,12 +61,12 @@ export class MainView extends Component {
     }
 
     return (
-      <View style={this.getMainStyle()}>
+      <View style={this.mainViewStyle}>
         <TouchableWithoutFeedback
           delayLongPress={5 * 1000}
           onLongPress={() => (this.showVersionNumber = true)}
         >
-          <View style={this.getGridWrapperStyle()}>
+          <View style={this.gridWrapperStyle}>
             <Image
               source={require("./50713-transparent.png")}
               style={{
@@ -96,23 +109,6 @@ export class MainView extends Component {
 
   private get versionNumber(): string {
     return appJson.expo.version
-  }
-
-  private getGridWrapperStyle(): ViewStyle {
-    return {
-      alignItems: "center",
-      flex: 1,
-      justifyContent: "center"
-    }
-  }
-
-  private getMainStyle(): ViewStyle {
-    return {
-      backgroundColor: Settings.colors.mainBackgroundColor,
-      flex: 1,
-      flexDirection: "column",
-      position: "relative"
-    }
   }
 
   private async loadFont() {
