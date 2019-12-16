@@ -22,7 +22,6 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 - Fix the link to the privacy policy.
 - Move the images to the assets folder.
-- Replace `react-native-iphone-x-helper` with [SafeAreaView](https://docs.expo.io/versions/v32.0.0/react-native/safeareaview/).
 - Remember the game state when the app is restarted.
 - Make sure everything looks alright in all resolutions.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
@@ -89,6 +88,8 @@ The UI of a game is complicated because everything is custom made.
 The ability to undo back and forth required a more complex model that originally anticipated. This hasn't been modelled as nicely as it could, and the increased complexity makes it difficult to make changes to the game without cause bugs. It would probably be worth the effort of starting over before adding major new features like difficulty selector.
 
 I create a demo app where I tested a few of the animation setup. This revealed some major logical errors in the code that handles the animations and allowed me to clean up that part.
+
+[SafeAreaView](https://docs.expo.io/versions/v32.0.0/react-native/safeareaview/) reserves too much space at the bottom, so it doesn't look nice.
 
 ## Links
 
