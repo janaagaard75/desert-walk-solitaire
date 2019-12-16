@@ -18,9 +18,10 @@ This opens a browser window where you can select 'Start iOS Simulator'.
 
 You can also install the [Expo Client](https://expo.io/tools#client) on your devices and run the app through that app.
 
-## To Do
+## TODO
 
 - Fix the link to the privacy policy.
+- Move the images to the assets folder.
 - Replace `react-native-iphone-x-helper` with [SafeAreaView](https://docs.expo.io/versions/v32.0.0/react-native/safeareaview/).
 - Remember the game state when the app is restarted.
 - Make sure everything looks alright in all resolutions.
