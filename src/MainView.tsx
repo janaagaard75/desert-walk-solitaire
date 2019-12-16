@@ -69,7 +69,7 @@ export class MainView extends Component {
         >
           <View style={this.gridWrapperStyle}>
             <Image
-              source={require("./50713-transparent.png")}
+              source={require("../assets/50713-transparent.png")}
               style={{
                 backgroundColor: Settings.colors.gridBackgroundColor,
                 height: ComputedSettings.instance.windowSize.height,
