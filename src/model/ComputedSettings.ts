@@ -36,8 +36,6 @@ export class ComputedSettings {
       (iphonesWithoutHomeButtonHeights.includes(windowSize.height) ||
         iphonesWithoutHomeButtonHeights.includes(windowSize.width))
 
-    console.info("height: " + windowSize.height)
-
     const ipadsWithoutHomeButtonHeights = [1194, 1366]
     const isIpad = Platform.OS === "ios" && Platform.isPad && !Platform.isTVOS
     const isNotchedIpad =
