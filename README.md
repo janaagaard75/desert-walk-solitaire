@@ -21,7 +21,6 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 ## TODO
 
 - Fix the link to the privacy policy.
-- Move the images to the assets folder.
 - Remember the game state when the app is restarted.
 - Make sure everything looks alright in all resolutions.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
