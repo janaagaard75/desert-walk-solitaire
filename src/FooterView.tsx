@@ -21,7 +21,7 @@ export class FooterView extends Component {
       <View
         style={{
           backgroundColor: Settings.colors.mainBackgroundColor,
-          paddingBottom: 14, // TODO: Remove the need for this value. Tweaked manually to make it fit.
+          paddingBottom: 14, // Tweaked manually to make it fit.
           paddingTop: 4
         }}
       >

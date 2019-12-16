@@ -1,5 +1,5 @@
 import { computed, observable } from "mobx"
-import { isIphoneX } from "react-native-iphone-x-helper"
+import { Dimensions, Platform } from "react-native"
 import { PointInterface } from "./PointInterface"
 import { Rectangle } from "./Rectangle"
 import { Settings } from "./Settings"
@@ -23,6 +23,28 @@ export class ComputedSettings {
   private readonly footerHeight = 66
 
   @observable public windowSize: Size = { height: 0, width: 0 }
+
+  public static isIosWithoutHomeButton() {
+    // Code based on https://github.com/ptelad/react-native-iphone-x-helper.
+    const windowSize = Dimensions.get("window")
+
+    const isIphone =
+      Platform.OS === "ios" && !Platform.isPad && !Platform.isTVOS
+    const iphonesWithoutHomeButtonHeights = [812, 896]
+    const isNotchedIphone =
+      isIphone &&
+      (iphonesWithoutHomeButtonHeights.includes(windowSize.height) ||
+        iphonesWithoutHomeButtonHeights.includes(windowSize.width))
+
+    const ipadsWithoutHomeButtonHeights = [1194, 1366]
+    const isIpad = Platform.OS === "ios" && Platform.isPad && !Platform.isTVOS
+    const isNotchedIpad =
+      isIpad &&
+      (ipadsWithoutHomeButtonHeights.includes(windowSize.height) ||
+        ipadsWithoutHomeButtonHeights.includes(windowSize.width))
+
+    return isNotchedIphone || isNotchedIpad
+  }
 
   @computed
   public get borderRadius(): number {
@@ -101,7 +123,7 @@ export class ComputedSettings {
   @computed
   private get availablePlayingFieldSize(): Size {
     let availableWidth = this.windowSize.width
-    if (isIphoneX()) {
+    if (ComputedSettings.isIosWithoutHomeButton()) {
       const notchHeight = 40
       availableWidth -= 2 * notchHeight
     }

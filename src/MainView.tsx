@@ -12,7 +12,6 @@ import {
   View,
   ViewStyle
 } from "react-native"
-import { isIphoneX } from "react-native-iphone-x-helper"
 import appJson from "../app.json"
 import "./ArrayExtensions"
 import { FooterView } from "./FooterView"
@@ -25,7 +24,9 @@ export class MainView extends Component {
   public constructor(props: {}) {
     super(props)
 
+    // TODO: Why is this only respected in on an Iphone and not an iPad?
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
+
     this.updateWindowSize()
     Dimensions.addEventListener("change", () => {
       this.updateWindowSize()
@@ -34,6 +35,19 @@ export class MainView extends Component {
 
   @observable private fontLoaded = false
   @observable private showVersionNumber = false
+
+  private mainViewStyle: ViewStyle = {
+    backgroundColor: Settings.colors.mainBackgroundColor,
+    flex: 1,
+    flexDirection: "column",
+    position: "relative"
+  }
+
+  private gridWrapperStyle: ViewStyle = {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center"
+  }
 
   public render() {
     if (!this.fontLoaded) {
@@ -48,12 +62,12 @@ export class MainView extends Component {
     }
 
     return (
-      <View style={this.getMainStyle()}>
+      <View style={this.mainViewStyle}>
         <TouchableWithoutFeedback
           delayLongPress={5 * 1000}
           onLongPress={() => (this.showVersionNumber = true)}
         >
-          <View style={this.getGridWrapperStyle()}>
+          <View style={this.gridWrapperStyle}>
             <Image
               source={require("./50713-transparent.png")}
               style={{
@@ -68,7 +82,7 @@ export class MainView extends Component {
           </View>
         </TouchableWithoutFeedback>
         <FooterView />
-        {isIphoneX() ? (
+        {ComputedSettings.isIosWithoutHomeButton() ? (
           <View
             style={{
               height: 15
@@ -97,29 +111,14 @@ export class MainView extends Component {
     return appJson.expo.version
   }
 
-  private getGridWrapperStyle(): ViewStyle {
-    return {
-      alignItems: "center",
-      flex: 1,
-      justifyContent: "center"
-    }
-  }
-
-  private getMainStyle(): ViewStyle {
-    return {
-      backgroundColor: Settings.colors.mainBackgroundColor,
-      flex: 1,
-      flexDirection: "column",
-      position: "relative"
-    }
-  }
-
   private async loadFont() {
     await Font.loadAsync({
       "Arabian-onenightstand": require("../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf")
     })
   }
 
+  // TODO: When replaying a finished game, the animation pauses a bit after replaying a shuffle turn.
+  // TODO: Fix resizing when rotating the iPad.
   private updateWindowSize() {
     const windowSize = Dimensions.get("window")
     ComputedSettings.instance.windowSize = {
