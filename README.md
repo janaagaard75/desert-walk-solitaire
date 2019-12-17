@@ -52,7 +52,8 @@ It's necessary to deploy a new version when updating the Expo SDK, and also in a
 8. Use the link in the mail to import the app in TestFlight and install it.
 9. Test the app on the device.
 10. Add notes about new features and select the build App Store Connect. Selecting the build will add the icon.
-11. Submit for review. It will ask a question about something that you think you can answer 'no' to, but the answer is 'yes'.
+11. Submit for review.
+12. Answer _Yes_ to 'Does this app use the Advertising Identifier (IDFA)'?, and check the three boxes except 'Serve advertisements within the app'. [Source](https://segment.com/docs/connections/sources/catalog/libraries/mobile/ios/quickstart/#step-5-submitting-to-the-app-store).
 
 Certificate for push notifications: <https://github.com/expo/turtle/issues/62#issuecomment-469528206>.
 
