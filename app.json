@@ -17,11 +17,13 @@
     "githubUrl": "https://github.com/janaagaard75/desert-walk",
     "platforms": ["android", "ios"],
     "ios": {
+      "config": {
+        "usesNonExemptEncryption": false
+      },
       "buildNumber": 5,
       "bundleIdentifier": "com.janaagaard.desertwalk",
       "supportsTablet": true,
-      "usesIcloudStorage": false,
-      "usesNonExemptEncryption": false
+      "usesIcloudStorage": false
     },
     "android": {
       "package": "com.janaagaard.desertwalk",
