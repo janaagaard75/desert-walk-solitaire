@@ -20,7 +20,7 @@
       "config": {
         "usesNonExemptEncryption": false
       },
-      "buildNumber": 5,
+      "buildNumber": "5",
       "bundleIdentifier": "com.janaagaard.desertwalk",
       "supportsTablet": true,
       "usesIcloudStorage": false
