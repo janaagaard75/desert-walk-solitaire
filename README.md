@@ -38,6 +38,24 @@ Photo used as background in the icon: [Photo by Carl Larson from Pexels](https:/
 
 Font: [XXII Arabian Onenightstand](http://www.dafont.com/xxii-arabian-onenightstand.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+J+Q+K).
 
+## Deploying a new version
+
+It's necessary to deploy a new version when updating the Expo SDK, and also in a [handful more cases](https://docs.expo.io/versions/v36.0.0/workflow/publishing/#limitations).
+
+1. Increment `buildNumber` and `versionCode` in `app.json`.
+2. Bump `version` in `app.json` and `package.json`.
+3. Run `yarn build-ios` to queue a build.
+4. Download the `.ipa` from [expo.io/dashboard/janaagaard75](https://expo.io/dashboard/janaagaard75).
+5. Use the [Transporter Mac app](https://apps.apple.com/app/transporter/id1450874784) to upload the file.
+6. Go to [appstoreconnect.apple.com](https://appstoreconnect.apple.com/) and create a new version.
+7. Invite App Store Connected Users to test the new version.
+8. Use the link in the mail to import the app in TestFlight and install it.
+9. Test the app on the device.
+10. Add notes about new features and select the build App Store Connect. Selecting the build will add the icon.
+11. Submit for review. It will ask a question about something that you think you can answer 'no' to, but the answer is 'yes'.
+
+Certificate for push notifications: <https://github.com/expo/turtle/issues/62#issuecomment-469528206>.
+
 ## Learnings
 
 Adding undo/redo and cleaning up the data model was difficult. Having switched to a @computed based model simplified things. However there is still some code leftover from the previous model, meaning that the currently solution could be simplified and optimized.
