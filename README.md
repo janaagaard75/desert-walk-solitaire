@@ -32,11 +32,11 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 - Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
 - Avoid passing inline functions as props: <https://itnext.io/how-we-boosted-the-performance-of-our-react-native-app-191b8d338347#e92b>.
 
-## Logo
+## Assets
 
-Photo used as background in the icon: [Photo by Carl Larson from Pexels](https://www.pexels.com/photo/saraha-desert-1123567/).
-
-Font: [XXII Arabian Onenightstand](http://www.dafont.com/xxii-arabian-onenightstand.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+J+Q+K).
+- Photo used as background in the icon: [Photo by Carl Larson from Pexels](https://www.pexels.com/photo/saraha-desert-1123567/).
+- Font: [XXII Arabian Onenightstand](http://www.dafont.com/xxii-arabian-onenightstand.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+J+Q+K).
+- Source for the background image: [pat by florc](http://www.colourlovers.com/pattern/50713/pat).
 
 ## Deploying a new version
 
