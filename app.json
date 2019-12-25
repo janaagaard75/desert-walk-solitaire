@@ -5,7 +5,7 @@
     "slug": "desert-walk",
     "privacy": "public",
     "sdkVersion": "36.0.0",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "orientation": "landscape",
     "primaryColor": "#464",
     "icon": "./assets/app-icon.png",
