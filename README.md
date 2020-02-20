@@ -21,6 +21,7 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 ## TODO
 
 - Fix the link to the privacy policy.
+- Consider using [this singleton pattern](https://wanago.io/2019/11/11/javascript-design-patterns-1-singleton-and-the-module/#crayon-5e26b0cf71d61490784531).
 - Remember the game state when the app is restarted.
 - Make sure everything looks alright in all resolutions.
 - Remove the text from the 'confirm restart dialog', so that the game only contains icons.
@@ -32,11 +33,11 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 - Small animation when a card is moved into the correct position. Could be a small shine effect like the one on records in the Moves app. Pixel art example: <https://i.imgur.com/oLmT5Ot.gif>.
 - Avoid passing inline functions as props: <https://itnext.io/how-we-boosted-the-performance-of-our-react-native-app-191b8d338347#e92b>.
 
-## Logo
+## Assets
 
-Photo used as background in the icon: [Photo by Carl Larson from Pexels](https://www.pexels.com/photo/saraha-desert-1123567/).
-
-Font: [XXII Arabian Onenightstand](http://www.dafont.com/xxii-arabian-onenightstand.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+J+Q+K).
+- Photo used as background in the icon: [Photo by Carl Larson from Pexels](https://www.pexels.com/photo/saraha-desert-1123567/).
+- Font: [XXII Arabian Onenightstand](http://www.dafont.com/xxii-arabian-onenightstand.font?text=Desert+Walk+A+2+3+4+5+6+7+8+9+10+J+Q+K).
+- The background image is based on [pat by florc](http://www.colourlovers.com/pattern/50713/pat) pattern image. That images has the [Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)](https://creativecommons.org/licenses/by-nc-sa/3.0/) license, so so does the modified one in this repo.
 
 ## Deploying a new version
 
