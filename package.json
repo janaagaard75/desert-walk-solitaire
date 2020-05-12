@@ -32,6 +32,7 @@
   "dependencies": {
     "expo": "^37.0.10",
     "expo-font": "~8.1.1",
+    "expo-screen-orientation": "~1.0.0",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
     "react": "16.9.0",

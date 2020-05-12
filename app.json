@@ -17,7 +17,8 @@
     "platforms": ["android", "ios"],
     "ios": {
       "config": {
-        "usesNonExemptEncryption": false
+        "usesNonExemptEncryption": false,
+        "requireFullScreen": true
       },
       "buildNumber": "5",
       "bundleIdentifier": "com.janaagaard.desertwalk",

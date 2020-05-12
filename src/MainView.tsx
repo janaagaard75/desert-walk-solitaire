@@ -1,5 +1,6 @@
-import { AppLoading, ScreenOrientation } from "expo"
+import { AppLoading } from "expo"
 import * as Font from "expo-font"
+import * as ScreenOrientation from "expo-screen-orientation"
 import { observable } from "mobx"
 import { observer } from "mobx-react"
 import * as React from "react"
