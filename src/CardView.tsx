@@ -62,7 +62,7 @@ export class CardView extends Component<Props> {
       height: this.props.cardSize.height,
       overflow: "hidden",
       padding: ComputedSettings.instance.cardPadding,
-      width: this.props.cardSize.width
+      width: this.props.cardSize.width,
     }
   }
 
@@ -74,7 +74,7 @@ export class CardView extends Component<Props> {
       height: this.props.cardSize.height,
       opacity: this.overlayOpacity(),
       position: "absolute",
-      width: this.props.cardSize.width
+      width: this.props.cardSize.width,
     }
   }
 
@@ -83,14 +83,14 @@ export class CardView extends Component<Props> {
     const shadowStyle: ViewStyle = {
       borderRadius: ComputedSettings.instance.borderRadius,
       height: this.props.cardSize.height,
-      width: this.props.cardSize.width
+      width: this.props.cardSize.width,
     }
     if (this.props.dragging) {
       Object.assign(shadowStyle, {
         shadowColor: Settings.colors.card.shadowColor,
         shadowOffset: ComputedSettings.instance.cardShadowOffset,
         shadowOpacity: Settings.cardShadowOpacity,
-        shadowRadius: ComputedSettings.instance.cardShadowRadius
+        shadowRadius: ComputedSettings.instance.cardShadowRadius,
       })
     }
 
@@ -102,7 +102,7 @@ export class CardView extends Component<Props> {
     return {
       bottom: Math.round(0.1 * this.props.cardSize.width),
       position: "absolute",
-      right: Math.round(0.025 * this.props.cardSize.width)
+      right: Math.round(0.025 * this.props.cardSize.width),
     }
   }
 
@@ -118,7 +118,7 @@ export class CardView extends Component<Props> {
       position: "absolute",
       textAlign: "left",
       top: -Math.round(0.08 * this.props.cardSize.width),
-      width: Math.round(1.22 * this.props.cardSize.width) // Make space for the two digits in '10'.
+      width: Math.round(1.22 * this.props.cardSize.width), // Make space for the two digits in '10'.
     }
   }
 

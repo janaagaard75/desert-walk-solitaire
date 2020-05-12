@@ -14,7 +14,7 @@ export class FooterView extends Component {
     const buttonWrapperStyle: ViewStyle = {
       backgroundColor: Settings.colors.mainBackgroundColor,
       flexDirection: "row",
-      flexWrap: "wrap"
+      flexWrap: "wrap",
     }
 
     return (
@@ -22,7 +22,7 @@ export class FooterView extends Component {
         style={{
           backgroundColor: Settings.colors.mainBackgroundColor,
           paddingBottom: 14, // Tweaked manually to make it fit.
-          paddingTop: 4
+          paddingTop: 4,
         }}
       >
         <View style={buttonWrapperStyle}>
@@ -103,13 +103,13 @@ export class FooterView extends Component {
       [
         {
           style: "cancel",
-          text: "No, let me continue this game"
+          text: "No, let me continue this game",
         },
         {
           onPress: () => Game.instance.startOver(),
           style: "destructive",
-          text: "Yes, start over"
-        }
+          text: "Yes, start over",
+        },
       ],
       { cancelable: false }
     )

@@ -5,7 +5,7 @@ import { Suit } from "./Suit"
 export class Deck {
   private constructor() {
     this.cards = this.getCards()
-    this.theFourAces = this.cards.filter(card => card.value === 1)
+    this.theFourAces = this.cards.filter((card) => card.value === 1)
   }
 
   private static _instance: Deck

@@ -3,5 +3,5 @@ export enum EmptyCellState {
   DropAllowedButNoCardIsBeingDragged,
   DropAllowedButNotTargetableCell,
   MostOverlappedTargetableCell,
-  TargetableCellButNotMostOverlapped
+  TargetableCellButNotMostOverlapped,
 }

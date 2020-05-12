@@ -7,13 +7,13 @@ import { Turn } from "./Turn"
 export class ShuffleTurn extends Turn {
   public performTurn(gridState: GridState): GridState {
     const shuffledCards = gridState.incorrectlyPositionedCards
-      .map(pair => pair.card)
+      .map((pair) => pair.card)
       .shuffle()
 
     const cellsExcludingLastColumn = gridState.incorrectlyPositionedCards
-      .map(pair => pair.cell)
-      .concat(gridState.emptyCells.map(emptyCell => emptyCell.cell))
-      .filter(cell => cell.columnIndex !== Settings.columns - 1)
+      .map((pair) => pair.cell)
+      .concat(gridState.emptyCells.map((emptyCell) => emptyCell.cell))
+      .filter((cell) => cell.columnIndex !== Settings.columns - 1)
 
     if (shuffledCards.length !== cellsExcludingLastColumn.length) {
       throw new Error(
@@ -25,7 +25,7 @@ export class ShuffleTurn extends Turn {
     for (let i = 0; i < shuffledCards.length; i++) {
       shuffledCardCellPairs.push({
         card: shuffledCards[i],
-        cell: cellsExcludingLastColumn[i]
+        cell: cellsExcludingLastColumn[i],
       })
     }
 

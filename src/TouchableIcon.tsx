@@ -34,7 +34,7 @@ export class TouchableIcon extends Component<Props> {
           shadowColor: "#fff",
           shadowOpacity: shadowOpacity,
           shadowRadius: 5,
-          width: `${width}%`
+          width: `${width}%`,
         }}
       >
         {this.renderIcon(this.props.iconGroup, this.props.iconName, color)}
