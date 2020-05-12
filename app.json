@@ -12,14 +12,9 @@
       "image": "./assets/splash-screen.png",
       "hideExponentText": false
     },
-    "assetBundlePatterns": [
-      "assets/**/*"
-    ],
+    "assetBundlePatterns": ["assets/**/*"],
     "githubUrl": "https://github.com/janaagaard75/desert-walk",
-    "platforms": [
-      "android",
-      "ios"
-    ],
+    "platforms": ["android", "ios"],
     "ios": {
       "config": {
         "usesNonExemptEncryption": false
