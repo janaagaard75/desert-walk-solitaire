@@ -25,6 +25,7 @@
     "mobx",
     "onenightstand",
     "readonly",
+    "syncyarnlock",
     "targetable",
     "tslib"
   ],

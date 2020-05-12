@@ -2256,7 +2256,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-native@^0.60.22":
+"@types/react-native@^0.60.31":
   version "0.60.31"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.60.31.tgz#a7af12197f884ad8dd22cda2df9862ed72973ded"
   integrity sha512-Y0Q+nv50KHnLL+jM0UH68gQQv7Wt6v2KuNepiHKwK1DoWGVd1oYun/GJCnvUje+/V8pMQQWW6QuBvHZz1pV7tQ==
@@ -2264,7 +2264,7 @@
     "@types/prop-types" "*"
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.9.11":
+"@types/react@*", "@types/react@^16.9.35":
   version "16.9.35"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.35.tgz#a0830d172e8aadd9bd41709ba2281a3124bbd368"
   integrity sha512-q0n0SsWcGc8nDqH2GJfWQWUOmZSJhXV64CjVN5SvcNti3TdEaA3AH0D8DwNmMdzjMAC/78tB8nAZIlV8yTz+zQ==
@@ -5632,7 +5632,7 @@ expo-file-system@~8.1.0:
   dependencies:
     uuid "^3.4.0"
 
-expo-font@~8.1.0:
+expo-font@~8.1.0, expo-font@~8.1.1:
   version "8.1.1"
   resolved "https://registry.yarnpkg.com/expo-font/-/expo-font-8.1.1.tgz#40de629d7332887bdafae4756741f6979fc0043e"
   integrity sha512-z6008K7YSA7wpJ1mNyG2eSYUhEoFVjdL2uAbwaHFpsqwxDS4tcdKHoWkanIUiEnsjtHK7Uk0ywKJ8MRzmCaklw==
@@ -5702,7 +5702,7 @@ expo-web-browser@~8.2.1:
   dependencies:
     compare-urls "^2.0.0"
 
-expo@^37.0.0:
+expo@^37.0.10:
   version "37.0.10"
   resolved "https://registry.yarnpkg.com/expo/-/expo-37.0.10.tgz#2aa3b2286a5ce0e40584298c61d807a347591c59"
   integrity sha512-QffyIdYR8sPD9u/ouaft/vtLXeEOhtC7/vVwg/gdEWLeK7RXYfQPLI2Iaa265Vz6Lfv9x2LlmO5PrNc8sD+A7w==
@@ -10938,9 +10938,10 @@ react-native-view-shot@3.1.2:
   resolved "https://registry.yarnpkg.com/react-native-view-shot/-/react-native-view-shot-3.1.2.tgz#8c8e84c67a4bc8b603e697dbbd59dbc9b4f84825"
   integrity sha512-9u9fPtp6a52UMoZ/UCPrCjKZk8tnkI9To0Eh6yYnLKFEGkRZ7Chm6DqwDJbYJHeZrheCCopaD5oEOnRqhF4L2Q==
 
-"react-native@https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz":
+react-native@0.61.4:
   version "0.61.4"
-  resolved "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz#69f3f63c36c9df52611847a67c9d94596c1754cc"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.61.4.tgz#9ec6e8a2aa8eac57143dcfa39115c7d9a139bc2c"
+  integrity sha512-L8U+dDEy4vP74yWYbb+2XKaZeUkbpCUoSzcmeEM8Oznt69q71Q4fuYyxZGrzVW6tMYw9ZzGXTkfLuOh2nvLeVw==
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^3.0.0-alpha.1"
@@ -12428,6 +12429,14 @@ synchronous-promise@^2.0.6:
   version "2.0.11"
   resolved "https://registry.yarnpkg.com/synchronous-promise/-/synchronous-promise-2.0.11.tgz#e92022b0754e916f556d3ace1626d24a24214b7e"
   integrity sha512-8/L5FOCjnlK0FoAfj+NqdCaImMKvEyOEzGmdfcezKp5K9HIukm4akx72endvM87eS/gU8kOxiMQflpC/CdkQAg==
+
+syncyarnlock@1.0.19:
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/syncyarnlock/-/syncyarnlock-1.0.19.tgz#ec5d380ef5432e428d2828b0d086e66d579f31fb"
+  integrity sha512-9o6KHr+MfYUqBzLPiaWlZZ365XAdLYdWFFgT92gLpXaVK8Z/kjwMZMUCv9FEOItVEeZ3TFCgItzYXYdV/CVZrQ==
+  dependencies:
+    commander "^2.20.0"
+    glob "^7.1.4"
 
 table@^5.2.3:
   version "5.4.6"

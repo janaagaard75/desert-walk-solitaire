@@ -26,6 +26,7 @@
     "lint": "eslint --format codeframe \"**/*.ts\" \"**/*.tsx\"",
     "publish-to-expo": "expo publish",
     "start": "yarn install --frozen-lockfile && expo start",
+    "sync-from-yarn-lock": "syncyarnlock --keepPrefix --keepGit --keepLink --save",
     "validate": "yarn install --frozen-lockfile && yarn run lint && yarn run check-types"
   },
   "dependencies": {
@@ -52,6 +53,7 @@
     "eslint-plugin-react": "7.17.0",
     "expo-cli": "3.20.3",
     "prettier": "1.19.1",
+    "syncyarnlock": "1.0.19",
     "typescript": "^3.8.3"
   }
 }
