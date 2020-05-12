@@ -4,7 +4,6 @@
     "description": "Solitaire card game.",
     "slug": "desert-walk",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "version": "1.0.7",
     "orientation": "landscape",
     "primaryColor": "#464",
@@ -13,9 +12,14 @@
       "image": "./assets/splash-screen.png",
       "hideExponentText": false
     },
-    "assetBundlePatterns": ["assets/**/*"],
+    "assetBundlePatterns": [
+      "assets/**/*"
+    ],
     "githubUrl": "https://github.com/janaagaard75/desert-walk",
-    "platforms": ["android", "ios"],
+    "platforms": [
+      "android",
+      "ios"
+    ],
     "ios": {
       "config": {
         "usesNonExemptEncryption": false
