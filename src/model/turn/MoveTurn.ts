@@ -23,18 +23,18 @@ export class MoveTurn extends Turn {
     }
 
     const newCardCellPairs = gridState.positionedCards
-      .map(pair => {
+      .map((pair) => {
         return {
           card: pair.card,
-          cell: pair.cell
+          cell: pair.cell,
         }
       })
-      .filter(cardAndCell => cardAndCell.cell !== this.from)
+      .filter((cardAndCell) => cardAndCell.cell !== this.from)
       .concat([
         {
           card: fromPair.card,
-          cell: this.to
-        }
+          cell: this.to,
+        },
       ])
 
     const newGridState = new GridState(newCardCellPairs)

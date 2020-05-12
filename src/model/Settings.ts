@@ -2,16 +2,16 @@ export class Settings {
   public static readonly animation = {
     replay: {
       delayBeforeAutoReplay: 500,
-      duration: 100
+      duration: 100,
     },
     snap: {
       duration: 200,
-      elasticity: 1
+      elasticity: 1,
     },
     turn: {
       duration: 400,
-      elasticity: 0.5
-    }
+      elasticity: 0.5,
+    },
   }
 
   public static readonly colors = {
@@ -22,10 +22,10 @@ export class Settings {
       diamonds: "#211ae9",
       hearts: "#ea0001",
       shadowColor: "#000",
-      spades: "#0e0e0e"
+      spades: "#0e0e0e",
     },
     gridBackgroundColor: "#464",
-    mainBackgroundColor: "#333"
+    mainBackgroundColor: "#333",
   }
 
   public static readonly cardShadowOpacity = 0.6

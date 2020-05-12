@@ -65,7 +65,7 @@ export class ComputedSettings {
   public get cardShadowOffset() {
     const offset = {
       height: Math.round(this.cardSize.width / 20),
-      width: Math.round(this.cardSize.width / 50)
+      width: Math.round(this.cardSize.width / 50),
     }
     return offset
   }
@@ -95,7 +95,7 @@ export class ComputedSettings {
 
     return {
       height: height,
-      width: width
+      width: width,
     }
   }
 
@@ -130,7 +130,7 @@ export class ComputedSettings {
 
     return {
       height: this.windowSize.height - this.footerHeight,
-      width: availableWidth
+      width: availableWidth,
     }
   }
 
@@ -170,7 +170,7 @@ export class ComputedSettings {
 
     return {
       height: cardHeight,
-      width: cardWidth
+      width: cardWidth,
     }
   }
 
@@ -196,7 +196,7 @@ export class ComputedSettings {
 
     return {
       height: height,
-      width: width
+      width: width,
     }
   }
 
@@ -230,7 +230,7 @@ export class ComputedSettings {
 
     return {
       height: cardHeight,
-      width: cardWidth
+      width: cardWidth,
     }
   }
 
@@ -256,7 +256,7 @@ export class ComputedSettings {
 
     return {
       height: height,
-      width: width
+      width: width,
     }
   }
 

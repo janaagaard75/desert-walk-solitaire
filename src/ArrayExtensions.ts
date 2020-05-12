@@ -31,13 +31,13 @@ declare global {
 // Deliberately not using fat arrow syntax here.
 
 if (!Array.prototype.clone) {
-  Array.prototype.clone = function<T>(): Array<T> {
+  Array.prototype.clone = function <T>(): Array<T> {
     return this.slice(0)
   }
 }
 
 if (!Array.prototype.shuffle) {
-  Array.prototype.shuffle = function<T>(): Array<T> {
+  Array.prototype.shuffle = function <T>(): Array<T> {
     const clone = this.clone()
     shuffleInPlace(clone)
     return clone

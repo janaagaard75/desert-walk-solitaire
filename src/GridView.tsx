@@ -13,19 +13,21 @@ export class GridView extends Component {
     const gridViewStyle: ViewStyle = {
       height: ComputedSettings.instance.gridSize.height,
       position: "relative",
-      width: ComputedSettings.instance.gridSize.width
+      width: ComputedSettings.instance.gridSize.width,
     }
 
     return (
       <View style={gridViewStyle}>
-        {Game.instance.currentGridState.positionedCards.map(positionedCard => (
-          <PositionedCardView
-            key={positionedCard.card.key}
-            cardSize={ComputedSettings.instance.cardSize}
-            positionedCard={positionedCard}
-          />
-        ))}
-        {Game.instance.currentGridState.emptyCells.map(emptyCell => (
+        {Game.instance.currentGridState.positionedCards.map(
+          (positionedCard) => (
+            <PositionedCardView
+              key={positionedCard.card.key}
+              cardSize={ComputedSettings.instance.cardSize}
+              positionedCard={positionedCard}
+            />
+          )
+        )}
+        {Game.instance.currentGridState.emptyCells.map((emptyCell) => (
           <EmptyCellView emptyCell={emptyCell} key={emptyCell.cell.key} />
         ))}
       </View>

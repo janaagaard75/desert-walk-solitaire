@@ -118,7 +118,7 @@ export class Game {
     }
 
     const sortedByOverlappedPixels = this.droppableCells
-      .filter(cell => cell.getOverlappingPixels(this.draggedCardBoundary) > 0)
+      .filter((cell) => cell.getOverlappingPixels(this.draggedCardBoundary) > 0)
       .sort(
         (cellA, cellB) =>
           cellB.getOverlappingPixels(this.draggedCardBoundary) -
@@ -131,7 +131,7 @@ export class Game {
 
   @computed
   public get numberOfMoveTurns(): number {
-    const moves = this.turns.filter(turn => turn instanceof MoveTurn).length
+    const moves = this.turns.filter((turn) => turn instanceof MoveTurn).length
     return moves
   }
 
@@ -150,7 +150,7 @@ export class Game {
 
   @computed
   public get shuffles(): number {
-    const shuffles = this.turns.filter(turn => turn instanceof ShuffleTurn)
+    const shuffles = this.turns.filter((turn) => turn instanceof ShuffleTurn)
       .length
     return shuffles
   }
@@ -221,10 +221,10 @@ export class Game {
     }
 
     const targetableCells = this.currentGridState.emptyCells
-      .filter(emptyCell =>
-        emptyCell.droppableCards.some(card => card === this.draggedCard)
+      .filter((emptyCell) =>
+        emptyCell.droppableCards.some((card) => card === this.draggedCard)
       )
-      .map(emptyCell => emptyCell.cell)
+      .map((emptyCell) => emptyCell.cell)
 
     return targetableCells
   }
@@ -310,14 +310,14 @@ export class Game {
   public startOver() {
     const shuffledCards = Deck.instance.cards.shuffle()
     const cellsExcludingFirstColumn = Grid.instance.cells.filter(
-      cell => cell.columnIndex !== 0
+      (cell) => cell.columnIndex !== 0
     )
 
     const positions: Array<CardCellPair> = []
     for (let i = 0; i < shuffledCards.length; i++) {
       positions.push({
         card: shuffledCards[i],
-        cell: cellsExcludingFirstColumn[i]
+        cell: cellsExcludingFirstColumn[i],
       })
     }
 

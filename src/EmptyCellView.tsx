@@ -32,7 +32,7 @@ export class EmptyCellView extends Component<Props> {
     }
 
     if (
-      this.props.emptyCell.droppableCards.some(card => {
+      this.props.emptyCell.droppableCards.some((card) => {
         if (Game.instance.draggingFromCell === undefined) {
           return false
         }
@@ -57,7 +57,7 @@ export class EmptyCellView extends Component<Props> {
       left: this.props.emptyCell.cell.position.x,
       position: "absolute",
       top: this.props.emptyCell.cell.position.y,
-      width: ComputedSettings.instance.cardSize.width
+      width: ComputedSettings.instance.cardSize.width,
     }
 
     return <View style={emptyCellStyle} />

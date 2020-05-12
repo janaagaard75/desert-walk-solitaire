@@ -11,7 +11,7 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
-  ViewStyle
+  ViewStyle,
 } from "react-native"
 import appJson from "../app.json"
 import "./ArrayExtensions"
@@ -41,13 +41,13 @@ export class MainView extends Component {
     backgroundColor: Settings.colors.mainBackgroundColor,
     flex: 1,
     flexDirection: "column",
-    position: "relative"
+    position: "relative",
   }
 
   private gridWrapperStyle: ViewStyle = {
     alignItems: "center",
     flex: 1,
-    justifyContent: "center"
+    justifyContent: "center",
   }
 
   public render() {
@@ -76,7 +76,7 @@ export class MainView extends Component {
                 height: ComputedSettings.instance.windowSize.height,
                 position: "absolute",
                 resizeMode: "repeat",
-                width: ComputedSettings.instance.windowSize.width
+                width: ComputedSettings.instance.windowSize.width,
               }}
             />
             <GridView />
@@ -86,12 +86,10 @@ export class MainView extends Component {
         {ComputedSettings.isIosWithoutHomeButton() ? (
           <View
             style={{
-              height: 15
+              height: 15,
             }}
           />
-        ) : (
-          undefined
-        )}
+        ) : undefined}
         <Text
           style={{
             color: "#fff",
@@ -99,7 +97,7 @@ export class MainView extends Component {
             fontSize: 9,
             right: 30,
             position: "absolute",
-            top: 2
+            top: 2,
           }}
         >
           Version: {this.versionNumber}
@@ -114,7 +112,7 @@ export class MainView extends Component {
 
   private async loadFont() {
     await Font.loadAsync({
-      "Arabian-onenightstand": require("../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf")
+      "Arabian-onenightstand": require("../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf"),
     })
   }
 
@@ -124,7 +122,7 @@ export class MainView extends Component {
     const windowSize = Dimensions.get("window")
     ComputedSettings.instance.windowSize = {
       height: windowSize.height,
-      width: windowSize.width
+      width: windowSize.width,
     }
   }
 }

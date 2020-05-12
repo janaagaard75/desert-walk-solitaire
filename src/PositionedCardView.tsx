@@ -6,7 +6,7 @@ import {
   Animated,
   Easing,
   PanResponder,
-  PanResponderInstance
+  PanResponderInstance,
 } from "react-native"
 import { CardView } from "./CardView"
 import { ComputedSettings } from "./model/ComputedSettings"
@@ -36,7 +36,7 @@ export class PositionedCardView extends Component<Props> {
       this.props.positionedCard.position
     )
 
-    this.animatedPosition.addListener(position => {
+    this.animatedPosition.addListener((position) => {
       const boundary = ComputedSettings.instance.getCardBoundary(position)
       Game.instance.cardDragged(boundary)
     })
@@ -50,7 +50,7 @@ export class PositionedCardView extends Component<Props> {
       onPanResponderMove: (_e, gestureState) => {
         this.animatedPosition.setValue({
           x: this.props.positionedCard.position.x + gestureState.dx,
-          y: this.props.positionedCard.position.y + gestureState.dy
+          y: this.props.positionedCard.position.y + gestureState.dy,
         })
       },
       onPanResponderEnd: (_e, gestureState) => {
@@ -73,13 +73,13 @@ export class PositionedCardView extends Component<Props> {
           easing: Easing.elastic(Settings.animation.snap.elasticity),
           toValue: {
             x: this.props.positionedCard.position.x,
-            y: this.props.positionedCard.position.y
+            y: this.props.positionedCard.position.y,
           },
-          useNativeDriver: true
+          useNativeDriver: true,
         }).start(() => {
           this.visualState = VisualState.Idle
         })
-      }
+      },
     })
   }
 
@@ -102,7 +102,7 @@ export class PositionedCardView extends Component<Props> {
 
     Animated.spring(this.animatedPosition, {
       toValue: this.props.positionedCard.position,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start(() => {
       this.visualState = VisualState.Idle
     })
@@ -114,7 +114,7 @@ export class PositionedCardView extends Component<Props> {
         style={{
           position: "absolute",
           transform: this.animatedPosition.getTranslateTransform(),
-          zIndex: this.visualState === VisualState.Idle ? 1 : 2
+          zIndex: this.visualState === VisualState.Idle ? 1 : 2,
         }}
         {...(this.draggable ? this.panResponder.panHandlers : undefined)}
       >

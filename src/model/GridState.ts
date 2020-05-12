@@ -17,7 +17,7 @@ export class GridState {
       )
     }
 
-    cardCellPairs.forEach(pair => {
+    cardCellPairs.forEach((pair) => {
       this.positionedCards.push(new PositionedCard(pair.cell, this, pair.card))
     })
   }
@@ -28,7 +28,7 @@ export class GridState {
   @computed
   public get correctlyPositionedCards(): Array<PositionedCard> {
     const correctlyPositionedCards = this.positionedCards.filter(
-      pair => pair.correctlyPlaced
+      (pair) => pair.correctlyPlaced
     )
     return correctlyPositionedCards
   }
@@ -36,22 +36,22 @@ export class GridState {
   @computed
   public get draggableCards(): Array<Card> {
     const draggableNonAces = this.emptyCells
-      .map(emptyCell => emptyCell.cell.cellToTheLeft)
-      .map(cellToTheLeft => this.getPositionedCardFromCell(cellToTheLeft))
-      .map(positionedCard =>
+      .map((emptyCell) => emptyCell.cell.cellToTheLeft)
+      .map((cellToTheLeft) => this.getPositionedCardFromCell(cellToTheLeft))
+      .map((positionedCard) =>
         positionedCard === undefined ? undefined : positionedCard.card
       )
-      .map(card => (card === undefined ? undefined : card.next))
+      .map((card) => (card === undefined ? undefined : card.next))
       .filter(
         (nextCard: Card | undefined): nextCard is Card => nextCard !== undefined
       )
 
     const draggableAces = this.positionedCards
-      .filter(positionedCard =>
+      .filter((positionedCard) =>
         Deck.instance.theFourAces.includes(positionedCard.card)
       )
-      .filter(cellWithAce => !cellWithAce.correctlyPlaced)
-      .map(cellWithAce => cellWithAce.card)
+      .filter((cellWithAce) => !cellWithAce.correctlyPlaced)
+      .map((cellWithAce) => cellWithAce.card)
 
     const draggableCards = draggableNonAces.concat(draggableAces)
     return draggableCards
@@ -60,8 +60,8 @@ export class GridState {
   @computed
   public get emptyCells(): Array<EmptyCell> {
     const emptyCells = Grid.instance.cells
-      .filter(cell => this.getPositionedCardFromCell(cell) === undefined)
-      .map(cell => new EmptyCell(cell, this))
+      .filter((cell) => this.getPositionedCardFromCell(cell) === undefined)
+      .map((cell) => new EmptyCell(cell, this))
 
     return emptyCells
   }
@@ -69,7 +69,7 @@ export class GridState {
   @computed
   public get incorrectlyPositionedCards(): Array<PositionedCard> {
     const incorrectlyPositionedCards = this.positionedCards.filter(
-      pair => !pair.correctlyPlaced
+      (pair) => !pair.correctlyPlaced
     )
     return incorrectlyPositionedCards
   }
@@ -85,7 +85,7 @@ export class GridState {
       return positionedCard
     }
 
-    const emptyCell = this.emptyCells.find(ec => ec.cell === cell)
+    const emptyCell = this.emptyCells.find((ec) => ec.cell === cell)
     if (emptyCell === undefined) {
       throw new Error("Neither an occupied nor an empty cell found.")
     }
@@ -94,7 +94,7 @@ export class GridState {
   }
 
   public getPositionedCardFromCard(card: Card): PositionedCard {
-    const match = this.positionedCards.find(pair => pair.card === card)
+    const match = this.positionedCards.find((pair) => pair.card === card)
 
     if (match === undefined) {
       throw new Error(`Could not find pair with card ${card.key}.`)
@@ -110,7 +110,7 @@ export class GridState {
       return undefined
     }
 
-    const match = this.positionedCards.find(pair => pair.cell === cell)
+    const match = this.positionedCards.find((pair) => pair.cell === cell)
     return match
   }
 
@@ -127,7 +127,7 @@ export class GridState {
 
         cardCellPairs.push({
           card: Deck.instance.cards[cardIndex],
-          cell: Grid.instance.cells[cellIndex]
+          cell: Grid.instance.cells[cellIndex],
         })
 
         if (cardCellPairs[cardCellPairs.length - 1].card === undefined) {
