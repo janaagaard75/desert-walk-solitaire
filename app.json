@@ -17,11 +17,11 @@
     "platforms": ["android", "ios"],
     "ios": {
       "config": {
-        "usesNonExemptEncryption": false,
-        "requireFullScreen": true
+        "usesNonExemptEncryption": false
       },
       "buildNumber": "5",
       "bundleIdentifier": "com.janaagaard.desertwalk",
+      "requireFullScreen": true,
       "supportsTablet": true,
       "usesIcloudStorage": false
     },
