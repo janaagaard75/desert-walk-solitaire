@@ -25,7 +25,6 @@ export class MainView extends Component {
   public constructor(props: {}) {
     super(props)
 
-    // TODO: Why is this only respected in on an Iphone and not an iPad?
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
 
     this.updateWindowSize()
