@@ -24,6 +24,7 @@
     "ios": "yarn install --frozen-lockfile && expo start --ios",
     "lint": "eslint --format codeframe \"**/*.ts\" \"**/*.tsx\"",
     "prettify": "yarn install --frozen-lockfile && prettier --write \"**/*.ts\" \"**/*.tsx\" \"*.js\" \"*.json\" \"*.ts\"",
+    "optimize-assets": "npx expo-optimize",
     "publish-to-expo": "expo publish",
     "start": "yarn install --frozen-lockfile && expo start",
     "sync-from-yarn-lock": "syncyarnlock --keepPrefix --keepGit --keepLink --save",
@@ -54,6 +55,7 @@
     "eslint-plugin-react": "^7.19.0",
     "expo-cli": "^3.20.3",
     "prettier": "^2.0.5",
+    "sharp-cli": "1.14.0",
     "syncyarnlock": "^1.0.19",
     "typescript": "^3.8.3"
   }
