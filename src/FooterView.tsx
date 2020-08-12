@@ -77,7 +77,7 @@ export class FooterView extends Component {
     )
   }
 
-  private confirmUnlessGameOver() {
+  private confirmUnlessGameOver(): void {
     switch (Game.instance.gameState) {
       case GameState.Lost:
       case GameState.Won:
@@ -90,9 +90,7 @@ export class FooterView extends Component {
         break
 
       default:
-        throw new Error(
-          `The game state ${Game.instance.gameState} is not supported.`
-        )
+        assertUnreachable(Game.instance.gameState)
     }
   }
 
@@ -131,4 +129,8 @@ export class FooterView extends Component {
 
     return TouchableState.Disabled
   }
+}
+
+function assertUnreachable(x: never): never {
+  throw new Error(`Didn't expect to get here. Value: ${x}.`)
 }

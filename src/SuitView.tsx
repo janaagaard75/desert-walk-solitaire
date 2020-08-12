@@ -11,7 +11,7 @@ interface Props {
 }
 
 @observer
-export class SuitView extends Component<Props, {}> {
+export class SuitView extends Component<Props> {
   public render() {
     return (
       <Svg height={this.props.size} viewBox="0 0 60 60" width={this.props.size}>
