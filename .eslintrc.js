@@ -26,7 +26,7 @@ module.exports = {
       },
     ],
     // Mandatory return types is too verbose for my taste.
-    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     // Empty constructors make sense for singleton classes.
     "@typescript-eslint/no-empty-function": [
       "error",
