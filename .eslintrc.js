@@ -16,7 +16,7 @@ module.exports = {
       version: "detect",
     },
   },
-  env: { browser: true, node: true },
+  env: { node: true },
   rules: {
     "@typescript-eslint/array-type": [
       "error",
