@@ -14,7 +14,7 @@ module.exports = {
   //   sourceType: "module",
   // },
   // Ignore .js files since we're coding in TypeScript.
-  // "ignorePatterns": ["**/*.js"],
+  ignorePatterns: ["**/*.js"],
   settings: {
     react: {
       version: "detect",
