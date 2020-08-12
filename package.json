@@ -22,7 +22,7 @@
     "docs-start": "yarn run docs-clean && (cd docs; bundle exec jekyll serve --future --unpublished)",
     "docs-update": "(cd docs; bundle update)",
     "ios": "yarn install --frozen-lockfile && expo start --ios",
-    "lint": "eslint --format codeframe \"**/*.ts\" \"**/*.tsx\"",
+    "lint": "eslint . --ext .ts,.tsx --format codeframe",
     "prettify": "yarn install --frozen-lockfile && prettier --write \"**/*.ts\" \"**/*.tsx\" \"*.js\" \"*.json\" \"*.ts\"",
     "optimize-assets": "npx expo-optimize",
     "publish-to-expo": "expo publish",
