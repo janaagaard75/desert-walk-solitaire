@@ -18,6 +18,7 @@ module.exports = {
   },
   env: { node: true },
   rules: {
+    // Use the Array<foo> syntax instead of foo[] in types.
     "@typescript-eslint/array-type": [
       "error",
       {
