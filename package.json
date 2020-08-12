@@ -56,7 +56,6 @@
     "expo-cli": "^3.20.3",
     "prettier": "^2.0.5",
     "sharp-cli": "~1.14.1",
-    "syncyarnlock": "^1.0.19",
     "typescript": "~3.9.5"
   }
 }
