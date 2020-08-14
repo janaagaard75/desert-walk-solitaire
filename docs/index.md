@@ -6,6 +6,8 @@ My grandmother taught me this solitaire card game. I got tired of laying out the
 
 The goal of the game is to arrange all the cards in order from aces to kings, moving one card at a time, trying to avoid creating empty spaces behind kings. The cards can only be shuffled three times during a play, making it quite rare that the game is solved.
 
+The game is featured in GameKeys' [Hidden Gems: Top Card Games To Play On IOS](https://gameskeys.net/hidden-gems-top-card-games-to-play-on-ios/) article.
+
 - [Support](support.md)
 - [Privacy Policy](privacy-policy.md)
 - [Source code](https://github.com/janaagaard75/desert-walk)
