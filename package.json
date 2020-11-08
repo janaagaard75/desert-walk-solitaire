@@ -54,7 +54,6 @@
     "eslint-plugin-react": "^7.20.5",
     "expo-cli": "^3.24.0",
     "prettier": "^2.0.5",
-    "sharp-cli": "~1.14.1",
     "typescript": "~3.9.2"
   }
 }
