@@ -58,6 +58,12 @@ It's necessary to deploy a new version when updating the Expo SDK, and also in a
 
 Certificate for push notifications: <https://github.com/expo/turtle/issues/62#issuecomment-469528206>.
 
+## Known and Unknown Packages
+
+Known packages: expo-font, react-native-svg, expo-screen-orientation, react-native, react, typescript, @types/react, babel-preset-expo, @types/react-native, expo.
+
+Unknown packages: mobx, mobx-react, tslib, @babel/core, @types/expo\_\_vector-icons, @typescript-eslint/eslint-plugin, @typescript-eslint/parser, eslint, eslint-config-prettier, eslint-plugin-prettier, eslint-plugin-react, expo-cli, prettier, sharp-cli
+
 ## Learnings
 
 Adding undo/redo and cleaning up the data model was difficult. Having switched to a @computed based model simplified things. However there is still some code leftover from the previous model, meaning that the currently solution could be simplified and optimized.
