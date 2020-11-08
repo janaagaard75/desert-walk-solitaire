@@ -62,7 +62,7 @@ Certificate for push notifications: <https://github.com/expo/turtle/issues/62#is
 
 Known packages: expo-font, react-native-svg, expo-screen-orientation, react-native, react, typescript, @types/react, babel-preset-expo, @types/react-native, expo.
 
-Unknown packages: mobx, mobx-react, tslib, @babel/core, @types/expo\_\_vector-icons, @typescript-eslint/eslint-plugin, @typescript-eslint/parser, eslint, eslint-config-prettier, eslint-plugin-prettier, eslint-plugin-react, expo-cli, prettier
+Unknown packages: mobx, mobx-react, tslib, @types/expo\_\_vector-icons, @typescript-eslint/eslint-plugin, @typescript-eslint/parser, eslint, eslint-config-prettier, eslint-plugin-prettier, eslint-plugin-react, expo-cli, prettier
 
 ## Learnings
 
