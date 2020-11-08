@@ -31,7 +31,7 @@
     "validate": "yarn install --frozen-lockfile && yarn run lint && yarn run check-types"
   },
   "dependencies": {
-    "expo": "^39.0.0",
+    "expo": "^39.0.4",
     "expo-font": "~8.3.0",
     "expo-screen-orientation": "~2.0.0",
     "mobx": "^5.15.5",
@@ -43,16 +43,16 @@
   },
   "devDependencies": {
     "@types/expo__vector-icons": "^9.0.1",
-    "@types/react": "~16.9.35",
-    "@types/react-native": "~0.63.2",
+    "@types/react": "~16.9.56",
+    "@types/react-native": "~0.63.33",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
     "babel-preset-expo": "^8.3.0",
     "eslint": "^7.13.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-react": "^7.21.5",
-    "expo-cli": "^3.24.0",
+    "expo-cli": "^3.28.5",
     "prettier": "^2.1.2",
-    "typescript": "~3.9.2"
+    "typescript": "~3.9.7"
   }
 }

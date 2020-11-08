@@ -2528,7 +2528,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-native@~0.63.2":
+"@types/react-native@~0.63.33":
   version "0.63.33"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.63.33.tgz#cd7123a872fcda8f2563c324ff7d35fc91d86d81"
   integrity sha512-bqRtJI4EwiV3OTc9pHjmtE/ZIOLYi9KbrnMWyJIb90Z7+eXKPimKPTBU1oDVNdw8CXkDCrZaengvvdu2JMvjtg==
@@ -2543,7 +2543,7 @@
     "@types/prop-types" "*"
     csstype "^3.0.2"
 
-"@types/react@~16.9.35":
+"@types/react@~16.9.56":
   version "16.9.56"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.56.tgz#ea25847b53c5bec064933095fc366b1462e2adf0"
   integrity sha512-gIkl4J44G/qxbuC6r2Xh+D3CGZpJ+NdWTItAPmZbR5mUS+JQ8Zvzpl0ea5qT/ZT3ZNTUcDKUVqV3xBE8wv/DyQ==
@@ -6048,7 +6048,7 @@ expo-asset@~8.2.0:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
-expo-cli@^3.24.0:
+expo-cli@^3.28.5:
   version "3.28.5"
   resolved "https://registry.yarnpkg.com/expo-cli/-/expo-cli-3.28.5.tgz#2e258c6de96665679e0169df944be90695d0fb01"
   integrity sha512-Lam0JkBx57gs1xhlI+rXx3aJqOebIPBPf9sWAvUpTFDSVkyZN86rFXJWud6QnAFBLGqUgGFZJDC1tMq+l7Mgng==
@@ -6210,7 +6210,7 @@ expo-sqlite@~8.4.0:
     "@expo/websql" "^1.0.1"
     lodash "^4.17.15"
 
-expo@^39.0.0:
+expo@^39.0.4:
   version "39.0.4"
   resolved "https://registry.yarnpkg.com/expo/-/expo-39.0.4.tgz#320b7453ac055fc37c64942d5ba442f4e2781993"
   integrity sha512-lyd7VSg0DG+I2CwWtOHwhmMwgANoqggqU1ooWRdO4KdWPYA8hWMMsLC2vBBBemKv3PPwxhl9hhzFxtjJ/MaR7g==
@@ -13513,7 +13513,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@~3.9.2:
+typescript@~3.9.7:
   version "3.9.7"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
   integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
