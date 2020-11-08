@@ -29,13 +29,16 @@ module.exports = {
         readonly: "generic",
       },
     ],
+
     // Mandatory return types is too verbose for my taste.
     "@typescript-eslint/explicit-module-boundary-types": "off",
+
     // Empty constructors make sense for singleton classes.
     "@typescript-eslint/no-empty-function": [
       "error",
       { allow: ["constructors"] },
     ],
+
     // Let TypeScript test for unused variables.
     "@typescript-eslint/no-unused-vars": "off",
   },
