@@ -34,12 +34,12 @@
     "expo": "^39.0.4",
     "expo-font": "~8.3.0",
     "expo-screen-orientation": "~2.0.0",
-    "mobx": "^5.15.5",
-    "mobx-react": "^6.2.5",
+    "mobx": "^5.15.7",
+    "mobx-react": "^6.3.1",
     "react": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
     "react-native-svg": "12.1.0",
-    "tslib": "^2.0.1"
+    "tslib": "^2.0.3"
   },
   "devDependencies": {
     "@types/expo__vector-icons": "^9.0.1",
