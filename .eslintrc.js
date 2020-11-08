@@ -39,7 +39,13 @@ module.exports = {
       { allow: ["constructors"] },
     ],
 
-    // Let TypeScript test for unused variables.
-    "@typescript-eslint/no-unused-vars": "off",
+    // Do not allow any unused variables except the ones prefixed with an underscore.
+    "@typescript-eslint/no-unused-vars": [
+      "off",
+      {
+        args: "all",
+        argsIgnorePattern: "^_",
+      },
+    ],
   },
 }
