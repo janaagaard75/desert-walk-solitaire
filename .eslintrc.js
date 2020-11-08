@@ -47,5 +47,20 @@ module.exports = {
         argsIgnorePattern: "^_",
       },
     ],
+
+    // Always use strict comparisons.
+    eqeqeq: "error",
+
+    // Use fat arrow function style.
+    "func-style": "error",
+
+    // Forbid reassigning parameters.
+    "no-param-reassign": "error",
+
+    // Prefer const over let.
+    "prefer-const": "error",
+
+    // Prefer template strings over concatenating with plus.
+    "prefer-template": "error",
   },
 }

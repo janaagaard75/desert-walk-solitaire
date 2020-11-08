@@ -131,6 +131,6 @@ export class FooterView extends Component {
   }
 }
 
-function assertUnreachable(x: never): never {
+const assertUnreachable = (x: never): never => {
   throw new Error(`Didn't expect to get here. Value: ${x}.`)
 }
