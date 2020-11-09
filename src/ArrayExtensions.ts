@@ -1,5 +1,8 @@
 // It is generally discouraged to extend the prototypes of the built in classes, but extending the classes or wrapping them would require a lot of casting or boxing/unboxing. Note this about extending built ins: https://github.com/Microsoft/TypeScript/wiki/FAQ#why-doesnt-extending-built-ins-like-error-array-and-map-work.
 
+// Deliberately not using fat arrow syntax here.
+
+// eslint-disable-next-line func-style
 function shuffleInPlace<T>(array: Array<T>): void {
   let top = array.length
   if (top >= 0) {
@@ -27,8 +30,6 @@ declare global {
     shuffle(): ReadonlyArray<T>
   }
 }
-
-// Deliberately not using fat arrow syntax here.
 
 if (!Array.prototype.clone) {
   Array.prototype.clone = function <T>(): Array<T> {

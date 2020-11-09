@@ -113,7 +113,12 @@ export class PositionedCardView extends Component<Props> {
       <Animated.View
         style={{
           position: "absolute",
-          transform: this.animatedPosition.getTranslateTransform(),
+          transform: [
+            {
+              translateX: this.animatedPosition.x,
+              translateY: this.animatedPosition.y,
+            },
+          ],
           zIndex: this.visualState === VisualState.Idle ? 1 : 2,
         }}
         {...(this.draggable ? this.panResponder.panHandlers : undefined)}
