@@ -35,14 +35,16 @@
     "expo-app-loading": "^1.1.2",
     "expo-font": "~9.2.1",
     "expo-screen-orientation": "~3.2.1",
-    "mobx": "^5.15.7",
-    "mobx-react": "^6.3.1",
+    "mobx": "^6.0.3",
+    "mobx-react": "^7.0.4",
     "react": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-svg": "12.1.1",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.1",
     "@babel/core": "^7.15.5",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",

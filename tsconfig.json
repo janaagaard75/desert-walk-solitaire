@@ -7,7 +7,8 @@
     "noImplicitReturns": true,
     "outDir": "build/dist",
     "strict": true,
-    "strictFunctionTypes": false
+    "strictFunctionTypes": false,
+    "useDefineForClassFields": true
   },
   "extends": "expo/tsconfig.base"
 }
