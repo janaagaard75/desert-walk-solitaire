@@ -1,4 +1,4 @@
-import { autorun, computed, observable } from "mobx"
+import { autorun, computed, makeObservable, observable } from "mobx"
 import { Card } from "./Card"
 import { CardCellPair } from "./CardCellPair"
 import { Cell } from "./Cell"
@@ -16,6 +16,17 @@ import { Turn } from "./turn/Turn"
 
 export class Game {
   private constructor() {
+    makeObservable<
+      Game,
+      | "_currentStateIndex"
+      | "gridStates"
+      | "replayPlaying"
+      | "replayShown"
+      | "turns"
+      | "currentStateIndex"
+      | "droppableCells"
+      | "targetableCells"
+    >(this)
     this.startOver()
     autorun(() => this.autorun())
   }

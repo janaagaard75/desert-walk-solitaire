@@ -1,4 +1,4 @@
-import { computed } from "mobx"
+import { computed, makeObservable } from "mobx"
 import { Cell } from "./Cell"
 import { ComputedSettings } from "./ComputedSettings"
 import { EmptyCell } from "./EmptyCell"
@@ -8,7 +8,9 @@ import { PositionedCard } from "./PositionedCard"
 import { Rectangle } from "./Rectangle"
 
 export abstract class GridCell {
-  public constructor(public cell: Cell, protected gridState: GridState) {}
+  public constructor(public cell: Cell, protected gridState: GridState) {
+    makeObservable(this)
+  }
 
   @computed
   public get boundary(): Rectangle {

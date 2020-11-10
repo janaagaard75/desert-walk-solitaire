@@ -1,4 +1,4 @@
-import { computed } from "mobx"
+import { computed, makeObservable } from "mobx"
 import { ComputedSettings } from "./ComputedSettings"
 import { Point } from "./Point"
 import { Rectangle } from "./Rectangle"
@@ -10,6 +10,7 @@ export class Cell {
     public readonly columnIndex: number,
     public readonly cellToTheLeft: Cell | undefined
   ) {
+    makeObservable(this)
     this.key = this.rowIndex * Settings.columns + this.columnIndex + 1
   }
 

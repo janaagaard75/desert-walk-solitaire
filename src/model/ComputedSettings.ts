@@ -1,4 +1,4 @@
-import { computed, observable } from "mobx"
+import { computed, makeObservable, observable } from "mobx"
 import { Dimensions, Platform } from "react-native"
 import { PointInterface } from "./PointInterface"
 import { Rectangle } from "./Rectangle"
@@ -8,6 +8,20 @@ import { Size } from "./Size"
 export class ComputedSettings {
   // It's necessary to use the singleton pattern, because @computed doesn't work on static fields. See https://github.com/mobxjs/mobx/issues/351#issuecomment-228304310. It's also necessary to use an _instance private member and a getter instead of simply making instance a public static field - don't know why, though.
   private static _instance: ComputedSettings
+
+  constructor() {
+    makeObservable<
+      ComputedSettings,
+      | "restrictedBy"
+      | "availablePlayingFieldSize"
+      | "heightRestrictedCardSize"
+      | "heightRestrictedGutterSize"
+      | "heightRestrictedPlayingFieldSize"
+      | "widthRestrictedCardSize"
+      | "widthRestrictedGutterSize"
+      | "widthRestrictedPlayingFieldSize"
+    >(this)
+  }
 
   public static get instance() {
     if (this._instance === undefined) {

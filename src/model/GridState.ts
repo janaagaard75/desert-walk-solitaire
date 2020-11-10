@@ -1,4 +1,4 @@
-import { computed, observable } from "mobx"
+import { computed, makeObservable, observable } from "mobx"
 import { Card } from "./Card"
 import { CardCellPair } from "./CardCellPair"
 import { Cell } from "./Cell"
@@ -11,6 +11,7 @@ import { Turn } from "./turn/Turn"
 
 export class GridState {
   public constructor(cardCellPairs: Array<CardCellPair>) {
+    makeObservable(this)
     if (cardCellPairs.length !== Deck.instance.cards.length) {
       throw new Error(
         `Must supply ${Deck.instance.cards.length} card and cell pairs to the GridState constructor.`
