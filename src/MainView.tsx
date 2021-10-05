@@ -1,4 +1,4 @@
-import { AppLoading } from "expo"
+import AppLoading from "expo-app-loading"
 import * as Font from "expo-font"
 import * as ScreenOrientation from "expo-screen-orientation"
 import { observable } from "mobx"
@@ -60,6 +60,7 @@ export class MainView extends Component<Props> {
           onFinish={() => {
             this.fontLoaded = true
           }}
+          onError={console.warn}
         />
       )
     }
