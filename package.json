@@ -43,6 +43,7 @@
     "tslib": "^2.0.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.5",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
