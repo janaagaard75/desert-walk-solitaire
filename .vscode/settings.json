@@ -44,6 +44,9 @@
     "typescriptreact"
   ],
   "javascript.validate.enable": false,
+  "search.exclude": {
+    "yarn.lock": true
+  },
   "typescript.preferences.quoteStyle": "double",
   "typescript.tsdk": "node_modules/typescript/lib"
 }
