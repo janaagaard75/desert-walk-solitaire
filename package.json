@@ -31,28 +31,28 @@
     "validate": "yarn install --frozen-lockfile && yarn run lint && yarn run check-types"
   },
   "dependencies": {
-    "expo": "^39.0.4",
-    "expo-font": "~8.3.0",
-    "expo-screen-orientation": "~2.0.0",
+    "expo": "^42.0.0",
+    "expo-font": "~9.2.1",
+    "expo-screen-orientation": "~3.2.1",
     "mobx": "^5.15.7",
     "mobx-react": "^6.3.1",
     "react": "16.13.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
-    "react-native-svg": "12.1.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-svg": "12.1.1",
     "tslib": "^2.0.3"
   },
   "devDependencies": {
     "@types/expo__vector-icons": "^9.0.1",
-    "@types/react": "~16.9.56",
-    "@types/react-native": "~0.63.33",
+    "@types/react": "~16.9.35",
+    "@types/react-native": "~0.63.2",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
-    "babel-preset-expo": "^8.3.0",
+    "babel-preset-expo": "8.3.0",
     "eslint": "^7.13.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-react": "^7.21.5",
     "expo-cli": "^4.12.1",
     "prettier": "^2.1.2",
-    "typescript": "~3.9.7"
+    "typescript": "~4.0.0"
   }
 }
