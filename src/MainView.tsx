@@ -19,7 +19,6 @@ import { GridView } from "./GridView"
 import { ComputedSettings } from "./model/ComputedSettings"
 import { Settings } from "./model/Settings"
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
 
 @observer

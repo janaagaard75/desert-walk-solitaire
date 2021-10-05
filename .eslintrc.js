@@ -39,6 +39,9 @@ module.exports = {
       { allow: ["constructors"] },
     ],
 
+    // Allow empty interfaces since Props might be empty.
+    "@typescript-eslint/no-empty-interface": "off",
+
     // Do not allow any unused variables except the ones prefixed with an underscore.
     "@typescript-eslint/no-unused-vars": [
       "off",
