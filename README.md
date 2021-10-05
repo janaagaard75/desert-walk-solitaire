@@ -41,7 +41,7 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 ## Deploying a new version
 
-It's necessary to deploy a new version when updating the Expo SDK, and also in a [handful more cases](https://docs.expo.io/versions/v36.0.0/workflow/publishing/#limitations).
+It's necessary to deploy a new version when updating the Expo SDK, and also in a [handful more cases](https://docs.expo.dev/workflow/publishing/#limitations).
 
 1. Increment `buildNumber` and `versionCode` in `app.json`.
 2. Bump `version` in `app.json` and `package.json`.
