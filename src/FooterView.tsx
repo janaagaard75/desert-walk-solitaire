@@ -28,13 +28,11 @@ export class FooterView extends Component {
         <View style={buttonWrapperStyle}>
           <TouchableIcon
             handlePress={() => this.confirmUnlessGameOver()}
-            iconGroup="fontAwesome"
             iconName="fast-backward"
             state={TouchableState.Enabled}
           />
           <TouchableIcon
             handlePress={() => Game.instance.replay()}
-            iconGroup="entypo"
             iconName="controller-fast-forward"
             state={
               Game.instance.replayEnabled
@@ -44,32 +42,27 @@ export class FooterView extends Component {
           />
           <TouchableIcon
             handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
-            iconGroup="entypo"
             iconName="shuffle"
             state={this.shuffleButtonEnabled(1)}
           />
           <TouchableIcon
             handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
-            iconGroup="entypo"
             iconName="shuffle"
             state={this.shuffleButtonEnabled(2)}
           />
           <TouchableIcon
             handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
-            iconGroup="entypo"
             iconName="shuffle"
             state={this.shuffleButtonEnabled(3)}
           />
           <TouchableIcon
             handlePress={() => Game.instance.undo()}
-            iconGroup="ionicons"
-            iconName="md-undo"
+            iconName="undo"
             state={Game.instance.undoState}
           />
           <TouchableIcon
             handlePress={() => Game.instance.redo()}
-            iconGroup="ionicons"
-            iconName="md-redo"
+            iconName="redo"
             state={Game.instance.redoState}
           />
         </View>
