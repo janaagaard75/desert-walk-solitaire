@@ -1,6 +1,5 @@
 import { Entypo, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons"
-import * as React from "react"
-import { Component } from "react"
+import React, { Component } from "react"
 import { TouchableOpacity, View } from "react-native"
 import { TouchableState } from "./model/TouchableState"
 

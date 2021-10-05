@@ -1,6 +1,5 @@
 import { observer } from "mobx-react"
-import * as React from "react"
-import { Component } from "react"
+import React, { Component } from "react"
 import Svg, { G, Path } from "react-native-svg"
 import { Suit } from "./model/Suit"
 import { SuitHelper } from "./model/SuitHelper"
