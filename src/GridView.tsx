@@ -1,6 +1,5 @@
 import { observer } from "mobx-react"
-import * as React from "react"
-import { Component } from "react"
+import React, { Component } from "react"
 import { View, ViewStyle } from "react-native"
 import { EmptyCellView } from "./EmptyCellView"
 import { ComputedSettings } from "./model/ComputedSettings"

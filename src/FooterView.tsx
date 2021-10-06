@@ -1,6 +1,5 @@
 import { observer } from "mobx-react"
-import * as React from "react"
-import { Component } from "react"
+import React, { Component } from "react"
 import { Alert, View, ViewStyle } from "react-native"
 import { Game } from "./model/Game"
 import { GameState } from "./model/GameState"
@@ -28,13 +27,11 @@ export class FooterView extends Component {
         <View style={buttonWrapperStyle}>
           <TouchableIcon
             handlePress={() => this.confirmUnlessGameOver()}
-            iconGroup="fontAwesome"
             iconName="fast-backward"
             state={TouchableState.Enabled}
           />
           <TouchableIcon
             handlePress={() => Game.instance.replay()}
-            iconGroup="entypo"
             iconName="controller-fast-forward"
             state={
               Game.instance.replayEnabled
@@ -44,32 +41,27 @@ export class FooterView extends Component {
           />
           <TouchableIcon
             handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
-            iconGroup="entypo"
             iconName="shuffle"
             state={this.shuffleButtonEnabled(1)}
           />
           <TouchableIcon
             handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
-            iconGroup="entypo"
             iconName="shuffle"
             state={this.shuffleButtonEnabled(2)}
           />
           <TouchableIcon
             handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
-            iconGroup="entypo"
             iconName="shuffle"
             state={this.shuffleButtonEnabled(3)}
           />
           <TouchableIcon
             handlePress={() => Game.instance.undo()}
-            iconGroup="ionicons"
-            iconName="md-undo"
+            iconName="undo"
             state={Game.instance.undoState}
           />
           <TouchableIcon
             handlePress={() => Game.instance.redo()}
-            iconGroup="ionicons"
-            iconName="md-redo"
+            iconName="redo"
             state={Game.instance.redoState}
           />
         </View>
@@ -88,9 +80,6 @@ export class FooterView extends Component {
       case GameState.Stuck:
         this.confirmRestart()
         break
-
-      default:
-        assertUnreachable(Game.instance.gameState)
     }
   }
 
@@ -129,8 +118,4 @@ export class FooterView extends Component {
 
     return TouchableState.Disabled
   }
-}
-
-const assertUnreachable = (x: never): never => {
-  throw new Error(`Didn't expect to get here. Value: ${x}.`)
 }

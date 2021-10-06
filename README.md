@@ -41,7 +41,7 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 ## Deploying a new version
 
-It's necessary to deploy a new version when updating the Expo SDK, and also in a [handful more cases](https://docs.expo.io/versions/v36.0.0/workflow/publishing/#limitations).
+It's necessary to deploy a new version when updating the Expo SDK, and also in a [handful more cases](https://docs.expo.dev/workflow/publishing/#limitations).
 
 1. Increment `buildNumber` and `versionCode` in `app.json`.
 2. Bump `version` in `app.json` and `package.json`.
@@ -60,9 +60,9 @@ Certificate for push notifications: <https://github.com/expo/turtle/issues/62#is
 
 ## Known and Unknown Packages
 
-Known packages: expo-font, react-native-svg, expo-screen-orientation, react-native, react, typescript, @types/react, babel-preset-expo, @types/react-native, expo.
+Known packages: react-native-svg, expo-app-loading, expo-font, expo-screen-orientation, react-native, react, typescript, @types/react, babel-preset-expo, @types/react-native, expo.
 
-Unknown packages: mobx, mobx-react, tslib, @types/expo\_\_vector-icons, @typescript-eslint/eslint-plugin, @typescript-eslint/parser, eslint, eslint-config-prettier, eslint-plugin-react, expo-cli, prettier
+Unknown packages: mobx, mobx-react, tslib, @typescript-eslint/eslint-plugin, @typescript-eslint/parser, eslint, eslint-config-prettier, eslint-plugin-react, expo-cli, prettier
 
 ## Learnings
 

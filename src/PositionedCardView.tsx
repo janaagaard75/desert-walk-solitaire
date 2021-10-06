@@ -1,7 +1,6 @@
 import { computed, observable } from "mobx"
 import { observer } from "mobx-react"
-import * as React from "react"
-import { Component } from "react"
+import React, { Component } from "react"
 import {
   Animated,
   Easing,
@@ -114,10 +113,8 @@ export class PositionedCardView extends Component<Props> {
         style={{
           position: "absolute",
           transform: [
-            {
-              translateX: this.animatedPosition.x,
-              translateY: this.animatedPosition.y,
-            },
+            { translateX: this.animatedPosition.x },
+            { translateY: this.animatedPosition.y },
           ],
           zIndex: this.visualState === VisualState.Idle ? 1 : 2,
         }}

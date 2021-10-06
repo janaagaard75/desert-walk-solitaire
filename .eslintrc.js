@@ -4,14 +4,13 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    // Consider adding these rules. This requires parserOptions.project to be set, and ESLint will then complain about .js files not being included.
-    // "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier",
   ],
-  // parserOptions: {
-  //   project: "./tsconfig.json",
-  //   sourceType: "module",
-  // },
+  parserOptions: {
+    project: "./tsconfig.json",
+    sourceType: "module",
+  },
   // Ignore .js files since we're coding in TypeScript.
   ignorePatterns: ["**/*.js"],
   settings: {
@@ -19,7 +18,10 @@ module.exports = {
       version: "detect",
     },
   },
-  env: { node: true },
+  env: {
+    es2020: true,
+    node: true,
+  },
   rules: {
     // Use the Array<foo> syntax instead of foo[] in types.
     "@typescript-eslint/array-type": [
@@ -36,8 +38,16 @@ module.exports = {
     // Empty constructors make sense for singleton classes.
     "@typescript-eslint/no-empty-function": [
       "error",
-      { allow: ["constructors"] },
+      {
+        allow: ["constructors"],
+      },
     ],
+
+    // Allow empty interfaces since Props might be empty.
+    "@typescript-eslint/no-empty-interface": "off",
+
+    // Allow assigning things that are `any` since this is what the `require` function returns.
+    "@typescript-eslint/no-unsafe-assignment": "off",
 
     // Do not allow any unused variables except the ones prefixed with an underscore.
     "@typescript-eslint/no-unused-vars": [
@@ -47,6 +57,9 @@ module.exports = {
         argsIgnorePattern: "^_",
       },
     ],
+
+    // Require that switch statements handle all cases.
+    "@typescript-eslint/switch-exhaustiveness-check": "error",
 
     // Always use strict comparisons.
     eqeqeq: "error",

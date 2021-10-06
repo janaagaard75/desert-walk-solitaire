@@ -1,10 +1,9 @@
-import { AppLoading } from "expo"
-import * as Font from "expo-font"
-import * as ScreenOrientation from "expo-screen-orientation"
+import AppLoading from "expo-app-loading"
+import { loadAsync } from "expo-font"
+import { lockAsync, OrientationLock } from "expo-screen-orientation"
 import { observable } from "mobx"
 import { observer } from "mobx-react"
-import * as React from "react"
-import { Component } from "react"
+import React, { Component } from "react"
 import {
   Dimensions,
   Image,
@@ -20,7 +19,6 @@ import { GridView } from "./GridView"
 import { ComputedSettings } from "./model/ComputedSettings"
 import { Settings } from "./model/Settings"
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
 
 @observer
@@ -28,7 +26,7 @@ export class MainView extends Component<Props> {
   public constructor(props: Props) {
     super(props)
 
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
+    void lockAsync(OrientationLock.LANDSCAPE)
 
     this.updateWindowSize()
     Dimensions.addEventListener("change", () => {
@@ -60,6 +58,7 @@ export class MainView extends Component<Props> {
           onFinish={() => {
             this.fontLoaded = true
           }}
+          onError={console.warn}
         />
       )
     }
@@ -113,7 +112,7 @@ export class MainView extends Component<Props> {
   }
 
   private async loadFont() {
-    await Font.loadAsync({
+    await loadAsync({
       "Arabian-onenightstand": require("../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf"),
     })
   }

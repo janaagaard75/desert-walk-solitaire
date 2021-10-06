@@ -1,13 +1,18 @@
-import { Entypo, FontAwesome, Ionicons } from "@expo/vector-icons"
-import * as React from "react"
-import { Component } from "react"
+import { Entypo, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons"
+import React, { Component } from "react"
 import { TouchableOpacity, View } from "react-native"
 import { TouchableState } from "./model/TouchableState"
 
+type IconName =
+  | "controller-fast-forward"
+  | "fast-backward"
+  | "redo"
+  | "shuffle"
+  | "undo"
+
 interface Props {
   handlePress: () => void
-  iconGroup: string
-  iconName: string
+  iconName: IconName
   state: TouchableState
 }
 
@@ -37,7 +42,7 @@ export class TouchableIcon extends Component<Props> {
           width: `${width}%`,
         }}
       >
-        {this.renderIcon(this.props.iconGroup, this.props.iconName, color)}
+        {this.renderIcon(this.props.iconName, color)}
       </TouchableOpacity>
     )
   }
@@ -46,21 +51,26 @@ export class TouchableIcon extends Component<Props> {
     this.props.handlePress()
   }
 
-  private renderIcon(iconGroup: string, iconName: string, color: string) {
+  private renderIcon(iconName: IconName, color: string): JSX.Element {
     const iconSize = 20
 
-    switch (iconGroup) {
-      case "entypo":
+    switch (iconName) {
+      case "controller-fast-forward":
+      case "shuffle":
         return <Entypo color={color} name={iconName} size={iconSize} />
 
-      case "fontAwesome":
+      case "fast-backward":
         return <FontAwesome color={color} name={iconName} size={iconSize} />
 
-      case "ionicons":
-        return <Ionicons color={color} name={iconName} size={iconSize} />
-
-      default:
-        throw new Error(`The iconGroup '${iconGroup} is not supported.`)
+      case "redo":
+      case "undo":
+        return (
+          <MaterialCommunityIcons
+            color={color}
+            name={iconName}
+            size={iconSize}
+          />
+        )
     }
   }
 }
