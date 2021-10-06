@@ -80,9 +80,6 @@ export class FooterView extends Component {
       case GameState.Stuck:
         this.confirmRestart()
         break
-
-      default:
-        assertUnreachable(Game.instance.gameState)
     }
   }
 
@@ -121,8 +118,4 @@ export class FooterView extends Component {
 
     return TouchableState.Disabled
   }
-}
-
-const assertUnreachable = (x: never): never => {
-  throw new Error(`Didn't expect to get here. Value: ${x}.`)
 }
