@@ -1,6 +1,6 @@
 import AppLoading from "expo-app-loading"
-import * as Font from "expo-font"
-import * as ScreenOrientation from "expo-screen-orientation"
+import { loadAsync } from "expo-font"
+import { lockAsync, OrientationLock } from "expo-screen-orientation"
 import { observable } from "mobx"
 import { observer } from "mobx-react"
 import React, { Component } from "react"
@@ -26,9 +26,7 @@ export class MainView extends Component<Props> {
   public constructor(props: Props) {
     super(props)
 
-    void ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE
-    )
+    void lockAsync(OrientationLock.LANDSCAPE)
 
     this.updateWindowSize()
     Dimensions.addEventListener("change", () => {
@@ -114,7 +112,7 @@ export class MainView extends Component<Props> {
   }
 
   private async loadFont() {
-    await Font.loadAsync({
+    await loadAsync({
       "Arabian-onenightstand": require("../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf"),
     })
   }
