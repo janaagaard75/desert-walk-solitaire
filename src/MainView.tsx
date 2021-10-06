@@ -26,7 +26,6 @@ export class MainView extends Component<Props> {
   public constructor(props: Props) {
     super(props)
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     makeObservable<MainView, "fontLoaded" | "showVersionNumber">(this)
 
     void lockAsync(OrientationLock.LANDSCAPE)

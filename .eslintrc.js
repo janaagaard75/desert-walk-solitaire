@@ -49,6 +49,9 @@ module.exports = {
     // Allow assigning things that are `any` since this is what the `require` function returns.
     "@typescript-eslint/no-unsafe-assignment": "off",
 
+    // Allow unsafe calls since `makeObservable` triggers this error.
+    "@typescript-eslint/no-unsafe-call": "off",
+
     // Do not allow any unused variables except the ones prefixed with an underscore.
     "@typescript-eslint/no-unused-vars": [
       "off",
