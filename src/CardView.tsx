@@ -1,4 +1,4 @@
-import { computed } from "mobx"
+import { computed, makeObservable } from "mobx"
 import { observer } from "mobx-react"
 import React, { Component } from "react"
 import { Text, TextStyle, View, ViewStyle } from "react-native"
@@ -21,6 +21,10 @@ interface Props {
 export class CardView extends Component<Props> {
   public constructor(props: Props) {
     super(props)
+    makeObservable<
+      CardView,
+      "cardStyle" | "overlayStyle" | "shadowStyle" | "suitStyle" | "valueStyle"
+    >(this)
   }
 
   public render() {

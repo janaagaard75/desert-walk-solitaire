@@ -1,7 +1,7 @@
 import AppLoading from "expo-app-loading"
 import { loadAsync } from "expo-font"
 import { lockAsync, OrientationLock } from "expo-screen-orientation"
-import { observable } from "mobx"
+import { makeObservable, observable } from "mobx"
 import { observer } from "mobx-react"
 import React, { Component } from "react"
 import {
@@ -25,6 +25,8 @@ interface Props {}
 export class MainView extends Component<Props> {
   public constructor(props: Props) {
     super(props)
+
+    makeObservable<MainView, "fontLoaded" | "showVersionNumber">(this)
 
     void lockAsync(OrientationLock.LANDSCAPE)
 

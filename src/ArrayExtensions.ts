@@ -33,6 +33,7 @@ declare global {
 
 if (!Array.prototype.clone) {
   Array.prototype.clone = function <T>(): Array<T> {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return this.slice(0)
   }
 }
@@ -41,6 +42,7 @@ if (!Array.prototype.shuffle) {
   Array.prototype.shuffle = function <T>(): Array<T> {
     const clone = this.clone()
     shuffleInPlace(clone)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return clone
   }
 }

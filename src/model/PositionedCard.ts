@@ -1,4 +1,4 @@
-import { computed } from "mobx"
+import { computed, makeObservable } from "mobx"
 import { Card } from "./Card"
 import { CardCellPair } from "./CardCellPair"
 import { Cell } from "./Cell"
@@ -9,6 +9,8 @@ import { GridState } from "./GridState"
 export class PositionedCard extends GridCell implements CardCellPair {
   public constructor(cell: Cell, gridState: GridState, public card: Card) {
     super(cell, gridState)
+
+    makeObservable(this)
 
     if (card === undefined) {
       throw new Error("card must be defined.")
