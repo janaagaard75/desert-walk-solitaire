@@ -1,18 +1,14 @@
-import { computed, makeObservable, observable } from "mobx"
 import { observer } from "mobx-react"
-import React, { Component } from "react"
-import {
-  Animated,
-  Easing,
-  PanResponder,
-  PanResponderInstance,
-} from "react-native"
+import React, { useEffect, useMemo, useState } from "react"
+import { Animated, Easing, PanResponder } from "react-native"
 import { CardView } from "./CardView"
 import { ComputedSettings } from "./model/ComputedSettings"
 import { Game } from "./model/Game"
 import { PositionedCard } from "./model/PositionedCard"
 import { Settings } from "./model/Settings"
 import { Size } from "./model/Size"
+import { useComputed } from "./useComputed"
+import { usePrevious } from "./usePrevious"
 import { VisualState } from "./VisualState"
 
 interface Props {
@@ -24,125 +20,121 @@ interface State {
   visualState: VisualState
 }
 
-@observer
-export class PositionedCardView extends Component<Props> {
-  public constructor(props: Props) {
-    super(props)
+// TODO: Bigger threshold, perhaps mainly on bigger screens?
+const moveThreshold = 8
 
-    makeObservable<PositionedCardView, "visualState" | "draggable">(this)
+export const PositionedCardView = observer((props: Props) => {
+  const [visualState, setVisualState] = useState(VisualState.Idle)
 
-    this.visualState = VisualState.Idle
+  const [animatedPosition] = useState(
+    new Animated.ValueXY(props.positionedCard.position)
+  )
 
-    this.animatedPosition = new Animated.ValueXY(
-      this.props.positionedCard.position
-    )
-
-    this.animatedPosition.addListener((position) => {
+  useEffect(() => {
+    animatedPosition.addListener((position) => {
       const boundary = ComputedSettings.instance.getCardBoundary(position)
       Game.instance.cardDragged(boundary)
     })
+  })
 
-    this.panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: (_e, _gestureState) => true,
-      onPanResponderGrant: (_e, _gestureState) => {
-        Game.instance.cardDragStarted(this.props.positionedCard)
-        this.visualState = VisualState.Dragging
-      },
-      onPanResponderMove: (_e, gestureState) => {
-        this.animatedPosition.setValue({
-          x: this.props.positionedCard.position.x + gestureState.dx,
-          y: this.props.positionedCard.position.y + gestureState.dy,
-        })
-      },
-      onPanResponderEnd: (_e, gestureState) => {
-        // TODO: The isPress logic does not take into account that the card might have been dragged away and the back to the original position, when letting go. If that has happened, this is not a 'press'.
-        const isPress =
-          Math.abs(gestureState.dx) <= this.moveThreshold &&
-          Math.abs(gestureState.dy) <= this.moveThreshold
+  const panResponder = useMemo(
+    () =>
+      PanResponder.create({
+        onStartShouldSetPanResponder: (_e, _gestureState) => true,
+        onPanResponderGrant: (_e, _gestureState) => {
+          Game.instance.cardDragStarted(props.positionedCard)
+          setVisualState(VisualState.Dragging)
+        },
+        onPanResponderMove: (_e, gestureState) => {
+          animatedPosition.setValue({
+            x: props.positionedCard.position.x + gestureState.dx,
+            y: props.positionedCard.position.y + gestureState.dy,
+          })
+        },
+        onPanResponderEnd: (_e, gestureState) => {
+          // TODO: The isPress logic does not take into account that the card might have been dragged away and the back to the original position, when letting go. If that has happened, this is not a 'press'.
+          const isPress =
+            Math.abs(gestureState.dx) <= moveThreshold &&
+            Math.abs(gestureState.dy) <= moveThreshold
 
-        if (isPress) {
-          this.moveToTarget()
-          return
-        }
+          if (isPress) {
+            moveToTarget()
+            return
+          }
 
-        if (Game.instance.cardDropped()) {
-          return
-        }
+          if (Game.instance.cardDropped()) {
+            return
+          }
 
-        Animated.timing(this.animatedPosition, {
-          duration: Settings.animation.snap.duration,
-          easing: Easing.elastic(Settings.animation.snap.elasticity),
-          toValue: {
-            x: this.props.positionedCard.position.x,
-            y: this.props.positionedCard.position.y,
-          },
-          useNativeDriver: true,
-        }).start(() => {
-          this.visualState = VisualState.Idle
-        })
-      },
-    })
-  }
+          Animated.timing(animatedPosition, {
+            duration: Settings.animation.snap.duration,
+            easing: Easing.elastic(Settings.animation.snap.elasticity),
+            toValue: {
+              x: props.positionedCard.position.x,
+              y: props.positionedCard.position.y,
+            },
+            useNativeDriver: true,
+          }).start(() => {
+            setVisualState(VisualState.Idle)
+          })
+        },
+      }),
+    []
+  )
 
-  private animatedPosition: Animated.ValueXY
-  private panResponder: PanResponderInstance
-  // TODO: Bigger threshold, perhaps mainly on bigger screens?
-  private readonly moveThreshold = 8
-  @observable private visualState: VisualState
+  const previousProps = usePrevious(props)
 
-  public componentDidUpdate(prevProps: Props, _prevState: State) {
+  useEffect(() => {
     if (
-      this.props.positionedCard.position.equals(
-        prevProps.positionedCard.position
+      previousProps !== undefined &&
+      props.positionedCard.position.equals(
+        previousProps.positionedCard.position
       )
     ) {
       return
     }
 
-    this.visualState = VisualState.Animating
+    setVisualState(VisualState.Animating)
 
-    Animated.spring(this.animatedPosition, {
-      toValue: this.props.positionedCard.position,
+    Animated.spring(animatedPosition, {
+      toValue: props.positionedCard.position,
       useNativeDriver: true,
     }).start(() => {
-      this.visualState = VisualState.Idle
+      setVisualState(VisualState.Idle)
     })
-  }
-
-  public render() {
-    return (
-      <Animated.View
-        style={{
-          position: "absolute",
-          transform: [
-            { translateX: this.animatedPosition.x },
-            { translateY: this.animatedPosition.y },
-          ],
-          zIndex: this.visualState === VisualState.Idle ? 1 : 2,
-        }}
-        {...(this.draggable ? this.panResponder.panHandlers : undefined)}
-      >
-        <CardView
-          card={this.props.positionedCard.card}
-          cardSize={this.props.cardSize}
-          correctlyPlaced={this.props.positionedCard.correctlyPlaced}
-          draggable={this.draggable}
-          dragging={this.visualState === VisualState.Dragging}
-        />
-      </Animated.View>
-    )
-  }
-
-  @computed
-  private get draggable(): boolean {
-    const draggable = Game.instance.currentGridState.draggableCards.includes(
-      this.props.positionedCard.card
-    )
-    return draggable
-  }
+  })
 
   /** Moves the card to the first available target. This is only called on cards that are draggable. Returns the vector used for the animating the move. */
-  private moveToTarget(): void {
-    Game.instance.moveCardToFirstTarget(this.props.positionedCard)
+  const moveToTarget = (): void => {
+    Game.instance.moveCardToFirstTarget(props.positionedCard)
   }
-}
+
+  const draggable = useComputed((): boolean => {
+    const draggable = Game.instance.currentGridState.draggableCards.includes(
+      props.positionedCard.card
+    )
+    return draggable
+  })
+
+  return (
+    <Animated.View
+      style={{
+        position: "absolute",
+        transform: [
+          { translateX: animatedPosition.x },
+          { translateY: animatedPosition.y },
+        ],
+        zIndex: visualState === VisualState.Idle ? 1 : 2,
+      }}
+      {...(draggable ? panResponder.panHandlers : undefined)}
+    >
+      <CardView
+        card={props.positionedCard.card}
+        cardSize={props.cardSize}
+        correctlyPlaced={props.positionedCard.correctlyPlaced}
+        draggable={draggable}
+        dragging={visualState === VisualState.Dragging}
+      />
+    </Animated.View>
+  )
+})
