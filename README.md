@@ -20,7 +20,6 @@ You can also install the [Expo Client](https://expo.io/tools#client) on your dev
 
 ## TODO
 
-- Fix the link to the privacy policy.
 - Consider using [this singleton pattern](https://wanago.io/2019/11/11/javascript-design-patterns-1-singleton-and-the-module/#crayon-5e26b0cf71d61490784531).
 - Remember the game state when the app is restarted.
 - Make sure everything looks alright in all resolutions.
