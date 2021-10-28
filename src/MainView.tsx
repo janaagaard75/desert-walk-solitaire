@@ -1,9 +1,8 @@
 import AppLoading from "expo-app-loading"
 import { loadAsync } from "expo-font"
 import { lockAsync, OrientationLock } from "expo-screen-orientation"
-import { makeObservable, observable } from "mobx"
 import { observer } from "mobx-react"
-import React, { Component } from "react"
+import React, { useEffect, useState } from "react"
 import {
   Dimensions,
   Image,
@@ -21,111 +20,100 @@ import { Settings } from "./model/Settings"
 
 interface Props {}
 
-@observer
-export class MainView extends Component<Props> {
-  public constructor(props: Props) {
-    super(props)
-
-    makeObservable<MainView, "fontLoaded" | "showVersionNumber">(this)
-
+export const MainView = observer(() => {
+  useEffect(() => {
     void lockAsync(OrientationLock.LANDSCAPE)
 
-    this.updateWindowSize()
+    updateWindowSize()
     Dimensions.addEventListener("change", () => {
-      this.updateWindowSize()
+      updateWindowSize()
     })
-  }
+  }, [])
 
-  @observable private fontLoaded = false
-  @observable private showVersionNumber = false
+  const [fontLoaded, setFontLoaded] = useState(false)
+  const [showVersionNumber, setShowVersionNumber] = useState(false)
 
-  private mainViewStyle: ViewStyle = {
+  const mainViewStyle: ViewStyle = {
     backgroundColor: Settings.colors.mainBackgroundColor,
     flex: 1,
     flexDirection: "column",
     position: "relative",
   }
 
-  private gridWrapperStyle: ViewStyle = {
+  const gridWrapperStyle: ViewStyle = {
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
   }
 
-  public render() {
-    if (!this.fontLoaded) {
-      return (
-        <AppLoading
-          startAsync={() => this.loadFont()}
-          onFinish={() => {
-            this.fontLoaded = true
-          }}
-          onError={console.warn}
-        />
-      )
-    }
-
+  if (!fontLoaded) {
     return (
-      <View style={this.mainViewStyle}>
-        <TouchableWithoutFeedback
-          delayLongPress={5 * 1000}
-          onLongPress={() => (this.showVersionNumber = true)}
-        >
-          <View style={this.gridWrapperStyle}>
-            <Image
-              source={require("../assets/50713-transparent.png")}
-              style={{
-                backgroundColor: Settings.colors.gridBackgroundColor,
-                height: ComputedSettings.instance.windowSize.height,
-                position: "absolute",
-                resizeMode: "repeat",
-                width: ComputedSettings.instance.windowSize.width,
-              }}
-            />
-            <GridView />
-          </View>
-        </TouchableWithoutFeedback>
-        <FooterView />
-        {ComputedSettings.isIosWithoutHomeButton() ? (
-          <View
-            style={{
-              height: 15,
-            }}
-          />
-        ) : undefined}
-        <Text
-          style={{
-            color: "#fff",
-            display: this.showVersionNumber ? "flex" : "none",
-            fontSize: 9,
-            right: 30,
-            position: "absolute",
-            top: 2,
-          }}
-        >
-          Version: {this.versionNumber}
-        </Text>
-      </View>
+      <AppLoading
+        startAsync={() => loadFont()}
+        onFinish={() => {
+          setFontLoaded(true)
+        }}
+        onError={console.warn}
+      />
     )
   }
 
-  private get versionNumber(): string {
-    return appJson.expo.version
-  }
+  return (
+    <View style={mainViewStyle}>
+      <TouchableWithoutFeedback
+        delayLongPress={5 * 1000}
+        onLongPress={() => setShowVersionNumber(true)}
+      >
+        <View style={gridWrapperStyle}>
+          <Image
+            source={require("../assets/50713-transparent.png")}
+            style={{
+              backgroundColor: Settings.colors.gridBackgroundColor,
+              height: ComputedSettings.instance.windowSize.height,
+              position: "absolute",
+              resizeMode: "repeat",
+              width: ComputedSettings.instance.windowSize.width,
+            }}
+          />
+          <GridView />
+        </View>
+      </TouchableWithoutFeedback>
+      <FooterView />
+      {ComputedSettings.isIosWithoutHomeButton() ? (
+        <View
+          style={{
+            height: 15,
+          }}
+        />
+      ) : undefined}
+      <Text
+        style={{
+          color: "#fff",
+          display: showVersionNumber ? "flex" : "none",
+          fontSize: 9,
+          right: 30,
+          position: "absolute",
+          top: 2,
+        }}
+      >
+        Version: {appJson.expo.version}
+      </Text>
+    </View>
+  )
+})
 
-  private async loadFont() {
-    await loadAsync({
-      "Arabian-onenightstand": require("../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf"),
-    })
-  }
+const loadFont = async () => {
+  await loadAsync({
+    "Arabian-onenightstand": require("../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf"),
+  })
+}
 
-  // TODO: When replaying a finished game, the animation pauses a bit after replaying a shuffle turn.
-  // TODO: Fix resizing when rotating the iPad.
-  private updateWindowSize() {
-    const windowSize = Dimensions.get("window")
-    ComputedSettings.instance.windowSize = {
-      height: windowSize.height,
-      width: windowSize.width,
-    }
+// TODO: When replaying a finished game, the animation pauses a bit after replaying a shuffle turn.
+// TODO: Fix resizing when rotating the iPad.
+const updateWindowSize = () => {
+  const windowSize = Dimensions.get("window")
+  ComputedSettings.instance.windowSize = {
+    height: windowSize.height,
+    width: windowSize.width,
   }
 }

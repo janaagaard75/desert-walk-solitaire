@@ -1,21 +1,19 @@
-import { computed } from "mobx"
 import { observer } from "mobx-react"
-import React, { Component } from "react"
+import React from "react"
 import { View, ViewStyle } from "react-native"
 import { ComputedSettings } from "./model/ComputedSettings"
 import { EmptyCell } from "./model/EmptyCell"
 import { EmptyCellState } from "./model/EmptyCellState"
 import { Game } from "./model/Game"
+import { useComputed } from "./useComputed"
 
 interface Props {
   emptyCell: EmptyCell
 }
 
-@observer
-export class EmptyCellView extends Component<Props> {
-  @computed
-  private get status(): EmptyCellState {
-    if (this.props.emptyCell.droppableCards.length === 0) {
+export const EmptyCellView = observer((props: Props) => {
+  const status = useComputed((): EmptyCellState => {
+    if (props.emptyCell.droppableCards.length === 0) {
       return EmptyCellState.Blocked
     }
 
@@ -24,14 +22,12 @@ export class EmptyCellView extends Component<Props> {
     }
 
     // Don't have to take account of the cell currently being dragged from because this cell isn't considered empty until.
-    if (
-      Game.instance.mostOverlappedDroppableCell === this.props.emptyCell.cell
-    ) {
+    if (Game.instance.mostOverlappedDroppableCell === props.emptyCell.cell) {
       return EmptyCellState.MostOverlappedTargetableCell
     }
 
     if (
-      this.props.emptyCell.droppableCards.some((card) => {
+      props.emptyCell.droppableCards.some((card) => {
         if (Game.instance.draggingFromCell === undefined) {
           return false
         }
@@ -42,32 +38,14 @@ export class EmptyCellView extends Component<Props> {
     }
 
     return EmptyCellState.DropAllowedButNotTargetableCell
-  }
+  })
 
-  public render() {
-    const [color, style, width] = this.getBorderColorStyleAndWidth()
-
-    const emptyCellStyle: ViewStyle = {
-      borderColor: color,
-      borderRadius: ComputedSettings.instance.borderRadius,
-      borderStyle: style,
-      borderWidth: width,
-      height: ComputedSettings.instance.cardSize.height,
-      left: this.props.emptyCell.cell.position.x,
-      position: "absolute",
-      top: this.props.emptyCell.cell.position.y,
-      width: ComputedSettings.instance.cardSize.width,
-    }
-
-    return <View style={emptyCellStyle} />
-  }
-
-  private getBorderColorStyleAndWidth(): [
+  const getBorderColorStyleAndWidth = (): [
     string | undefined,
     "solid" | "dotted" | "dashed" | undefined,
     number
-  ] {
-    switch (this.status) {
+  ] => {
+    switch (status) {
       case EmptyCellState.Blocked:
         return [undefined, undefined, 0]
 
@@ -82,4 +60,20 @@ export class EmptyCellView extends Component<Props> {
         return ["white", "solid", ComputedSettings.instance.borderWidth]
     }
   }
-}
+
+  const [color, style, width] = getBorderColorStyleAndWidth()
+
+  const emptyCellStyle: ViewStyle = {
+    borderColor: color,
+    borderRadius: ComputedSettings.instance.borderRadius,
+    borderStyle: style,
+    borderWidth: width,
+    height: ComputedSettings.instance.cardSize.height,
+    left: props.emptyCell.cell.position.x,
+    position: "absolute",
+    top: props.emptyCell.cell.position.y,
+    width: ComputedSettings.instance.cardSize.width,
+  }
+
+  return <View style={emptyCellStyle} />
+})
