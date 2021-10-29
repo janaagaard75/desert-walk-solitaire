@@ -1,4 +1,4 @@
-# Desert Walk
+# Desert Walk Solitaire
 
 Solitaire card game implemented in React Native and written in TypeScript.
 
