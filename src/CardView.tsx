@@ -1,5 +1,6 @@
+import { computed, makeObservable } from "mobx"
 import { observer } from "mobx-react"
-import React from "react"
+import React, { Component } from "react"
 import { Text, TextStyle, View, ViewStyle } from "react-native"
 import { Card } from "./model/Card"
 import { ComputedSettings } from "./model/ComputedSettings"
@@ -7,7 +8,6 @@ import { Settings } from "./model/Settings"
 import { Size } from "./model/Size"
 import { SuitHelper } from "./model/SuitHelper"
 import { SuitView } from "./SuitView"
-import { useComputed } from "./useComputed"
 
 interface Props {
   card: Card
@@ -17,20 +17,44 @@ interface Props {
   dragging: boolean
 }
 
-export const CardView = observer((props: Props) => {
-  const overlayOpacity = (): number => {
-    if (props.draggable) {
+@observer
+export class CardView extends Component<Props> {
+  public constructor(props: Props) {
+    super(props)
+    makeObservable<
+      CardView,
+      "cardStyle" | "overlayStyle" | "shadowStyle" | "suitStyle" | "valueStyle"
+    >(this)
+  }
+
+  public render() {
+    return (
+      <View style={this.shadowStyle}>
+        <View style={this.cardStyle}>
+          <Text style={this.valueStyle}>{this.props.card.displayValue}</Text>
+          <View style={this.suitStyle}>
+            {this.getSuit(Math.round(0.55 * this.props.cardSize.width))}
+          </View>
+        </View>
+        <View style={this.overlayStyle} />
+      </View>
+    )
+  }
+
+  private overlayOpacity(): number {
+    if (this.props.draggable) {
       return 0
     }
 
-    if (props.correctlyPlaced) {
+    if (this.props.correctlyPlaced) {
       return 0.5
     }
 
     return 0.3
   }
 
-  const cardStyle = useComputed((): ViewStyle => {
+  @computed
+  private get cardStyle(): ViewStyle {
     return {
       alignItems: "center",
       backgroundColor: Settings.colors.card.background,
@@ -38,31 +62,33 @@ export const CardView = observer((props: Props) => {
       borderRadius: ComputedSettings.instance.borderRadius,
       borderStyle: "solid",
       borderWidth: ComputedSettings.instance.borderWidth,
-      height: props.cardSize.height,
+      height: this.props.cardSize.height,
       overflow: "hidden",
       padding: ComputedSettings.instance.cardPadding,
-      width: props.cardSize.width,
+      width: this.props.cardSize.width,
     }
-  })
+  }
 
-  const overlayStyle = useComputed((): ViewStyle => {
+  @computed
+  private get overlayStyle(): ViewStyle {
     return {
       backgroundColor: "#000",
       borderRadius: ComputedSettings.instance.borderRadius,
-      height: props.cardSize.height,
-      opacity: overlayOpacity(),
+      height: this.props.cardSize.height,
+      opacity: this.overlayOpacity(),
       position: "absolute",
-      width: props.cardSize.width,
+      width: this.props.cardSize.width,
     }
-  })
+  }
 
-  const shadowStyle = useComputed((): ViewStyle => {
+  @computed
+  private get shadowStyle(): ViewStyle {
     const shadowStyle: ViewStyle = {
       borderRadius: ComputedSettings.instance.borderRadius,
-      height: props.cardSize.height,
-      width: props.cardSize.width,
+      height: this.props.cardSize.height,
+      width: this.props.cardSize.width,
     }
-    if (props.dragging) {
+    if (this.props.dragging) {
       Object.assign(shadowStyle, {
         shadowColor: Settings.colors.card.shadowColor,
         shadowOffset: ComputedSettings.instance.cardShadowOffset,
@@ -72,44 +98,34 @@ export const CardView = observer((props: Props) => {
     }
 
     return shadowStyle
-  })
+  }
 
-  const suitStyle = useComputed((): ViewStyle => {
+  @computed
+  private get suitStyle(): ViewStyle {
     return {
-      bottom: Math.round(0.1 * props.cardSize.width),
+      bottom: Math.round(0.1 * this.props.cardSize.width),
       position: "absolute",
-      right: Math.round(0.025 * props.cardSize.width),
+      right: Math.round(0.025 * this.props.cardSize.width),
     }
-  })
+  }
 
-  const valueStyle = useComputed((): TextStyle => {
+  @computed
+  private get valueStyle(): TextStyle {
     return {
-      color: SuitHelper.getColor(props.card.suit),
+      color: SuitHelper.getColor(this.props.card.suit),
       fontFamily: "Arabian-onenightstand",
-      fontSize: Math.round(0.7 * props.cardSize.width),
+      fontSize: Math.round(0.7 * this.props.cardSize.width),
       fontWeight: "700",
-      left: Math.round(0.04 * props.cardSize.width),
-      letterSpacing: -Math.round(0.07 * props.cardSize.width),
+      left: Math.round(0.04 * this.props.cardSize.width),
+      letterSpacing: -Math.round(0.07 * this.props.cardSize.width),
       position: "absolute",
       textAlign: "left",
-      top: -Math.round(0.08 * props.cardSize.width),
-      width: Math.round(1.22 * props.cardSize.width), // Make space for the two digits in '10'.
+      top: -Math.round(0.08 * this.props.cardSize.width),
+      width: Math.round(1.22 * this.props.cardSize.width), // Make space for the two digits in '10'.
     }
-  })
+  }
 
-  const getSuit = (size: number): JSX.Element => (
-    <SuitView size={size} suit={props.card.suit} />
-  )
-
-  return (
-    <View style={shadowStyle}>
-      <View style={cardStyle}>
-        <Text style={valueStyle}>{props.card.displayValue}</Text>
-        <View style={suitStyle}>
-          {getSuit(Math.round(0.55 * props.cardSize.width))}
-        </View>
-      </View>
-      <View style={overlayStyle} />
-    </View>
-  )
-})
+  private getSuit(size: number): JSX.Element {
+    return <SuitView size={size} suit={this.props.card.suit} />
+  }
+}
