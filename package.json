@@ -27,11 +27,11 @@
     "validate": "yarn install --frozen-lockfile && yarn run lint && yarn run check-types"
   },
   "dependencies": {
-    "expo": "^43.0.1",
+    "expo": "^43.0.3",
     "expo-app-loading": "~1.2.1",
     "expo-font": "~10.0.3",
     "expo-screen-orientation": "~4.0.3",
-    "mobx": "^6.3.5",
+    "mobx": "^6.3.7",
     "mobx-react": "^7.2.1",
     "react": "17.0.1",
     "react-native": "0.64.2",
@@ -39,19 +39,19 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.8",
-    "@babel/plugin-proposal-class-properties": "^7.14.5",
-    "@babel/plugin-proposal-decorators": "^7.15.8",
-    "@babel/preset-env": "^7.1.6",
-    "@types/react": "~17.0.33",
-    "@types/react-native": "~0.64.18",
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-proposal-decorators": "^7.16.4",
+    "@babel/preset-env": "^7.16.4",
+    "@types/react": "~17.0.36",
+    "@types/react-native": "~0.64.19",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "babel-preset-expo": "8.5.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-react": "^7.26.1",
-    "expo-cli": "^4.12.10",
+    "eslint-plugin-react": "^7.27.1",
+    "expo-cli": "^4.13.0",
     "prettier": "^2.4.1",
     "typescript": "~4.3.5"
   }
