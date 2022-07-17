@@ -1,7 +1,7 @@
 import { loadAsync } from "expo-font"
 import { lockAsync, OrientationLock } from "expo-screen-orientation"
 import * as SplashScreen from "expo-splash-screen"
-import { makeObservable, observable } from "mobx"
+import { autorun, makeObservable, observable } from "mobx"
 import { observer } from "mobx-react"
 import React, { Component } from "react"
 import {
@@ -41,6 +41,12 @@ export class MainView extends Component<Props> {
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.loadFont()
+
+    autorun(async () => {
+      if (this.fontLoaded) {
+        await SplashScreen.hideAsync()
+      }
+    })
   }
 
   @observable private fontLoaded = false
@@ -117,7 +123,6 @@ export class MainView extends Component<Props> {
       "Arabian-onenightstand": require("../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf"),
     })
     this.fontLoaded = true
-    await SplashScreen.hideAsync()
   }
 
   // TODO: When replaying a finished game, the animation pauses a bit after replaying a shuffle turn.
