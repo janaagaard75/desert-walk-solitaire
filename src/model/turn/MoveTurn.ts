@@ -13,9 +13,6 @@ export class MoveTurn extends Turn {
     if (fromPair === undefined) {
       throw new Error("Could not find the 'from' cell.");
     }
-    if (fromPair.card === undefined) {
-      throw new Error("The 'from' cell must have a card.");
-    }
 
     const toPair = gridState.getPositionedCardFromCell(this.to);
     if (toPair !== undefined) {

@@ -6,7 +6,7 @@ export class Grid {
     this.cells = this.getCells();
   }
 
-  private static _instance: Grid;
+  private static _instance: Grid | undefined = undefined;
 
   public static get instance(): Grid {
     if (this._instance === undefined) {

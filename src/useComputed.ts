@@ -8,5 +8,6 @@ export const useComputed = <T>(
   options?: IComputedValueOptions<T>,
   deps?: DependencyList
 ) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return useMemo(() => computed(func, options), deps ?? []).get();
 };

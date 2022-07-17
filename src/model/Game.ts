@@ -28,10 +28,12 @@ export class Game {
       | "targetableCells"
     >(this);
     this.startOver();
-    autorun(() => this.autorun());
+    autorun(() => {
+      this.autorun();
+    });
   }
 
-  private static _instance: Game | undefined;
+  private static _instance: Game | undefined = undefined;
 
   public static get instance(): Game {
     if (this._instance === undefined) {
@@ -245,10 +247,9 @@ export class Game {
 
   private autorun() {
     if (this.gameState === GameState.Won && !this.replayShown) {
-      setTimeout(
-        () => this.replay(),
-        Settings.animation.replay.delayBeforeAutoReplay
-      );
+      setTimeout(() => {
+        this.replay();
+      }, Settings.animation.replay.delayBeforeAutoReplay);
     }
   }
 
@@ -298,10 +299,9 @@ export class Game {
     this.replayShown = true;
     this.replayPlaying = true;
 
-    setTimeout(
-      () => this.waitAndGoToNextStateIndex(),
-      Settings.animation.replay.duration
-    );
+    setTimeout(() => {
+      this.waitAndGoToNextStateIndex();
+    }, Settings.animation.replay.duration);
   }
 
   private waitAndGoToNextStateIndex() {
@@ -311,10 +311,9 @@ export class Game {
     }
 
     this.setCurrentStateIndex(this.currentStateIndex + 1, true);
-    setTimeout(
-      () => this.waitAndGoToNextStateIndex(),
-      Settings.animation.replay.duration
-    );
+    setTimeout(() => {
+      this.waitAndGoToNextStateIndex();
+    }, Settings.animation.replay.duration);
   }
 
   public shuffleCardsInIncorrectPosition() {

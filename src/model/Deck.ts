@@ -8,7 +8,7 @@ export class Deck {
     this.theFourAces = this.cards.filter((card) => card.value === 1);
   }
 
-  private static _instance: Deck;
+  private static _instance: Deck | undefined = undefined;
 
   public static get instance(): Deck {
     if (this._instance === undefined) {

@@ -11,10 +11,6 @@ export class PositionedCard extends GridCell implements CardCellPair {
     super(cell, gridState);
 
     makeObservable(this);
-
-    if (card === undefined) {
-      throw new Error("card must be defined.");
-    }
   }
 
   @computed

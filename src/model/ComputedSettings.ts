@@ -7,9 +7,9 @@ import { Size } from "./Size";
 
 export class ComputedSettings {
   // It's necessary to use the singleton pattern, because @computed doesn't work on static fields. See https://github.com/mobxjs/mobx/issues/351#issuecomment-228304310. It's also necessary to use an _instance private member and a getter instead of simply making instance a public static field - don't know why, though.
-  private static _instance: ComputedSettings;
+  private static _instance: ComputedSettings | undefined = undefined;
 
-  constructor() {
+  public constructor() {
     makeObservable<
       ComputedSettings,
       | "restrictedBy"

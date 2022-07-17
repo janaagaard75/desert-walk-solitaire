@@ -29,7 +29,9 @@ export const FooterView = observer(() => {
           state={TouchableState.Enabled}
         />
         <TouchableIcon
-          handlePress={() => Game.instance.replay()}
+          handlePress={() => {
+            Game.instance.replay();
+          }}
           iconName="controller-fast-forward"
           state={
             Game.instance.replayEnabled
@@ -38,27 +40,37 @@ export const FooterView = observer(() => {
           }
         />
         <TouchableIcon
-          handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
+          handlePress={() => {
+            Game.instance.shuffleCardsInIncorrectPosition();
+          }}
           iconName="shuffle"
           state={shuffleButtonEnabled(1)}
         />
         <TouchableIcon
-          handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
+          handlePress={() => {
+            Game.instance.shuffleCardsInIncorrectPosition();
+          }}
           iconName="shuffle"
           state={shuffleButtonEnabled(2)}
         />
         <TouchableIcon
-          handlePress={() => Game.instance.shuffleCardsInIncorrectPosition()}
+          handlePress={() => {
+            Game.instance.shuffleCardsInIncorrectPosition();
+          }}
           iconName="shuffle"
           state={shuffleButtonEnabled(3)}
         />
         <TouchableIcon
-          handlePress={() => Game.instance.undo()}
+          handlePress={() => {
+            Game.instance.undo();
+          }}
           iconName="undo"
           state={Game.instance.undoState}
         />
         <TouchableIcon
-          handlePress={() => Game.instance.redo()}
+          handlePress={() => {
+            Game.instance.redo();
+          }}
           iconName="redo"
           state={Game.instance.redoState}
         />
@@ -91,7 +103,9 @@ const confirmRestart = () => {
         text: "No, let me continue this game",
       },
       {
-        onPress: () => Game.instance.startOver(),
+        onPress: () => {
+          Game.instance.startOver();
+        },
         style: "destructive",
         text: "Yes, start over",
       },
