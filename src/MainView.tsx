@@ -1,9 +1,9 @@
-import AppLoading from "expo-app-loading"
-import { loadAsync } from "expo-font"
-import { lockAsync, OrientationLock } from "expo-screen-orientation"
-import { makeObservable, observable } from "mobx"
-import { observer } from "mobx-react"
-import React, { Component } from "react"
+import { loadAsync } from "expo-font";
+import { lockAsync, OrientationLock } from "expo-screen-orientation";
+import * as SplashScreen from "expo-splash-screen";
+import { autorun, makeObservable, observable } from "mobx";
+import { observer } from "mobx-react";
+import { Component } from "react";
 import {
   Dimensions,
   Image,
@@ -11,58 +11,63 @@ import {
   TouchableWithoutFeedback,
   View,
   ViewStyle,
-} from "react-native"
-import appJson from "../app.json"
-import "./ArrayExtensions"
-import { FooterView } from "./FooterView"
-import { GridView } from "./GridView"
-import { ComputedSettings } from "./model/ComputedSettings"
-import { Settings } from "./model/Settings"
+} from "react-native";
+import appJson from "../app.json";
+import "./ArrayExtensions";
+import { FooterView } from "./FooterView";
+import { GridView } from "./GridView";
+import { ComputedSettings } from "./model/ComputedSettings";
+import { Settings } from "./model/Settings";
+
+// Keep the splash screen visible while we fetch resources.
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
+SplashScreen.preventAutoHideAsync();
 
 interface Props {}
 
 @observer
 export class MainView extends Component<Props> {
   public constructor(props: Props) {
-    super(props)
+    super(props);
 
-    makeObservable<MainView, "fontLoaded" | "showVersionNumber">(this)
+    makeObservable<MainView, "fontLoaded" | "showVersionNumber">(this);
 
-    void lockAsync(OrientationLock.LANDSCAPE)
+    void lockAsync(OrientationLock.LANDSCAPE);
 
-    this.updateWindowSize()
+    this.updateWindowSize();
     Dimensions.addEventListener("change", () => {
-      this.updateWindowSize()
-    })
+      this.updateWindowSize();
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.loadFont();
+
+    autorun(async () => {
+      if (this.fontLoaded) {
+        await SplashScreen.hideAsync();
+      }
+    });
   }
 
-  @observable private fontLoaded = false
-  @observable private showVersionNumber = false
+  @observable private fontLoaded = false;
+  @observable private showVersionNumber = false;
 
   private mainViewStyle: ViewStyle = {
     backgroundColor: Settings.colors.mainBackgroundColor,
     flex: 1,
     flexDirection: "column",
     position: "relative",
-  }
+  };
 
   private gridWrapperStyle: ViewStyle = {
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
-  }
+  };
 
   public render() {
     if (!this.fontLoaded) {
-      return (
-        <AppLoading
-          startAsync={() => this.loadFont()}
-          onFinish={() => {
-            this.fontLoaded = true
-          }}
-          onError={console.warn}
-        />
-      )
+      return null;
     }
 
     return (
@@ -106,26 +111,27 @@ export class MainView extends Component<Props> {
           Version: {this.versionNumber}
         </Text>
       </View>
-    )
+    );
   }
 
   private get versionNumber(): string {
-    return appJson.expo.version
+    return appJson.expo.version;
   }
 
   private async loadFont() {
     await loadAsync({
       "Arabian-onenightstand": require("../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf"),
-    })
+    });
+    this.fontLoaded = true;
   }
 
   // TODO: When replaying a finished game, the animation pauses a bit after replaying a shuffle turn.
   // TODO: Fix resizing when rotating the iPad.
   private updateWindowSize() {
-    const windowSize = Dimensions.get("window")
+    const windowSize = Dimensions.get("window");
     ComputedSettings.instance.windowSize = {
       height: windowSize.height,
       width: windowSize.width,
-    }
+    };
   }
 }

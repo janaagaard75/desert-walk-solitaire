@@ -1,30 +1,30 @@
-import { computed, makeObservable } from "mobx"
-import { observer } from "mobx-react"
-import React, { Component } from "react"
-import { Text, TextStyle, View, ViewStyle } from "react-native"
-import { Card } from "./model/Card"
-import { ComputedSettings } from "./model/ComputedSettings"
-import { Settings } from "./model/Settings"
-import { Size } from "./model/Size"
-import { SuitHelper } from "./model/SuitHelper"
-import { SuitView } from "./SuitView"
+import { computed, makeObservable } from "mobx";
+import { observer } from "mobx-react";
+import { Component } from "react";
+import { Text, TextStyle, View, ViewStyle } from "react-native";
+import { Card } from "./model/Card";
+import { ComputedSettings } from "./model/ComputedSettings";
+import { Settings } from "./model/Settings";
+import { Size } from "./model/Size";
+import { SuitHelper } from "./model/SuitHelper";
+import { SuitView } from "./SuitView";
 
 interface Props {
-  card: Card
-  cardSize: Size
-  correctlyPlaced: boolean
-  draggable: boolean
-  dragging: boolean
+  card: Card;
+  cardSize: Size;
+  correctlyPlaced: boolean;
+  draggable: boolean;
+  dragging: boolean;
 }
 
 @observer
 export class CardView extends Component<Props> {
   public constructor(props: Props) {
-    super(props)
+    super(props);
     makeObservable<
       CardView,
       "cardStyle" | "overlayStyle" | "shadowStyle" | "suitStyle" | "valueStyle"
-    >(this)
+    >(this);
   }
 
   public render() {
@@ -38,19 +38,19 @@ export class CardView extends Component<Props> {
         </View>
         <View style={this.overlayStyle} />
       </View>
-    )
+    );
   }
 
   private overlayOpacity(): number {
     if (this.props.draggable) {
-      return 0
+      return 0;
     }
 
     if (this.props.correctlyPlaced) {
-      return 0.5
+      return 0.5;
     }
 
-    return 0.3
+    return 0.3;
   }
 
   @computed
@@ -66,7 +66,7 @@ export class CardView extends Component<Props> {
       overflow: "hidden",
       padding: ComputedSettings.instance.cardPadding,
       width: this.props.cardSize.width,
-    }
+    };
   }
 
   @computed
@@ -78,7 +78,7 @@ export class CardView extends Component<Props> {
       opacity: this.overlayOpacity(),
       position: "absolute",
       width: this.props.cardSize.width,
-    }
+    };
   }
 
   @computed
@@ -87,17 +87,17 @@ export class CardView extends Component<Props> {
       borderRadius: ComputedSettings.instance.borderRadius,
       height: this.props.cardSize.height,
       width: this.props.cardSize.width,
-    }
+    };
     if (this.props.dragging) {
       Object.assign(shadowStyle, {
         shadowColor: Settings.colors.card.shadowColor,
         shadowOffset: ComputedSettings.instance.cardShadowOffset,
         shadowOpacity: Settings.cardShadowOpacity,
         shadowRadius: ComputedSettings.instance.cardShadowRadius,
-      })
+      });
     }
 
-    return shadowStyle
+    return shadowStyle;
   }
 
   @computed
@@ -106,7 +106,7 @@ export class CardView extends Component<Props> {
       bottom: Math.round(0.1 * this.props.cardSize.width),
       position: "absolute",
       right: Math.round(0.025 * this.props.cardSize.width),
-    }
+    };
   }
 
   @computed
@@ -122,10 +122,10 @@ export class CardView extends Component<Props> {
       textAlign: "left",
       top: -Math.round(0.08 * this.props.cardSize.width),
       width: Math.round(1.22 * this.props.cardSize.width), // Make space for the two digits in '10'.
-    }
+    };
   }
 
   private getSuit(size: number): JSX.Element {
-    return <SuitView size={size} suit={this.props.card.suit} />
+    return <SuitView size={size} suit={this.props.card.suit} />;
   }
 }

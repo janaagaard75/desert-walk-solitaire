@@ -1,82 +1,125 @@
 module.exports = {
-  parser: "@typescript-eslint/parser",
-  extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier",
-  ],
-  parserOptions: {
-    project: "./tsconfig.json",
-    sourceType: "module",
-  },
-  // Ignore .js files since we're coding in TypeScript.
-  ignorePatterns: ["**/*.js"],
-  settings: {
-    react: {
-      version: "detect",
-    },
-  },
   env: {
-    es2020: true,
-    node: true,
+    commonjs: false,
+    es2021: true,
+    es6: false,
+    jest: false,
+    node: false,
   },
+  extends: ["react-app"],
+  ignorePatterns: ["**/*.css", "build/"],
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: "latest",
+  },
+  plugins: ["typescript-sort-keys"],
   rules: {
-    // Use the Array<foo> syntax instead of foo[] in types.
-    "@typescript-eslint/array-type": [
-      "error",
-      {
-        default: "generic",
-        readonly: "generic",
-      },
-    ],
+    // Always wrap in curly braces, even one-liners.
+    curly: ["warn", "all"],
 
-    // Mandatory return types is too verbose for my taste.
-    "@typescript-eslint/explicit-module-boundary-types": "off",
+    // Always use strict equality comparison, that is === or !==.
+    eqeqeq: ["warn", "always"],
 
-    // Empty constructors make sense for singleton classes.
-    "@typescript-eslint/no-empty-function": [
-      "error",
-      {
-        allow: ["constructors"],
-      },
-    ],
+    // Use fat arrow style when declaring functions.
+    "func-style": ["warn", "expression"],
 
-    // Allow empty interfaces since Props might be empty.
-    "@typescript-eslint/no-empty-interface": "off",
+    // Do not allow alert boxes.
+    "no-alert": "warn",
 
-    // Allow assigning things that are `any` since this is what the `require` function returns.
-    "@typescript-eslint/no-unsafe-assignment": "off",
+    // Do not use shorthands to convert between types.
+    "no-implicit-coercion": "warn",
 
-    // Allow unsafe calls since `makeObservable` triggers this error.
-    "@typescript-eslint/no-unsafe-call": "off",
+    // Prefer const or let over var.
+    "no-var": "warn",
 
-    // Do not allow any unused variables except the ones prefixed with an underscore.
-    "@typescript-eslint/no-unused-vars": [
-      "off",
-      {
-        args: "all",
-        argsIgnorePattern: "^_",
-      },
-    ],
-
-    // Require that switch statements handle all cases.
-    "@typescript-eslint/switch-exhaustiveness-check": "error",
-
-    // Always use strict comparisons.
-    eqeqeq: "error",
-
-    // Use fat arrow function style.
-    "func-style": "error",
-
-    // Forbid reassigning parameters.
-    "no-param-reassign": "error",
+    // Use fat arrow style in callbacks.
+    "prefer-arrow-callback": "warn",
 
     // Prefer const over let.
-    "prefer-const": "error",
+    "prefer-const": "warn",
 
-    // Prefer template strings over concatenating with plus.
-    "prefer-template": "error",
+    // Do not allow backtick strings unless they are template strings.
+    quotes: ["warn", "double"],
   },
-}
+  overrides: [
+    {
+      // Rules that apply to JavaScript files in the root folder.
+      files: ["./*.js"],
+      env: {
+        commonjs: true,
+        node: true,
+      },
+    },
+    {
+      // Rules that only apply apply to TypeScript files. ESLint cannot lint JavaScript files if this is turned on for all files.
+      files: ["*.ts", "*.tsx"],
+      parserOptions: {
+        project: ["./tsconfig.json"],
+      },
+      rules: {
+        // Use Array<Foo> and ReadonlyArray<Foo> syntax to distinguish from empty array initializations and treat arrays like all other generic types.
+        "@typescript-eslint/array-type": [
+          "warn",
+          {
+            default: "generic",
+            readonly: "generic",
+          },
+        ],
+
+        // Prefer interfaces over types.
+        "@typescript-eslint/consistent-type-definitions": ["warn", "interface"],
+
+        // Require that all possible values are handled by switch statements.
+        "@typescript-eslint/switch-exhaustiveness-check": "warn",
+
+        // Require explicit accessibility modifiers since everything is public by default.
+        "@typescript-eslint/explicit-member-accessibility": "warn",
+
+        // Make sure something that returns void isn't used by accident.
+        "@typescript-eslint/no-confusing-void-expression": "warn",
+
+        // Do not allow unnecessary checks for null.
+        "@typescript-eslint/no-unnecessary-condition": "warn",
+
+        // Prefer template strings over concatenating with plus.
+        "prefer-template": "warn",
+
+        // Require that interface keys are sorted alphabetically.
+        "typescript-sort-keys/interface": "warn",
+
+        // Require string enum members are sorted alphabetically.
+        "typescript-sort-keys/string-enum": "warn",
+
+        // Only allow unused variables that are prefixed with an underscore. Use an ESLint rule instead of TypeScript's noUnusedLocals and noUnusedParameters to allow unused items when developing
+        "@typescript-eslint/no-unused-vars": [
+          "warn",
+          {
+            args: "all",
+            argsIgnorePattern: "^_",
+            vars: "all",
+            varsIgnorePattern: "^_",
+          },
+        ],
+
+        // Require explicit boolean expressions to avoid the ambiguities that JavaScript has, https://dorey.github.io/JavaScript-Equality-Table/#if-statement.
+        "@typescript-eslint/strict-boolean-expressions": [
+          "warn",
+          {
+            allowString: false,
+            allowNumber: false,
+            allowNullableObject: false,
+            allowNullableBoolean: false,
+            allowNullableString: false,
+            allowNullableNumber: false,
+            allowAny: false,
+          },
+        ],
+      },
+    },
+  ],
+};
+
+// The command `npx eslint --print-config ./App.ts > eslint-config.json` prints the configuration rules for App.ts to eslint-config.json.

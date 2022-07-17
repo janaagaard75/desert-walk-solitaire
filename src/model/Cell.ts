@@ -1,8 +1,8 @@
-import { computed, makeObservable } from "mobx"
-import { ComputedSettings } from "./ComputedSettings"
-import { Point } from "./Point"
-import { Rectangle } from "./Rectangle"
-import { Settings } from "./Settings"
+import { computed, makeObservable } from "mobx";
+import { ComputedSettings } from "./ComputedSettings";
+import { Point } from "./Point";
+import { Rectangle } from "./Rectangle";
+import { Settings } from "./Settings";
 
 export class Cell {
   public constructor(
@@ -10,11 +10,11 @@ export class Cell {
     public readonly columnIndex: number,
     public readonly cellToTheLeft: Cell | undefined
   ) {
-    makeObservable(this)
-    this.key = this.rowIndex * Settings.columns + this.columnIndex + 1
+    makeObservable(this);
+    this.key = this.rowIndex * Settings.columns + this.columnIndex + 1;
   }
 
-  public readonly key: number
+  public readonly key: number;
 
   @computed
   public get boundary(): Rectangle {
@@ -23,9 +23,9 @@ export class Cell {
       this.position.x + ComputedSettings.instance.cardSize.width,
       this.position.y,
       this.position.y + ComputedSettings.instance.cardSize.height
-    )
+    );
 
-    return boundary
+    return boundary;
   }
 
   @computed
@@ -37,17 +37,17 @@ export class Cell {
       this.rowIndex *
         (ComputedSettings.instance.cardSize.height +
           ComputedSettings.instance.gutterSize)
-    )
+    );
 
-    return position
+    return position;
   }
 
   public getOverlappingPixels(boundary: Rectangle | undefined): number {
     if (boundary === undefined) {
-      return 0
+      return 0;
     }
 
-    const overlappingPixels = this.boundary.overlappingPixels(boundary)
-    return overlappingPixels
+    const overlappingPixels = this.boundary.overlappingPixels(boundary);
+    return overlappingPixels;
   }
 }

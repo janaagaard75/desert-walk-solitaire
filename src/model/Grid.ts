@@ -1,39 +1,39 @@
-import { Cell } from "./Cell"
-import { Settings } from "./Settings"
+import { Cell } from "./Cell";
+import { Settings } from "./Settings";
 
 export class Grid {
   private constructor() {
-    this.cells = this.getCells()
+    this.cells = this.getCells();
   }
 
-  private static _instance: Grid
+  private static _instance: Grid | undefined = undefined;
 
   public static get instance(): Grid {
     if (this._instance === undefined) {
-      this._instance = new Grid()
+      this._instance = new Grid();
     }
 
-    return this._instance
+    return this._instance;
   }
 
-  public cells: ReadonlyArray<Cell>
+  public cells: ReadonlyArray<Cell>;
 
   private getCells(): Array<Cell> {
-    const cells: Array<Cell> = []
+    const cells: Array<Cell> = [];
     for (let rowIndex = 0; rowIndex < Settings.rows; rowIndex++) {
       for (let columnIndex = 0; columnIndex < Settings.columns; columnIndex++) {
-        let cellToTheLeft: Cell | undefined
+        let cellToTheLeft: Cell | undefined;
         if (columnIndex === 0) {
-          cellToTheLeft = undefined
+          cellToTheLeft = undefined;
         } else {
-          cellToTheLeft = cells[cells.length - 1]
+          cellToTheLeft = cells[cells.length - 1];
         }
 
-        const cell = new Cell(rowIndex, columnIndex, cellToTheLeft)
-        cells.push(cell)
+        const cell = new Cell(rowIndex, columnIndex, cellToTheLeft);
+        cells.push(cell);
       }
     }
 
-    return cells
+    return cells;
   }
 }

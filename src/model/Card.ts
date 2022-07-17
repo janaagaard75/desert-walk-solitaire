@@ -1,5 +1,5 @@
-import { Suit } from "./Suit"
-import { SuitHelper } from "./SuitHelper"
+import { Suit } from "./Suit";
+import { SuitHelper } from "./SuitHelper";
 
 export class Card {
   public constructor(
@@ -7,34 +7,34 @@ export class Card {
     public readonly value: number,
     public readonly next: Card | undefined
   ) {
-    this.displayValue = this.getDisplayValue()
-    this.key = this.getKey()
+    this.displayValue = this.getDisplayValue();
+    this.key = this.getKey();
   }
 
-  public readonly displayValue: string
-  public readonly key: string
+  public readonly displayValue: string;
+  public readonly key: string;
 
   private getDisplayValue(): string {
     switch (this.value) {
       case 1:
-        return "A"
+        return "A";
 
       case 11:
-        return "J"
+        return "J";
 
       case 12:
-        return "Q"
+        return "Q";
 
       case 13:
-        return "K"
+        return "K";
 
       default:
-        return this.value.toString()
+        return this.value.toString();
     }
   }
 
   private getKey(): string {
-    const key = this.displayValue + SuitHelper.getCharacter(this.suit)
-    return key
+    const key = this.displayValue + SuitHelper.getCharacter(this.suit);
+    return key;
   }
 }

@@ -1,44 +1,43 @@
-import { observer } from "mobx-react"
-import React from "react"
-import { View, ViewStyle } from "react-native"
-import { ComputedSettings } from "./model/ComputedSettings"
-import { EmptyCell } from "./model/EmptyCell"
-import { EmptyCellState } from "./model/EmptyCellState"
-import { Game } from "./model/Game"
-import { useComputed } from "./useComputed"
+import { observer } from "mobx-react";
+import { View, ViewStyle } from "react-native";
+import { ComputedSettings } from "./model/ComputedSettings";
+import { EmptyCell } from "./model/EmptyCell";
+import { EmptyCellState } from "./model/EmptyCellState";
+import { Game } from "./model/Game";
+import { useComputed } from "./useComputed";
 
 interface Props {
-  emptyCell: EmptyCell
+  emptyCell: EmptyCell;
 }
 
 export const EmptyCellView = observer((props: Props) => {
   const status = useComputed((): EmptyCellState => {
     if (props.emptyCell.droppableCards.length === 0) {
-      return EmptyCellState.Blocked
+      return EmptyCellState.Blocked;
     }
 
     if (Game.instance.draggingFromCell === undefined) {
-      return EmptyCellState.DropAllowedButNoCardIsBeingDragged
+      return EmptyCellState.DropAllowedButNoCardIsBeingDragged;
     }
 
     // Don't have to take account of the cell currently being dragged from because this cell isn't considered empty until.
     if (Game.instance.mostOverlappedDroppableCell === props.emptyCell.cell) {
-      return EmptyCellState.MostOverlappedTargetableCell
+      return EmptyCellState.MostOverlappedTargetableCell;
     }
 
     if (
       props.emptyCell.droppableCards.some((card) => {
         if (Game.instance.draggingFromCell === undefined) {
-          return false
+          return false;
         }
-        return card === Game.instance.draggedCard
+        return card === Game.instance.draggedCard;
       })
     ) {
-      return EmptyCellState.TargetableCellButNotMostOverlapped
+      return EmptyCellState.TargetableCellButNotMostOverlapped;
     }
 
-    return EmptyCellState.DropAllowedButNotTargetableCell
-  })
+    return EmptyCellState.DropAllowedButNotTargetableCell;
+  });
 
   const getBorderColorStyleAndWidth = (): [
     string | undefined,
@@ -47,21 +46,21 @@ export const EmptyCellView = observer((props: Props) => {
   ] => {
     switch (status) {
       case EmptyCellState.Blocked:
-        return [undefined, undefined, 0]
+        return [undefined, undefined, 0];
 
       case EmptyCellState.TargetableCellButNotMostOverlapped:
-        return ["white", "dashed", ComputedSettings.instance.borderWidth]
+        return ["white", "dashed", ComputedSettings.instance.borderWidth];
 
       case EmptyCellState.DropAllowedButNoCardIsBeingDragged:
       case EmptyCellState.DropAllowedButNotTargetableCell:
-        return ["black", "dashed", ComputedSettings.instance.borderWidth]
+        return ["black", "dashed", ComputedSettings.instance.borderWidth];
 
       case EmptyCellState.MostOverlappedTargetableCell:
-        return ["white", "solid", ComputedSettings.instance.borderWidth]
+        return ["white", "solid", ComputedSettings.instance.borderWidth];
     }
-  }
+  };
 
-  const [color, style, width] = getBorderColorStyleAndWidth()
+  const [color, style, width] = getBorderColorStyleAndWidth();
 
   const emptyCellStyle: ViewStyle = {
     borderColor: color,
@@ -73,7 +72,7 @@ export const EmptyCellView = observer((props: Props) => {
     position: "absolute",
     top: props.emptyCell.cell.position.y,
     width: ComputedSettings.instance.cardSize.width,
-  }
+  };
 
-  return <View style={emptyCellStyle} />
-})
+  return <View style={emptyCellStyle} />;
+});
