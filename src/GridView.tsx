@@ -1,5 +1,4 @@
 import { observer } from "mobx-react";
-import React from "react";
 import { View, ViewStyle } from "react-native";
 import { EmptyCellView } from "./EmptyCellView";
 import { ComputedSettings } from "./model/ComputedSettings";

@@ -1,6 +1,6 @@
 import { computed, makeObservable } from "mobx";
 import { observer } from "mobx-react";
-import React, { Component } from "react";
+import { Component } from "react";
 import { Text, TextStyle, View, ViewStyle } from "react-native";
 import { Card } from "./model/Card";
 import { ComputedSettings } from "./model/ComputedSettings";
