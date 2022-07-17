@@ -20,7 +20,7 @@
     "docs-install": "(cd docs; bundle install)",
     "docs-start": "yarn run docs-clean && (cd docs; bundle exec jekyll serve --future --unpublished)",
     "docs-update": "(cd docs; bundle update)",
-    "lint": "eslint . --ext .ts,.tsx --format codeframe",
+    "lint": "eslint . --ext .ts,.tsx --format codeframe --max-warnings 0",
     "optimize-assets": "npx expo-optimize",
     "publish-to-expo": "expo publish",
     "start": "yarn install --frozen-lockfile && expo start",
