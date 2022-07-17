@@ -1,18 +1,18 @@
-import { observer } from "mobx-react"
-import React from "react"
-import { Alert, View, ViewStyle } from "react-native"
-import { Game } from "./model/Game"
-import { GameState } from "./model/GameState"
-import { Settings } from "./model/Settings"
-import { TouchableState } from "./model/TouchableState"
-import { TouchableIcon } from "./TouchableIcon"
+import { observer } from "mobx-react";
+import React from "react";
+import { Alert, View, ViewStyle } from "react-native";
+import { Game } from "./model/Game";
+import { GameState } from "./model/GameState";
+import { Settings } from "./model/Settings";
+import { TouchableState } from "./model/TouchableState";
+import { TouchableIcon } from "./TouchableIcon";
 
 export const FooterView = observer(() => {
   const buttonWrapperStyle: ViewStyle = {
     backgroundColor: Settings.colors.mainBackgroundColor,
     flexDirection: "row",
     flexWrap: "wrap",
-  }
+  };
 
   return (
     <View
@@ -64,22 +64,22 @@ export const FooterView = observer(() => {
         />
       </View>
     </View>
-  )
-})
+  );
+});
 
 const confirmUnlessGameOver = (): void => {
   switch (Game.instance.gameState) {
     case GameState.Lost:
     case GameState.Won:
-      Game.instance.startOver()
-      break
+      Game.instance.startOver();
+      break;
 
     case GameState.MovePossible:
     case GameState.Stuck:
-      confirmRestart()
-      break
+      confirmRestart();
+      break;
   }
-}
+};
 
 const confirmRestart = () => {
   Alert.alert(
@@ -97,22 +97,22 @@ const confirmRestart = () => {
       },
     ],
     { cancelable: false }
-  )
-}
+  );
+};
 
 const shuffleButtonEnabled = (buttonNumber: number): TouchableState => {
-  const buttonNumberToEnable = Game.instance.shuffles + 1
+  const buttonNumberToEnable = Game.instance.shuffles + 1;
 
   if (buttonNumber < buttonNumberToEnable) {
-    return TouchableState.Hidden
+    return TouchableState.Hidden;
   }
 
   if (
     buttonNumber === buttonNumberToEnable &&
     Game.instance.gameState === GameState.Stuck
   ) {
-    return TouchableState.Enabled
+    return TouchableState.Enabled;
   }
 
-  return TouchableState.Disabled
-}
+  return TouchableState.Disabled;
+};

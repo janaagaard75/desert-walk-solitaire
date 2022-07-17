@@ -79,4 +79,4 @@ module.exports = {
     // Prefer template strings over concatenating with plus.
     "prefer-template": "error",
   },
-}
+};

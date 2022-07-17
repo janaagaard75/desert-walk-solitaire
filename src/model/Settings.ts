@@ -12,7 +12,7 @@ export class Settings {
       duration: 400,
       elasticity: 0.5,
     },
-  }
+  };
 
   public static readonly colors = {
     card: {
@@ -26,13 +26,13 @@ export class Settings {
     },
     gridBackgroundColor: "#464",
     mainBackgroundColor: "#333",
-  }
+  };
 
-  public static readonly cardShadowOpacity = 0.6
-  public static readonly maxCardValue = 13
-  public static readonly numberOfShuffles = 3
-  public static readonly rows = 4
+  public static readonly cardShadowOpacity = 0.6;
+  public static readonly maxCardValue = 13;
+  public static readonly numberOfShuffles = 3;
+  public static readonly rows = 4;
 
-  public static readonly columns = Settings.maxCardValue + 1
-  public static readonly numberOfCards = Settings.maxCardValue * Settings.rows
+  public static readonly columns = Settings.maxCardValue + 1;
+  public static readonly numberOfCards = Settings.maxCardValue * Settings.rows;
 }
