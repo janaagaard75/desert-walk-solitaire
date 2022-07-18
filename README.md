@@ -62,7 +62,7 @@ Changes to the app that do not change the dependencies can be deployed without g
 1. Increment `buildNumber` and `versionCode` in `app.json`.
 2. Bump `version` in `app.json` and `package.json`.
 3. Run `yarn build-ios` to queue a build.
-4. Download the `.ipa` from [expo.io/dashboard/janaagaard75](https://expo.io/dashboard/janaagaard75).
+4. Download the `.ipa` from [expo.dev/accounts/janaagaard75/projects/desert-walk](https://expo.dev/accounts/janaagaard75/projects/desert-walk).
 5. Use the [Transporter Mac app](https://apps.apple.com/app/transporter/id1450874784) to upload the file.
 6. Go to [appstoreconnect.apple.com](https://appstoreconnect.apple.com/) and create a new version.
 7. Invite App Store Connected Users to test the new version.
