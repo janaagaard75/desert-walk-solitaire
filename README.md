@@ -10,7 +10,7 @@ Just type `yarn start` to install the Node modules and start the app.
 
 This opens a browser window where you can select 'Start iOS Simulator'.
 
-You can also install the [Expo Client](https://expo.io/tools#client) on your devices and run the app through that app.
+You can also install [Expo Go](https://expo.dev/tools) on your devices and run the app through that app.
 
 ## Assets
 
