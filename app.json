@@ -19,7 +19,7 @@
       "config": {
         "usesNonExemptEncryption": false
       },
-      "buildNumber": "6",
+      "buildNumber": "7",
       "bundleIdentifier": "com.janaagaard.desertwalk",
       "requireFullScreen": true,
       "supportsTablet": true,
@@ -27,7 +27,7 @@
     },
     "android": {
       "package": "com.janagaard.desertwalk",
-      "versionCode": 6
+      "versionCode": 7
     }
   }
 }
