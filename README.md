@@ -61,18 +61,22 @@ Changes to the app that do not change the dependencies can be deployed without g
 
 1. Increment `buildNumber` and `versionCode` in `app.json`.
 2. Bump `version` in `app.json` and `package.json`.
-3. Run `yarn build-ios` to queue a build.
-4. Download the `.ipa` from [expo.dev/accounts/janaagaard75/projects/desert-walk](https://expo.dev/accounts/janaagaard75/projects/desert-walk).
-5. Use the [Transporter Mac app](https://apps.apple.com/app/transporter/id1450874784) to upload the file.
-6. Go to [appstoreconnect.apple.com](https://appstoreconnect.apple.com/) and create a new version.
-7. Invite App Store Connected Users to test the new version.
-8. Use the link in the mail to import the app in TestFlight and install it.
-9. Test the app on the device.
-10. Add notes about new features and select the build App Store Connect. Selecting the build will add the icon.
-11. Submit for review.
-12. Answer _Yes_ to 'Does this app use the Advertising Identifier (IDFA)'?, and check the three boxes except 'Serve advertisements within the app'. [Source](https://segment.com/docs/connections/sources/catalog/libraries/mobile/ios/quickstart/#step-5-submitting-to-the-app-store).
+
+### Deploying to Apple's App Store
+
+1. Run `yarn build-ios` to queue a build.
+2. Run `yarn eas submit --platform ios` to submit the build the Apple's App tory.
+3. Go to [appstoreconnect.apple.com](https://appstoreconnect.apple.com/).
+4. Add the app to TestFlight and invite users.
+5. Test the app using TestFlight.
+6. Create new version and submit for review.
+7. Answer _Yes_ to 'Does this app use the Advertising Identifier (IDFA)'?, and check the three boxes except 'Serve advertisements within the app'. [Source](https://segment.com/docs/connections/sources/catalog/libraries/mobile/ios/quickstart/#step-5-submitting-to-the-app-store).
 
 Certificate for push notifications: <https://github.com/expo/turtle/issues/62#issuecomment-469528206>.
+
+### Deploying to Google's Play Store
+
+TODO
 
 ## Learnings
 
