@@ -23,7 +23,7 @@
     "lint": "eslint . --ext .ts,.tsx --format codeframe --max-warnings 0",
     "optimize-assets": "npx expo-optimize",
     "publish-to-expo": "expo publish",
-    "start": "yarn install --frozen-lockfile && expo start",
+    "start": "yarn install --frozen-lockfile && npx expo start",
     "validate": "yarn install --frozen-lockfile && yarn run lint && yarn run check-types"
   },
   "dependencies": {
@@ -53,7 +53,6 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-formatter-codeframe": "^7.32.1",
     "eslint-plugin-typescript-sort-keys": "^2.1.0",
-    "expo-cli": "^5.5.1",
     "prettier": "^2.7.1",
     "typescript": "~4.3.5"
   }
