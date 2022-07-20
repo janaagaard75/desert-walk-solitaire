@@ -31,6 +31,7 @@
     "expo-font": "~10.1.0",
     "expo-screen-orientation": "~4.2.0",
     "expo-splash-screen": "~0.15.1",
+    "expo-updates": "~0.13.3",
     "mobx": "^6.6.1",
     "mobx-react": "^7.5.2",
     "react": "17.0.2",

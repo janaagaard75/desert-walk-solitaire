@@ -28,6 +28,12 @@
     "android": {
       "package": "com.janagaard.desertwalk",
       "versionCode": 7
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/70b7bbb0-8039-11e7-b59b-8f3e0105197d"
     }
   }
 }
