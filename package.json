@@ -13,8 +13,8 @@
     "preset": "jest-expo-ts"
   },
   "scripts": {
-    "build-android": "yarn install --frozen-lockfile && eas build -p android",
-    "build-ios": "yarn install --frozen-lockfile && eas build -p ios",
+    "build-android": "eas build -p android",
+    "build-ios": "eas build -p ios",
     "check-types": "tsc",
     "docs-clean": "rm -rf docs/_site",
     "docs-install": "(cd docs; bundle install)",
