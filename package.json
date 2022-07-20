@@ -15,6 +15,7 @@
   "scripts": {
     "build-android": "eas build -p android",
     "build-ios": "eas build -p ios",
+    "build-ios-preview": "eas build -p ios --profile preview",
     "check-types": "tsc",
     "docs-clean": "rm -rf docs/_site",
     "docs-install": "(cd docs; bundle install)",
