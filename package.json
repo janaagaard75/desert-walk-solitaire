@@ -13,8 +13,9 @@
     "preset": "jest-expo-ts"
   },
   "scripts": {
-    "build-android": "yarn install --frozen-lockfile && eas build -p android",
-    "build-ios": "yarn install --frozen-lockfile && eas build -p ios",
+    "build-android": "eas build -p android",
+    "build-ios": "eas build -p ios",
+    "build-ios-preview": "eas build -p ios --profile preview",
     "check-types": "tsc",
     "docs-clean": "rm -rf docs/_site",
     "docs-install": "(cd docs; bundle install)",
@@ -23,7 +24,7 @@
     "lint": "eslint . --ext .ts,.tsx --format codeframe --max-warnings 0",
     "optimize-assets": "npx expo-optimize",
     "publish-to-expo": "expo publish",
-    "start": "yarn install --frozen-lockfile && expo start",
+    "start": "yarn install --frozen-lockfile && npx expo start",
     "validate": "yarn install --frozen-lockfile && yarn run lint && yarn run check-types"
   },
   "dependencies": {
@@ -31,6 +32,7 @@
     "expo-font": "~10.1.0",
     "expo-screen-orientation": "~4.2.0",
     "expo-splash-screen": "~0.15.1",
+    "expo-updates": "~0.13.3",
     "mobx": "^6.6.1",
     "mobx-react": "^7.5.2",
     "react": "17.0.2",
@@ -53,7 +55,6 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-formatter-codeframe": "^7.32.1",
     "eslint-plugin-typescript-sort-keys": "^2.1.0",
-    "expo-cli": "^5.5.1",
     "prettier": "^2.7.1",
     "typescript": "~4.3.5"
   }

@@ -55,6 +55,14 @@ Expo manages and upgrades the versions of known dependencies when upgrading Expo
 - prettier
 - tslib
 
+## Updating an existing version
+
+See [Publish an update](https://docs.expo.dev/eas-update/getting-started/#publish-an-update).
+
+Example:
+
+    eas update --branch production --message "Fixed a typo."
+
 ## Deploying a new version
 
 Changes to the app that do not change the dependencies can be deployed without going through the app stores. Upgrading the Expo SDK Expo SDK, and also in a [handful more cases](https://docs.expo.dev/workflow/publishing/#limitations) does, however, require deploying a new version through the app stores.
