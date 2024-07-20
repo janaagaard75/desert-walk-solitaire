@@ -25,8 +25,8 @@
     "lint": "eslint . --ext .ts,.tsx --format codeframe --max-warnings 0",
     "optimize-assets": "npx expo-optimize",
     "publish-to-expo": "expo publish",
-    "start": "yarn install --frozen-lockfile && npx expo start",
-    "validate": "yarn install --frozen-lockfile && yarn run lint && yarn run check-types"
+    "start": "yarn expo start",
+    "validate": "yarn run lint && yarn run check-types"
   },
   "dependencies": {
     "expo": "^51.0.21",
