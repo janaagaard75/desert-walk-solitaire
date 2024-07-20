@@ -35,6 +35,11 @@
     "updates": {
       "url": "https://u.expo.dev/70b7bbb0-8039-11e7-b59b-8f3e0105197d"
     },
-    "plugins": ["expo-font"]
+    "plugins": ["expo-font"],
+    "extra": {
+      "eas": {
+        "projectId": "70b7bbb0-8039-11e7-b59b-8f3e0105197d"
+      }
+    }
   }
 }
