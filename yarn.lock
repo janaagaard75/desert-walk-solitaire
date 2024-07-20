@@ -5606,7 +5606,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-config-react-app: "npm:^7.0.1"
     eslint-formatter-codeframe: "npm:^7.32.1"
-    eslint-plugin-typescript-sort-keys: "npm:^2.3.0"
+    eslint-plugin-typescript-sort-keys: "npm:^3.2.0"
     expo: "npm:^51.0.21"
     expo-font: "npm:~12.0.9"
     expo-screen-orientation: "npm:~7.0.5"
@@ -6394,18 +6394,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-typescript-sort-keys@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "eslint-plugin-typescript-sort-keys@npm:2.3.0"
+"eslint-plugin-typescript-sort-keys@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "eslint-plugin-typescript-sort-keys@npm:3.2.0"
   dependencies:
     "@typescript-eslint/experimental-utils": "npm:^5.0.0"
     json-schema: "npm:^0.4.0"
     natural-compare-lite: "npm:^1.4.0"
   peerDependencies:
-    "@typescript-eslint/parser": ^1 || ^2 || ^3 || ^4 || ^5
-    eslint: ^5 || ^6 || ^7 || ^8
+    "@typescript-eslint/parser": ^6 || ^7
+    eslint: ^7 || ^8
     typescript: ^3 || ^4 || ^5
-  checksum: 10c0/6eba6012529b99d7f7e11bd8971921c953cfc225e63a484a04e649441e7c00d55164f50ac16f912dcaba111c1a10aa07c0f224223ebf02e7860249deac7bd7b4
+  checksum: 10c0/c832d5a93cac4f955f05b126ad79d1df49f9f11402ab225b1835d42972291a3855e477d28b07696d2a65a511ccdcdf64001eeda216248da82a5187af6d03e70f
   languageName: node
   linkType: hard
 
