@@ -1,6 +1,6 @@
 import { computed, makeObservable, observable } from "mobx";
 import { observer } from "mobx-react";
-import { Component } from "react";
+import { PureComponent } from "react";
 import {
   Animated,
   Easing,
@@ -25,7 +25,7 @@ interface State {
 }
 
 @observer
-export class PositionedCardView extends Component<Props> {
+export class PositionedCardView extends PureComponent<Props> {
   public constructor(props: Props) {
     super(props);
 

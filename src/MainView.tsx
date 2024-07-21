@@ -3,7 +3,7 @@ import { lockAsync, OrientationLock } from "expo-screen-orientation";
 import * as SplashScreen from "expo-splash-screen";
 import { autorun, makeObservable, observable } from "mobx";
 import { observer } from "mobx-react";
-import { Component } from "react";
+import { PureComponent } from "react";
 import {
   Dimensions,
   Image,
@@ -26,7 +26,7 @@ SplashScreen.preventAutoHideAsync();
 interface Props {}
 
 @observer
-export class MainView extends Component<Props> {
+export class MainView extends PureComponent<Props> {
   public constructor(props: Props) {
     super(props);
 

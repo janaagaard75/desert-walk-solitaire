@@ -1,6 +1,6 @@
 import { computed, makeObservable } from "mobx";
 import { observer } from "mobx-react";
-import { Component } from "react";
+import { PureComponent } from "react";
 import { Text, TextStyle, View, ViewStyle } from "react-native";
 import { Card } from "./model/Card";
 import { ComputedSettings } from "./model/ComputedSettings";
@@ -18,7 +18,7 @@ interface Props {
 }
 
 @observer
-export class CardView extends Component<Props> {
+export class CardView extends PureComponent<Props> {
   public constructor(props: Props) {
     super(props);
     makeObservable<
