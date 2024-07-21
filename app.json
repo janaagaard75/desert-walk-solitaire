@@ -1,45 +1,47 @@
 {
   "expo": {
-    "name": "Desert Walk",
-    "description": "Solitaire card game.",
-    "slug": "desert-walk",
-    "privacy": "public",
-    "version": "1.0.9",
-    "orientation": "landscape",
-    "primaryColor": "#464",
-    "icon": "./assets/app-icon.png",
-    "splash": {
-      "image": "./assets/splash-screen.png",
-      "hideExponentText": false
-    },
-    "assetBundlePatterns": ["assets/**/*"],
-    "githubUrl": "https://github.com/janaagaard75/desert-walk",
-    "platforms": ["android", "ios"],
-    "ios": {
-      "config": {
-        "usesNonExemptEncryption": false
-      },
-      "buildNumber": "7",
-      "bundleIdentifier": "com.janaagaard.desertwalk",
-      "requireFullScreen": true,
-      "supportsTablet": true,
-      "usesIcloudStorage": false
-    },
     "android": {
-      "package": "com.janagaard.desertwalk",
+      "package": "com.janaagaard.desertwalk",
       "versionCode": 7
     },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/70b7bbb0-8039-11e7-b59b-8f3e0105197d"
-    },
-    "plugins": ["expo-font"],
+    "description": "Solitaire card game.",
     "extra": {
       "eas": {
         "projectId": "70b7bbb0-8039-11e7-b59b-8f3e0105197d"
       }
-    }
+    },
+    "githubUrl": "https://github.com/janaagaard75/desert-walk",
+    "icon": "./assets/app-icon.png",
+    "ios": {
+      "buildNumber": "7",
+      "bundleIdentifier": "com.janaagaard.desertwalk",
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "requireFullScreen": true,
+      "supportsTablet": true,
+      "usesIcloudStorage": false
+    },
+    "name": "Desert Walk",
+    "orientation": "landscape",
+    "platforms": ["android", "ios"],
+    "primaryColor": "#464",
+    "plugins": ["expo-font"],
+    "privacy": "public",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "slug": "desert-walk",
+    "splash": {
+      "backgroundColor": "#ffffff",
+      "hideExponentText": false,
+      "image": "./assets/splash-screen.png",
+      "resizeMode": "contain"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/70b7bbb0-8039-11e7-b59b-8f3e0105197d"
+    },
+    "userInterfaceStyle": "light",
+    "version": "1.0.9"
   }
 }

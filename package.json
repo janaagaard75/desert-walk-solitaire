@@ -8,24 +8,27 @@
   },
   "private": true,
   "license": "MIT",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "expo/AppEntry.js",
   "jest": {
     "preset": "jest-expo-ts"
   },
   "scripts": {
+    "android": "expo start --android",
     "build-android": "eas build -p android",
-    "build-ios": "eas build -p ios",
     "build-ios-preview": "eas build -p ios --profile preview",
+    "build-ios": "eas build -p ios",
     "check-types": "tsc",
     "docs-clean": "rm -rf docs/_site",
     "docs-install": "(cd docs; bundle install)",
     "docs-start": "yarn run docs-clean && (cd docs; bundle exec jekyll serve --future --unpublished)",
     "docs-update": "(cd docs; bundle update)",
+    "ios": "expo start --ios",
     "lint": "eslint . --ext .ts,.tsx --format codeframe --max-warnings 0",
     "optimize-assets": "npx expo-optimize",
     "publish-to-expo": "expo publish",
-    "start": "yarn expo start",
-    "validate": "yarn run lint && yarn run check-types"
+    "start": "expo start",
+    "validate": "yarn run lint && yarn run check-types",
+    "web": "expo start --web"
   },
   "dependencies": {
     "expo": "^51.0.21",
@@ -58,6 +61,6 @@
     "eslint-formatter-codeframe": "^7.32.1",
     "eslint-plugin-typescript-sort-keys": "^3.2.0",
     "prettier": "^3.3.3",
-    "typescript": "~5.3.3"
+    "typescript": "^5.5.3"
   }
 }
