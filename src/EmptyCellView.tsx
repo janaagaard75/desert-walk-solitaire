@@ -5,14 +5,13 @@ import { ComputedSettings } from "./model/ComputedSettings";
 import { EmptyCell } from "./model/EmptyCell";
 import { EmptyCellState } from "./model/EmptyCellState";
 import { Game } from "./model/Game";
-import { useComputed } from "./useComputed";
 
 interface Props {
   emptyCell: EmptyCell;
 }
 
 export const EmptyCellView = observer((props: Props) => {
-  const status = useComputed((): EmptyCellState => {
+  const status: EmptyCellState = (() => {
     if (props.emptyCell.droppableCards.length === 0) {
       return EmptyCellState.Blocked;
     }
@@ -38,7 +37,7 @@ export const EmptyCellView = observer((props: Props) => {
     }
 
     return EmptyCellState.DropAllowedButNotTargetableCell;
-  });
+  })();
 
   const getBorderColorStyleAndWidth = (): [
     string | undefined,
