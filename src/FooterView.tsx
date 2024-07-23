@@ -1,4 +1,5 @@
-import { observer } from "mobx-react";
+import { observer } from "mobx-react-lite";
+import React from "react";
 import { Alert, View, ViewStyle } from "react-native";
 import { Game } from "./model/Game";
 import { GameState } from "./model/GameState";

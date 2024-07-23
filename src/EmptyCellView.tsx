@@ -1,4 +1,5 @@
-import { observer } from "mobx-react";
+import { observer } from "mobx-react-lite";
+import React from "react";
 import { View, ViewStyle } from "react-native";
 import { ComputedSettings } from "./model/ComputedSettings";
 import { EmptyCell } from "./model/EmptyCell";
@@ -42,7 +43,7 @@ export const EmptyCellView = observer((props: Props) => {
   const getBorderColorStyleAndWidth = (): [
     string | undefined,
     "solid" | "dotted" | "dashed" | undefined,
-    number
+    number,
   ] => {
     switch (status) {
       case EmptyCellState.Blocked:
