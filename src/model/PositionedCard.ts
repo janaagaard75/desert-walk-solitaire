@@ -1,19 +1,40 @@
-import { computed, makeObservable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { Card } from "./Card";
 import { CardCellPair } from "./CardCellPair";
 import { Cell } from "./Cell";
+import { ComputedSettings } from "./ComputedSettings";
 import { EmptyCell } from "./EmptyCell";
-import { GridCell } from "./GridCell";
 import { GridState } from "./GridState";
+import { Point } from "./Point";
+import { Rectangle } from "./Rectangle";
 
-export class PositionedCard extends GridCell implements CardCellPair {
-  public constructor(cell: Cell, gridState: GridState, public card: Card) {
-    super(cell, gridState);
-
-    makeObservable(this);
+export class PositionedCard implements CardCellPair {
+  public constructor(
+    public cell: Cell,
+    private gridState: GridState,
+    public card: Card
+  ) {
+    makeAutoObservable(this);
   }
 
-  @computed
+  public get boundary(): Rectangle {
+    const boundary = ComputedSettings.instance.getCardBoundary(this.position);
+    return boundary;
+  }
+
+  public get left(): PositionedCard | EmptyCell | undefined {
+    if (this.cell.cellToTheLeft === undefined) {
+      return undefined;
+    }
+
+    const left = this.gridState.getGridCellFromCell(this.cell.cellToTheLeft);
+    return left;
+  }
+
+  public get position(): Point {
+    return this.cell.position;
+  }
+
   public get correctlyPlaced(): boolean {
     if (this.cell.cellToTheLeft === undefined) {
       const aceInFirstColumn = this.card.value === 1;

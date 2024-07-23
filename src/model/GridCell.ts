@@ -1,4 +1,4 @@
-import { computed, makeObservable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { Cell } from "./Cell";
 import { ComputedSettings } from "./ComputedSettings";
 import { EmptyCell } from "./EmptyCell";
@@ -8,17 +8,18 @@ import { PositionedCard } from "./PositionedCard";
 import { Rectangle } from "./Rectangle";
 
 export abstract class GridCell {
-  public constructor(public cell: Cell, protected gridState: GridState) {
-    makeObservable(this);
+  public constructor(
+    public cell: Cell,
+    protected gridState: GridState
+  ) {
+    makeAutoObservable(this);
   }
 
-  @computed
   public get boundary(): Rectangle {
     const boundary = ComputedSettings.instance.getCardBoundary(this.position);
     return boundary;
   }
 
-  @computed
   public get left(): PositionedCard | EmptyCell | undefined {
     if (this.cell.cellToTheLeft === undefined) {
       return undefined;
@@ -28,7 +29,6 @@ export abstract class GridCell {
     return left;
   }
 
-  @computed
   public get position(): Point {
     return this.cell.position;
   }
