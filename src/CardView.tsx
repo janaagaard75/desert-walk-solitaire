@@ -17,10 +17,6 @@ interface Props {
 }
 
 export const CardView = observer((props: Props) => {
-  console.log(
-    `Rendering CardView for ${props.card.displayValue} of ${props.card.suit}. Draggable: ${props.draggable}. Dragging: ${props.dragging}.`
-  );
-
   const cardStyle = {
     alignItems: "center",
     backgroundColor: Settings.colors.card.background,

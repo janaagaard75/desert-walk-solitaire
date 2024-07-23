@@ -43,7 +43,6 @@ export const PositionedCardView = observer((props: Props) => {
           });
         },
         onPanResponderEnd: (_e, gestureState) => {
-          console.log("onPanResponderEnd");
           // TODO: The isPress logic does not take into account that the card might have been dragged away and the back to the original position, when letting go. If that has happened, this is not a 'press'.
           const isPress =
             Math.abs(gestureState.dx) <= moveThreshold &&

@@ -244,7 +244,6 @@ export class Game {
       this.mostOverlappedDroppableCell !== undefined &&
       this.mostOverlappedDroppableCell !== this.draggingFromCell.cell
     ) {
-      console.log("Perform move turn.");
       this.performTurn(
         new MoveTurn(
           this.draggingFromCell.cell,
