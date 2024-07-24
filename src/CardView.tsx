@@ -1,5 +1,4 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
 import { Text, TextStyle, View, ViewStyle } from "react-native";
 import { Card } from "./model/Card";
 import { ComputedSettings } from "./model/ComputedSettings";

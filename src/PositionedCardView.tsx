@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Animated, Easing, PanResponder } from "react-native";
 import { CardView } from "./CardView";
 import { ComputedSettings } from "./model/ComputedSettings";
