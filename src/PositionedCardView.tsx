@@ -18,12 +18,12 @@ export const PositionedCardView = observer((props: Props) => {
   const [visualState, setVisualState] = useState<VisualState>("idle");
 
   const draggable = Game.instance.currentGridState.draggableCards.includes(
-    props.positionedCard.card
+    props.positionedCard.card,
   );
 
   const animatedPosition = useMemo(
     () => new Animated.ValueXY(props.positionedCard.position),
-    [props.positionedCard.position]
+    [props.positionedCard.position],
   );
 
   // TODO: Bigger threshold, perhaps mainly on bigger screens?
@@ -71,7 +71,7 @@ export const PositionedCardView = observer((props: Props) => {
           });
         },
       }),
-    [animatedPosition, props.positionedCard]
+    [animatedPosition, props.positionedCard],
   );
 
   useEffect(() => {
