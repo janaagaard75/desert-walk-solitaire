@@ -25,17 +25,17 @@ const width = (1 / numberOfIcons) * 100;
 const iconSize = 20;
 
 export const TouchableIcon = (props: Props) => {
-  if (props.state === TouchableState.Hidden) {
+  if (props.state === "hidden") {
     return <View style={{ width: `${width}%` }} />;
   }
 
-  const color = props.state === TouchableState.Enabled ? "#fff" : "#999";
-  const shadowOpacity = props.state === TouchableState.Enabled ? 0.5 : 0;
+  const color = props.state === "enabled" ? "#fff" : "#999";
+  const shadowOpacity = props.state === "enabled" ? 0.5 : 0;
 
   return (
     <TouchableOpacity
       onPress={props.handlePress}
-      disabled={props.state === TouchableState.Disabled}
+      disabled={props.state === "disabled"}
       style={{
         alignItems: "center",
         alignSelf: "center",

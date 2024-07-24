@@ -13,16 +13,16 @@ interface Props {
 export const EmptyCellView = observer((props: Props) => {
   const status: EmptyCellState = (() => {
     if (props.emptyCell.droppableCards.length === 0) {
-      return EmptyCellState.Blocked;
+      return "blocked";
     }
 
     if (Game.instance.draggingFromCell === undefined) {
-      return EmptyCellState.DropAllowedButNoCardIsBeingDragged;
+      return "dropAllowedButNoCardIsBeingDragged";
     }
 
     // Don't have to take account of the cell currently being dragged from because this cell isn't considered empty until.
     if (Game.instance.mostOverlappedDroppableCell === props.emptyCell.cell) {
-      return EmptyCellState.MostOverlappedTargetableCell;
+      return "mostOverlappedTargetableCell";
     }
 
     if (
@@ -33,10 +33,10 @@ export const EmptyCellView = observer((props: Props) => {
         return card === Game.instance.draggedCard;
       })
     ) {
-      return EmptyCellState.TargetableCellButNotMostOverlapped;
+      return "targetableCellButNotMostOverlapped";
     }
 
-    return EmptyCellState.DropAllowedButNotTargetableCell;
+    return "dropAllowedButNotTargetableCell";
   })();
 
   const getBorderColorStyleAndWidth = (): [
@@ -45,17 +45,17 @@ export const EmptyCellView = observer((props: Props) => {
     number,
   ] => {
     switch (status) {
-      case EmptyCellState.Blocked:
+      case "blocked":
         return [undefined, undefined, 0];
 
-      case EmptyCellState.TargetableCellButNotMostOverlapped:
+      case "targetableCellButNotMostOverlapped":
         return ["white", "dashed", ComputedSettings.instance.borderWidth];
 
-      case EmptyCellState.DropAllowedButNoCardIsBeingDragged:
-      case EmptyCellState.DropAllowedButNotTargetableCell:
+      case "dropAllowedButNoCardIsBeingDragged":
+      case "dropAllowedButNotTargetableCell":
         return ["black", "dashed", ComputedSettings.instance.borderWidth];
 
-      case EmptyCellState.MostOverlappedTargetableCell:
+      case "mostOverlappedTargetableCell":
         return ["white", "solid", ComputedSettings.instance.borderWidth];
     }
   };

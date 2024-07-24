@@ -4,29 +4,29 @@ import { Suit } from "./Suit";
 export class SuitHelper {
   public static getCharacter(suit: Suit): string {
     switch (suit) {
-      case Suit.Clubs:
+      case "clubs":
         return "♣";
-      case Suit.Diamonds:
+      case "diamonds":
         return "♦";
-      case Suit.Hearts:
+      case "hearts":
         return "♥";
-      case Suit.Spades:
+      case "spades":
         return "♠";
     }
   }
 
   public static getColor(suit: Suit): string {
     switch (suit) {
-      case Suit.Clubs:
+      case "clubs":
         return Settings.colors.card.clubs;
 
-      case Suit.Diamonds:
+      case "diamonds":
         return Settings.colors.card.diamonds;
 
-      case Suit.Hearts:
+      case "hearts":
         return Settings.colors.card.hearts;
 
-      case Suit.Spades:
+      case "spades":
         return Settings.colors.card.spades;
     }
   }

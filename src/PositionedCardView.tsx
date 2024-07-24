@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const PositionedCardView = observer((props: Props) => {
-  const [visualState, setVisualState] = useState(VisualState.Idle);
+  const [visualState, setVisualState] = useState<VisualState>("idle");
 
   const draggable = Game.instance.currentGridState.draggableCards.includes(
     props.positionedCard.card
@@ -34,7 +34,7 @@ export const PositionedCardView = observer((props: Props) => {
         onStartShouldSetPanResponder: (_e, _gestureState) => true,
         onPanResponderGrant: (_e, _gestureState) => {
           Game.instance.cardDragStarted(props.positionedCard);
-          setVisualState(VisualState.Dragging);
+          setVisualState("dragging");
         },
         onPanResponderMove: (_e, gestureState) => {
           animatedPosition.setValue({
@@ -67,7 +67,7 @@ export const PositionedCardView = observer((props: Props) => {
             },
             useNativeDriver: true,
           }).start(() => {
-            setVisualState(VisualState.Idle);
+            setVisualState("idle");
           });
         },
       }),
@@ -82,13 +82,13 @@ export const PositionedCardView = observer((props: Props) => {
   }, [animatedPosition]);
 
   useEffect(() => {
-    setVisualState(VisualState.Animating);
+    setVisualState("animating");
 
     Animated.spring(animatedPosition, {
       toValue: props.positionedCard.position,
       useNativeDriver: true,
     }).start(() => {
-      setVisualState(VisualState.Idle);
+      setVisualState("idle");
     });
   }, [animatedPosition, props.positionedCard.position]);
 
@@ -100,7 +100,7 @@ export const PositionedCardView = observer((props: Props) => {
           { translateX: animatedPosition.x },
           { translateY: animatedPosition.y },
         ],
-        zIndex: visualState === VisualState.Idle ? 1 : 2,
+        zIndex: visualState === "idle" ? 1 : 2,
       }}
       {...(draggable ? panResponder.panHandlers : undefined)}
     >
@@ -109,7 +109,7 @@ export const PositionedCardView = observer((props: Props) => {
         cardSize={props.cardSize}
         correctlyPlaced={props.positionedCard.correctlyPlaced}
         draggable={draggable}
-        dragging={visualState === VisualState.Dragging}
+        dragging={visualState === "dragging"}
       />
     </Animated.View>
   );

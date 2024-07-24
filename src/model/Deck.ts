@@ -1,6 +1,5 @@
 import { Card } from "./Card";
 import { Settings } from "./Settings";
-import { Suit } from "./Suit";
 
 export class Deck {
   private constructor() {
@@ -23,7 +22,7 @@ export class Deck {
 
   private getCards(): ReadonlyArray<Card> {
     const cards: Array<Card> = [];
-    for (const suit of [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades]) {
+    for (const suit of ["clubs", "diamonds", "hearts", "spades"] as const) {
       for (let value = Settings.maxCardValue; value >= 1; value--) {
         const nextCard =
           value === Settings.maxCardValue ? undefined : cards[cards.length - 1];

@@ -83,21 +83,21 @@ export class Game {
 
   public get gameState(): GameState {
     if (this.currentGridState.draggableCards.length >= 1) {
-      return GameState.MovePossible;
+      return "movePossible";
     }
 
     if (
       this.currentGridState.correctlyPositionedCards.length ===
       Settings.numberOfCards
     ) {
-      return GameState.Won;
+      return "won";
     }
 
     if (this.shuffles < Settings.numberOfShuffles) {
-      return GameState.Stuck;
+      return "shufflePossible";
     }
 
-    return GameState.Lost;
+    return "lost";
   }
 
   public get latestTurn(): Turn | undefined {
@@ -154,34 +154,33 @@ export class Game {
 
   public get undoState(): TouchableState {
     if (this.replayPlaying) {
-      return TouchableState.Hidden;
+      return "hidden";
     }
 
     const isFirstState = this.currentStateIndex === 0;
     const previousTurnWasMove =
       this.turns[this.currentStateIndex - 1] instanceof MoveTurn;
-    const gameOver =
-      this.gameState === GameState.Lost || this.gameState === GameState.Won;
+    const gameOver = this.gameState === "lost" || this.gameState === "won";
 
     if (isFirstState || !previousTurnWasMove || gameOver) {
-      return TouchableState.Disabled;
+      return "disabled";
     }
 
-    return TouchableState.Enabled;
+    return "enabled";
   }
 
   public get redoState(): TouchableState {
     if (this.replayPlaying) {
-      return TouchableState.Hidden;
+      return "hidden";
     }
 
     const isLastState = this.currentStateIndex === this.turns.length;
 
     if (isLastState) {
-      return TouchableState.Disabled;
+      return "disabled";
     }
 
-    return TouchableState.Enabled;
+    return "enabled";
   }
 
   private get currentStateIndex(): number {
@@ -201,7 +200,7 @@ export class Game {
   }
 
   public get replayEnabled(): boolean {
-    const enabled = this.gameState === GameState.Won && this.replayShown;
+    const enabled = this.gameState === "won" && this.replayShown;
     return enabled;
   }
 
@@ -221,7 +220,7 @@ export class Game {
   }
 
   private autorun() {
-    if (this.gameState === GameState.Won && !this.replayShown) {
+    if (this.gameState === "won" && !this.replayShown) {
       setTimeout(() => {
         this.replay();
       }, Settings.animation.replay.delayBeforeAutoReplay);
