@@ -82,7 +82,9 @@ export class GridState {
       return positionedCard;
     }
 
-    const emptyCell = this.emptyCells.find((ec) => ec.cell === cell);
+    const emptyCell = this.emptyCells.find(
+      (emptyCell) => emptyCell.cell === cell
+    );
     if (emptyCell === undefined) {
       throw new Error("Neither an occupied nor an empty cell found.");
     }

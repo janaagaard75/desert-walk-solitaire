@@ -26,7 +26,10 @@ export class ComputedSettings {
   // Manually tweaked value.
   private readonly footerHeight = 66;
 
-  public windowSize: Size = { height: 0, width: 0 };
+  public windowSize: Size = {
+    height: 0,
+    width: 0,
+  };
 
   public static isIosWithoutHomeButton() {
     // Code based on https://github.com/ptelad/react-native-iphone-x-helper.
