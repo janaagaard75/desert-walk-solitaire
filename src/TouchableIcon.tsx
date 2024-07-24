@@ -1,9 +1,6 @@
-import {
-  Entypo,
-  FontAwesome,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { observer } from "mobx-react-lite";
 import { TouchableOpacity, View } from "react-native";
+import { IconView } from "./IconView";
 import { TouchableState } from "./model/TouchableState";
 
 type IconName =
@@ -21,9 +18,8 @@ interface Props {
 
 const numberOfIcons = 7;
 const width = (1 / numberOfIcons) * 100;
-const iconSize = 20;
 
-export const TouchableIcon = (props: Props) => {
+export const TouchableIcon = observer((props: Props) => {
   if (props.state === "hidden") {
     return <View style={{ width: `${width}%` }} />;
   }
@@ -45,24 +41,7 @@ export const TouchableIcon = (props: Props) => {
         width: `${width}%`,
       }}
     >
-      {renderIcon(props.iconName, color)}
+      <IconView color={color} iconName={props.iconName} />
     </TouchableOpacity>
   );
-};
-
-const renderIcon = (iconName: IconName, color: string): JSX.Element => {
-  switch (iconName) {
-    case "controller-fast-forward":
-    case "shuffle":
-      return <Entypo color={color} name={iconName} size={iconSize} />;
-
-    case "fast-backward":
-      return <FontAwesome color={color} name={iconName} size={iconSize} />;
-
-    case "redo":
-    case "undo":
-      return (
-        <MaterialCommunityIcons color={color} name={iconName} size={iconSize} />
-      );
-  }
-};
+});
