@@ -1,7 +1,7 @@
 {
   "expo": {
     "android": {
-      "package": "com.janaagaard.desertwalk",
+      "package": "com.janagaard.desertwalk",
       "versionCode": 8
     },
     "description": "Solitaire card game.",
