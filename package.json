@@ -51,7 +51,6 @@
     "@babel/preset-env": "^7.24.8",
     "@types/babel__helper-validator-identifier": "^7.15.2",
     "@types/react": "~18.2.79",
-    "@types/react-native": "~0.67.26",
     "@typescript-eslint/eslint-plugin": "^7.17.0",
     "@typescript-eslint/parser": "^7.17.0",
     "babel-preset-expo": "~11.0.12",
