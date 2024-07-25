@@ -1,5 +1,1 @@
-export enum VisualState {
-  Animating,
-  Dragging,
-  Idle,
-}
+export type VisualState = "animating" | "dragging" | "idle";

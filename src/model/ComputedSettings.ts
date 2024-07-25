@@ -1,4 +1,4 @@
-import { computed, makeObservable, observable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { Dimensions, Platform } from "react-native";
 import { PointInterface } from "./PointInterface";
 import { Rectangle } from "./Rectangle";
@@ -10,17 +10,7 @@ export class ComputedSettings {
   private static _instance: ComputedSettings | undefined = undefined;
 
   public constructor() {
-    makeObservable<
-      ComputedSettings,
-      | "restrictedBy"
-      | "availablePlayingFieldSize"
-      | "heightRestrictedCardSize"
-      | "heightRestrictedGutterSize"
-      | "heightRestrictedPlayingFieldSize"
-      | "widthRestrictedCardSize"
-      | "widthRestrictedGutterSize"
-      | "widthRestrictedPlayingFieldSize"
-    >(this);
+    makeAutoObservable(this);
   }
 
   public static get instance() {
@@ -36,14 +26,16 @@ export class ComputedSettings {
   // Manually tweaked value.
   private readonly footerHeight = 66;
 
-  @observable public windowSize: Size = { height: 0, width: 0 };
+  public windowSize: Size = {
+    height: 0,
+    width: 0,
+  };
 
   public static isIosWithoutHomeButton() {
     // Code based on https://github.com/ptelad/react-native-iphone-x-helper.
     const windowSize = Dimensions.get("window");
 
-    const isIphone =
-      Platform.OS === "ios" && !Platform.isPad && !Platform.isTVOS;
+    const isIphone = Platform.OS === "ios" && !Platform.isPad && !Platform.isTV;
     const iphonesWithoutHomeButtonHeights = [812, 896];
     const isNotchedIphone =
       isIphone &&
@@ -51,7 +43,7 @@ export class ComputedSettings {
         iphonesWithoutHomeButtonHeights.includes(windowSize.width));
 
     const ipadsWithoutHomeButtonHeights = [1194, 1366];
-    const isIpad = Platform.OS === "ios" && Platform.isPad && !Platform.isTVOS;
+    const isIpad = Platform.OS === "ios" && Platform.isPad && !Platform.isTV;
     const isNotchedIpad =
       isIpad &&
       (ipadsWithoutHomeButtonHeights.includes(windowSize.height) ||
@@ -60,22 +52,18 @@ export class ComputedSettings {
     return isNotchedIphone || isNotchedIpad;
   }
 
-  @computed
   public get borderRadius(): number {
     return Math.round(this.cardSize.width / 8);
   }
 
-  @computed
   public get borderWidth(): number {
     return Math.round(this.cardSize.width / 20);
   }
 
-  @computed
   public get cardPadding(): number {
     return Math.floor(this.cardSize.width / 20);
   }
 
-  @computed
   public get cardShadowOffset() {
     const offset = {
       height: Math.round(this.cardSize.width / 20),
@@ -84,12 +72,10 @@ export class ComputedSettings {
     return offset;
   }
 
-  @computed
   public get cardShadowRadius() {
     return Math.round(this.cardSize.width / 10);
   }
 
-  @computed
   public get cardSize(): Size {
     if (this.restrictedBy === "height") {
       return this.heightRestrictedCardSize;
@@ -98,7 +84,6 @@ export class ComputedSettings {
     }
   }
 
-  @computed
   public get gridSize(): Size {
     const width =
       this.cardSize.width * Settings.columns +
@@ -113,7 +98,6 @@ export class ComputedSettings {
     };
   }
 
-  @computed
   public get gutterSize(): number {
     if (this.restrictedBy === "height") {
       return this.heightRestrictedGutterSize;
@@ -122,7 +106,6 @@ export class ComputedSettings {
     }
   }
 
-  @computed
   private get restrictedBy(): "height" | "width" {
     if (
       this.heightRestrictedPlayingFieldSize.width <=
@@ -134,7 +117,6 @@ export class ComputedSettings {
     }
   }
 
-  @computed
   private get availablePlayingFieldSize(): Size {
     let availableWidth = this.windowSize.width;
     if (ComputedSettings.isIosWithoutHomeButton()) {
@@ -148,7 +130,6 @@ export class ComputedSettings {
     };
   }
 
-  @computed
   private get heightRestrictedCardSize(): Size {
     // gutter * cardWithToGutterRatio = cardWidth
     // cardWidth * cardSizeRatio = cardHeight
@@ -188,7 +169,6 @@ export class ComputedSettings {
     };
   }
 
-  @computed
   private get heightRestrictedGutterSize(): number {
     const gutterSize = Math.floor(
       (this.availablePlayingFieldSize.height -
@@ -199,7 +179,6 @@ export class ComputedSettings {
     return gutterSize;
   }
 
-  @computed
   private get heightRestrictedPlayingFieldSize(): Size {
     const height =
       Settings.rows * this.heightRestrictedCardSize.height +
@@ -214,7 +193,6 @@ export class ComputedSettings {
     };
   }
 
-  @computed
   private get widthRestrictedCardSize(): Size {
     // gutter * cardWithToGutterRatio = cardWidth
     // columns * cardWidth + (columns + 1) * gutter <= availableWidth
@@ -248,7 +226,6 @@ export class ComputedSettings {
     };
   }
 
-  @computed
   private get widthRestrictedGutterSize(): number {
     const gutterSize = Math.floor(
       (this.availablePlayingFieldSize.width -
@@ -259,7 +236,6 @@ export class ComputedSettings {
     return gutterSize;
   }
 
-  @computed
   private get widthRestrictedPlayingFieldSize(): Size {
     const height =
       Settings.rows * this.widthRestrictedCardSize.height +

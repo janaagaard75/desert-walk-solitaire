@@ -1,4 +1,4 @@
-import { computed, makeObservable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { ComputedSettings } from "./ComputedSettings";
 import { Point } from "./Point";
 import { Rectangle } from "./Rectangle";
@@ -10,13 +10,12 @@ export class Cell {
     public readonly columnIndex: number,
     public readonly cellToTheLeft: Cell | undefined
   ) {
-    makeObservable(this);
+    makeAutoObservable(this);
     this.key = this.rowIndex * Settings.columns + this.columnIndex + 1;
   }
 
   public readonly key: number;
 
-  @computed
   public get boundary(): Rectangle {
     const boundary = new Rectangle(
       this.position.x,
@@ -28,7 +27,6 @@ export class Cell {
     return boundary;
   }
 
-  @computed
   public get position(): Point {
     const position = new Point(
       this.columnIndex *

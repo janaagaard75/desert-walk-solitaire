@@ -1,16 +1,63 @@
-import { observer } from "mobx-react";
-import { Alert, View, ViewStyle } from "react-native";
+import { observer } from "mobx-react-lite";
+import { Alert, View } from "react-native";
 import { Game } from "./model/Game";
-import { GameState } from "./model/GameState";
 import { Settings } from "./model/Settings";
 import { TouchableState } from "./model/TouchableState";
 import { TouchableIcon } from "./TouchableIcon";
 
 export const FooterView = observer(() => {
-  const buttonWrapperStyle: ViewStyle = {
-    backgroundColor: Settings.colors.mainBackgroundColor,
-    flexDirection: "row",
-    flexWrap: "wrap",
+  const confirmRestart = () => {
+    Alert.alert(
+      "Start over?",
+      "This game isn't over yet. Start over anyway?",
+      [
+        {
+          style: "cancel",
+          text: "No, let me continue this game",
+        },
+        {
+          onPress: () => {
+            Game.instance.startOver();
+          },
+          style: "destructive",
+          text: "Yes, start over",
+        },
+      ],
+      {
+        cancelable: false,
+      },
+    );
+  };
+
+  const confirmUnlessGameOver = (): void => {
+    switch (Game.instance.gameState) {
+      case "lost":
+      case "won":
+        Game.instance.startOver();
+        break;
+
+      case "movePossible":
+      case "shufflePossible":
+        confirmRestart();
+        break;
+    }
+  };
+
+  const shuffleButtonEnabled = (buttonNumber: number): TouchableState => {
+    const buttonNumberToEnable = Game.instance.shuffles + 1;
+
+    if (buttonNumber < buttonNumberToEnable) {
+      return "hidden";
+    }
+
+    if (
+      buttonNumber === buttonNumberToEnable &&
+      Game.instance.gameState === "shufflePossible"
+    ) {
+      return "enabled";
+    }
+
+    return "disabled";
   };
 
   return (
@@ -21,22 +68,24 @@ export const FooterView = observer(() => {
         paddingTop: 4,
       }}
     >
-      <View style={buttonWrapperStyle}>
+      <View
+        style={{
+          backgroundColor: Settings.colors.mainBackgroundColor,
+          flexDirection: "row",
+          flexWrap: "wrap",
+        }}
+      >
         <TouchableIcon
           handlePress={confirmUnlessGameOver}
           iconName="fast-backward"
-          state={TouchableState.Enabled}
+          state={"enabled"}
         />
         <TouchableIcon
           handlePress={() => {
             Game.instance.replay();
           }}
           iconName="controller-fast-forward"
-          state={
-            Game.instance.replayEnabled
-              ? TouchableState.Enabled
-              : TouchableState.Hidden
-          }
+          state={Game.instance.replayEnabled ? "enabled" : "hidden"}
         />
         <TouchableIcon
           handlePress={() => {
@@ -77,55 +126,3 @@ export const FooterView = observer(() => {
     </View>
   );
 });
-
-const confirmUnlessGameOver = (): void => {
-  switch (Game.instance.gameState) {
-    case GameState.Lost:
-    case GameState.Won:
-      Game.instance.startOver();
-      break;
-
-    case GameState.MovePossible:
-    case GameState.Stuck:
-      confirmRestart();
-      break;
-  }
-};
-
-const confirmRestart = () => {
-  Alert.alert(
-    "Start over?",
-    "This game isn't over yet. Start over anyway?",
-    [
-      {
-        style: "cancel",
-        text: "No, let me continue this game",
-      },
-      {
-        onPress: () => {
-          Game.instance.startOver();
-        },
-        style: "destructive",
-        text: "Yes, start over",
-      },
-    ],
-    { cancelable: false }
-  );
-};
-
-const shuffleButtonEnabled = (buttonNumber: number): TouchableState => {
-  const buttonNumberToEnable = Game.instance.shuffles + 1;
-
-  if (buttonNumber < buttonNumberToEnable) {
-    return TouchableState.Hidden;
-  }
-
-  if (
-    buttonNumber === buttonNumberToEnable &&
-    Game.instance.gameState === GameState.Stuck
-  ) {
-    return TouchableState.Enabled;
-  }
-
-  return TouchableState.Disabled;
-};

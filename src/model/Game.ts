@@ -1,4 +1,4 @@
-import { autorun, computed, makeObservable, observable } from "mobx";
+import { autorun, makeAutoObservable } from "mobx";
 import { Card } from "./Card";
 import { CardCellPair } from "./CardCellPair";
 import { Cell } from "./Cell";
@@ -16,17 +16,7 @@ import { Turn } from "./turn/Turn";
 
 export class Game {
   private constructor() {
-    makeObservable<
-      Game,
-      | "_currentStateIndex"
-      | "gridStates"
-      | "replayPlaying"
-      | "replayShown"
-      | "turns"
-      | "currentStateIndex"
-      | "droppableCells"
-      | "targetableCells"
-    >(this);
+    makeAutoObservable(this);
     this.startOver();
     autorun(() => {
       this.autorun();
@@ -43,17 +33,16 @@ export class Game {
     return this._instance;
   }
 
-  @observable public animateNextTurn = true;
-  @observable public draggedCardBoundary: Rectangle | undefined;
-  @observable public draggingFromCell: PositionedCard | undefined;
+  public animateNextTurn = true;
+  public draggedCardBoundary: Rectangle | undefined;
+  public draggingFromCell: PositionedCard | undefined;
 
-  @observable private _currentStateIndex = 0;
-  @observable private gridStates: Array<GridState> = [];
-  @observable private replayPlaying = false;
-  @observable private replayShown = false;
-  @observable private turns: Array<Turn> = [];
+  private _currentStateIndex = 0;
+  private gridStates: Array<GridState> = [];
+  private replayPlaying = false;
+  private replayShown = false;
+  private turns: Array<Turn> = [];
 
-  @computed
   public get animateFromPreviousPosition(): boolean {
     if (this.latestTurn === undefined) {
       return false;
@@ -67,7 +56,6 @@ export class Game {
     return !isLatestState;
   }
 
-  @computed
   public get currentGridState(): GridState {
     if (this.gridStates.length === 0) {
       throw new Error("The game hasn't been started yet.");
@@ -85,7 +73,6 @@ export class Game {
     return this.gridStates[this.currentStateIndex];
   }
 
-  @computed
   public get draggedCard(): Card | undefined {
     if (this.draggingFromCell === undefined) {
       return undefined;
@@ -94,27 +81,25 @@ export class Game {
     return this.draggingFromCell.card;
   }
 
-  @computed
   public get gameState(): GameState {
     if (this.currentGridState.draggableCards.length >= 1) {
-      return GameState.MovePossible;
+      return "movePossible";
     }
 
     if (
       this.currentGridState.correctlyPositionedCards.length ===
       Settings.numberOfCards
     ) {
-      return GameState.Won;
+      return "won";
     }
 
     if (this.shuffles < Settings.numberOfShuffles) {
-      return GameState.Stuck;
+      return "shufflePossible";
     }
 
-    return GameState.Lost;
+    return "lost";
   }
 
-  @computed
   public get latestTurn(): Turn | undefined {
     if (this.turns.length === 0) {
       return undefined;
@@ -124,7 +109,6 @@ export class Game {
     return latestTurn;
   }
 
-  @computed
   public get mostOverlappedDroppableCell(): Cell | undefined {
     if (this.droppableCells.length === 0) {
       return undefined;
@@ -142,13 +126,11 @@ export class Game {
     return mostOverlapped;
   }
 
-  @computed
   public get numberOfMoveTurns(): number {
     const moves = this.turns.filter((turn) => turn instanceof MoveTurn).length;
     return moves;
   }
 
-  @computed
   public get snapToOnDrop(): Cell {
     if (this.draggingFromCell === undefined) {
       throw new Error(
@@ -163,7 +145,6 @@ export class Game {
     return this.draggingFromCell.cell;
   }
 
-  @computed
   public get shuffles(): number {
     const shuffles = this.turns.filter(
       (turn) => turn instanceof ShuffleTurn
@@ -171,47 +152,42 @@ export class Game {
     return shuffles;
   }
 
-  @computed
   public get undoState(): TouchableState {
     if (this.replayPlaying) {
-      return TouchableState.Hidden;
+      return "hidden";
     }
 
     const isFirstState = this.currentStateIndex === 0;
     const previousTurnWasMove =
       this.turns[this.currentStateIndex - 1] instanceof MoveTurn;
-    const gameOver =
-      this.gameState === GameState.Lost || this.gameState === GameState.Won;
+    const gameOver = this.gameState === "lost" || this.gameState === "won";
 
     if (isFirstState || !previousTurnWasMove || gameOver) {
-      return TouchableState.Disabled;
+      return "disabled";
     }
 
-    return TouchableState.Enabled;
+    return "enabled";
   }
 
-  @computed
   public get redoState(): TouchableState {
     if (this.replayPlaying) {
-      return TouchableState.Hidden;
+      return "hidden";
     }
 
     const isLastState = this.currentStateIndex === this.turns.length;
 
     if (isLastState) {
-      return TouchableState.Disabled;
+      return "disabled";
     }
 
-    return TouchableState.Enabled;
+    return "enabled";
   }
 
-  @computed
   private get currentStateIndex(): number {
     return this._currentStateIndex;
   }
 
   /** Returns the list of cells that the current card can be dropped on. This includes the cell being dragged from. See `targetableCells`. */
-  @computed
   private get droppableCells(): Array<Cell> {
     if (this.draggingFromCell === undefined) {
       return [];
@@ -223,14 +199,12 @@ export class Game {
     return droppableCells;
   }
 
-  @computed
   public get replayEnabled(): boolean {
-    const enabled = this.gameState === GameState.Won && this.replayShown;
+    const enabled = this.gameState === "won" && this.replayShown;
     return enabled;
   }
 
   /** Returns the list of cells that the current card can be moved to. This does not include the cell being currently moved from. See `droppableCells`. */
-  @computed
   private get targetableCells(): Array<Cell> {
     if (this.draggingFromCell === undefined) {
       return [];
@@ -246,7 +220,7 @@ export class Game {
   }
 
   private autorun() {
-    if (this.gameState === GameState.Won && !this.replayShown) {
+    if (this.gameState === "won" && !this.replayShown) {
       setTimeout(() => {
         this.replay();
       }, Settings.animation.replay.delayBeforeAutoReplay);

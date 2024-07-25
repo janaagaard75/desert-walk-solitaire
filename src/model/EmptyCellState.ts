@@ -1,7 +1,6 @@
-export enum EmptyCellState {
-  Blocked,
-  DropAllowedButNoCardIsBeingDragged,
-  DropAllowedButNotTargetableCell,
-  MostOverlappedTargetableCell,
-  TargetableCellButNotMostOverlapped,
-}
+export type EmptyCellState =
+  | "blocked"
+  | "dropAllowedButNoCardIsBeingDragged"
+  | "dropAllowedButNotTargetableCell"
+  | "mostOverlappedTargetableCell"
+  | "targetableCellButNotMostOverlapped";

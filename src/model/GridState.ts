@@ -1,4 +1,4 @@
-import { computed, makeObservable, observable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { Card } from "./Card";
 import { CardCellPair } from "./CardCellPair";
 import { Cell } from "./Cell";
@@ -11,7 +11,8 @@ import { Turn } from "./turn/Turn";
 
 export class GridState {
   public constructor(cardCellPairs: Array<CardCellPair>) {
-    makeObservable(this);
+    makeAutoObservable(this);
+
     if (cardCellPairs.length !== Deck.instance.cards.length) {
       throw new Error(
         `Must supply ${Deck.instance.cards.length} card and cell pairs to the GridState constructor.`
@@ -23,10 +24,8 @@ export class GridState {
     });
   }
 
-  @observable
   public readonly positionedCards: Array<PositionedCard> = [];
 
-  @computed
   public get correctlyPositionedCards(): Array<PositionedCard> {
     const correctlyPositionedCards = this.positionedCards.filter(
       (pair) => pair.correctlyPlaced
@@ -34,7 +33,6 @@ export class GridState {
     return correctlyPositionedCards;
   }
 
-  @computed
   public get draggableCards(): Array<Card> {
     const draggableNonAces = this.emptyCells
       .map((emptyCell) => emptyCell.cell.cellToTheLeft)
@@ -58,7 +56,6 @@ export class GridState {
     return draggableCards;
   }
 
-  @computed
   public get emptyCells(): Array<EmptyCell> {
     const emptyCells = Grid.instance.cells
       .filter((cell) => this.getPositionedCardFromCell(cell) === undefined)
@@ -67,7 +64,6 @@ export class GridState {
     return emptyCells;
   }
 
-  @computed
   public get incorrectlyPositionedCards(): Array<PositionedCard> {
     const incorrectlyPositionedCards = this.positionedCards.filter(
       (pair) => !pair.correctlyPlaced
@@ -86,7 +82,9 @@ export class GridState {
       return positionedCard;
     }
 
-    const emptyCell = this.emptyCells.find((ec) => ec.cell === cell);
+    const emptyCell = this.emptyCells.find(
+      (emptyCell) => emptyCell.cell === cell
+    );
     if (emptyCell === undefined) {
       throw new Error("Neither an occupied nor an empty cell found.");
     }
@@ -115,7 +113,6 @@ export class GridState {
     return match;
   }
 
-  @computed
   public static get inOrder(): GridState {
     const cardCellPairs: Array<CardCellPair> = [];
     for (let rowIndex = 0; rowIndex < Settings.rows; rowIndex++) {

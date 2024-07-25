@@ -6,7 +6,7 @@ module.exports = {
     jest: false,
     node: false,
   },
-  extends: ["react-app"],
+  extends: ["react-app", "plugin:react/jsx-runtime"],
   ignorePatterns: ["**/*.css", "build/"],
   parser: "@typescript-eslint/parser",
   parserOptions: {

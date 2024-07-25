@@ -5,7 +5,6 @@
     "importHelpers": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    "outDir": "build/dist",
     "strict": true,
     "strictFunctionTypes": false,
     "useDefineForClassFields": true

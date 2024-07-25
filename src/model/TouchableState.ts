@@ -1,5 +1,1 @@
-export enum TouchableState {
-  Disabled,
-  Enabled,
-  Hidden,
-}
+export type TouchableState = "disabled" | "enabled" | "hidden";

@@ -1,6 +1,4 @@
-import { computed, makeObservable } from "mobx";
-import { observer } from "mobx-react";
-import { Component } from "react";
+import { observer } from "mobx-react-lite";
 import { Text, TextStyle, View, ViewStyle } from "react-native";
 import { Card } from "./model/Card";
 import { ComputedSettings } from "./model/ComputedSettings";
@@ -17,115 +15,86 @@ interface Props {
   dragging: boolean;
 }
 
-@observer
-export class CardView extends Component<Props> {
-  public constructor(props: Props) {
-    super(props);
-    makeObservable<
-      CardView,
-      "cardStyle" | "overlayStyle" | "shadowStyle" | "suitStyle" | "valueStyle"
-    >(this);
-  }
+export const CardView = observer((props: Props) => {
+  const cardStyle = {
+    alignItems: "center",
+    backgroundColor: Settings.colors.card.background,
+    borderColor: Settings.colors.card.border,
+    borderRadius: ComputedSettings.instance.borderRadius,
+    borderStyle: "solid",
+    borderWidth: ComputedSettings.instance.borderWidth,
+    height: props.cardSize.height,
+    overflow: "hidden",
+    padding: ComputedSettings.instance.cardPadding,
+    width: props.cardSize.width,
+  } satisfies ViewStyle;
 
-  public render() {
-    return (
-      <View style={this.shadowStyle}>
-        <View style={this.cardStyle}>
-          <Text style={this.valueStyle}>{this.props.card.displayValue}</Text>
-          <View style={this.suitStyle}>
-            {this.getSuit(Math.round(0.55 * this.props.cardSize.width))}
-          </View>
-        </View>
-        <View style={this.overlayStyle} />
-      </View>
-    );
-  }
-
-  private overlayOpacity(): number {
-    if (this.props.draggable) {
+  const overlayOpacity = (() => {
+    if (props.draggable) {
       return 0;
     }
 
-    if (this.props.correctlyPlaced) {
+    if (props.correctlyPlaced) {
       return 0.5;
     }
 
     return 0.3;
-  }
+  })();
 
-  @computed
-  private get cardStyle(): ViewStyle {
-    return {
-      alignItems: "center",
-      backgroundColor: Settings.colors.card.background,
-      borderColor: Settings.colors.card.border,
-      borderRadius: ComputedSettings.instance.borderRadius,
-      borderStyle: "solid",
-      borderWidth: ComputedSettings.instance.borderWidth,
-      height: this.props.cardSize.height,
-      overflow: "hidden",
-      padding: ComputedSettings.instance.cardPadding,
-      width: this.props.cardSize.width,
-    };
-  }
+  const overlayStyle = {
+    backgroundColor: "#000",
+    borderRadius: ComputedSettings.instance.borderRadius,
+    height: props.cardSize.height,
+    opacity: overlayOpacity,
+    position: "absolute",
+    width: props.cardSize.width,
+  } satisfies ViewStyle;
 
-  @computed
-  private get overlayStyle(): ViewStyle {
-    return {
-      backgroundColor: "#000",
-      borderRadius: ComputedSettings.instance.borderRadius,
-      height: this.props.cardSize.height,
-      opacity: this.overlayOpacity(),
-      position: "absolute",
-      width: this.props.cardSize.width,
-    };
-  }
+  const shadowStyle = {
+    borderRadius: ComputedSettings.instance.borderRadius,
+    height: props.cardSize.height,
+    shadowColor: props.dragging ? Settings.colors.card.shadowColor : undefined,
+    shadowOffset: props.dragging
+      ? ComputedSettings.instance.cardShadowOffset
+      : undefined,
+    shadowOpacity: props.dragging ? Settings.cardShadowOpacity : undefined,
+    shadowRadius: props.dragging
+      ? ComputedSettings.instance.cardShadowRadius
+      : undefined,
+    width: props.cardSize.width,
+  } satisfies ViewStyle;
 
-  @computed
-  private get shadowStyle(): ViewStyle {
-    const shadowStyle: ViewStyle = {
-      borderRadius: ComputedSettings.instance.borderRadius,
-      height: this.props.cardSize.height,
-      width: this.props.cardSize.width,
-    };
-    if (this.props.dragging) {
-      Object.assign(shadowStyle, {
-        shadowColor: Settings.colors.card.shadowColor,
-        shadowOffset: ComputedSettings.instance.cardShadowOffset,
-        shadowOpacity: Settings.cardShadowOpacity,
-        shadowRadius: ComputedSettings.instance.cardShadowRadius,
-      });
-    }
+  const suitStyle = {
+    bottom: Math.round(0.1 * props.cardSize.width),
+    position: "absolute",
+    right: Math.round(0.025 * props.cardSize.width),
+  } satisfies ViewStyle;
 
-    return shadowStyle;
-  }
+  const valueStyle = {
+    color: SuitHelper.getColor(props.card.suit),
+    fontFamily: "Arabian-onenightstand",
+    fontSize: Math.round(0.7 * props.cardSize.width),
+    fontWeight: "700",
+    left: Math.round(0.04 * props.cardSize.width),
+    letterSpacing: -Math.round(0.07 * props.cardSize.width),
+    position: "absolute",
+    textAlign: "left",
+    top: -Math.round(0.08 * props.cardSize.width),
+    width: Math.round(1.22 * props.cardSize.width),
+  } satisfies TextStyle;
 
-  @computed
-  private get suitStyle(): ViewStyle {
-    return {
-      bottom: Math.round(0.1 * this.props.cardSize.width),
-      position: "absolute",
-      right: Math.round(0.025 * this.props.cardSize.width),
-    };
-  }
-
-  @computed
-  private get valueStyle(): TextStyle {
-    return {
-      color: SuitHelper.getColor(this.props.card.suit),
-      fontFamily: "Arabian-onenightstand",
-      fontSize: Math.round(0.7 * this.props.cardSize.width),
-      fontWeight: "700",
-      left: Math.round(0.04 * this.props.cardSize.width),
-      letterSpacing: -Math.round(0.07 * this.props.cardSize.width),
-      position: "absolute",
-      textAlign: "left",
-      top: -Math.round(0.08 * this.props.cardSize.width),
-      width: Math.round(1.22 * this.props.cardSize.width), // Make space for the two digits in '10'.
-    };
-  }
-
-  private getSuit(size: number): JSX.Element {
-    return <SuitView size={size} suit={this.props.card.suit} />;
-  }
-}
+  return (
+    <View style={shadowStyle}>
+      <View style={cardStyle}>
+        <Text style={valueStyle}>{props.card.displayValue}</Text>
+        <View style={suitStyle}>
+          <SuitView
+            size={Math.round(0.55 * props.cardSize.width)}
+            suit={props.card.suit}
+          />
+        </View>
+      </View>
+      <View style={overlayStyle} />
+    </View>
+  );
+});

@@ -1,6 +1,1 @@
-export enum Suit {
-  Clubs,
-  Diamonds,
-  Hearts,
-  Spades,
-}
+export type Suit = "clubs" | "diamonds" | "hearts" | "spades";

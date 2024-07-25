@@ -1,6 +1,1 @@
-export enum GameState {
-  Lost,
-  MovePossible,
-  Stuck,
-  Won,
-}
+export type GameState = "lost" | "movePossible" | "shufflePossible" | "won";
