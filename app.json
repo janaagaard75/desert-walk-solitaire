@@ -27,7 +27,6 @@
     "platforms": ["android", "ios"],
     "primaryColor": "#464",
     "plugins": ["expo-font"],
-    "privacy": "public",
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
