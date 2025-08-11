@@ -40,15 +40,12 @@ export const EmptyCellView = observer((props: Props) => {
 
   const getBorderColorStyleAndWidth = (): [
     string | undefined,
-    "solid" | "dotted" | "dashed" | undefined,
+    "dashed" | "dotted" | "solid" | undefined,
     number,
   ] => {
     switch (status) {
       case "blocked":
         return [undefined, undefined, 0];
-
-      case "targetableCellButNotMostOverlapped":
-        return ["white", "dashed", ComputedSettings.instance.borderWidth];
 
       case "dropAllowedButNoCardIsBeingDragged":
       case "dropAllowedButNotTargetableCell":
@@ -56,6 +53,9 @@ export const EmptyCellView = observer((props: Props) => {
 
       case "mostOverlappedTargetableCell":
         return ["white", "solid", ComputedSettings.instance.borderWidth];
+
+      case "targetableCellButNotMostOverlapped":
+        return ["white", "dashed", ComputedSettings.instance.borderWidth];
     }
   };
 

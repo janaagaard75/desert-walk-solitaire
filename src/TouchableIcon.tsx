@@ -29,8 +29,8 @@ export const TouchableIcon = observer((props: Props) => {
 
   return (
     <TouchableOpacity
-      onPress={props.handlePress}
       disabled={props.state === "disabled"}
+      onPress={props.handlePress}
       style={{
         alignItems: "center",
         alignSelf: "center",
@@ -41,7 +41,10 @@ export const TouchableIcon = observer((props: Props) => {
         width: `${width}%`,
       }}
     >
-      <IconView color={color} iconName={props.iconName} />
+      <IconView
+        color={color}
+        iconName={props.iconName}
+      />
     </TouchableOpacity>
   );
 });

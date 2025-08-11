@@ -10,7 +10,7 @@ import { Rectangle } from "./Rectangle";
 export abstract class GridCell {
   public constructor(
     public cell: Cell,
-    protected gridState: GridState
+    protected gridState: GridState,
   ) {
     makeAutoObservable(this);
   }
@@ -20,7 +20,7 @@ export abstract class GridCell {
     return boundary;
   }
 
-  public get left(): PositionedCard | EmptyCell | undefined {
+  public get left(): EmptyCell | PositionedCard | undefined {
     if (this.cell.cellToTheLeft === undefined) {
       return undefined;
     }

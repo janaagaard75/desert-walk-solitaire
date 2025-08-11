@@ -12,7 +12,7 @@ export class PositionedCard implements CardCellPair {
   public constructor(
     public cell: Cell,
     private gridState: GridState,
-    public card: Card
+    public card: Card,
   ) {
     makeAutoObservable(this);
   }
@@ -22,7 +22,7 @@ export class PositionedCard implements CardCellPair {
     return boundary;
   }
 
-  public get left(): PositionedCard | EmptyCell | undefined {
+  public get left(): EmptyCell | PositionedCard | undefined {
     if (this.cell.cellToTheLeft === undefined) {
       return undefined;
     }

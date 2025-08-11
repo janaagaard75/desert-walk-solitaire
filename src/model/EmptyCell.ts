@@ -11,7 +11,7 @@ import { Rectangle } from "./Rectangle";
 export class EmptyCell {
   public constructor(
     public cell: Cell,
-    private gridState: GridState
+    private gridState: GridState,
   ) {
     makeAutoObservable(this);
   }
@@ -21,7 +21,7 @@ export class EmptyCell {
     return boundary;
   }
 
-  public get left(): PositionedCard | EmptyCell | undefined {
+  public get left(): EmptyCell | PositionedCard | undefined {
     if (this.cell.cellToTheLeft === undefined) {
       return undefined;
     }
