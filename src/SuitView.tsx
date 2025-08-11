@@ -9,9 +9,16 @@ interface Props {
 }
 
 export const SuitView = observer((props: Props) => (
-  <Svg height={props.size} viewBox="0 0 60 60" width={props.size}>
+  <Svg
+    height={props.size}
+    viewBox="0 0 60 60"
+    width={props.size}
+  >
     <G>
-      <Path d={getPath(props.suit)} fill={SuitHelper.getColor(props.suit)} />
+      <Path
+        d={getPath(props.suit)}
+        fill={SuitHelper.getColor(props.suit)}
+      />
     </G>
   </Svg>
 ));

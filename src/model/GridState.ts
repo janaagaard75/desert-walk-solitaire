@@ -15,7 +15,7 @@ export class GridState {
 
     if (cardCellPairs.length !== Deck.instance.cards.length) {
       throw new Error(
-        `Must supply ${Deck.instance.cards.length} card and cell pairs to the GridState constructor.`
+        `Must supply ${Deck.instance.cards.length} card and cell pairs to the GridState constructor.`,
       );
     }
 
@@ -28,7 +28,7 @@ export class GridState {
 
   public get correctlyPositionedCards(): Array<PositionedCard> {
     const correctlyPositionedCards = this.positionedCards.filter(
-      (pair) => pair.correctlyPlaced
+      (pair) => pair.correctlyPlaced,
     );
     return correctlyPositionedCards;
   }
@@ -38,16 +38,17 @@ export class GridState {
       .map((emptyCell) => emptyCell.cell.cellToTheLeft)
       .map((cellToTheLeft) => this.getPositionedCardFromCell(cellToTheLeft))
       .map((positionedCard) =>
-        positionedCard === undefined ? undefined : positionedCard.card
+        positionedCard === undefined ? undefined : positionedCard.card,
       )
       .map((card) => (card === undefined ? undefined : card.next))
       .filter(
-        (nextCard: Card | undefined): nextCard is Card => nextCard !== undefined
+        (nextCard: Card | undefined): nextCard is Card =>
+          nextCard !== undefined,
       );
 
     const draggableAces = this.positionedCards
       .filter((positionedCard) =>
-        Deck.instance.theFourAces.includes(positionedCard.card)
+        Deck.instance.theFourAces.includes(positionedCard.card),
       )
       .filter((cellWithAce) => !cellWithAce.correctlyPlaced)
       .map((cellWithAce) => cellWithAce.card);
@@ -66,7 +67,7 @@ export class GridState {
 
   public get incorrectlyPositionedCards(): Array<PositionedCard> {
     const incorrectlyPositionedCards = this.positionedCards.filter(
-      (pair) => !pair.correctlyPlaced
+      (pair) => !pair.correctlyPlaced,
     );
     return incorrectlyPositionedCards;
   }
@@ -83,7 +84,7 @@ export class GridState {
     }
 
     const emptyCell = this.emptyCells.find(
-      (emptyCell) => emptyCell.cell === cell
+      (emptyCell) => emptyCell.cell === cell,
     );
     if (emptyCell === undefined) {
       throw new Error("Neither an occupied nor an empty cell found.");
@@ -103,7 +104,7 @@ export class GridState {
   }
 
   public getPositionedCardFromCell(
-    cell: Cell | undefined
+    cell: Cell | undefined,
   ): PositionedCard | undefined {
     if (cell === undefined) {
       return undefined;

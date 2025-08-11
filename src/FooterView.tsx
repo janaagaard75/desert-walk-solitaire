@@ -51,8 +51,8 @@ export const FooterView = observer(() => {
     }
 
     if (
-      buttonNumber === buttonNumberToEnable &&
-      Game.instance.gameState === "shufflePossible"
+      buttonNumber === buttonNumberToEnable
+      && Game.instance.gameState === "shufflePossible"
     ) {
       return "enabled";
     }

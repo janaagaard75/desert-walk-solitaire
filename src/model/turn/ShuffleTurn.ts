@@ -17,7 +17,7 @@ export class ShuffleTurn extends Turn {
 
     if (shuffledCards.length !== cellsExcludingLastColumn.length) {
       throw new Error(
-        `The number of cards (${shuffledCards.length}) and cells (${cellsExcludingLastColumn.length}) have to match.`
+        `The number of cards (${shuffledCards.length}) and cells (${cellsExcludingLastColumn.length}) have to match.`,
       );
     }
 
@@ -30,7 +30,7 @@ export class ShuffleTurn extends Turn {
     }
 
     const newCardCellPairs = shuffledCardCellPairs.concat(
-      gridState.correctlyPositionedCards
+      gridState.correctlyPositionedCards,
     );
 
     const newGridState = new GridState(newCardCellPairs);

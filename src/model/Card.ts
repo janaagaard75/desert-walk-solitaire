@@ -5,7 +5,7 @@ export class Card {
   public constructor(
     public readonly suit: Suit,
     public readonly value: number,
-    public readonly next: Card | undefined
+    public readonly next: Card | undefined,
   ) {
     this.displayValue = this.getDisplayValue();
     this.key = this.getKey();

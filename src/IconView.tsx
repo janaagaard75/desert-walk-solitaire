@@ -18,7 +18,11 @@ export const IconView = observer((props: Props) => {
     case "controller-fast-forward":
     case "shuffle":
       return (
-        <Entypo color={props.color} name={props.iconName} size={iconSize} />
+        <Entypo
+          color={props.color}
+          name={props.iconName}
+          size={iconSize}
+        />
       );
 
     case "fast-backward":

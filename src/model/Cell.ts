@@ -8,7 +8,7 @@ export class Cell {
   public constructor(
     public readonly rowIndex: number,
     public readonly columnIndex: number,
-    public readonly cellToTheLeft: Cell | undefined
+    public readonly cellToTheLeft: Cell | undefined,
   ) {
     makeAutoObservable(this);
     this.key = this.rowIndex * Settings.columns + this.columnIndex + 1;
@@ -21,7 +21,7 @@ export class Cell {
       this.position.x,
       this.position.x + ComputedSettings.instance.cardSize.width,
       this.position.y,
-      this.position.y + ComputedSettings.instance.cardSize.height
+      this.position.y + ComputedSettings.instance.cardSize.height,
     );
 
     return boundary;
@@ -29,12 +29,12 @@ export class Cell {
 
   public get position(): Point {
     const position = new Point(
-      this.columnIndex *
-        (ComputedSettings.instance.cardSize.width +
-          ComputedSettings.instance.gutterSize),
-      this.rowIndex *
-        (ComputedSettings.instance.cardSize.height +
-          ComputedSettings.instance.gutterSize)
+      this.columnIndex
+        * (ComputedSettings.instance.cardSize.width
+          + ComputedSettings.instance.gutterSize),
+      this.rowIndex
+        * (ComputedSettings.instance.cardSize.height
+          + ComputedSettings.instance.gutterSize),
     );
 
     return position;

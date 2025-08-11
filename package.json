@@ -13,22 +13,16 @@
     "preset": "jest-expo-ts"
   },
   "scripts": {
-    "android": "expo start --android",
-    "build-android": "npx eas-cli@latest build -p android",
-    "build-ios-preview": "npx eas-cli@latest build -p ios --profile preview",
-    "build-ios": "npx eas-cli@latest build -p ios",
+    "build": "yarn run eas build",
     "check-lint": "eslint --format unix --max-warnings 0",
     "check-types": "tsc",
     "docs-clean": "rm -rf docs/_site",
     "docs-install": "(cd docs; bundle install)",
     "docs-start": "yarn run docs-clean && (cd docs; bundle exec jekyll serve --future --unpublished)",
     "docs-update": "(cd docs; bundle update)",
-    "ios": "expo start --ios",
-    "optimize-assets": "npx expo-optimize",
-    "publish-to-expo": "expo publish",
+    "eas": "yarn dlx --package eas-cli --quiet eas",
     "start": "expo start",
-    "validate": "yarn run check-lint && yarn run check-types",
-    "web": "expo start --web"
+    "update": "yarn run eas update"
   },
   "dependencies": {
     "@babel/core": "^7.26.0",
