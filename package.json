@@ -21,6 +21,8 @@
     "docs-start": "yarn run docs-clean && (cd docs; bundle exec jekyll serve --future --unpublished)",
     "docs-update": "(cd docs; bundle update)",
     "eas": "yarn dlx --package eas-cli --quiet eas",
+    "//": "Corepack must be enabled for EAS builds to ensure the correct package manager (Yarn) is available in the build environment.",
+    "eas-build-pre-install": "corepack enable",
     "start": "expo start",
     "update": "yarn run eas update"
   },
