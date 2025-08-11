@@ -82,6 +82,7 @@ export const PositionedCardView = observer((props: Props) => {
   }, [animatedPosition]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks-extra/no-direct-set-state-in-use-effect
     setVisualState("animating");
 
     Animated.spring(animatedPosition, {
