@@ -26,18 +26,19 @@ export const MainView = observer(() => {
   const [versionNumberVisible, setVersionNumberVisible] = useState(false);
 
   useEffect(() => {
-    lockAsync(OrientationLock.LANDSCAPE);
+    void lockAsync(OrientationLock.LANDSCAPE);
 
     updateWindowSize();
     Dimensions.addEventListener("change", () => {
       updateWindowSize();
     });
 
-    loadFont();
+    void loadFont();
   }, []);
 
   const loadFont = async () => {
     await loadAsync({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports
       "Arabian-onenightstand": require("../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf"),
     });
 
@@ -75,6 +76,7 @@ export const MainView = observer(() => {
           }}
         >
           <Image
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports
             source={require("../assets/50713-transparent.png")}
             style={{
               backgroundColor: Settings.colors.gridBackgroundColor,
@@ -100,8 +102,8 @@ export const MainView = observer(() => {
           color: "#fff",
           display: versionNumberVisible ? "flex" : "none",
           fontSize: 9,
-          right: 30,
           position: "absolute",
+          right: 30,
           top: 2,
         }}
       >

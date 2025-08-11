@@ -31,17 +31,6 @@ export const PositionedCardView = observer((props: Props) => {
   const panResponder = useMemo(
     () =>
       PanResponder.create({
-        onStartShouldSetPanResponder: (_e, _gestureState) => true,
-        onPanResponderGrant: (_e, _gestureState) => {
-          Game.instance.cardDragStarted(props.positionedCard);
-          setVisualState("dragging");
-        },
-        onPanResponderMove: (_e, gestureState) => {
-          animatedPosition.setValue({
-            x: props.positionedCard.position.x + gestureState.dx,
-            y: props.positionedCard.position.y + gestureState.dy,
-          });
-        },
         onPanResponderEnd: (_e, gestureState) => {
           // TODO: The isPress logic does not take into account that the card might have been dragged away and the back to the original position, when letting go. If that has happened, this is not a 'press'.
           const isPress =
@@ -70,6 +59,17 @@ export const PositionedCardView = observer((props: Props) => {
             setVisualState("idle");
           });
         },
+        onPanResponderGrant: (_e, _gestureState) => {
+          Game.instance.cardDragStarted(props.positionedCard);
+          setVisualState("dragging");
+        },
+        onPanResponderMove: (_e, gestureState) => {
+          animatedPosition.setValue({
+            x: props.positionedCard.position.x + gestureState.dx,
+            y: props.positionedCard.position.y + gestureState.dy,
+          });
+        },
+        onStartShouldSetPanResponder: (_e, _gestureState) => true,
       }),
     [animatedPosition, props.positionedCard],
   );

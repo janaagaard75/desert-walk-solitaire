@@ -1,11 +1,12 @@
+/* eslint-disable filename-export/match-named-export */
 // It is generally discouraged to extend the prototypes of the built in classes, but extending the classes or wrapping them would require a lot of casting or boxing/unboxing. Note this about extending built ins: https://github.com/Microsoft/TypeScript/wiki/FAQ#why-doesnt-extending-built-ins-like-error-array-and-map-work.
-/* eslint-disable no-extend-native */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* @typescript-eslint/strict-boolean-expressions */
 
 // Deliberately not using fat arrow syntax here.
 /* eslint-disable func-style */
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
 function shuffleInPlace<T>(array: Array<T>): void {
   let top = array.length;
   while (--top >= 1) {

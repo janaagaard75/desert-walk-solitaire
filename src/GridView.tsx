@@ -15,13 +15,16 @@ export const GridView = observer(() => (
   >
     {Game.instance.currentGridState.positionedCards.map((positionedCard) => (
       <PositionedCardView
-        key={positionedCard.card.key}
         cardSize={ComputedSettings.instance.cardSize}
+        key={positionedCard.card.key}
         positionedCard={positionedCard}
       />
     ))}
     {Game.instance.currentGridState.emptyCells.map((emptyCell) => (
-      <EmptyCellView emptyCell={emptyCell} key={emptyCell.cell.key} />
+      <EmptyCellView
+        emptyCell={emptyCell}
+        key={emptyCell.cell.key}
+      />
     ))}
   </View>
 ));
