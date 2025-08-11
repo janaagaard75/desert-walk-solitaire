@@ -31,19 +31,6 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "^53.0.20",
-    "expo-font": "~13.3.2",
-    "expo-screen-orientation": "~8.1.7",
-    "expo-splash-screen": "~0.30.10",
-    "expo-updates": "~0.28.17",
-    "mobx": "^6.13.1",
-    "mobx-react": "^9.1.1",
-    "react": "19.0.0",
-    "react-native": "0.79.5",
-    "react-native-svg": "15.11.2",
-    "tslib": "^2.6.3"
-  },
-  "devDependencies": {
     "@babel/core": "^7.26.0",
     "@babel/helper-validator-identifier": "^7.24.7",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
@@ -64,7 +51,18 @@
     "eslint-plugin-react-hooks-extra": "^1.52.3",
     "eslint-plugin-react-native": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "expo": "^53.0.20",
+    "expo-font": "~13.3.2",
+    "expo-screen-orientation": "~8.1.7",
+    "expo-splash-screen": "~0.30.10",
+    "expo-updates": "~0.28.17",
+    "mobx": "^6.13.1",
+    "mobx-react": "^9.1.1",
     "prettier": "^3.3.3",
+    "react": "19.0.0",
+    "react-native": "0.79.5",
+    "react-native-svg": "15.11.2",
+    "tslib": "^2.6.3",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.31.1"
   },
