@@ -25,7 +25,7 @@
     "name": "Desert Walk",
     "orientation": "landscape",
     "platforms": ["android", "ios"],
-    "primaryColor": "#464",
+    "primaryColor": "#446644",
     "plugins": ["expo-font"],
     "runtimeVersion": {
       "policy": "sdkVersion"
