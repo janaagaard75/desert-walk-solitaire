@@ -62,11 +62,11 @@ export class Game {
     }
 
     if (
-      this.currentStateIndex < 0 ||
-      this.currentStateIndex > this.gridStates.length - 1
+      this.currentStateIndex < 0
+      || this.currentStateIndex > this.gridStates.length - 1
     ) {
       throw new Error(
-        `Can't access state index ${this.currentStateIndex} when there are ${this.gridStates.length} states.`
+        `Can't access state index ${this.currentStateIndex} when there are ${this.gridStates.length} states.`,
       );
     }
 
@@ -87,8 +87,8 @@ export class Game {
     }
 
     if (
-      this.currentGridState.correctlyPositionedCards.length ===
-      Settings.numberOfCards
+      this.currentGridState.correctlyPositionedCards.length
+      === Settings.numberOfCards
     ) {
       return "won";
     }
@@ -118,8 +118,8 @@ export class Game {
       .filter((cell) => cell.getOverlappingPixels(this.draggedCardBoundary) > 0)
       .sort(
         (cellA, cellB) =>
-          cellB.getOverlappingPixels(this.draggedCardBoundary) -
-          cellA.getOverlappingPixels(this.draggedCardBoundary)
+          cellB.getOverlappingPixels(this.draggedCardBoundary)
+          - cellA.getOverlappingPixels(this.draggedCardBoundary),
       );
 
     const mostOverlapped = sortedByOverlappedPixels[0];
@@ -134,7 +134,7 @@ export class Game {
   public get snapToOnDrop(): Cell {
     if (this.draggingFromCell === undefined) {
       throw new Error(
-        "No cell to snap to since currently not dragging a card."
+        "No cell to snap to since currently not dragging a card.",
       );
     }
 
@@ -147,7 +147,7 @@ export class Game {
 
   public get shuffles(): number {
     const shuffles = this.turns.filter(
-      (turn) => turn instanceof ShuffleTurn
+      (turn) => turn instanceof ShuffleTurn,
     ).length;
     return shuffles;
   }
@@ -194,7 +194,7 @@ export class Game {
     }
 
     const droppableCells = this.targetableCells.concat(
-      this.draggingFromCell.cell
+      this.draggingFromCell.cell,
     );
     return droppableCells;
   }
@@ -212,7 +212,7 @@ export class Game {
 
     const targetableCells = this.currentGridState.emptyCells
       .filter((emptyCell) =>
-        emptyCell.droppableCards.some((card) => card === this.draggedCard)
+        emptyCell.droppableCards.some((card) => card === this.draggedCard),
       )
       .map((emptyCell) => emptyCell.cell);
 
@@ -239,15 +239,15 @@ export class Game {
   /** Called when a drag is ended. If the card is hovering over a droppable target a move turn is performed. `draggingFromCell` and `draggedCardBoundary` are always reset to `undefined`. Returns true if dropped over a droppable target. */
   public cardDropped(): boolean {
     if (
-      this.draggingFromCell !== undefined &&
-      this.mostOverlappedDroppableCell !== undefined &&
-      this.mostOverlappedDroppableCell !== this.draggingFromCell.cell
+      this.draggingFromCell !== undefined
+      && this.mostOverlappedDroppableCell !== undefined
+      && this.mostOverlappedDroppableCell !== this.draggingFromCell.cell
     ) {
       this.performTurn(
         new MoveTurn(
           this.draggingFromCell.cell,
-          this.mostOverlappedDroppableCell
-        )
+          this.mostOverlappedDroppableCell,
+        ),
       );
       return true;
     }
@@ -297,7 +297,7 @@ export class Game {
   public startOver() {
     const shuffledCards = Deck.instance.cards.shuffle();
     const cellsExcludingFirstColumn = Grid.instance.cells.filter(
-      (cell) => cell.columnIndex !== 0
+      (cell) => cell.columnIndex !== 0,
     );
 
     const positions: Array<CardCellPair> = [];
@@ -326,7 +326,7 @@ export class Game {
       const turnsToDiscard = maxStateIndex - this.currentStateIndex;
       this.gridStates = this.gridStates.slice(
         0,
-        this.gridStates.length - turnsToDiscard
+        this.gridStates.length - turnsToDiscard,
       );
       this.turns = this.turns.slice(0, this.turns.length - turnsToDiscard);
     }
