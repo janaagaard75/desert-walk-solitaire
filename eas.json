@@ -8,6 +8,7 @@
       "distribution": "internal"
     },
     "preview": {
+      "autoIncrement": true,
       "channel": "preview",
       "distribution": "internal",
       "ios": {
@@ -15,6 +16,7 @@
       }
     },
     "production": {
+      "autoIncrement": true,
       "channel": "production"
     }
   },
