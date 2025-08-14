@@ -3,6 +3,7 @@ node_modules/
 .expo/
 *.log
 expo-env.d.ts
+google-service-account.json
 
 # Yarn
 .pnp.*
