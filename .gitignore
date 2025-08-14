@@ -2,6 +2,7 @@ dist/
 node_modules/
 .expo/
 *.log
+expo-env.d.ts
 
 # Yarn
 .pnp.*
