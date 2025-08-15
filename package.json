@@ -12,6 +12,13 @@
   "jest": {
     "preset": "jest-expo-ts"
   },
+  "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "listUnknownPackages": false
+      }
+    }
+  },
   "scripts": {
     "build": "yarn run eas build",
     "check-lint": "eslint --format unix --max-warnings 0",
@@ -24,6 +31,7 @@
     "//": "Corepack must be enabled for EAS builds to ensure the correct package manager (Yarn) is available in the build environment.",
     "eas-build-pre-install": "corepack enable",
     "start": "expo start",
+    "submit": "yarn run eas submit",
     "update": "yarn run eas update"
   },
   "dependencies": {
