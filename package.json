@@ -12,6 +12,13 @@
   "jest": {
     "preset": "jest-expo-ts"
   },
+  "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "listUnknownPackages": false
+      }
+    }
+  },
   "scripts": {
     "build": "yarn run eas build",
     "check-lint": "eslint --format unix --max-warnings 0",
