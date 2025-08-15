@@ -1,8 +1,7 @@
 {
   "expo": {
     "android": {
-      "package": "com.janagaard.desertwalk",
-      "versionCode": 10
+      "package": "com.janagaard.desertwalk"
     },
     "description": "Solitaire card game.",
     "extra": {
@@ -13,7 +12,6 @@
     "githubUrl": "https://github.com/janaagaard75/desert-walk",
     "icon": "./assets/app-icon.png",
     "ios": {
-      "buildNumber": "10",
       "bundleIdentifier": "com.janaagaard.desertwalk",
       "config": {
         "usesNonExemptEncryption": false
