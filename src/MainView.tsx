@@ -1,4 +1,3 @@
-import { loadAsync } from "expo-font";
 import { lockAsync, OrientationLock } from "expo-screen-orientation";
 import * as SplashScreen from "expo-splash-screen";
 import { observer } from "mobx-react-lite";
@@ -21,7 +20,6 @@ import { VersionView } from "./VersionView";
 SplashScreen.preventAutoHideAsync();
 
 export const MainView = observer(() => {
-  const [fontLoaded, setFontLoaded] = useState(false);
   const [versionNumberVisible, setVersionNumberVisible] = useState(false);
   const insets = useSafeAreaInsets();
 
@@ -36,28 +34,11 @@ export const MainView = observer(() => {
     Dimensions.addEventListener("change", () => {
       updateWindowSize();
     });
-
-    void loadFont();
   }, []);
-
-  const loadFont = async () => {
-    await loadAsync({
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports
-      "Arabian-onenightstand": require("../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf"),
-    });
-
-    setFontLoaded(true);
-
-    await SplashScreen.hideAsync();
-  };
 
   const showVersionNumber = () => {
     setVersionNumberVisible(true);
   };
-
-  if (!fontLoaded) {
-    return <></>;
-  }
 
   return (
     <View
