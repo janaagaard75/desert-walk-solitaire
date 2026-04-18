@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import appJson from "../app.json";
+import packageJson from "../package.json";
 import { FooterView } from "./FooterView";
 import { GridView } from "./GridView";
 import { ComputedSettings } from "./model/ComputedSettings";
@@ -106,7 +106,7 @@ export const MainView = observer(() => {
           top: 2,
         }}
       >
-        Version: {appJson.expo.version}
+        Version: {packageJson.version}
       </Text>
     </View>
   );
