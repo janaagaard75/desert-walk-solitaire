@@ -1,3 +1,4 @@
+import { shuffleArray } from "../../shuffleArray";
 import { CardCellPair } from "../CardCellPair";
 import { GridState } from "../GridState";
 import { Settings } from "../Settings";
@@ -6,9 +7,9 @@ import { Turn } from "./Turn";
 /** Shuffle the cards that are incorrectly placed. */
 export class ShuffleTurn extends Turn {
   public performTurn(gridState: GridState): GridState {
-    const shuffledCards = gridState.incorrectlyPositionedCards
-      .map((pair) => pair.card)
-      .shuffle();
+    const shuffledCards = shuffleArray(
+      gridState.incorrectlyPositionedCards.map((pair) => pair.card),
+    );
 
     const cellsExcludingLastColumn = gridState.incorrectlyPositionedCards
       .map((pair) => pair.cell)

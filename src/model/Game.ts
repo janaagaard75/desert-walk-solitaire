@@ -1,4 +1,5 @@
 import { autorun, makeAutoObservable } from "mobx";
+import { shuffleArray } from "../shuffleArray";
 import { Card } from "./Card";
 import { CardCellPair } from "./CardCellPair";
 import { Cell } from "./Cell";
@@ -295,7 +296,7 @@ export class Game {
   }
 
   public startOver() {
-    const shuffledCards = Deck.instance.cards.shuffle();
+    const shuffledCards = shuffleArray(Deck.instance.cards);
     const cellsExcludingFirstColumn = Grid.instance.cells.filter(
       (cell) => cell.columnIndex !== 0,
     );

@@ -11,7 +11,6 @@ import {
   View,
 } from "react-native";
 import appJson from "../app.json";
-import "./ArrayExtensions";
 import { FooterView } from "./FooterView";
 import { GridView } from "./GridView";
 import { ComputedSettings } from "./model/ComputedSettings";
