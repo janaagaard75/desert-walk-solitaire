@@ -34,6 +34,8 @@ export const TouchableIconView = (props: Props) => {
         alignItems: "center",
         alignSelf: "center",
         backgroundColor: "transparent",
+        paddingBottom: 10,
+        paddingTop: 10,
         shadowColor: "#fff",
         shadowOpacity: shadowOpacity,
         shadowRadius: 5,

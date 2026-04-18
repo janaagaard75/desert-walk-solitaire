@@ -1,9 +1,9 @@
 import { configure } from "mobx";
-import { MainView } from "./src/MainView";
+import App from "./src/App";
 
 configure({
   computedRequiresReaction: true,
   reactionRequiresObservable: true,
 });
 
-export default MainView;
+export default App;

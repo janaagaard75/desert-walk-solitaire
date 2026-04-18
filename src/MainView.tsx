@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import packageJson from "../package.json";
 import { FooterView } from "./FooterView";
 import { GridView } from "./GridView";
@@ -23,6 +24,11 @@ SplashScreen.preventAutoHideAsync();
 export const MainView = observer(() => {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [versionNumberVisible, setVersionNumberVisible] = useState(false);
+  const insets = useSafeAreaInsets();
+
+  useEffect(() => {
+    ComputedSettings.instance.setSafeAreaInsets(insets);
+  }, [insets]);
 
   useEffect(() => {
     void lockAsync(OrientationLock.LANDSCAPE);
@@ -57,12 +63,24 @@ export const MainView = observer(() => {
   return (
     <View
       style={{
-        backgroundColor: Settings.colors.mainBackgroundColor,
         flex: 1,
         flexDirection: "column",
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
         position: "relative",
       }}
     >
+      <Image
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports
+        source={require("../assets/50713-transparent.png")}
+        style={{
+          backgroundColor: Settings.colors.gridBackgroundColor,
+          height: ComputedSettings.instance.windowSize.height,
+          position: "absolute",
+          resizeMode: "repeat",
+          width: ComputedSettings.instance.windowSize.width,
+        }}
+      />
       <TouchableWithoutFeedback
         delayLongPress={5 * 1000}
         onLongPress={showVersionNumber}
@@ -74,28 +92,10 @@ export const MainView = observer(() => {
             justifyContent: "center",
           }}
         >
-          <Image
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports
-            source={require("../assets/50713-transparent.png")}
-            style={{
-              backgroundColor: Settings.colors.gridBackgroundColor,
-              height: ComputedSettings.instance.windowSize.height,
-              position: "absolute",
-              resizeMode: "repeat",
-              width: ComputedSettings.instance.windowSize.width,
-            }}
-          />
           <GridView />
         </View>
       </TouchableWithoutFeedback>
       <FooterView />
-      {ComputedSettings.isIosWithoutHomeButton() ? (
-        <View
-          style={{
-            height: 15,
-          }}
-        />
-      ) : undefined}
       <Text
         style={{
           color: "#fff",

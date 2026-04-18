@@ -64,65 +64,56 @@ export const FooterView = observer(() => {
     <View
       style={{
         backgroundColor: Settings.colors.mainBackgroundColor,
-        paddingBottom: 14, // Tweaked manually to make it fit.
-        paddingTop: 4,
+        flexDirection: "row",
       }}
     >
-      <View
-        style={{
-          backgroundColor: Settings.colors.mainBackgroundColor,
-          flexDirection: "row",
-          flexWrap: "wrap",
+      <TouchableIconView
+        handlePress={confirmUnlessGameOver}
+        iconName="fast-backward"
+        state={"enabled"}
+      />
+      <TouchableIconView
+        handlePress={() => {
+          Game.instance.replay();
         }}
-      >
-        <TouchableIconView
-          handlePress={confirmUnlessGameOver}
-          iconName="fast-backward"
-          state={"enabled"}
-        />
-        <TouchableIconView
-          handlePress={() => {
-            Game.instance.replay();
-          }}
-          iconName="controller-fast-forward"
-          state={Game.instance.replayEnabled ? "enabled" : "hidden"}
-        />
-        <TouchableIconView
-          handlePress={() => {
-            Game.instance.shuffleCardsInIncorrectPosition();
-          }}
-          iconName="shuffle"
-          state={shuffleButtonEnabled(1)}
-        />
-        <TouchableIconView
-          handlePress={() => {
-            Game.instance.shuffleCardsInIncorrectPosition();
-          }}
-          iconName="shuffle"
-          state={shuffleButtonEnabled(2)}
-        />
-        <TouchableIconView
-          handlePress={() => {
-            Game.instance.shuffleCardsInIncorrectPosition();
-          }}
-          iconName="shuffle"
-          state={shuffleButtonEnabled(3)}
-        />
-        <TouchableIconView
-          handlePress={() => {
-            Game.instance.undo();
-          }}
-          iconName="undo"
-          state={Game.instance.undoState}
-        />
-        <TouchableIconView
-          handlePress={() => {
-            Game.instance.redo();
-          }}
-          iconName="redo"
-          state={Game.instance.redoState}
-        />
-      </View>
+        iconName="controller-fast-forward"
+        state={Game.instance.replayEnabled ? "enabled" : "hidden"}
+      />
+      <TouchableIconView
+        handlePress={() => {
+          Game.instance.shuffleCardsInIncorrectPosition();
+        }}
+        iconName="shuffle"
+        state={shuffleButtonEnabled(1)}
+      />
+      <TouchableIconView
+        handlePress={() => {
+          Game.instance.shuffleCardsInIncorrectPosition();
+        }}
+        iconName="shuffle"
+        state={shuffleButtonEnabled(2)}
+      />
+      <TouchableIconView
+        handlePress={() => {
+          Game.instance.shuffleCardsInIncorrectPosition();
+        }}
+        iconName="shuffle"
+        state={shuffleButtonEnabled(3)}
+      />
+      <TouchableIconView
+        handlePress={() => {
+          Game.instance.undo();
+        }}
+        iconName="undo"
+        state={Game.instance.undoState}
+      />
+      <TouchableIconView
+        handlePress={() => {
+          Game.instance.redo();
+        }}
+        iconName="redo"
+        state={Game.instance.redoState}
+      />
     </View>
   );
 });
