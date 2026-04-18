@@ -1,4 +1,3 @@
-import { observer } from "mobx-react-lite";
 import { TouchableOpacity, View } from "react-native";
 import { IconView } from "./IconView";
 import { TouchableState } from "./model/TouchableState";
@@ -19,7 +18,7 @@ interface Props {
 const numberOfIcons = 7;
 const width = (1 / numberOfIcons) * 100;
 
-export const TouchableIcon = observer((props: Props) => {
+export const TouchableIcon = (props: Props) => {
   if (props.state === "hidden") {
     return <View style={{ width: `${width}%` }} />;
   }
@@ -47,4 +46,4 @@ export const TouchableIcon = observer((props: Props) => {
       />
     </TouchableOpacity>
   );
-});
+};

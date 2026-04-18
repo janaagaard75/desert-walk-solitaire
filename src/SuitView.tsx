@@ -1,4 +1,3 @@
-import { observer } from "mobx-react-lite";
 import Svg, { G, Path } from "react-native-svg";
 import { Suit } from "./model/Suit";
 import { SuitHelper } from "./model/SuitHelper";
@@ -8,7 +7,7 @@ interface Props {
   suit: Suit;
 }
 
-export const SuitView = observer((props: Props) => (
+export const SuitView = (props: Props) => (
   <Svg
     height={props.size}
     viewBox="0 0 60 60"
@@ -21,7 +20,7 @@ export const SuitView = observer((props: Props) => (
       />
     </G>
   </Svg>
-));
+);
 
 const getPath = (suit: Suit): string => {
   switch (suit) {
