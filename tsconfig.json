@@ -6,7 +6,6 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "strict": true,
-    "strictFunctionTypes": false,
     "useDefineForClassFields": true
   },
   "extends": "expo/tsconfig.base"
