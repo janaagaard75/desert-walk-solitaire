@@ -6,16 +6,15 @@ import { useEffect, useState } from "react";
 import {
   Dimensions,
   Image,
-  Text,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import packageJson from "../package.json";
 import { FooterView } from "./FooterView";
 import { GridView } from "./GridView";
 import { ComputedSettings } from "./model/ComputedSettings";
 import { Settings } from "./model/Settings";
+import { VersionView } from "./VersionView";
 
 // Keep the splash screen visible while we fetch resources.
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -96,18 +95,7 @@ export const MainView = observer(() => {
         </View>
       </TouchableWithoutFeedback>
       <FooterView />
-      <Text
-        style={{
-          color: "#fff",
-          display: versionNumberVisible ? "flex" : "none",
-          fontSize: 9,
-          position: "absolute",
-          right: 30,
-          top: 2,
-        }}
-      >
-        Version: {packageJson.version}
-      </Text>
+      <VersionView versionNumberVisible={versionNumberVisible} />
     </View>
   );
 
