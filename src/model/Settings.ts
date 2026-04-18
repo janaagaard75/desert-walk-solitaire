@@ -29,6 +29,7 @@ export class Settings {
   };
 
   public static readonly cardShadowOpacity = 0.6;
+  public static readonly footerHeight = 40;
   public static readonly maxCardValue = 13;
   public static readonly numberOfShuffles = 3;
   public static readonly rows = 4;

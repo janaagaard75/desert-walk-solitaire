@@ -55,12 +55,22 @@ export const MainView = observer(() => {
         source={require("../assets/50713-transparent.png")}
         style={{
           backgroundColor: Settings.colors.gridBackgroundColor,
+          bottom: Settings.footerHeight,
           height: ComputedSettings.instance.windowSize.height,
           position: "absolute",
           resizeMode: "repeat",
           width: ComputedSettings.instance.windowSize.width,
         }}
       />
+      <View
+        style={{
+          backgroundColor: Settings.colors.mainBackgroundColor,
+          bottom: 0,
+          height: Settings.footerHeight,
+          position: "absolute",
+          width: ComputedSettings.instance.windowSize.width,
+        }}
+      ></View>
       <TouchableWithoutFeedback
         delayLongPress={5 * 1000}
         onLongPress={showVersionNumber}

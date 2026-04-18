@@ -1,5 +1,6 @@
 import { TouchableOpacity, View } from "react-native";
 import { IconView } from "./IconView";
+import { Settings } from "./model/Settings";
 import { TouchableState } from "./model/TouchableState";
 
 type IconName =
@@ -32,10 +33,9 @@ export const TouchableIconView = (props: Props) => {
       onPress={props.handlePress}
       style={{
         alignItems: "center",
-        alignSelf: "center",
         backgroundColor: "transparent",
-        paddingBottom: 10,
-        paddingTop: 10,
+        height: Settings.footerHeight,
+        justifyContent: "center",
         shadowColor: "#fff",
         shadowOpacity: shadowOpacity,
         shadowRadius: 5,
