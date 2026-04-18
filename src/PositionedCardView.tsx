@@ -59,7 +59,11 @@ export const PositionedCardView = observer((props: Props) => {
           });
         },
         onPanResponderGrant: (_e, _gestureState) => {
-          Game.instance.cardDragStarted(props.positionedCard);
+          const initialBoundary = ComputedSettings.instance.getCardBoundary({
+            x: targetX,
+            y: targetY,
+          });
+          Game.instance.cardDragStarted(props.positionedCard, initialBoundary);
           setVisualState("dragging");
         },
         onPanResponderMove: (_e, gestureState) => {

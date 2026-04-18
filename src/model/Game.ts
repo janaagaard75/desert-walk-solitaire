@@ -232,9 +232,9 @@ export class Game {
     this.draggedCardBoundary = boundary;
   }
 
-  public cardDragStarted(fromCell: PositionedCard) {
+  public cardDragStarted(fromCell: PositionedCard, initialBoundary: Rectangle) {
     this.draggingFromCell = fromCell;
-    this.draggedCardBoundary = fromCell.boundary;
+    this.draggedCardBoundary = initialBoundary;
   }
 
   /** Called when a drag is ended. If the card is hovering over a droppable target a move turn is performed. `draggingFromCell` and `draggedCardBoundary` are always reset to `undefined`. Returns true if dropped over a droppable target. */
