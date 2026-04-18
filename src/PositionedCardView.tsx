@@ -7,7 +7,7 @@ import { Game } from "./model/Game";
 import { PositionedCard } from "./model/PositionedCard";
 import { Settings } from "./model/Settings";
 import { Size } from "./model/Size";
-import { VisualState } from "./VisualState";
+import { VisualState } from "./model/VisualState";
 
 interface Props {
   cardSize: Size;

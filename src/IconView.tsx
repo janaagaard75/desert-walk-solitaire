@@ -3,7 +3,7 @@ import {
   FontAwesome,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { IconName } from "./IconName";
+import { IconName } from "./model/IconName";
 
 const iconSize = 20;
 
