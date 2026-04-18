@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { Dimensions, Platform } from "react-native";
+import { EdgeInsets } from "react-native-safe-area-context";
 import { PointInterface } from "./PointInterface";
 import { Rectangle } from "./Rectangle";
 import { Settings } from "./Settings";
@@ -31,25 +31,19 @@ export class ComputedSettings {
     width: 0,
   };
 
-  public static isIosWithoutHomeButton() {
-    // Code based on https://github.com/ptelad/react-native-iphone-x-helper.
-    const windowSize = Dimensions.get("window");
+  public safeAreaInsets: EdgeInsets = {
+    bottom: 0,
+    left: 0,
+    right: 0,
+    top: 0,
+  };
 
-    const isIphone = Platform.OS === "ios" && !Platform.isPad && !Platform.isTV;
-    const iphonesWithoutHomeButtonHeights = [812, 896];
-    const isNotchedIphone =
-      isIphone
-      && (iphonesWithoutHomeButtonHeights.includes(windowSize.height)
-        || iphonesWithoutHomeButtonHeights.includes(windowSize.width));
+  public setWindowSize(size: Size) {
+    this.windowSize = size;
+  }
 
-    const ipadsWithoutHomeButtonHeights = [1194, 1366];
-    const isIpad = Platform.OS === "ios" && Platform.isPad && !Platform.isTV;
-    const isNotchedIpad =
-      isIpad
-      && (ipadsWithoutHomeButtonHeights.includes(windowSize.height)
-        || ipadsWithoutHomeButtonHeights.includes(windowSize.width));
-
-    return isNotchedIphone || isNotchedIpad;
+  public setSafeAreaInsets(insets: EdgeInsets) {
+    this.safeAreaInsets = insets;
   }
 
   public get borderRadius(): number {
@@ -117,15 +111,13 @@ export class ComputedSettings {
   }
 
   private get availablePlayingFieldSize(): Size {
-    let availableWidth = this.windowSize.width;
-    if (ComputedSettings.isIosWithoutHomeButton()) {
-      const notchHeight = 40;
-      availableWidth -= 2 * notchHeight;
-    }
-
     return {
-      height: this.windowSize.height - this.footerHeight,
-      width: availableWidth,
+      height:
+        this.windowSize.height - this.footerHeight - this.safeAreaInsets.bottom,
+      width:
+        this.windowSize.width
+        - this.safeAreaInsets.left
+        - this.safeAreaInsets.right,
     };
   }
 

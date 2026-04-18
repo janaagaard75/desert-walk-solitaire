@@ -3,8 +3,7 @@ import {
   FontAwesome,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { observer } from "mobx-react-lite";
-import { IconName } from "./IconName";
+import { IconName } from "./model/IconName";
 
 const iconSize = 20;
 
@@ -13,7 +12,7 @@ interface Props {
   iconName: IconName;
 }
 
-export const IconView = observer((props: Props) => {
+export const IconView = (props: Props) => {
   switch (props.iconName) {
     case "controller-fast-forward":
     case "shuffle":
@@ -44,4 +43,4 @@ export const IconView = observer((props: Props) => {
         />
       );
   }
-});
+};

@@ -1,6 +1,6 @@
-import { observer } from "mobx-react-lite";
 import { TouchableOpacity, View } from "react-native";
 import { IconView } from "./IconView";
+import { Settings } from "./model/Settings";
 import { TouchableState } from "./model/TouchableState";
 
 type IconName =
@@ -19,7 +19,7 @@ interface Props {
 const numberOfIcons = 7;
 const width = (1 / numberOfIcons) * 100;
 
-export const TouchableIcon = observer((props: Props) => {
+export const TouchableIconView = (props: Props) => {
   if (props.state === "hidden") {
     return <View style={{ width: `${width}%` }} />;
   }
@@ -33,8 +33,9 @@ export const TouchableIcon = observer((props: Props) => {
       onPress={props.handlePress}
       style={{
         alignItems: "center",
-        alignSelf: "center",
         backgroundColor: "transparent",
+        height: Settings.footerHeight,
+        justifyContent: "center",
         shadowColor: "#fff",
         shadowOpacity: shadowOpacity,
         shadowRadius: 5,
@@ -47,4 +48,4 @@ export const TouchableIcon = observer((props: Props) => {
       />
     </TouchableOpacity>
   );
-});
+};

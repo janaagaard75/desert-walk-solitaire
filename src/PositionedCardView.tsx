@@ -7,7 +7,7 @@ import { Game } from "./model/Game";
 import { PositionedCard } from "./model/PositionedCard";
 import { Settings } from "./model/Settings";
 import { Size } from "./model/Size";
-import { VisualState } from "./VisualState";
+import { VisualState } from "./model/VisualState";
 
 interface Props {
   cardSize: Size;
@@ -21,10 +21,12 @@ export const PositionedCardView = observer((props: Props) => {
     props.positionedCard.card,
   );
 
-  const animatedPosition = useMemo(
+  const [animatedPosition] = useState(
     () => new Animated.ValueXY(props.positionedCard.position),
-    [props.positionedCard.position],
   );
+
+  const targetX = props.positionedCard.position.x;
+  const targetY = props.positionedCard.position.y;
 
   // TODO: Bigger threshold, perhaps mainly on bigger screens?
   const moveThreshold = 8;
@@ -50,28 +52,29 @@ export const PositionedCardView = observer((props: Props) => {
           Animated.timing(animatedPosition, {
             duration: Settings.animation.snap.duration,
             easing: Easing.elastic(Settings.animation.snap.elasticity),
-            toValue: {
-              x: props.positionedCard.position.x,
-              y: props.positionedCard.position.y,
-            },
+            toValue: { x: targetX, y: targetY },
             useNativeDriver: true,
           }).start(() => {
             setVisualState("idle");
           });
         },
         onPanResponderGrant: (_e, _gestureState) => {
-          Game.instance.cardDragStarted(props.positionedCard);
+          const initialBoundary = ComputedSettings.instance.getCardBoundary({
+            x: targetX,
+            y: targetY,
+          });
+          Game.instance.cardDragStarted(props.positionedCard, initialBoundary);
           setVisualState("dragging");
         },
         onPanResponderMove: (_e, gestureState) => {
           animatedPosition.setValue({
-            x: props.positionedCard.position.x + gestureState.dx,
-            y: props.positionedCard.position.y + gestureState.dy,
+            x: targetX + gestureState.dx,
+            y: targetY + gestureState.dy,
           });
         },
         onStartShouldSetPanResponder: (_e, _gestureState) => true,
       }),
-    [animatedPosition, props.positionedCard],
+    [animatedPosition, props.positionedCard, targetX, targetY],
   );
 
   useEffect(() => {
@@ -86,12 +89,12 @@ export const PositionedCardView = observer((props: Props) => {
     setVisualState("animating");
 
     Animated.spring(animatedPosition, {
-      toValue: props.positionedCard.position,
+      toValue: { x: targetX, y: targetY },
       useNativeDriver: true,
     }).start(() => {
       setVisualState("idle");
     });
-  }, [animatedPosition, props.positionedCard.position]);
+  }, [animatedPosition, targetX, targetY]);
 
   return (
     <Animated.View

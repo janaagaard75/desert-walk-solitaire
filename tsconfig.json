@@ -5,9 +5,7 @@
     "importHelpers": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    "strict": true,
-    "strictFunctionTypes": false,
-    "useDefineForClassFields": true
+    "strict": true
   },
   "extends": "expo/tsconfig.base"
 }

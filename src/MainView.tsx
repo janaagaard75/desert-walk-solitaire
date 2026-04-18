@@ -1,4 +1,3 @@
-import { loadAsync } from "expo-font";
 import { lockAsync, OrientationLock } from "expo-screen-orientation";
 import * as SplashScreen from "expo-splash-screen";
 import { observer } from "mobx-react-lite";
@@ -6,24 +5,27 @@ import { useEffect, useState } from "react";
 import {
   Dimensions,
   Image,
-  Text,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import appJson from "../app.json";
-import "./ArrayExtensions";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { FooterView } from "./FooterView";
 import { GridView } from "./GridView";
 import { ComputedSettings } from "./model/ComputedSettings";
 import { Settings } from "./model/Settings";
+import { VersionView } from "./VersionView";
 
 // Keep the splash screen visible while we fetch resources.
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 SplashScreen.preventAutoHideAsync();
 
 export const MainView = observer(() => {
-  const [fontLoaded, setFontLoaded] = useState(false);
   const [versionNumberVisible, setVersionNumberVisible] = useState(false);
+  const insets = useSafeAreaInsets();
+
+  useEffect(() => {
+    ComputedSettings.instance.setSafeAreaInsets(insets);
+  }, [insets]);
 
   useEffect(() => {
     void lockAsync(OrientationLock.LANDSCAPE);
@@ -32,38 +34,43 @@ export const MainView = observer(() => {
     Dimensions.addEventListener("change", () => {
       updateWindowSize();
     });
-
-    void loadFont();
   }, []);
-
-  const loadFont = async () => {
-    await loadAsync({
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports
-      "Arabian-onenightstand": require("../assets/xxii-arabian-onenightstand/xxii-arabian-onenightstand.ttf"),
-    });
-
-    setFontLoaded(true);
-
-    await SplashScreen.hideAsync();
-  };
 
   const showVersionNumber = () => {
     setVersionNumberVisible(true);
   };
 
-  if (!fontLoaded) {
-    return <></>;
-  }
-
   return (
     <View
       style={{
-        backgroundColor: Settings.colors.mainBackgroundColor,
         flex: 1,
         flexDirection: "column",
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
         position: "relative",
       }}
     >
+      <Image
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports
+        source={require("../assets/50713-transparent.png")}
+        style={{
+          backgroundColor: Settings.colors.gridBackgroundColor,
+          bottom: Settings.footerHeight,
+          height: ComputedSettings.instance.windowSize.height,
+          position: "absolute",
+          resizeMode: "repeat",
+          width: ComputedSettings.instance.windowSize.width,
+        }}
+      />
+      <View
+        style={{
+          backgroundColor: Settings.colors.mainBackgroundColor,
+          bottom: 0,
+          height: Settings.footerHeight,
+          position: "absolute",
+          width: ComputedSettings.instance.windowSize.width,
+        }}
+      ></View>
       <TouchableWithoutFeedback
         delayLongPress={5 * 1000}
         onLongPress={showVersionNumber}
@@ -75,40 +82,11 @@ export const MainView = observer(() => {
             justifyContent: "center",
           }}
         >
-          <Image
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports
-            source={require("../assets/50713-transparent.png")}
-            style={{
-              backgroundColor: Settings.colors.gridBackgroundColor,
-              height: ComputedSettings.instance.windowSize.height,
-              position: "absolute",
-              resizeMode: "repeat",
-              width: ComputedSettings.instance.windowSize.width,
-            }}
-          />
           <GridView />
         </View>
       </TouchableWithoutFeedback>
       <FooterView />
-      {ComputedSettings.isIosWithoutHomeButton() ? (
-        <View
-          style={{
-            height: 15,
-          }}
-        />
-      ) : undefined}
-      <Text
-        style={{
-          color: "#fff",
-          display: versionNumberVisible ? "flex" : "none",
-          fontSize: 9,
-          position: "absolute",
-          right: 30,
-          top: 2,
-        }}
-      >
-        Version: {appJson.expo.version}
-      </Text>
+      <VersionView versionNumberVisible={versionNumberVisible} />
     </View>
   );
 
@@ -118,8 +96,8 @@ export const MainView = observer(() => {
 
 const updateWindowSize = () => {
   const windowSize = Dimensions.get("window");
-  ComputedSettings.instance.windowSize = {
+  ComputedSettings.instance.setWindowSize({
     height: windowSize.height,
     width: windowSize.width,
-  };
+  });
 };

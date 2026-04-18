@@ -1,4 +1,5 @@
 import { autorun, makeAutoObservable } from "mobx";
+import { shuffleArray } from "../shuffleArray";
 import { Card } from "./Card";
 import { CardCellPair } from "./CardCellPair";
 import { Cell } from "./Cell";
@@ -231,9 +232,9 @@ export class Game {
     this.draggedCardBoundary = boundary;
   }
 
-  public cardDragStarted(fromCell: PositionedCard) {
+  public cardDragStarted(fromCell: PositionedCard, initialBoundary: Rectangle) {
     this.draggingFromCell = fromCell;
-    this.draggedCardBoundary = fromCell.boundary;
+    this.draggedCardBoundary = initialBoundary;
   }
 
   /** Called when a drag is ended. If the card is hovering over a droppable target a move turn is performed. `draggingFromCell` and `draggedCardBoundary` are always reset to `undefined`. Returns true if dropped over a droppable target. */
@@ -295,7 +296,7 @@ export class Game {
   }
 
   public startOver() {
-    const shuffledCards = Deck.instance.cards.shuffle();
+    const shuffledCards = shuffleArray(Deck.instance.cards);
     const cellsExcludingFirstColumn = Grid.instance.cells.filter(
       (cell) => cell.columnIndex !== 0,
     );
