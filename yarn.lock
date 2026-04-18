@@ -3565,6 +3565,7 @@ __metadata:
     eslint-plugin-react-refresh: "npm:^0.5.2"
     expo: "npm:^55.0.15"
     expo-font: "npm:~55.0.6"
+    expo-insights: "npm:~55.0.16"
     expo-screen-orientation: "npm:~55.0.13"
     expo-splash-screen: "npm:~55.0.18"
     expo-updates: "npm:~55.0.20"
@@ -4217,6 +4218,17 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/accd823ca5ab4fb8ab3faf665414a22a0e991119ee2f99a35acf06b55b0dc0436d426515edf889114d1b7ebe5cd79094ef711ec052fc5f176e0abe56453d175d
+  languageName: node
+  linkType: hard
+
+"expo-insights@npm:~55.0.16":
+  version: 55.0.16
+  resolution: "expo-insights@npm:55.0.16"
+  dependencies:
+    expo-eas-client: "npm:~55.0.5"
+  peerDependencies:
+    expo: "*"
+  checksum: 10c0/cde0910eb7221d93f9e40b94c3a3e480186b6a1b4a5dfbae583f1a1e16e050e5181b77b407cd554d4c191ccb57efe803ae0d3b03ceab1fbedcba56639c3cf10e
   languageName: node
   linkType: hard
 

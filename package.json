@@ -52,6 +52,7 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "expo": "^55.0.15",
     "expo-font": "~55.0.6",
+    "expo-insights": "~55.0.16",
     "expo-screen-orientation": "~55.0.13",
     "expo-splash-screen": "~55.0.18",
     "expo-updates": "~55.0.20",
