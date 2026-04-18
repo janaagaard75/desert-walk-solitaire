@@ -1,0 +1,42 @@
+version: 2
+updates:
+  - package-ecosystem: bundler
+    directory: /docs
+    schedule:
+      interval: monthly
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      eslint:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "@stylistic/eslint-plugin"
+          - "@typescript-eslint/*"
+          - "typescript-eslint"
+      types:
+        patterns:
+          - "@types/*"
+      mobx:
+        patterns:
+          - "mobx"
+          - "mobx-*"
+    ignore:
+      - dependency-name: "expo"
+      - dependency-name: "expo-*"
+      - dependency-name: "react"
+      - dependency-name: "react-native"
+      - dependency-name: "react-native-*"
