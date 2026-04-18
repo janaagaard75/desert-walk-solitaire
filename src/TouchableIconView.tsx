@@ -18,7 +18,7 @@ interface Props {
 const numberOfIcons = 7;
 const width = (1 / numberOfIcons) * 100;
 
-export const TouchableIcon = (props: Props) => {
+export const TouchableIconView = (props: Props) => {
   if (props.state === "hidden") {
     return <View style={{ width: `${width}%` }} />;
   }

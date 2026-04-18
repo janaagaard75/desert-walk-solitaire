@@ -3,7 +3,7 @@ import { Alert, View } from "react-native";
 import { Game } from "./model/Game";
 import { Settings } from "./model/Settings";
 import { TouchableState } from "./model/TouchableState";
-import { TouchableIcon } from "./TouchableIcon";
+import { TouchableIconView } from "./TouchableIconView";
 
 export const FooterView = observer(() => {
   const confirmRestart = () => {
@@ -75,47 +75,47 @@ export const FooterView = observer(() => {
           flexWrap: "wrap",
         }}
       >
-        <TouchableIcon
+        <TouchableIconView
           handlePress={confirmUnlessGameOver}
           iconName="fast-backward"
           state={"enabled"}
         />
-        <TouchableIcon
+        <TouchableIconView
           handlePress={() => {
             Game.instance.replay();
           }}
           iconName="controller-fast-forward"
           state={Game.instance.replayEnabled ? "enabled" : "hidden"}
         />
-        <TouchableIcon
+        <TouchableIconView
           handlePress={() => {
             Game.instance.shuffleCardsInIncorrectPosition();
           }}
           iconName="shuffle"
           state={shuffleButtonEnabled(1)}
         />
-        <TouchableIcon
+        <TouchableIconView
           handlePress={() => {
             Game.instance.shuffleCardsInIncorrectPosition();
           }}
           iconName="shuffle"
           state={shuffleButtonEnabled(2)}
         />
-        <TouchableIcon
+        <TouchableIconView
           handlePress={() => {
             Game.instance.shuffleCardsInIncorrectPosition();
           }}
           iconName="shuffle"
           state={shuffleButtonEnabled(3)}
         />
-        <TouchableIcon
+        <TouchableIconView
           handlePress={() => {
             Game.instance.undo();
           }}
           iconName="undo"
           state={Game.instance.undoState}
         />
-        <TouchableIcon
+        <TouchableIconView
           handlePress={() => {
             Game.instance.redo();
           }}
