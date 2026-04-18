@@ -43,6 +43,7 @@ export default tsEslint.config(
       jsEslint.configs.recommended,
       ...tsEslint.configs.strictTypeChecked,
       ...tsEslint.configs.stylisticTypeChecked,
+      eslintPluginReactHooks.configs.flat["recommended-latest"],
       eslintPluginReactHooksExtra.configs.recommended,
       eslintPluginReact.configs.flat.recommended,
       eslintPluginReact.configs.flat["jsx-runtime"],
@@ -263,24 +264,6 @@ export default tsEslint.config(
 
       // Do not allow unused props. (This rule also works in TypeScript.)
       "react/no-unused-prop-types": "warn",
-
-      // Require useEffect and such list all used dependencies in the dependency array.
-      "react-hooks/exhaustive-deps": "warn",
-
-      // Ensure that we follow the rules of hooks. This rule assumes that all components start with a capital letter and all hooks start with 'use'.
-      "react-hooks/rules-of-hooks": "warn",
-
-      // Ensure that we live up the requirements for the React compiler, so that we are ready to enable it.
-      "react-hooks/react-compiler": "warn",
-
-      // Disallow direct calls to the `set` function of `useState` in `useLayoutEffect`.
-      "react-hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
-
-      // Disallow unnecessary usage of `useCallback`.
-      "react-hooks-extra/no-unnecessary-use-callback": "warn",
-
-      // Disallow unnecessary usage of `useMemo`.
-      "react-hooks-extra/no-unnecessary-use-memo": "warn",
 
       // Ensure that all texts has been translated. We will be disabling this rule in our demo components.
       "react-native/no-raw-text": "warn",
