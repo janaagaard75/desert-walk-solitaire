@@ -31,6 +31,10 @@ export class ComputedSettings {
     width: 0,
   };
 
+  public setWindowSize(size: Size) {
+    this.windowSize = size;
+  }
+
   public static isIosWithoutHomeButton() {
     // Code based on https://github.com/ptelad/react-native-iphone-x-helper.
     const windowSize = Dimensions.get("window");

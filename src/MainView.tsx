@@ -117,8 +117,8 @@ export const MainView = observer(() => {
 
 const updateWindowSize = () => {
   const windowSize = Dimensions.get("window");
-  ComputedSettings.instance.windowSize = {
+  ComputedSettings.instance.setWindowSize({
     height: windowSize.height,
     width: windowSize.width,
-  };
+  });
 };
