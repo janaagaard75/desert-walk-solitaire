@@ -40,7 +40,7 @@ export const EmptyCellView = observer((props: Props) => {
 
   const getBorderColorStyleAndWidth = (): [
     string | undefined,
-    "dashed" | "dotted" | "solid" | undefined,
+    "dashed" | "solid" | undefined,
     number,
   ] => {
     switch (status) {
