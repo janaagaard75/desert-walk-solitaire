@@ -40,3 +40,4 @@ updates:
       - dependency-name: "react"
       - dependency-name: "react-native"
       - dependency-name: "react-native-*"
+      - dependency-name: "typescript"
