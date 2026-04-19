@@ -35,8 +35,8 @@ export class Game {
   }
 
   public animateNextTurn = true;
-  public draggedCardBoundary: Rectangle | undefined;
-  public draggingFromCell: PositionedCard | undefined;
+  public draggedCardBoundary: Rectangle | undefined = undefined;
+  public draggingFromCell: PositionedCard | undefined = undefined;
 
   private _currentStateIndex = 0;
   private gridStates: Array<GridState> = [];
