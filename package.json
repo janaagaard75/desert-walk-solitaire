@@ -21,7 +21,7 @@
   },
   "packageManager": "yarn@4.14.1",
   "scripts": {
-    "build": "yarn run eas build",
+    "build": "EAS_BUILD_NO_EXPO_GO_WARNING=true  yarn run eas build",
     "check-lint": "eslint --format unix --max-warnings 0",
     "check-types": "tsc",
     "docs-clean": "rm -rf docs/_site",
