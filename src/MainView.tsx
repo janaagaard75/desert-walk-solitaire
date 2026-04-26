@@ -40,6 +40,10 @@ export const MainView = observer(() => {
     setVersionNumberVisible(true);
   };
 
+  if (ComputedSettings.instance.windowSize.width === 0) {
+    return <></>;
+  }
+
   return (
     <View
       style={{
