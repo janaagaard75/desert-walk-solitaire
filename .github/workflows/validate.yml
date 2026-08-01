@@ -13,7 +13,7 @@ jobs:
       - name: Install Yarn
         run: corepack enable
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           cache: "yarn"
           node-version-file: .nvmrc
